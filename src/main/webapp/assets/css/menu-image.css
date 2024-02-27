@@ -1,0 +1,8 @@
+@charset "ISO-8859-1";
+
+
+    .menu-image {
+        width: 150px; 
+        height: 150px; 
+        object-fit: cover; 
+    }

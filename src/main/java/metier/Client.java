@@ -45,5 +45,76 @@ public class Client {
     	
     }
 
-    // Getters and setters
+
+	public int getIdClient() {
+		return idClient;
+	}
+
+
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
+	}
+
+
+	public String getNomClient() {
+		return nomClient;
+	}
+
+
+	public void setNomClient(String nomClient) {
+		this.nomClient = nomClient;
+	}
+
+
+	public String getPrenomClient() {
+		return prenomClient;
+	}
+
+
+	public void setPrenomClient(String prenomClient) {
+		this.prenomClient = prenomClient;
+	}
+
+
+	public String getEmailClient() {
+		return emailClient;
+	}
+
+
+	public void setEmailClient(String emailClient) {
+		this.emailClient = emailClient;
+	}
+
+
+	public String getPwdClient() {
+		return pwdClient;
+	}
+
+
+	public void setPwdClient(String pwdClient) {
+		this.pwdClient = pwdClient;
+	}
+
+
+	public int getPointFideliteClient() {
+		return pointFideliteClient;
+	}
+
+
+	public void setPointFideliteClient(int pointFideliteClient) {
+		this.pointFideliteClient = pointFideliteClient;
+	}
+
+
+	public List<Commande> getCommandes() {
+		return commandes;
+	}
+
+
+	public void setCommandes(List<Commande> commandes) {
+		this.commandes = commandes;
+	}
+    
+    
+
 }

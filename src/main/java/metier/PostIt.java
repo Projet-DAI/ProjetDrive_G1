@@ -28,5 +28,66 @@ public class PostIt {
     @Column(name = "DateCreation")
     private Date dateCreation;
 
-    // Getters and setters
+	public PostIt(Client client, ListeCourse listeCourse, String titre, String contenu, Date dateCreation) {
+		super();
+		this.client = client;
+		this.listeCourse = listeCourse;
+		this.titre = titre;
+		this.contenu = contenu;
+		this.dateCreation = dateCreation;
+	}
+
+	public PostIt() {
+		
+	}
+
+	public int getIdPostIt() {
+		return idPostIt;
+	}
+
+	public void setIdPostIt(int idPostIt) {
+		this.idPostIt = idPostIt;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public ListeCourse getListeCourse() {
+		return listeCourse;
+	}
+
+	public void setListeCourse(ListeCourse listeCourse) {
+		this.listeCourse = listeCourse;
+	}
+
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	public String getContenu() {
+		return contenu;
+	}
+
+	public void setContenu(String contenu) {
+		this.contenu = contenu;
+	}
+
+	public Date getDateCreation() {
+		return dateCreation;
+	}
+
+	public void setDateCreation(Date dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+	
+	
 }

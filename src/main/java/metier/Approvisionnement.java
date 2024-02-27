@@ -21,5 +21,48 @@ public class Approvisionnement {
     @Column(name = "QuantiteApprovisionnement")
     private int quantiteApprovisionnement;
 
-    // Getters and setters
+	public Approvisionnement(Produit produit, Date dateApprovisionnement, int quantiteApprovisionnement) {
+		super();
+		this.produit = produit;
+		this.dateApprovisionnement = dateApprovisionnement;
+		this.quantiteApprovisionnement = quantiteApprovisionnement;
+	}
+
+    public Approvisionnement() {
+    	
+    }
+
+	public int getIdApprovisionnement() {
+		return idApprovisionnement;
+	}
+
+	public void setIdApprovisionnement(int idApprovisionnement) {
+		this.idApprovisionnement = idApprovisionnement;
+	}
+
+	public Produit getProduit() {
+		return produit;
+	}
+
+	public void setProduit(Produit produit) {
+		this.produit = produit;
+	}
+
+	public Date getDateApprovisionnement() {
+		return dateApprovisionnement;
+	}
+
+	public void setDateApprovisionnement(Date dateApprovisionnement) {
+		this.dateApprovisionnement = dateApprovisionnement;
+	}
+
+	public int getQuantiteApprovisionnement() {
+		return quantiteApprovisionnement;
+	}
+
+	public void setQuantiteApprovisionnement(int quantiteApprovisionnement) {
+		this.quantiteApprovisionnement = quantiteApprovisionnement;
+	}
+    
+    
 }

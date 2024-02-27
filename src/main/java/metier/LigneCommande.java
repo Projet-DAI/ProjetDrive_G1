@@ -24,6 +24,59 @@ public class LigneCommande {
     @Column(name = "PrixUnitaire")
     private double prixUnitaire;
 
-    // Getters and setters
+	public LigneCommande( Commande commande, Produit produit, int quantite, double prixUnitaire) {
+		super();
+		this.commande = commande;
+		this.produit = produit;
+		this.quantite = quantite;
+		this.prixUnitaire = prixUnitaire;
+	}
+	
+	public LigneCommande() {
+		
+	}
+
+	public int getIdLigneCommande() {
+		return idLigneCommande;
+	}
+
+	public void setIdLigneCommande(int idLigneCommande) {
+		this.idLigneCommande = idLigneCommande;
+	}
+
+	public Commande getCommande() {
+		return commande;
+	}
+
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
+
+	public Produit getProduit() {
+		return produit;
+	}
+
+	public void setProduit(Produit produit) {
+		this.produit = produit;
+	}
+
+	public int getQuantite() {
+		return quantite;
+	}
+
+	public void setQuantite(int quantite) {
+		this.quantite = quantite;
+	}
+
+	public double getPrixUnitaire() {
+		return prixUnitaire;
+	}
+
+	public void setPrixUnitaire(double prixUnitaire) {
+		this.prixUnitaire = prixUnitaire;
+	}
+    
+    
+
 }
 

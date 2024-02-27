@@ -13,5 +13,36 @@ public class StatutCommande {
     @Column(name = "LibelleStatut")
     private String libelleStatut;
 
-    // Getters and setters
+	public StatutCommande(String libelleStatut) {
+		super();
+		this.libelleStatut = libelleStatut;
+	}
+    
+    
+    public StatutCommande() {
+    	
+    }
+
+
+	public int getIdStatutCommande() {
+		return idStatutCommande;
+	}
+
+
+	public void setIdStatutCommande(int idStatutCommande) {
+		this.idStatutCommande = idStatutCommande;
+	}
+
+
+	public String getLibelleStatut() {
+		return libelleStatut;
+	}
+
+
+	public void setLibelleStatut(String libelleStatut) {
+		this.libelleStatut = libelleStatut;
+	}
+    
+    
+
 }

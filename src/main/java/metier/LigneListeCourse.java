@@ -21,5 +21,48 @@ public class LigneListeCourse {
     @Column(name = "Quantite")
     private int quantite;
 
-    // Getters and setters
+	public LigneListeCourse(ListeCourse listeCourse, Produit produit, int quantite) {
+		super();
+		this.listeCourse = listeCourse;
+		this.produit = produit;
+		this.quantite = quantite;
+	}
+	
+	public LigneListeCourse() {
+		
+	}
+
+	public int getIdLigneListeCourse() {
+		return idLigneListeCourse;
+	}
+
+	public void setIdLigneListeCourse(int idLigneListeCourse) {
+		this.idLigneListeCourse = idLigneListeCourse;
+	}
+
+	public ListeCourse getListeCourse() {
+		return listeCourse;
+	}
+
+	public void setListeCourse(ListeCourse listeCourse) {
+		this.listeCourse = listeCourse;
+	}
+
+	public Produit getProduit() {
+		return produit;
+	}
+
+	public void setProduit(Produit produit) {
+		this.produit = produit;
+	}
+
+	public int getQuantite() {
+		return quantite;
+	}
+
+	public void setQuantite(int quantite) {
+		this.quantite = quantite;
+	}
+
+    
 }

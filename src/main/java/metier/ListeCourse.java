@@ -21,5 +21,50 @@ public class ListeCourse {
     @Column(name = "DateCreation")
     private Date dateCreation;
 
-    // Getters and setters
+	public ListeCourse(Client client, String nomListeCourse, Date dateCreation) {
+		super();
+		this.client = client;
+		this.nomListeCourse = nomListeCourse;
+		this.dateCreation = dateCreation;
+	}
+	
+	
+	public ListeCourse() {
+		
+	}
+
+	public int getIdListeCourse() {
+		return idListeCourse;
+	}
+
+	public void setIdListeCourse(int idListeCourse) {
+		this.idListeCourse = idListeCourse;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public String getNomListeCourse() {
+		return nomListeCourse;
+	}
+
+	public void setNomListeCourse(String nomListeCourse) {
+		this.nomListeCourse = nomListeCourse;
+	}
+
+	public Date getDateCreation() {
+		return dateCreation;
+	}
+
+	public void setDateCreation(Date dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+
+    
+    
 }

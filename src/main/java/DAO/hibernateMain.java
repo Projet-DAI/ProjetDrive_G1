@@ -9,6 +9,8 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
 import metier.Client;
+import metier.Rayon;
+
 
 public class hibernateMain {
 	public static void main (String[] args)
@@ -22,7 +24,24 @@ public class hibernateMain {
 	
 	ses.save(c1);
 	tc.commit();
-			
+	
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	Transaction transaction = session.beginTransaction();
+
+	try {
+	    Rayon rayon = new Rayon("Épicerie Sucrée");
+	    session.save(rayon);
+	    transaction.commit();
+	    System.out.println("Rayon ajouté avec succès à la base de données!");
+	} catch (Exception e) {
+	    transaction.rollback();
+	    e.printStackTrace();
+	} finally {
+	    session.close();
+	}
+
+	
+
 	}
 
 }

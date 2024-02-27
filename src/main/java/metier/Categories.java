@@ -17,5 +17,38 @@ public class Categories {
     @JoinColumn(name = "IdRayon")
     private Rayon rayon;
 
-    // Getters and setters
+	public Categories(String nomCategorie, Rayon rayon) {
+		super();
+		this.nomCategorie = nomCategorie;
+		this.rayon = rayon;
+	}
+
+    public Categories() {
+    	
+    }
+
+	public int getIdCategorie() {
+		return idCategorie;
+	}
+
+	public void setIdCategorie(int idCategorie) {
+		this.idCategorie = idCategorie;
+	}
+
+	public String getNomCategorie() {
+		return nomCategorie;
+	}
+
+	public void setNomCategorie(String nomCategorie) {
+		this.nomCategorie = nomCategorie;
+	}
+
+	public Rayon getRayon() {
+		return rayon;
+	}
+
+	public void setRayon(Rayon rayon) {
+		this.rayon = rayon;
+	}
+    
 }

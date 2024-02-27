@@ -19,9 +19,19 @@ public class ProduitRemplacement {
     @JoinColumn(name = "IdProduitRemplacement", referencedColumnName = "IdProduit")
     private Produit produitRemplacement;
 
-    // Getters and setters
+    
+    
+    public ProduitRemplacement(Produit produitPrincipal, Produit produitRemplacement) {
+		super();
+		this.produitPrincipal = produitPrincipal;
+		this.produitRemplacement = produitRemplacement;
+	}
+    
+    public ProduitRemplacement() {
+    	
+    }
 
-    public Long getIdProduitRemplacement() {
+	public Long getIdProduitRemplacement() {
         return idProduitRemplacement;
     }
 

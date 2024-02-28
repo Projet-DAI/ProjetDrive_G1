@@ -1,4 +1,4 @@
-package metier;
+package Model.metier;
 
 import javax.persistence.*;
 

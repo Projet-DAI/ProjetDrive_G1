@@ -1,4 +1,4 @@
-package DAO;
+package Model.DAO;
 
 import org.hibernate.Criteria;
 

@@ -52,7 +52,7 @@ public class hibernateMain {
 
             try {
             	// lire csv 
-            	List<Categories> categoriesList = readCsvFileCategories("C:\\Users\\mazhu\\Downloads\\categorie.csv", session1);
+            	List<Categories> categoriesList = readCsvFileCategories("C:\\Users\\widad\\Downloads\\categorie.csv", session1);
                 for (Categories category : categoriesList) {
                     session1.save(category);
                 }
@@ -73,7 +73,7 @@ public class hibernateMain {
             try 
             {
             	// csv
-            	List<Produit> produits = readCsvFileProduit("C:\\Users\\mazhu\\Downloads\\produit.csv", session2);
+            	List<Produit> produits = readCsvFileProduit("C:\\Users\\widad\\Downloads\\produit.csv", session2);
             	for (Produit produit : produits) {
                     session2.save(produit);
                 }

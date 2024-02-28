@@ -1,6 +1,7 @@
 package DAO;
 
 import org.hibernate.Criteria;
+
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

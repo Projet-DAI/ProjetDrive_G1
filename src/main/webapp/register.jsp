@@ -21,7 +21,7 @@
                     </p>
                     <div class="card card-login mb-5">
                         <div class="card-body">
-                            <form class="form-horizontal" action="inscription" method="post">
+                            <form class="form-horizontal" action="shop.jsp" method="post">
                             
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12">

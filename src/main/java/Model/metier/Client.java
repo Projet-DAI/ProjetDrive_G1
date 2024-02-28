@@ -18,7 +18,16 @@ public class Client {
     @Column(name = "NomUtilisateurClient")
     private String nomUtilisateurClient;
 
-    @Column(name = "emailClient")
+    @Override
+	public String toString() {
+		return "Client [idClient=" + idClient + ", nomCompletClient=" + nomCompletClient + ", nomUtilisateurClient="
+				+ nomUtilisateurClient + ", emailClient=" + emailClient + ", telephoneClient=" + telephoneClient
+				+ ", pwdClient=" + pwdClient + ", pointFideliteClient=" + pointFideliteClient + ", commandes="
+				+ commandes + "]";
+	}
+
+
+	@Column(name = "emailClient")
     private String emailClient;
     
     @Column(name = "telephoneClient")

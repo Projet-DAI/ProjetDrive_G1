@@ -48,30 +48,26 @@ public class InscriptionServlet extends HttpServlet {
         String motDePasse = request.getParameter("motDePasse");
 
         // Créer une nouvelle instance de Client
-        Client client = new Client();
-        client.setNomCompletClient(nomComplet);
-        client.setEmailClient(adresseEmail);
-        client.setTelephoneClient(telephone);
-        client.setNomUtilisateurClient(nomUtilisateur);
-        client.setPwdClient(motDePasse);
+        Client client = new Client(nomComplet, nomUtilisateur, nomUtilisateur, telephone, motDePasse, 0, null);
 
+        System.out.println(client);
         // Obtenir la session Hibernate
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        //Session session = HibernateUtil.getSessionFactory().openSession();
 
         // Début de la transaction
-        Transaction transaction = session.beginTransaction();
+        //Transaction transaction = session.beginTransaction();
 
         // Enregistrer le client dans la base de données
-        session.save(client);
+        //session.save(client);
 
         // Fin de la transaction
-        transaction.commit();
+        //transaction.commit();
 
         // Fermer la session
-        session.close();
+        //session.close();
 
         // Rediriger ou effectuer d'autres actions après l'inscription
-        response.sendRedirect("shop.jsp");
+        //response.sendRedirect("shop.jsp");
 	}
 
 }

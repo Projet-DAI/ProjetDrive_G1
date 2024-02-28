@@ -36,7 +36,7 @@
                                             <input id="checkbox0" type="checkbox" name="remember">
                                             <label for="checkbox0" class="mb-0"> Se souvenir de moi ?</label>
                                         </div>
-                                        <a href="login.html" class="text-light"><i class="fa fa-bell"></i> Mot de passe oublié ?</a>
+                                        <a href="login.jsp" class="text-light"><i class="fa fa-bell"></i> Mot de passe oublié ?</a>
                                     </div>
                                 </div>
                                 <div class="form-group row text-center mt-4">

@@ -5,9 +5,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import org.hibernate.query.Query;
+
+import Model.metier.Client;
+import Model.metier.LignePanier;
+import Model.metier.Panier;
+import Model.metier.Rayon;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Model.metier.Categories;
@@ -148,4 +155,48 @@ public class hibernateMain {
 
         return produits;
     }
+    
+    
+    private static void ajouterPanier(Client client, Date dateCreation) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Panier panier = new Panier(client, dateCreation);
+            session.save(panier);
+            transaction.commit();
+
+            System.out.println("Panier ajouté avec succès à la base de données!");
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+    
+    public List<LignePanier> getProduitsDansPanier(Client client) {
+        List<LignePanier> produits = null;
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            // Requête pour récupérer les lignes de panier associées au client spécifié
+            Query<LignePanier> query = session.createQuery("FROM LignePanier lp WHERE lp.panier.client = :client", LignePanier.class);
+            query.setParameter("client", client);
+            produits = query.list();
+
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return produits;
+    }
+
 }
+    
+

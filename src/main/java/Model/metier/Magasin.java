@@ -1,5 +1,7 @@
 package Model.metier;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,9 @@ public class Magasin {
 
     @Column(name = "AdresseMagasin")
     private String adresseMagasin;
+    
+    @OneToMany(mappedBy = "magasin", cascade = CascadeType.ALL)
+    private List<Commande> commandes;
 
 	public Magasin(String nomMagasin, String adresseMagasin) {
 		super();

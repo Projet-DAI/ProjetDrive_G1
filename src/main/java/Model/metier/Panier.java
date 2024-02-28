@@ -3,6 +3,8 @@ package Model.metier;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.List;
+import Model.metier.*;
 
 @Entity
 @Table(name = "Panier")
@@ -12,12 +14,16 @@ public class Panier {
     @Column(name = "IdPanier")
     private int idPanier;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "IdClient")
     private Client client;
 
     @Column(name = "DateCreation")
     private Date dateCreation;
+    
+    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL)
+    private List<LignePanier> lignesPanier;
+
 
 	public Panier(Client client, Date dateCreation) {
 		super();
@@ -52,6 +58,16 @@ public class Panier {
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
+	
+	 public List<LignePanier> getLignesPanier() {
+	        return lignesPanier;
+	    }
+	 
+	 public void setLignesPanier(List<LignePanier> lignesPanier) {
+	        this.lignesPanier = lignesPanier;
+	    }
+	    
+
     
     
 }

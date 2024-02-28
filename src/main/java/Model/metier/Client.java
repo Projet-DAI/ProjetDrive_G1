@@ -28,6 +28,9 @@ public class Client {
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Commande> commandes;
+    
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
+    private Panier panier;
 
 	public Client(String nomClient, String prenomClient, String emailClient, String pwdClient,
 			int pointFideliteClient, List<Commande> commandes) {

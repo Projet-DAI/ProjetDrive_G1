@@ -1,5 +1,12 @@
 package Model.DAO;
 
+import java.util.List;
+
+
+import org.hibernate.Criteria;
+
+
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,6 +26,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import Model.metier.Commande;
+import Model.metier.Rayon;
 
 import Model.metier.Categories;
 import Model.metier.Produit;
@@ -26,8 +35,20 @@ import Model.metier.Rayon;
 import Model.metier.Client;
 
 public class hibernateMain {
-    public static void main(String[] args) {
-        System.out.println("Hibernate!");
+
+	public static void main (String[] args)
+	{
+	System.out.println("Hibernate !");
+	
+	Session ses = HibernateUtil.getSessionFactory().getCurrentSession();
+	Transaction tc = ses.beginTransaction();
+	 
+	Client c1 = new Client("Dupont","Chloe","chloe.dupont@hotmail.com","123","chloe",10, null);
+	ses.save(c1);
+	tc.commit();
+	
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	Transaction transaction = session.beginTransaction();
 
         // Client
         try (Session ses = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -198,5 +219,4 @@ public class hibernateMain {
 	    
 	    
 	}
-}
 }

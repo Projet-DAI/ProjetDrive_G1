@@ -51,7 +51,7 @@ public class hibernateMain {
             Transaction transaction = session1.beginTransaction();
 
             try {
-            	// csv
+            	// lire csv 
             	List<Categories> categoriesList = readCsvFileCategories("C:\\Users\\mazhu\\Downloads\\categorie.csv", session1);
                 for (Categories category : categoriesList) {
                     session1.save(category);

@@ -18,7 +18,7 @@ public class ListeCourse {
     private Client client;
     
     @OneToMany(mappedBy = "listeCourse", cascade = CascadeType.ALL)
-    private List<Postit> postits;
+    private List<PostIt> postits;
 
     @Column(name = "NomListeCourse")
     private String nomListeCourse;

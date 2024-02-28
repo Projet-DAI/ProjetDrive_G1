@@ -16,7 +16,7 @@ public class Rayon {
     private String nomRayon;
     
     @OneToMany(mappedBy = "rayon", cascade = CascadeType.ALL)
-    private List<Categorie> categories;
+    private List<Categories> categories;
 
 	public Rayon(String nomRayon) {
 		super();

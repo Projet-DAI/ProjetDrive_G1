@@ -13,6 +13,9 @@ import Model.metier.Panier;
 import Model.metier.Rayon;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -156,47 +159,44 @@ public class hibernateMain {
         return produits;
     }
     
-    
-    private static void ajouterPanier(Client client, Date dateCreation) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
+ // Panier
+    if (c1 != null) {
+    	try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+    		Transaction transaction = session.beginTransaction();
 
-        try {
-            Panier panier = new Panier(client, dateCreation);
-            session.save(panier);
-            transaction.commit();
+	        try {
+	            // Création d'un panier
+	            Panier panier = new Panier();
+	            panier.setDateCreation(new Date()); // Utilisation de la date actuelle par exemple
+	            panier.setClient(c1);
+                session.save(panier);
 
-            System.out.println("Panier ajouté avec succès à la base de données!");
-        } catch (Exception e) {
-            transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-    }
-    
-    public List<LignePanier> getProduitsDansPanier(Client client) {
-        List<LignePanier> produits = null;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-
-        try {
-            // Requête pour récupérer les lignes de panier associées au client spécifié
-            Query<LignePanier> query = session.createQuery("FROM LignePanier lp WHERE lp.panier.client = :client", LignePanier.class);
-            query.setParameter("client", client);
-            produits = query.list();
-
-            transaction.commit();
-        } catch (Exception e) {
-            transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return produits;
-    }
-
+	       
+	
+	            // Création de lignes de panier
+	            LignePanier lignePanier1 = new LignePanier();
+	            lignePanier1.setQuantite(2); // Par exemple, 2 produits de ce type
+	            lignePanier1.setPanier(panier); // Assignation du panier à la ligne de panier
+	
+	            LignePanier lignePanier2 = new LignePanier();
+	            lignePanier2.setQuantite(1); // Par exemple, 1 produit de ce type
+	            lignePanier2.setPanier(panier); // Assignation du panier à la ligne de panier
+	
+	            // Enregistrement des lignes de panier
+	            session.save(lignePanier1);
+	            session.save(lignePanier2);
+	
+	            transaction.commit();
+	            System.out.println("Panier et lignes de panier ajoutés avec succès à la base de données!");
+	        } catch (Exception e) {
+	            transaction.rollback();
+	            e.printStackTrace();
+	        }
+	    }
+	
+	    
+	    
+	    
+	}
 }
-    
-
+}

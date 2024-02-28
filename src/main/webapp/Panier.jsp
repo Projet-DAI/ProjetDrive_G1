@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-    <meta charset="utf-8">
+<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
@@ -57,7 +57,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="transaction.html">Mon historique de commandes</a>
-                                <a class="dropdown-item" href="setting.html">Paramètres</a>
+                                <a class="dropdown-item" href="setting.html">ParamÃ¨tres</a>
                             </div>
                           </li>
                         <li class="nav-item dropdown">
@@ -160,76 +160,22 @@
                                     <tr>
                                         <th width="10%"></th>
                                         <th>Produits</th>
-                                        <th>Prix</th>
-                                        <th width="15%">Quantité</th>
+                                        <th>Prix unitaire</th>
+                                        <th width="15%">QuantitÃ©</th>
                                         <th>Sous-total</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="assets/img/fish.jpg" width="60">
-                                        </td>
-                                        <td>
-                                            Ikan Segar<br>
-                                            <small>1000g</small>
-                                        </td>
-                                        <td>
-                                            Rp 30.000
-                                        </td>
-                                        <td>
-                                            <input class="vertical-spin" type="text" data-bts-button-down-class="btn btn-primary" data-bts-button-up-class="btn btn-primary" value="" name="vertical-spin">
-                                        </td>
-                                        <td>
-                                            Rp 30.000
-                                        </td>
-                                        <td>
-                                            <a href="javasript:void" class="text-danger"><i class="fa fa-times"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="assets/img/meats.jpg" width="60">
-                                        </td>
-                                        <td>
-                                            Sirloin<br>
-                                            <small>1000g</small>
-                                        </td>
-                                        <td>
-                                            Rp 120.000
-                                        </td>
-                                        <td>
-                                            <input class="vertical-spin" type="text" data-bts-button-down-class="btn btn-primary" data-bts-button-up-class="btn btn-primary" value="" name="vertical-spin">
-                                        </td>
-                                        <td>
-                                            Rp 120.000
-                                        </td>
-                                        <td>
-                                            <a href="javasript:void" class="text-danger"><i class="fa fa-times"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="assets/img/vegetables.jpg" width="60">
-                                        </td>
-                                        <td>
-                                            Mix Vegetables<br>
-                                            <small>1000g</small>
-                                        </td>
-                                        <td>
-                                            Rp 30.000
-                                        </td>
-                                        <td>
-                                            <input class="vertical-spin" type="text" data-bts-button-down-class="btn btn-primary" data-bts-button-up-class="btn btn-primary" value="" name="vertical-spin">
-                                        </td>
-                                        <td>
-                                            Rp 30.000
-                                        </td>
-                                        <td>
-                                            <a href="javasript:void" class="text-danger"><i class="fa fa-times"></i></a>
-                                        </td>
-                                    </tr>
+                                    <%-- Boucle pour afficher chaque produit dans le panier --%>
+                    				<c:forEach var="lignePanier" items="${panier.lignesPanier}">
+		                        		<tr>
+				                            <td>${lignePanier.produit.nomProduit}</td>
+				                            <td>${lignePanier.produit.prixProduit}</td>
+				                            <td>${lignePanier.quantite}</td>
+				                            <td>${lignePanier.produit.prixProduit * lignePanier.quantite}</td>
+				                        </tr>
+                    				</c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -245,7 +191,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <h6 class="mt-3">Total: Rp 180.000</h6>
+                        <h6 class="mt-3">Total:<span id="totalPanier"> â‚¬ </h6>
                         <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>
                     </div>
                 </div>
@@ -323,7 +269,8 @@
         </div>
         <p class="copyright">&copy; 2018 Freshcery | Groceries Organic Store. All rights reserved.</p>
     </footer>
-
+	
+	<script type="text/javascript" src="assets/js/totalPanier.js"></script>
     <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>

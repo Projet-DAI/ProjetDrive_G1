@@ -37,9 +37,12 @@ public class Produit {
     @JoinColumn(name = "IdCategorie")
     private Categories categorie;
     
-    @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Produit_Approvisionnement",
+               joinColumns = @JoinColumn(name = "produit_id"),
+               inverseJoinColumns = @JoinColumn(name = "approvisionnement_id"))
     private List<Approvisionnement> approvisionnements;
-
+    
 	public Produit(String nomProduit, double prixProduit, String marqueProduit, boolean promotion,
 			double pourcentagePromotion, String adresseImageProduit, String nutriscore, Categories categorie) {
 		super();

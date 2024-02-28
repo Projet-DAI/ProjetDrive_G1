@@ -25,7 +25,7 @@ public class Panier {
     private List<LignePanier> lignesPanier;
 
 
-	public Panier(Client client, Date dateCreation) {
+	public Panier(Date dateCreation,Client client ) {
 		super();
 		this.client = client;
 		this.dateCreation = dateCreation;

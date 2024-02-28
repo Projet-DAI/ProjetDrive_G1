@@ -457,4 +457,10 @@ footer .copyright {
   border-top: 1px solid #eee;
 }
 
+.navbar-brand img,
+.avatar-header img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
 /*# sourceMappingURL=theme.css.map */

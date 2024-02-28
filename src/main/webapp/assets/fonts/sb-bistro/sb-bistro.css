@@ -220,3 +220,6 @@
 .sb-bistro-youtube:before {
 	content: "\e63e";
 }
+.sb-bistro-brush:before {
+    content: "\e640";
+}

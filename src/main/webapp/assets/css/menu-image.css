@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+
+    .menu-image {
+        width: auto; 
+        height: auto; 
+        object-fit: cover;    
+    }
+    
+    .navbar-brand img,
+.avatar-header img {
+    max-width: 100% !important;
+    height: auto !important;
+}

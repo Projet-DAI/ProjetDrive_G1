@@ -5,19 +5,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Drive<title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet" type="text/css">
-    <link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap/bootstrap.css">
-    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/o2system-ui/o2system-ui.css">
-    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/owl-carousel/owl-carousel.css">
-    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/cloudzoom/cloudzoom.css">
-    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
-    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
-    <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
 </head>
 <body>
     <jsp:include flush="true" page="head.jsp"></jsp:include>
@@ -34,30 +21,31 @@
                     </p>
                     <div class="card card-login mb-5">
                         <div class="card-body">
-                            <form class="form-horizontal" action="index.html">
+                            <form class="form-horizontal" action="inscription" method="post">
+                            
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12">
-                                        <input class="form-control" type="text" required="" placeholder="Nom complet">
+                                        <input class="form-control" type="text" required="" name="nomComplet" placeholder="Nom complet">
                                     </div>
                                 </div>
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12">
-                                        <input class="form-control" type="email" required="" placeholder="Adresse e-mail">
+                                        <input class="form-control" type="email" required="" name="adresseEmail" placeholder="Adresse e-mail">
                                     </div>
                                 </div>
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12">
-                                        <input class="form-control" type="phone" required="" placeholder="Téléphone">
+                                        <input class="form-control" type="phone" required="" name="telephone" placeholder="Téléphone">
                                     </div>
                                 </div>
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12">
-                                        <input class="form-control" type="text" required="" placeholder="Nom d'utilisateur">
+                                        <input class="form-control" type="text" required="" name="nomUtilisateur" placeholder="Nom d'utilisateur">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-12">
-                                        <input class="form-control" type="password" required="" placeholder="Mot de passe">
+                                        <input class="form-control" type="password" required="" name="motDePasse" placeholder="Mot de passe">
                                     </div>
                                 </div>
                                 <div class="form-group row">

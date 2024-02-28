@@ -1,6 +1,10 @@
 package Model.DAO;
 
+import java.util.List;
+
+
 import org.hibernate.Criteria;
+
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -9,8 +13,9 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
-import metier.Client;
-import metier.Rayon;
+import Model.metier.Client;
+import Model.metier.Commande;
+import Model.metier.Rayon;
 
 
 public class hibernateMain {
@@ -20,9 +25,8 @@ public class hibernateMain {
 	
 	Session ses = HibernateUtil.getSessionFactory().getCurrentSession();
 	Transaction tc = ses.beginTransaction();
-	
-	Client c1 = new Client("Dupont","Chloe","chloe.dupont@hotmail.com","chloe",10, null);
-	
+	 
+	Client c1 = new Client("Dupont","Chloe","chloe.dupont@hotmail.com","123","chloe",10, null);
 	ses.save(c1);
 	tc.commit();
 	

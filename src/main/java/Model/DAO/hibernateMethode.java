@@ -26,9 +26,28 @@ public class hibernateMethode {
         return products;
 	}
 	
+	public static List<Produit> rechercheParMotCle(String motcle) {
+        List<Produit> listP = new ArrayList<>();
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+            // Use HQL (Hibernate Query Language) to retrieve products
+            Query<Produit> query = session.createQuery("FROM Produit where NomProduit like '%" + motcle + "%'", Produit.class);
+            listP = query.list();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return listP;
+	}
+	
+	
 	// test
 	public static void main(String[] args) {
-		 List<Produit> res = getProductsFromDatabase();
+//		List<Produit> res = getProductsFromDatabase();
+		String motcle = "fish";
+		List<Produit> res = rechercheParMotCle(motcle);
 		// 打印产品信息或进行其他操作
         for (Produit product : res) {
             System.out.println("Product ID: " + product.getIdProduit());

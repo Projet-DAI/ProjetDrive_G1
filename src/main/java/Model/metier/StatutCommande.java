@@ -1,5 +1,7 @@
 package Model.metier;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,9 @@ public class StatutCommande {
 
     @Column(name = "LibelleStatut")
     private String libelleStatut;
+    
+    @OneToMany(mappedBy = "statutCommande", cascade = CascadeType.ALL)
+    private List<Commande> commandes;
 
 	public StatutCommande(String libelleStatut) {
 		super();

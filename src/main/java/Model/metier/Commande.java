@@ -2,6 +2,7 @@ package Model.metier;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Commandes")
@@ -28,6 +29,9 @@ public class Commande {
     @ManyToOne
     @JoinColumn(name = "IdMagasin")
     private Magasin magasin;
+    
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
+    private List<LigneCommande> lignesCommande;
 
 	public Commande(Client client, Date dateCommande, double montantTotal, StatutCommande statutCommande,
 			Magasin magasin) {

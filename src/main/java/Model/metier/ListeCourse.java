@@ -2,6 +2,7 @@ package Model.metier;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "ListeCourse")
@@ -14,6 +15,9 @@ public class ListeCourse {
     @ManyToOne
     @JoinColumn(name = "IdClient")
     private Client client;
+    
+    @OneToMany(mappedBy = "listeCourse", cascade = CascadeType.ALL)
+    private List<Postit> postits;
 
     @Column(name = "NomListeCourse")
     private String nomListeCourse;

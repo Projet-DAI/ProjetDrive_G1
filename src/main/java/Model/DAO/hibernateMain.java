@@ -9,8 +9,8 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
-import metier.Client;
-import metier.Rayon;
+import Model.metier.Client;
+import Model.metier.Rayon;
 
 
 public class hibernateMain {

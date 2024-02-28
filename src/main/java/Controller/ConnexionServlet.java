@@ -45,26 +45,32 @@ public class ConnexionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("Post");
         String identifiant = request.getParameter("nomUtilisateurClient");
         String motDePasse = request.getParameter("pwdClient");
 
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
-        
-        Query<Client> q = session.createQuery("FROM Client WHERE nomUtilisateurClient = :nomUtilisateurClient AND pwdClient = :pwdClient", Client.class);
-        q.setParameter("nomUtilisateurClient", identifiant);
-        q.setParameter("pwdClient", motDePasse);
 
-        List<Client> clients = q.list();
+        try {
+            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :identifiant",Client.class);
+            query.setParameter("identifiant", identifiant);
+            query.setParameter("motDePasse", motDePasse);
 
-        if (!clients.isEmpty()) {
-            // Utilisateur connecté avec succès
-            response.sendRedirect("index.html");
-            System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
-        } else {
-            // Échec de la connexion
-            response.sendRedirect("login.html?error=true");
+            List<Client> clients = query.list();
+
+            if (!clients.isEmpty() && clients.get(0).verifierConnexion(identifiant, motDePasse)) {
+                // Utilisateur connecté avec succès
+                response.sendRedirect("accueil.jsp");
+                System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
+            } else {
+                // Échec de la connexion
+                System.out.println("Connexion echouée");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
         }
 
 	}

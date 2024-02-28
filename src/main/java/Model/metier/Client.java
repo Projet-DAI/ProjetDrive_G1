@@ -50,6 +50,9 @@ public class Client {
     	
     }
 
+    public boolean verifierConnexion(String nomUtilisateur, String motDePasse) {
+        return this.nomUtilisateurClient.equals(nomUtilisateur) && this.pwdClient.equals(motDePasse);
+    }
 
 	public int getIdClient() {
 		return idClient;

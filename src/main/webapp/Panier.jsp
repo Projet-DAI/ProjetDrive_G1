@@ -159,6 +159,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
+                      <button id="voirPointsFidelitebtn" class="btn btn-primary">Afficher les points de fidélité</button>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -306,6 +307,13 @@
     <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
     <script type="text/javascript" src="assets/js/theme.js"></script>
+    
+    <script type="text/javascript">
+    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+    // Vous pouvez remplacer le code ci-dessous par la logique réelle pour afficher les points
+    alert('Points de fidélité: 100');
+    });
+</script>
 </body>
 </html>
 

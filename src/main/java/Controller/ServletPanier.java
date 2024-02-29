@@ -22,7 +22,7 @@ import Model.metier.Panier;
 /**
  * Servlet implementation class ServletPanier
  */
-@WebServlet("/Panier.jsp")
+@WebServlet("/Panier")
 public class ServletPanier extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

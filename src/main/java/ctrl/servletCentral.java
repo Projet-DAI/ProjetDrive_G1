@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Model.DAO.hibernateMethode;
+import Model.metier.Panier;
 import Model.metier.Produit;
 
 /**
@@ -80,8 +82,53 @@ public class servletCentral extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		String productIdStr = request.getParameter("productId");
+        String quantityStr = request.getParameter("quantity");
+		
+		if (productIdStr != null && quantityStr != null && !productIdStr.isEmpty() && !quantityStr.isEmpty()) {
+		        try {
+		            // Convertir les chaînes en entiers
+		            int productId = Integer.parseInt(productIdStr);
+		            int quantity = Integer.parseInt(quantityStr);
+
+		            // Récupérer le produit depuis la base de données
+		            Produit product = hibernateMethode.getProductById(productId);
+		            
+		            // Vérifier si le produit existe
+		            if (product != null) {
+		                // Créer ou récupérer la session utilisateur
+		                HttpSession session = request.getSession(true);
+
+		                // Récupérer le panier de l'utilisateur depuis la session
+		                Panier panier = (Panier) session.getAttribute("panier");
+		                if (panier == null) {
+		                    // Si l'utilisateur n'a pas de panier, créer un nouveau panier
+		                    panier = new Panier();
+		                }
+
+		                // Ajouter le produit au panier
+		                panier.ajouterProduit(product, quantity);
+
+		                // Mettre à jour la session avec le nouveau panier
+		                session.setAttribute("panier", panier);
+
+		                // Redirection vers une page de confirmation d'ajout au panier
+		                response.sendRedirect("confirmation.jsp");
+		            } else {
+		                // Gérer le cas où le produit n'existe pas
+		                request.setAttribute("error", "Product not found.");
+		                request.getRequestDispatcher("error.jsp").forward(request, response);
+		            }
+		        } catch (NumberFormatException e) {
+		            // Gérer les erreurs de conversion des paramètres en entiers
+		            request.setAttribute("error", "Invalid product ID or quantity.");
+		            request.getRequestDispatcher("error.jsp").forward(request, response);
+		        }
+		    } else {
+		        // Gérer le cas où les paramètres sont manquants
+		        request.setAttribute("error", "Product ID or quantity is missing.");
+		        request.getRequestDispatcher("index.jsp").forward(request, response);
+		    }
+		}
 
 }

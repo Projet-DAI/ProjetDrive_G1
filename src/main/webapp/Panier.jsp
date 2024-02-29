@@ -28,7 +28,61 @@
 
 <title>Mon Panier</title>
 
+<script type="text/javascript">
+    // Initialiser le total à partir de la valeur côté serveur
+    var totalPanier = <%= total %>;
+    // Initialiser le total mis à jour à zéro
+    var nouveauTotalPanier = 0;
 
+    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
+    function updateNouveauTotalPanier() {
+        // Mettre à jour l'élément HTML avec le nouveau total
+        var element = document.getElementById('nouveauTotalPanier');
+        if (element) {
+            element.innerText = nouveauTotalPanier.toFixed(2) + ' €';
+        }
+    }
+
+    // Fonction pour effectuer le calcul du nouveau total
+    function calculerNouveauTotal(pointsFidelite) {
+        // Vérifier si totalPanier est un nombre valide
+        if (isNaN(totalPanier)) {
+            // Gérer l'erreur, par exemple, en affichant un message à l'utilisateur
+            alert("Le total du panier n'est pas un nombre valide.");
+            return;
+        }
+
+        // Vérifier si pointsFidelite est un nombre
+        if (isNaN(pointsFidelite)) {
+            // Gérer l'erreur, par exemple, en affichant un message à l'utilisateur
+            alert("Veuillez entrer un nombre valide de points de fidélité.");
+            return;
+        }
+
+        // Calculer le nouveau total uniquement si totalPanier est un nombre valide
+        var reductionEnEuros = pointsFidelite / 10.0;
+        if (!isNaN(reductionEnEuros)) {
+            nouveauTotalPanier = totalPanier - reductionEnEuros;
+
+            // Mettre à jour le nouveau total dans l'interface utilisateur
+            updateNouveauTotalPanier();
+
+            // Afficher des logs pour déboguer
+            console.log("Total panier: " + totalPanier);
+            console.log("Réduction en euros: " + reductionEnEuros);
+            console.log("Nouveau total calculé : " + nouveauTotalPanier);
+
+            // Afficher une alerte à des fins de débogage
+            alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+        } else {
+            // Gérer l'erreur si reductionEnEuros n'est pas un nombre valide
+            alert("Une erreur s'est produite lors du calcul de la réduction.");
+        }
+    }
+
+    // Appeler la fonction initiale pour afficher le total initial
+    updateNouveauTotalPanier();
+</script>
 
 <head>
     <title>Freshcery | Groceries Organic Store</title>
@@ -224,6 +278,59 @@
 						%>
 						
 						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
+						    
+						 <script type="text/javascript">
+						    // Initialiser le total à partir de la valeur côté serveur
+						    var totalPanier = <%= total %>;
+						    // Initialiser le total mis à jour à zéro
+						    var nouveauTotalPanier = 0;
+
+						    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
+						    function updateNouveauTotalPanier() {
+						        // Mettre à jour l'élément HTML avec le nouveau total
+						        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
+						    }
+
+						    // Fonction pour effectuer le calcul du nouveau total
+						    function calculerNouveauTotal(pointsFidelite) {
+						        // Vérifier si totalPanier est un nombre valide
+						        if (isNaN(totalPanier)) {
+						            // Gérer l'erreur, par exemple, en affichant un message à l'utilisateur
+						            alert("Le total du panier n'est pas un nombre valide.");
+						            return;
+						        }
+
+						        // Vérifier si pointsFidelite est un nombre
+						        if (isNaN(pointsFidelite)) {
+						            // Gérer l'erreur, par exemple, en affichant un message à l'utilisateur
+						            alert("Veuillez entrer un nombre valide de points de fidélité.");
+						            return;
+						        }
+
+						        // Calculer le nouveau total uniquement si totalPanier est un nombre valide
+						        var reductionEnEuros = pointsFidelite / 10.0;
+						        if (!isNaN(reductionEnEuros)) {
+						            nouveauTotalPanier = totalPanier - reductionEnEuros;
+
+						            // Mettre à jour le nouveau total dans l'interface utilisateur
+						            updateNouveauTotalPanier();
+
+						            // Afficher des logs pour déboguer
+						            console.log("Total panier: " + totalPanier);
+						            console.log("Réduction en euros: " + reductionEnEuros);
+						            console.log("Nouveau total calculé : " + nouveauTotalPanier);
+
+						            // Afficher une alerte à des fins de débogage
+						            alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+						        } else {
+						            // Gérer l'erreur si reductionEnEuros n'est pas un nombre valide
+						            alert("Une erreur s'est produite lors du calcul de la réduction.");
+						        }
+						    }
+
+						    // Appeler la fonction initiale pour afficher le total initial
+						    updateNouveauTotalPanier();		
+						</script>
                         <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
 
@@ -318,61 +425,7 @@
     <script type="text/javascript" src="assets/js/theme.js"></script>
     
 
-<script type="text/javascript">
-    // Initialiser le total à partir de la valeur côté serveur
-    var totalPanier = <%= total %>;
-    // Initialiser le total mis à jour à zéro
-    var nouveauTotalPanier = 0;
 
-    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
-    function updateNouveauTotalPanier() {
-        // Mettre à jour l'élément HTML avec le nouveau total
-        var element = document.getElementById('nouveauTotalPanier');
-        if (element) {
-            element.innerText = nouveauTotalPanier.toFixed(2) + ' €';
-        }
-    }
-
-    // Fonction pour effectuer le calcul du nouveau total
-    function calculerNouveauTotal(pointsFidelite) {
-        // Vérifier si totalPanier est un nombre valide
-        if (isNaN(totalPanier)) {
-            // Gérer l'erreur, par exemple, en affichant un message à l'utilisateur
-            alert("Le total du panier n'est pas un nombre valide.");
-            return;
-        }
-
-        // Vérifier si pointsFidelite est un nombre
-        if (isNaN(pointsFidelite)) {
-            // Gérer l'erreur, par exemple, en affichant un message à l'utilisateur
-            alert("Veuillez entrer un nombre valide de points de fidélité.");
-            return;
-        }
-
-        // Calculer le nouveau total uniquement si totalPanier est un nombre valide
-        var reductionEnEuros = pointsFidelite / 10.0;
-        if (!isNaN(reductionEnEuros)) {
-            nouveauTotalPanier = totalPanier - reductionEnEuros;
-
-            // Mettre à jour le nouveau total dans l'interface utilisateur
-            updateNouveauTotalPanier();
-
-            // Afficher des logs pour déboguer
-            console.log("Total panier: " + totalPanier);
-            console.log("Réduction en euros: " + reductionEnEuros);
-            console.log("Nouveau total calculé : " + nouveauTotalPanier);
-
-            // Afficher une alerte à des fins de débogage
-            alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
-        } else {
-            // Gérer l'erreur si reductionEnEuros n'est pas un nombre valide
-            alert("Une erreur s'est produite lors du calcul de la réduction.");
-        }
-    }
-
-    // Appeler la fonction initiale pour afficher le total initial
-    updateNouveauTotalPanier();
-</script>
 
 </body>
 </html>

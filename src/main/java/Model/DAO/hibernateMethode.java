@@ -29,20 +29,46 @@ public class hibernateMethode {
         return products;
 	}
 	
-	//Afficher produits promotion
-	public static List<Produit> getProduitsProm() {
-        List<Produit> productsProm = new ArrayList<>();
+	public static List<Produit> rechercheParMotCle(String motcle) {
+        List<Produit> listP = new ArrayList<>();
+
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
             // Use HQL (Hibernate Query Language) to retrieve products
-            Query<Produit> query = session.createQuery("FROM Produit WHERE promotion = 1", Produit.class);
-            productsProm = query.list();
+            Query<Produit> query = session.createQuery("FROM Produit where NomProduit like '%" + motcle + "%'", Produit.class);
+            listP = query.list();
+
+           
             
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        return listP;
+	}
+  	//Afficher produits promotion
+	public static List<Produit> getProduitsProm() {
+        List<Produit> productsProm = new ArrayList<>();
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+               Query<Produit> query = session.createQuery("FROM Produit WHERE promotion = 1", Produit.class);
+              productsProm = query.list();
+                } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return productsProm;
+	}
+
+	
+	
+	// test
+	public static void main(String[] args) {
+//		List<Produit> res = getProductsFromDatabase();
+		String motcle = "fish";
+		List<Produit> res = rechercheParMotCle(motcle);
+		// 打印产品信息或进行其他操作
+        for (Produit product : res) {
         return productsProm;
 	}
 	

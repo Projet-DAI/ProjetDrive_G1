@@ -13,7 +13,7 @@ import Model.metier.Produit;
 public class hibernateMethode {
 	
 	// Afficher touts les produits
-	public static List<Produit> getProductsFromDatabase() {
+	public static List<Produit> getToutsLesProduits() {
         List<Produit> products = new ArrayList<>();
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

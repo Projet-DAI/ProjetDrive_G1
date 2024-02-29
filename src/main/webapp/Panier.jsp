@@ -224,7 +224,7 @@
 						    
 						 <script type="text/javascript">
 						    // Initialiser le total à partir de la valeur côté serveur
-						    var totalPanier = <%= total %>;
+						    var totalPanier = parseFloat('<%= total %>');
 						    // Initialiser le total mis à jour à zéro
 						    var nouveauTotalPanier = 0;
 

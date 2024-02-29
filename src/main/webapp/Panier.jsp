@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
+<%@ page import="Model.metier.Panier" %>
+<%@ page import="Model.metier.LignePanier" %>
+<%@ page import="java.util.List" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,17 +171,28 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <%-- Boucle pour afficher chaque produit dans le panier --%>
-                    				<c:forEach var="lignePanier" items="${panier.lignesPanier}">
-		                        		<tr>
-				                            <td>${lignePanier.produit.nomProduit}</td>
-				                            <td>${lignePanier.produit.prixProduit}</td>
-				                            <td>${lignePanier.quantite}</td>
-				                            <td>${lignePanier.produit.prixProduit * lignePanier.quantite}</td>
-				                        </tr>
-                    				</c:forEach>
-                                </tbody>
+								    <%-- Boucle pour afficher chaque produit dans le panier --%>
+					                <% if (request.getAttribute("panier") != null ){ %>
+					                  	<% Panier panier = (Panier) request.getAttribute("panier"); %>
+             	                        <tbody>
+					                  	
+	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
+						                        <tr>
+						                        	<td>    </td>
+						                            <td><%= lignePanier.getProduit().getNomProduit() %></td>
+						                            <td><%= lignePanier.getProduit().getPrixProduit() %></td>
+						                            <td><%= lignePanier.getQuantite() %></td>
+						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+						                        </tr>
+						                    <% } %>
+					                    </tbody>
+					                    
+					                <% } else { %>
+					                    <tr>
+					                        <td colspan="4">Le panier est vide.</td>
+					                    </tr>
+					                <% } %>
+
                             </table>
                         </div>
                     </div>
@@ -191,7 +207,16 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <h6 class="mt-3">Total:<span id="totalPanier"> € </h6>
+                        <%
+						    double total = 0.0;
+						    if (request.getAttribute("panier") != null) {
+						        Panier panier = (Panier) request.getAttribute("panier");
+						        for (LignePanier lignePanier : panier.getLignesPanier()) {
+						            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+						        }
+						    }
+						%>
+						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
                         <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>
                     </div>
                 </div>

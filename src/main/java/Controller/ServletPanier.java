@@ -1,6 +1,8 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import Model.DAO.HibernateUtil;
+import Model.DAO.PanierDAO;
+import Model.metier.LignePanier;
 import Model.metier.Panier;
 
 /**
@@ -20,8 +24,8 @@ import Model.metier.Panier;
  */
 @WebServlet("/Panier")
 public class ServletPanier extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,40 +34,43 @@ public class ServletPanier extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		    Transaction transaction = null;
-		    Panier panier = null;
-		    
-		    try {
-		        transaction = session.beginTransaction();
-		        int panierId = 1; // Remplacez 1 par l'ID du panier que vous souhaitez récupérer
-		        panier = (Panier) session.get(Panier.class, panierId);
-		        Hibernate.initialize(panier.getLignesPanier()); // Assurez-vous que les lignes de panier sont chargées
-		        transaction.commit();
-		    } catch (HibernateException e) {
-		        if (transaction != null) {
-		            transaction.rollback();
-		        }
-		        e.printStackTrace();
-		    } finally {
-		        session.close();
-		    }
-		    
-		    request.setAttribute("panier", panier);
-		    request.getRequestDispatcher("panier.jsp").forward(request, response);
-		}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        PanierDAO panierDAO = new PanierDAO();
+        int panierId = 1;
+        Panier panier = panierDAO.getPanierById(panierId);
+        if (panier != null) {
+            // Afficher les détails du panier
+            System.out.println("ID Panier: " + panier.getIdPanier());
+            System.out.println("Date de création: " + panier.getDateCreation());
+            // Afficher les lignes de panier
+            System.out.println("Contenu du panier:");
+            for (LignePanier lignePanier : panier.getLignesPanier()) {
+                System.out.println("Produit: " + lignePanier.getProduit().getNomProduit() + ", Quantité: "
+                        + lignePanier.getQuantite());
+                // Afficher d'autres détails de la ligne de panier selon vos besoins
+            }
+            // Ajouter le panier à la requête avec le nom correct
+            request.setAttribute("panier", panier);
+        } else {
+            System.out.println("Le panier est introuvable.");
+        }
+        // Rediriger vers Panier.jsp
+        request.getRequestDispatcher("/Panier.jsp").forward(request, response);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        doGet(request, response);
+    }
 
 }

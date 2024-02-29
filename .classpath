@@ -28,12 +28,12 @@
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/widad/Downloads/jar/javax.transaction-api-1.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/widad/Downloads/jar/jboss-logging-3.3.2.Final.jar"/>
 	<classpathentry kind="lib" path="C:/Users/widad/Downloads/jar/byte-buddy-1.14.12.jar"/>
-
 	<classpathentry kind="lib" path="C:/Users/widad/Downloads/mysql-connector-java-8.0.26.jar">
 		<attributes>
 			<attribute name="module" value="true"/>

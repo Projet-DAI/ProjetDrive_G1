@@ -57,8 +57,10 @@ public class ConnexionServlet extends HttpServlet {
 	            HttpSession s = request.getSession();
 	            s.setAttribute("username", username);
 	            
-	            request.getRequestDispatcher("ShopServlet").forward(request, response);
+	            //request.getRequestDispatcher("ShopServlet").forward(request, response);
 	            //response.sendRedirect("servletCentral?method=shop");
+	            request.getRequestDispatcher("shop").forward(request, response);
+	            
 	            
 	        	//request.("servletCentral?method=shop").forward(request, response);
 	        } else {

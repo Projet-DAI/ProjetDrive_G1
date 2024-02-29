@@ -61,7 +61,7 @@
                             out.println("                <span class=\"discount\">" + new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) + "</span>");
                             out.println("                <span class=\"reguler\">" + new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit()) + "</span>");
                             out.println("            </div>");
-                            out.println("            <a href=\"servletCentral?method=detailProduct&productId=" + produit.getIdProduit() + "\" class=\"btn btn-block btn-primary\">");
+                            out.println("            <a href=\"detail?productId=" + produit.getIdProduit() + "\" class=\"btn btn-block btn-primary\">");
                             out.println("                Afficher les détails");
                             out.println("            </a>");
                             out.println("        </div>");

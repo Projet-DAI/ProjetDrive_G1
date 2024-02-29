@@ -48,7 +48,7 @@
                     		</div>
                     	</li>
                         <li class="nav-item">
-                            <a href="shop.html" class="nav-link">Faire ses courses</a>
+                            <a href="shop" class="nav-link">Faire ses courses</a>
                         </li>
                         <% 
                         	String nomU = (String)session.getAttribute("username"); 

@@ -35,6 +35,7 @@
                         <% } %> --%>
                         <p><strong>Nutriscore:</strong> ${product.nutriscore}</p>
                         <p><strong>Category ID:</strong> ${product.categorie.idCategorie}</p>
+                        <p><strong>Description:</strong> ${product.description}</p>
                         <!-- Quantity and Add to Cart Button -->
                         <p class="mb-1"><strong>Quantity</strong></p>
                         <div class="row mb-3">

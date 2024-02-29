@@ -85,7 +85,8 @@ public class ProduitDAO{
 		  product.getPrixProduit()); System.out.println("Product Brand: " +
 		  product.getMarqueProduit()); System.out.println("Product Promotion: " +
 		  product.isPromotion()); System.out.println("Product Promotion Percentage: " +
-		  product.getPourcentagePromotion());
+		  product.getPourcentagePromotion());System.out.println("Product description: " +
+				  product.getDescription());
 		  System.out.println("Product Image Address: " +
 		  product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
 		  + product.getNutriscore()); System.out.println("Product Category ID: " +

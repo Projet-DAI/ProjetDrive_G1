@@ -8,7 +8,9 @@
 <title>Drive</title>
 </head>
 <body>
+
      <jsp:include flush="true" page="head.jsp"></jsp:include>
+     
      <div id="page-content" class="page-content">
         <div class="banner">
             <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
@@ -20,10 +22,10 @@
 
                     <div class="card card-login mb-5">
                         <div class="card-body">
-                            <form class="form-horizontal" action="">
+                            <form class="form-horizontal" action="/ProjetDrive_G1/Connexion" method="post">
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12">
-                                        <input class="form-control" type="text" required="" name="identifiant" placeholder="Identifiant">
+                                        <input class="form-control" type="email" required="" name="email" placeholder="ex.chloe.dupont@hotmail.com">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -47,19 +49,13 @@
                                 </div>
                             </form>
                             <% 
-        String identifiant = request.getParameter("identifiant");
-        String password = request.getParameter("password");
-
-        if (identifiant != null && password != null) {
-            ClientDAO clientDAO = new ClientDAO();
-            if (clientDAO.verifierConnexion(identifiant, password)) {
-                response.sendRedirect("shop.jsp");
-            } else {
-                // Affichez un message d'erreur en cas d'échec de connexion
-                out.println("<p style='color:red;'>Identifiant ou mot de passe incorrect</p>");
-            }
-        }
-    %>
+						        String msg = (String)request.getAttribute("msgE");
+						
+						        if (msg != null) {
+									// Affichez un message d'erreur en cas d'échec de connexion
+									out.println("<p style='color:red;'>Identifiant ou mot de passe incorrect</p>");
+						        }
+						    %>
                         </div>
                     </div>
                 </div>

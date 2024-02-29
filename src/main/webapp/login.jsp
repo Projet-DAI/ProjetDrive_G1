@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="Model.DAO.ClientDAO" %>
+<%@ page import="Model.metier.Client" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,9 +53,15 @@
         String password = request.getParameter("password");
 
         if (identifiant != null && password != null) {
-            ClientDAO clientDAO = new ClientDAO();
-            if (clientDAO.verifierConnexion(identifiant, password)) {
-                response.sendRedirect("shop.jsp");
+            Client client = new Client();
+
+            if (client.verifierConnexion(identifiant, password)) {
+    	        RequestDispatcher rd;
+    	        String url="shop.jsp";
+	        	 rd = request.getRequestDispatcher(url);
+	        	 rd.forward(request,response);
+
+                //response.sendRedirect("shop.jsp");
             } else {
                 // Affichez un message d'erreur en cas d'échec de connexion
                 out.println("<p style='color:red;'>Identifiant ou mot de passe incorrect</p>");

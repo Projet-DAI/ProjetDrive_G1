@@ -14,8 +14,9 @@ public class ClientDAO {
 	   public boolean verifierConnexion(String nomUtilisateur, String motDePasse) {
 	        boolean isValidUser = false;
 	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction tx = session.beginTransaction();
+	        Transaction tx = null;
 	        try {
+	            tx = session.beginTransaction();
 	          
 	            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :username AND pwdClient = :password");
 	            query.setParameter("username", nomUtilisateur);
@@ -29,6 +30,9 @@ public class ClientDAO {
 
 	            tx.commit();
 	        } catch (Exception e) {
+	        	 if (tx != null) {
+	                 tx.rollback();
+	             }
 	            e.printStackTrace();
 	        } finally {
 	            session.close();
@@ -37,25 +41,26 @@ public class ClientDAO {
 	        return isValidUser;
 	    }
 
-	    public List<LignePanier> getProduitsDansPanier(Client client) {
-	        List<LignePanier> produits = null;
-	        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	        Transaction transaction = session.beginTransaction();
+	   public List<LignePanier> getProduitsDansPanier(Client client) {
+		    List<LignePanier> produits = null;
+		    Session session = HibernateUtil.getSessionFactory().openSession();
+		    Transaction transaction = null;
+		    try {
+		        transaction = session.beginTransaction();
+		        Query<LignePanier> query = session.createQuery("FROM LignePanier lp WHERE lp.panier.client = :client", LignePanier.class);
+		        query.setParameter("client", client);
+		        produits = query.list();
 
-	        try {
-	            // Requête pour récupérer les lignes de panier associées au client spécifié
-	            Query<LignePanier> query = session.createQuery("FROM LignePanier lp WHERE lp.panier.client = :client", LignePanier.class);
-	            query.setParameter("client", client);
-	            produits = query.list();
+		        transaction.commit();
+		    } catch (Exception e) {
+		        if (transaction != null) {
+		            transaction.rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        session.close();
+		    }
 
-	            transaction.commit();
-	        } catch (Exception e) {
-	            transaction.rollback();
-	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
-
-	        return produits;
-	    }
+		    return produits;
+		}
 }

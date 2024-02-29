@@ -32,6 +32,9 @@ public class Produit {
 
     @Column(name = "Nutriscore")
     private String nutriscore;
+    
+    @Column(name = "Description")
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "IdCategorie")
@@ -44,7 +47,7 @@ public class Produit {
     private List<Approvisionnement> approvisionnements;
     
 	public Produit(String nomProduit, double prixProduit, String marqueProduit, boolean promotion,
-			double pourcentagePromotion, String adresseImageProduit, String nutriscore, Categories categorie) {
+			double pourcentagePromotion, String adresseImageProduit, String nutriscore, Categories categorie,String description) {
 		super();
 		this.nomProduit = nomProduit;
 		this.prixProduit = prixProduit;
@@ -54,6 +57,7 @@ public class Produit {
 		this.adresseImageProduit = adresseImageProduit;
 		this.nutriscore = nutriscore;
 		this.categorie = categorie;
+		this.description = description;
 	}
     
     
@@ -149,6 +153,16 @@ public class Produit {
 
 	public void setCategorie(Categories categorie) {
 		this.categorie = categorie;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
     
     

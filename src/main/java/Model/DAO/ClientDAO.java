@@ -37,6 +37,29 @@ public class ClientDAO {
 	        return isValidUser;
 	    }
 
+	   
+	    public int getPointsFideliteById(int clientId) {
+	        int pointsFidelite = 0;
+	        Transaction transaction = null;
+
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            transaction = session.beginTransaction();
+
+	            String sql = "SELECT PointFideliteClient FROM client WHERE IdClient = :clientId";
+	            Query<Integer> query = session.createQuery(sql, Integer.class);
+	            query.setParameter("clientId", clientId);
+
+	            pointsFidelite = query.uniqueResult();
+
+	            transaction.commit();
+	        } catch (Exception e) {
+
+	            e.printStackTrace();
+	        }
+	        return pointsFidelite;
+	    }
+	    
+	    
 	    public List<LignePanier> getProduitsDansPanier(Client client) {
 	        List<LignePanier> produits = null;
 	        Session session = HibernateUtil.getSessionFactory().getCurrentSession();

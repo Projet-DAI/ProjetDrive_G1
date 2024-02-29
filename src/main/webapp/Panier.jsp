@@ -222,39 +222,47 @@
 						
 						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
 						    
-						 <script type="text/javascript">
-						    // Initialiser le total à partir de la valeur côté serveur
-						    var totalPanier = parseFloat('<%= String.valueOf(total) %>');
-						    // Initialiser le total mis à jour à zéro
-						    var nouveauTotalPanier = 0;
+<script type="text/javascript">
+    // Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
+    var totalPanierString = '<%= String.valueOf(total) %>';
+    // Initialiser le total mis à jour à zéro
+    var nouveauTotalPanier = 0;
 
-						    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
-						    function updateNouveauTotalPanier() {
-						        // Mettre à jour l'élément HTML avec le nouveau total
-						        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
-						    }
+    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
+    function updateNouveauTotalPanier() {
+        // Mettre à jour l'élément HTML avec le nouveau total
+        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
+    }
 
-						    // Fonction pour effectuer le calcul du nouveau total
-						    function calculerNouveauTotal(pointsFidelite) {
-						        var reductionEnEuros = pointsFidelite / 10.0;
-						        nouveauTotalPanier = totalPanier - reductionEnEuros;
+    // Fonction pour effectuer le calcul du nouveau total
+    function calculerNouveauTotal(pointsFidelite) {
+        // Convertir la valeur du total en nombre
+        var totalPanier = parseFloat(totalPanierString.replace(",", "."));
 
-						        // Appeler la fonction pour mettre à jour le nouveau total dans l'interface utilisateur
-						        updateNouveauTotalPanier();
+        // Vérifier si la conversion est un nombre valide
+        if (!isNaN(totalPanier)) {
+            var reductionEnEuros = pointsFidelite / 10.0;
+            nouveauTotalPanier = totalPanier - reductionEnEuros;
 
-						        // Afficher une alerte pour déboguer
-						        alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
-						    }
+            // Mettre à jour le nouveau total dans l'interface utilisateur
+            updateNouveauTotalPanier();
 
-						    // Code existant pour l'événement 'voirPointsFidelitebtn'
-						    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
-						        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+            // Afficher une alerte pour déboguer
+            alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+        } else {
+            // Gérer l'erreur si la conversion n'est pas un nombre valide
+            console.error("Erreur de conversion du total en nombre.");
+        }
+    }
 
-						        // Appeler la fonction pour calculer et mettre à jour le nouveau total
-						        calculerNouveauTotal(pointsFidelite);
-						    });						 
-						</script>
-                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
+    // Code existant pour l'événement 'voirPointsFidelitebtn'
+    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+
+        // Appeler la fonction pour calculer et mettre à jour le nouveau total
+        calculerNouveauTotal(pointsFidelite);
+    });
+</script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
 
                         <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>

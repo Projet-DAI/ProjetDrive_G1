@@ -41,48 +41,53 @@ public class ClientDAO {
 	        return isValidUser;
 	    }
 
-	   public int getPointsFideliteById(int clientId) {
+	    public int getPointsFideliteById(int clientId) {
 	        int pointsFidelite = 0;
 	        Transaction transaction = null;
 
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 	            transaction = session.beginTransaction();
 
-	            String sql = "SELECT pointFideliteClient FROM Client WHERE idClient = :clientId";
-	            Query<Integer> query = session.createQuery(sql, Integer.class);
-	            query.setParameter("clientId", clientId);
+	            // Récupérer le client par son ID
+	            Client client = session.get(Client.class, clientId);
 
-	            pointsFidelite = query.uniqueResult();
+	            if (client != null) {
+	                // Récupérer les points de fidélité du client
+	                pointsFidelite = client.getPointFideliteClient();
+	            }
 
 	            transaction.commit();
 	        } catch (Exception e) {
-
+	            if (transaction != null) {
+	                transaction.rollback();
+	            }
 	            e.printStackTrace();
 	        }
 	        
 	        return pointsFidelite;}
-	   
-	   
-	   public List<LignePanier> getProduitsDansPanier(Client client) {
-		    List<LignePanier> produits = null;
-		    Session session = HibernateUtil.getSessionFactory().openSession();
-		    Transaction transaction = null;
-		    try {
-		        transaction = session.beginTransaction();
-		        Query<LignePanier> query = session.createQuery("FROM LignePanier lp WHERE lp.panier.client = :client", LignePanier.class);
-		        query.setParameter("client", client);
-		        produits = query.list();
 
-		        transaction.commit();
-		    } catch (Exception e) {
-		        if (transaction != null) {
-		            transaction.rollback();
-		        }
-		        e.printStackTrace();
-		    } finally {
-		        session.close();
-		    }
+	    public int getPointsFideliteById(int clientId) {
+	        int pointsFidelite = 0;
+	        Transaction transaction = null;
 
-		    return produits;
-		}
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            transaction = session.beginTransaction();
+
+	            // Récupérer le client par son ID
+	            Client client = session.get(Client.class, clientId);
+
+	            if (client != null) {
+	                // Récupérer les points de fidélité du client
+	                pointsFidelite = client.getPointFideliteClient();
+	            }
+
+	            transaction.commit();
+	        } catch (Exception e) {
+	            if (transaction != null) {
+	                transaction.rollback();
+	            }
+	            e.printStackTrace();
+	        }
+	        return pointsFidelite;
+	    }
 }

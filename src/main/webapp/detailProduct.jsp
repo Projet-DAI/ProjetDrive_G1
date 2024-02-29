@@ -16,7 +16,7 @@
         // Récupérer les détails du produit en fonction de son ID
         Produit product = null;
         try {
-            product = hibernateMethode.getProduitById(idProduit);
+            product = hibernateMethode.getProductById(idProduit);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="Model.metier.Panier"%>
+<%@page import="Model.metier.Produit"%>
+<%@ page import="java.util.List" %>
+<%@ page import="Model.metier.LignePanier" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,71 +73,60 @@
                           </li>
                         <li class="nav-item dropdown">
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary">5</span>
+                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= numberOfItemsInCart %></span>
                             </a>
                             <div class="dropdown-menu shopping-cart">
                                 <ul>
                                     <li>
-                                        <div class="drop-title">Your Cart</div>
+                                        <div class="drop-title">Mon Panier</div>
                                     </li>
+                                     <%-- Contenu du panier --%>
+                                    <% List<Produit> listeProduitsPanier = (List<Produit>) session.getAttribute("panier"); %>
+                                    <% if (listeProduitsPanier != null && !listeProduitsPanier.isEmpty()) { %>
+                                        <% for (Produit produit : listeProduitsPanier) { %>
+                                            <li>
+                                                <div class="shopping-cart-list">
+                                                    <div class="media">
+                                                        <img class="d-flex mr-3" src="<%= produit.getAdresseImageProduit() %>" width="60">
+                                                        <div class="media-body">
+                                                            <h5><a href="javascript:void(0)"><%= produit.getNomProduit() %></a></h5>
+                                                            <p class="price">
+                                                                <span class="discount text-muted"><%= produit.getPrixProduit() %></span>
+                                                                <span><%= produit.getPrixProduit() %></span>
+                                                            </p>
+                                                            <p class="text-muted">Qty: 1</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        <%} %>
+                  
                                     <li>
-                                        <div class="shopping-cart-list">
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
+                                  
                                         <div class="drop-title d-flex justify-content-between">
+                                        <%
+										    // Initialiser le prix total à zéro
+										    double totalPrice = 0.0;
+										
+										    // Vérifier si le panier n'est pas vide
+										    if (panier != null && !panier.getLignesPanier().isEmpty()) {
+										        // Parcourir chaque ligne du panier
+										        for (LignePanier lignePanier : panier.getLignesPanier()) {
+										            // Calculer le prix total pour cette ligne (prix du produit * quantité)
+										            double lineTotal = lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+										            // Ajouter le prix total de cette ligne au prix total global
+										            totalPrice += lineTotal;
+										        }
+										    }
+										%>
                                             <span>Total:</span>
-                                            <span class="text-primary"><strong>Rp. 2000.000</strong></span>
+                                            <span class="text-primary"><strong><%= totalPrice %> €</strong></span>
                                         </div>
                                     </li>
-                                    <li class="d-flex justify-content-between pl-3 pr-3 pt-3">
-                                        <a href="cart.html" class="btn btn-secondary">View Cart</a>
-                                        <a href="checkout.html" class="btn btn-primary">Checkout</a>
-                                    </li>
+                                   <% } else { %>
+                                        <li><p>Aucun produit dans le panier</p></li>
+                                    <% } %>
+                                    <%-- Fin contenu du panier --%>
                                 </ul>
                             </div>
                         </li>

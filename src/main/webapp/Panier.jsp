@@ -219,7 +219,10 @@
 						        }
 						    }
 						%>
+						
+						<% double nouveauTotalPanier = 0.0;%>
 						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
+						    
 						    <script type="text/javascript">
 
                                   document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
@@ -232,17 +235,19 @@
                                   int pointsFidelite = clientDAO.getPointsFideliteById(clientId);
 
                                   double reductionEnEuros = pointsFidelite / 10.0;
-            
-                                  var nouveauTotal = totalPanier - reductionEnEuros;
                                   
-                                  document.getElementById('nouveauTotalPanier').innerText = nouveauTotal;
+                                  var nouveauTotalPanier = <%= nouveauTotalPanier %>;
+            
+                                  //var nouveauTotal = totalPanier - reductionEnEuros;
+                                  
+                                  document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier;
 
             
                                 });
 
                              </script>
                              
-                             <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span> </h6>
+                             <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span> <%= nouveauTotalPanier %> €</h6>
 
                         <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>
                     </div>

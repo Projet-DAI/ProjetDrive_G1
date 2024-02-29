@@ -223,31 +223,38 @@
 						<% double nouveauTotalPanier = 0.0;%>
 						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
 						    
-						    <script type="text/javascript">
+						 <script type="text/javascript">
+						    function updateNouveauTotalPanier(nouveauTotal) {
+						        document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
+						    }
 
-                                  document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
-                                  //var clientId = 1; 
+						    function updateTotalOnInit() {
+						        var totalPanier = <%= total %>;
 
-                                  var totalPanier = <%= total %>;
+						        var pointsFidelite = 100; 
+						        var reductionEnEuros = pointsFidelite / 10.0;
+						        var nouveauTotal = totalPanier - reductionEnEuros;
 
-                                  ClientDAO clientDAO = new ClientDAO();
-                                  int clientId = 1; 
-                                  int pointsFidelite = clientDAO.getPointsFideliteById(clientId);
+						        
+						        updateNouveauTotalPanier(nouveauTotal);
+						    }
 
-                                  double reductionEnEuros = pointsFidelite / 10.0;
-                                  
-                                  var nouveauTotalPanier = <%= nouveauTotalPanier %>;
-            
-                                  //var nouveauTotal = totalPanier - reductionEnEuros;
-                                  
-                                  document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier;
+						    window.onload = function() {
+						        updateTotalOnInit();
+						    };
 
-            
-                                });
+						    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+						        var totalPanier = <%= total %>;
 
+						        var pointsFidelite = 100; 
+						        var reductionEnEuros = pointsFidelite / 10.0;
+						        var nouveauTotal = totalPanier - reductionEnEuros;
+
+						        updateNouveauTotalPanier(nouveauTotal);
+						    });
                              </script>
                              
-                             <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span> <%= nouveauTotalPanier %> €</h6>
+                        <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
 
                         <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>
                     </div>

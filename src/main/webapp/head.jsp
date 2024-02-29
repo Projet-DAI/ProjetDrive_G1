@@ -50,16 +50,32 @@
                         <li class="nav-item">
                             <a href="shop.html" class="nav-link">Faire ses courses</a>
                         </li>
+                        <% 
+                        	String nomU = (String)session.getAttribute("username"); 
+                        	if (nomU != null){ 
+                        %>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div> 
+                                <%= nomU %>
+                            </a> 
+                            
+                        <% } else { %>
                         <li class="nav-item">
                             <a href="register.html" class="nav-link">S'inscrire</a>
                         </li>
+                        
                         <li class="nav-item">
-                            <a href="login.html" class="nav-link">Se connecter</a>
+                            <a href="login.jsp" class="nav-link">Se connecter</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div> Mon profil
-                            </a>
+                                <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div> 
+                                Mon Profil
+                            </a>                
+                        <% } %>
+ 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="transaction.html">Mon historique de commandes</a>
                                 <a class="dropdown-item" href="setting.html">Paramètres</a>

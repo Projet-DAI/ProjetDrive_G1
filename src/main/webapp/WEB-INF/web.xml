@@ -9,6 +9,7 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+
   <servlet>
     <description></description>
     <display-name>index</display-name>
@@ -29,4 +30,5 @@
     <servlet-name>shop</servlet-name>
     <url-pattern>/shop</url-pattern>
   </servlet-mapping>
+
 </web-app>

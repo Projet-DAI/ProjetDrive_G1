@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +21,7 @@
                     </p>
                     <div class="card card-login mb-5">
                         <div class="card-body">
-                            <form class="form-horizontal" action="inscription" method="post">
+                            <form class="form-horizontal" action="Connexion">
                             
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12">

@@ -1,5 +1,7 @@
 package Model.metier;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,9 @@ public class Rayon {
 
     @Column(name = "NomRayon")
     private String nomRayon;
+    
+    @OneToMany(mappedBy = "rayon", cascade = CascadeType.ALL)
+    private List<Categories> categories;
 
 	public Rayon(String nomRayon) {
 		super();

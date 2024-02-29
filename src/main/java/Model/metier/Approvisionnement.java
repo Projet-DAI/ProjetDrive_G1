@@ -2,6 +2,7 @@ package Model.metier;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Approvisionnement")
@@ -11,9 +12,8 @@ public class Approvisionnement {
     @Column(name = "IdApprovisionnement")
     private int idApprovisionnement;
 
-    @ManyToOne
-    @JoinColumn(name = "IdProduit")
-    private Produit produit;
+    @ManyToMany(mappedBy = "approvisionnements")
+    private List<Produit> produits;
 
     @Column(name = "DateApprovisionnement")
     private Date dateApprovisionnement;
@@ -21,9 +21,9 @@ public class Approvisionnement {
     @Column(name = "QuantiteApprovisionnement")
     private int quantiteApprovisionnement;
 
-	public Approvisionnement(Produit produit, Date dateApprovisionnement, int quantiteApprovisionnement) {
+	public Approvisionnement(List<Produit> produits, Date dateApprovisionnement, int quantiteApprovisionnement) {
 		super();
-		this.produit = produit;
+		this.produits = produits;
 		this.dateApprovisionnement = dateApprovisionnement;
 		this.quantiteApprovisionnement = quantiteApprovisionnement;
 	}
@@ -40,12 +40,14 @@ public class Approvisionnement {
 		this.idApprovisionnement = idApprovisionnement;
 	}
 
-	public Produit getProduit() {
-		return produit;
+
+
+	public List<Produit> getProduits() {
+		return produits;
 	}
 
-	public void setProduit(Produit produit) {
-		this.produit = produit;
+	public void setProduits(List<Produit> produits) {
+		this.produits = produits;
 	}
 
 	public Date getDateApprovisionnement() {

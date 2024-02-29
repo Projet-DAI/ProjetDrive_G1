@@ -1,6 +1,7 @@
 package Model.metier;
 
 import javax.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -11,14 +12,26 @@ public class Client {
     @Column(name = "IdClient")
     private int idClient;
 
-    @Column(name = "NomClient")
-    private String nomClient;
+    @Column(name = "NomCompletClient")
+    private String nomCompletClient;
 
-    @Column(name = "PrenomClient")
-    private String prenomClient;
+    @Column(name = "NomUtilisateurClient")
+    private String nomUtilisateurClient;
 
-    @Column(name = "emailClient")
+    @Override
+	public String toString() {
+		return "Client [idClient=" + idClient + ", nomCompletClient=" + nomCompletClient + ", nomUtilisateurClient="
+				+ nomUtilisateurClient + ", emailClient=" + emailClient + ", telephoneClient=" + telephoneClient
+				+ ", pwdClient=" + pwdClient + ", pointFideliteClient=" + pointFideliteClient + ", commandes="
+				+ commandes + "]";
+	}
+
+
+	@Column(name = "emailClient")
     private String emailClient;
+    
+    @Column(name = "telephoneClient")
+    private String telephoneClient;
 
     @Column(name = "PwdClient")
     private String pwdClient;
@@ -28,12 +41,16 @@ public class Client {
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Commande> commandes;
+    
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
+    private Panier panier;
 
-	public Client(String nomClient, String prenomClient, String emailClient, String pwdClient,
+	public Client(String nomCompletClient, String nomUtilisateurClient, String emailClient, String telephoneClient, String pwdClient,
 			int pointFideliteClient, List<Commande> commandes) {
 		super();
-		this.nomClient = nomClient;
-		this.prenomClient = prenomClient;
+		this.telephoneClient = telephoneClient;
+		this.nomCompletClient = nomCompletClient;
+		this.nomUtilisateurClient = nomUtilisateurClient;
 		this.emailClient = emailClient;
 		this.pwdClient = pwdClient;
 		this.pointFideliteClient = pointFideliteClient;
@@ -45,6 +62,9 @@ public class Client {
     	
     }
 
+    public boolean verifierConnexion(String nomUtilisateur, String motDePasse) {
+        return this.nomUtilisateurClient.equals(nomUtilisateur) && this.pwdClient.equals(motDePasse);
+    }
 
 	public int getIdClient() {
 		return idClient;
@@ -56,24 +76,35 @@ public class Client {
 	}
 
 
-	public String getNomClient() {
-		return nomClient;
+	public String getNomCompletClient() {
+		return nomCompletClient;
 	}
 
 
-	public void setNomClient(String nomClient) {
-		this.nomClient = nomClient;
+	public void setNomCompletClient(String nomCompletClient) {
+		this.nomCompletClient = nomCompletClient;
 	}
 
 
-	public String getPrenomClient() {
-		return prenomClient;
+	public String getNomUtilisateurClient() {
+		return nomUtilisateurClient;
 	}
 
 
-	public void setPrenomClient(String prenomClient) {
-		this.prenomClient = prenomClient;
+	public void setNomUtilisateurClient(String nomUtilisateurClient) {
+		this.nomUtilisateurClient = nomUtilisateurClient;
 	}
+
+
+	public String getTelephoneClient() {
+		return telephoneClient;
+	}
+
+
+	public void setTelephoneClient(String telephoneClient) {
+		this.telephoneClient = telephoneClient;
+	}
+
 
 
 	public String getEmailClient() {
@@ -115,6 +146,4 @@ public class Client {
 		this.commandes = commandes;
 	}
     
-    
-
 }

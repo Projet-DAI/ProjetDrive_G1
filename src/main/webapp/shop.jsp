@@ -9,7 +9,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Page d'achat</title>
+
 </head>
 <body>
 
@@ -61,7 +63,7 @@
                             out.println("                <span class=\"reguler\">" + new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit()) + "</span>");
                             out.println("            </div>");
                             out.println("            <a href=\"servletCentral?method=detailProduct&productId=" + produit.getIdProduit() + "\" class=\"btn btn-block btn-primary\">");
-                            out.println("                Afficher les détails");
+                            out.println("                Afficher les dÃ©tails");
                             out.println("            </a>");
                             out.println("        </div>");
                             out.println("    </div>");

@@ -223,36 +223,17 @@
 						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
 						    
 						 <script type="text/javascript">
-						    // Fonction pour mettre à jour le nouveau total
+						    // Initialiser le nouveau total à zéro lors du chargement de la page
+						    var nouveauTotalPanier = 0;
+
+						    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
 						    function updateNouveauTotalPanier(nouveauTotal) {
 						        // Mettre à jour l'élément HTML avec le nouveau total
 						        document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
 						    }
 
-						    // Fonction pour mettre à jour le total lors du chargement initial
-						    function updateTotalOnInit() {
-						        var totalPanier = <%= total %>;
-
-						        // Logique pour calculer le nouveauTotal directement dans la page JSP
-						        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
-						        var reductionEnEuros = pointsFidelite / 10.0;
-						        var nouveauTotal = totalPanier - reductionEnEuros;
-
-						        // Appeler la fonction pour mettre à jour le nouveau total
-						        updateNouveauTotalPanier(nouveauTotal);
-						    }
-
-						    // Appeler la fonction pour mettre à jour le total lors du chargement initial
-						    window.onload = function() {
-						        updateTotalOnInit();
-						    };
-
-						    // Code existant pour l'événement 'voirPointsFidelitebtn'
-						    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
-						        var totalPanier = <%= total %>;
-
-						        // Logique pour calculer le nouveauTotal directement dans la page JSP
-						        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+						    // Fonction pour effectuer le calcul du nouveau total
+						    function calculerNouveauTotal(totalPanier, pointsFidelite) {
 						        var reductionEnEuros = pointsFidelite / 10.0;
 						        var nouveauTotal = totalPanier - reductionEnEuros;
 
@@ -261,8 +242,25 @@
 
 						        // Afficher une alerte pour déboguer
 						        alert("Nouveau total calculé : " + nouveauTotal.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
-						    });                             
-						</script>
+						    }
+
+						    // Appeler la fonction pour calculer le nouveau total lors du chargement initial
+						    window.onload = function() {
+						        var totalPanier = <%= total %>;
+						        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+
+						        // Appeler la fonction pour calculer et mettre à jour le nouveau total
+						        calculerNouveauTotal(totalPanier, pointsFidelite);
+						    };
+
+						    // Code existant pour l'événement 'voirPointsFidelitebtn'
+						    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+						        var totalPanier = <%= total %>;
+						        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+
+						        // Appeler la fonction pour calculer et mettre à jour le nouveau total
+						        calculerNouveauTotal(totalPanier, pointsFidelite);
+						    });						</script>
                         <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
 

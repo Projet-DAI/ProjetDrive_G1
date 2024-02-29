@@ -19,15 +19,15 @@
 
                     <div class="card card-login mb-5">
                         <div class="card-body">
-                            <form class="form-horizontal" action="Connexion" method="post">
+                            <form class="form-horizontal" action="Connexion">
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12">
-                                        <input class="form-control" type="text" required="" name="nomUtilisateurClient" placeholder="Identifiant">
+                                        <input class="form-control" type="text" required="" name="identifiant" placeholder="Identifiant">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-12">
-                                        <input class="form-control" type="password" required="" name="pwdClient" placeholder="Mot de passe">
+                                        <input class="form-control" type="password" required="" name="password" placeholder="Mot de passe">
                                     </div>
                                 </div>
                                 <div class="form-group row">

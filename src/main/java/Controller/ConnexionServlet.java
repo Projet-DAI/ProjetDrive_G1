@@ -36,8 +36,35 @@ public class ConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+        
+		System.out.println("nom "+request.getParameter("nomUtilisateurClient"));
+		String identifiant = request.getParameter("nomUtilisateurClient");
+        String motDePasse = request.getParameter("pwdClient");
+
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+
+        try {
+            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :identifiant",Client.class);
+            query.setParameter("identifiant", identifiant);
+            query.setParameter("motDePasse", motDePasse);
+
+            List<Client> clients = query.list();
+
+            if (!clients.isEmpty() && clients.get(0).verifierConnexion(identifiant, motDePasse)) {
+                // Utilisateur connecté avec succès
+                response.sendRedirect("shop.jsp");
+                System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
+            } else {
+                // Échec de la connexion
+                System.out.println("Connexion echouée");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
 	}
 
 	/**
@@ -45,6 +72,7 @@ public class ConnexionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		System.out.println("POST");
         String identifiant = request.getParameter("nomUtilisateurClient");
         String motDePasse = request.getParameter("pwdClient");
 
@@ -60,7 +88,7 @@ public class ConnexionServlet extends HttpServlet {
 
             if (!clients.isEmpty() && clients.get(0).verifierConnexion(identifiant, motDePasse)) {
                 // Utilisateur connecté avec succès
-                response.sendRedirect("accueil.jsp");
+                response.sendRedirect("shop.jsp");
                 System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
             } else {
                 // Échec de la connexion
@@ -74,4 +102,5 @@ public class ConnexionServlet extends HttpServlet {
         }
 
 	}
+	
 }

@@ -14,10 +14,6 @@ public class Produit {
 
     @Column(name = "NomProduit")
     private String nomProduit;
-    
-    @Column(name = "description")
-    private String description;
-
 
     @Column(name = "PrixProduit")
     private double prixProduit;
@@ -47,11 +43,10 @@ public class Produit {
                inverseJoinColumns = @JoinColumn(name = "approvisionnement_id"))
     private List<Approvisionnement> approvisionnements;
     
-	public Produit(String nomProduit, String descritpion, double prixProduit, String marqueProduit, boolean promotion,
+	public Produit(String nomProduit, double prixProduit, String marqueProduit, boolean promotion,
 			double pourcentagePromotion, String adresseImageProduit, String nutriscore, Categories categorie) {
 		super();
 		this.nomProduit = nomProduit;
-		this.description=description;
 		this.prixProduit = prixProduit;
 		this.marqueProduit = marqueProduit;
 		this.promotion = promotion;
@@ -154,26 +149,6 @@ public class Produit {
 
 	public void setCategorie(Categories categorie) {
 		this.categorie = categorie;
-	}
-
-
-	public String getDescription() {
-		return description;
-	}
-
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-
-	public List<Approvisionnement> getApprovisionnements() {
-		return approvisionnements;
-	}
-
-
-	public void setApprovisionnements(List<Approvisionnement> approvisionnements) {
-		this.approvisionnements = approvisionnements;
 	}
     
     

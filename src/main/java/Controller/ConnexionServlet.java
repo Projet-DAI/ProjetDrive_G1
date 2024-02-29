@@ -22,7 +22,7 @@ import Model.metier.Client;
 /**
  * Servlet implementation class ConnexionServlet
  */
-@WebServlet("/ConnexionServlet")
+@WebServlet("/Connexion")
 public class ConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1"%>
-    
+	pageEncoding="ISO-8859-1"%>
+
 <%@page import="java.util.List"%>
 <%@page import="Model.metier.Produit"%>
 
@@ -15,30 +15,31 @@
 </head>
 <body>
 
-    <jsp:include flush="true" page="head.jsp"></jsp:include>
-    
-    <% List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");%>
-    
-    <div id="page-content" class="page-content">
-    	<div class="banner">
-            <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
-                <div class="container">
-                    <h1 class="pt-5">Page d'achat</h1>
-                </div>
-            </div>
-        </div>
-        
-        <jsp:include flush="true" page="rayon.jsp"></jsp:include>
-        
-    </div>
-    
-    <section id="most-wanted">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="title">Produits en promotion</h2>
-                <div class="product-carousel owl-carousel">
-                    <%
+	<jsp:include flush="true" page="head.jsp"></jsp:include>
+
+	<% List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");%>
+
+	<div id="page-content" class="page-content">
+		<div class="banner">
+			<div class="jumbotron jumbotron-bg text-center rounded-0"
+				style="background-image: url('assets/img/bg-header.jpg');">
+				<div class="container">
+					<h1 class="pt-5">Page d'achat</h1>
+				</div>
+			</div>
+		</div>
+
+		<jsp:include flush="true" page="rayon.jsp"></jsp:include>
+
+	</div>
+
+	<section id="most-wanted">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2 class="title">Produits en promotion</h2>
+					<div class="product-carousel owl-carousel">
+						<%
                         for(Produit produit : liste) {
                             out.println("<div class=\"item\">");
                             out.println("    <div class=\"card card-product\">");
@@ -70,15 +71,15 @@
                             out.println("</div>");
 	                        }
 	                    %>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
-        
-    </div>
-    <a href="servletCentral?method=accueil"><bouton class="bouton">Retour</bouton></a>
-    
-    <jsp:include flush="true" page="footer.jsp"></jsp:include>
+
+	</div>
+	<a href="servletCentral?method=accueil"><bouton class="bouton">Retour</bouton></a>
+
+	<jsp:include flush="true" page="footer.jsp"></jsp:include>
 </body>
 </html>

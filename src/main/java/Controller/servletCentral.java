@@ -1,4 +1,4 @@
-package ctrl;
+package Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.DAO.hibernateMethode;
+import Model.DAO.ProduitDAO;
 import Model.metier.Produit;
 
 /**
@@ -44,7 +44,7 @@ public class servletCentral extends HttpServlet {
             case "shop":
                 try {
                     // lire la liste des messages
-                    List<Produit> promotedProducts = hibernateMethode.getProduitsProm();                   
+                    List<Produit> promotedProducts = ProduitDAO.getProduitsProm();                   
                     // chainage vers la vue "Afficher.jsp" avec la liste 
                     request.setAttribute("liste_msg", promotedProducts);
                     // Page d'affichage des informations
@@ -61,7 +61,7 @@ public class servletCentral extends HttpServlet {
             	if(productIdStr != null && !productIdStr.isEmpty()) {
             		try {
             			int productId = Integer.parseInt(productIdStr);
-            			Produit product = hibernateMethode.getProductById(productId);
+            			Produit product = ProduitDAO.getProductById(productId);
             			request.setAttribute("product", product);
                         request.getRequestDispatcher("detailProduct.jsp").forward(request, response);
                 	}catch(Exception ex){

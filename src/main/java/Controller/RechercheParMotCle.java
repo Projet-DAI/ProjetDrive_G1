@@ -1,4 +1,4 @@
-package ctrl;
+package Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.DAO.hibernateMethode;
+import Model.DAO.ProduitDAO;
 import Model.metier.Produit;
 
 /**
@@ -36,7 +36,7 @@ public class RechercheParMotCle extends HttpServlet {
 		
 		List<Produit> listP = new ArrayList<Produit>();
 		try {
-			listP = hibernateMethode.rechercheParMotCle(mot);
+			listP = ProduitDAO.rechercheParMotCle(mot);
 //			System.out.println(listP.size());
 		
 //		for (Produit p : listP) {

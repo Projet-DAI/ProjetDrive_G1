@@ -10,7 +10,7 @@ import org.hibernate.HibernateException;
 
 import Model.metier.Produit;
 
-public class hibernateMethode {
+public class ProduitDAO{
 	
 	// Afficher touts les produits
 	public static List<Produit> getToutsLesProduits() {

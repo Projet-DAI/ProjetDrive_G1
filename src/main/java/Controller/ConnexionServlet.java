@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,11 +52,16 @@ public class ConnexionServlet extends HttpServlet {
 	        query.setParameter("motDePasse", motDePasse);
 
 	        List<Client> clients = query.list();
+	        RequestDispatcher rd;
 
 	        if (!clients.isEmpty()) {
 	            // Utilisateur connecté avec succès
-	            response.sendRedirect("shop.jsp");
+	        	 String url="shop.jsp";
+	        	 rd = request.getRequestDispatcher(url);
+	        	 rd.forward(request,response);
+	           // response.sendRedirect("shop.jsp");
 	            System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
+	            return;
 	        } else {
 	            // Échec de la connexion
 	            System.out.println("Connexion échouée");
@@ -87,14 +93,20 @@ public class ConnexionServlet extends HttpServlet {
             query.setParameter("motDePasse", motDePasse);
 
             List<Client> clients = query.list();
+	        RequestDispatcher rd;
 
             if (!clients.isEmpty() && clients.get(0).verifierConnexion(identifiant, motDePasse)) {
                 // Utilisateur connecté avec succès
-                response.sendRedirect("shop.jsp");
+            	String url="shop.jsp";
+	        	 rd = request.getRequestDispatcher(url);
+	        	 rd.forward(request,response);
+               // response.sendRedirect("shop.jsp");
                 System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
+                return;
             } else {
                 // Échec de la connexion
                 System.out.println("Connexion echouée");
+                
             }
 
         } catch (Exception e) {

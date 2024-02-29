@@ -223,45 +223,39 @@
 						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
 						    
 						 <script type="text/javascript">
-						    // Initialiser le nouveau total à zéro lors du chargement de la page
+						    // Initialiser le total à partir de la valeur côté serveur
+						    var totalPanier = <%= total %>;
+						    // Initialiser le total mis à jour à zéro
 						    var nouveauTotalPanier = 0;
 
 						    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
-						    function updateNouveauTotalPanier(nouveauTotal) {
+						    function updateNouveauTotalPanier() {
 						        // Mettre à jour l'élément HTML avec le nouveau total
-						        document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
+						        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
 						    }
 
 						    // Fonction pour effectuer le calcul du nouveau total
-						    function calculerNouveauTotal(totalPanier, pointsFidelite) {
+						    function calculerNouveauTotal(pointsFidelite) {
 						        var reductionEnEuros = pointsFidelite / 10.0;
-						        var nouveauTotal = totalPanier - reductionEnEuros;
+						        nouveauTotalPanier = totalPanier - reductionEnEuros;
 
-						        // Appeler la fonction pour mettre à jour le nouveau total
-						        updateNouveauTotalPanier(nouveauTotal);
+						        // Appeler la fonction pour mettre à jour le nouveau total dans l'interface utilisateur
+						        updateNouveauTotalPanier();
 
 						        // Afficher une alerte pour déboguer
-						        alert("Nouveau total calculé : " + nouveauTotal.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+						        alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
 						    }
-
-						    // Appeler la fonction pour calculer le nouveau total lors du chargement initial
-						    window.onload = function() {
-						        var totalPanier = <%= total %>;
-						        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
-
-						        // Appeler la fonction pour calculer et mettre à jour le nouveau total
-						        calculerNouveauTotal(totalPanier, pointsFidelite);
-						    };
 
 						    // Code existant pour l'événement 'voirPointsFidelitebtn'
 						    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
-						        var totalPanier = <%= total %>;
 						        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
 
 						        // Appeler la fonction pour calculer et mettre à jour le nouveau total
-						        calculerNouveauTotal(totalPanier, pointsFidelite);
-						    });						</script>
-                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
+						        calculerNouveauTotal(pointsFidelite);
+						    });
+						    
+						    
+						    <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
 
                         <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>

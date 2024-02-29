@@ -220,39 +220,49 @@
 						    }
 						%>
 						
-						<% double nouveauTotalPanier = 0.0;%>
 						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
 						    
 						 <script type="text/javascript">
+						    // Fonction pour mettre à jour le nouveau total
 						    function updateNouveauTotalPanier(nouveauTotal) {
+						        // Mettre à jour l'élément HTML avec le nouveau total
 						        document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
 						    }
 
+						    // Fonction pour mettre à jour le total lors du chargement initial
 						    function updateTotalOnInit() {
 						        var totalPanier = <%= total %>;
 
-						        var pointsFidelite = 100; 
+						        // Logique pour calculer le nouveauTotal directement dans la page JSP
+						        var pointsFidelite = 100; // Remplacez ceci par la logique pour obtenir les points de fidélité
 						        var reductionEnEuros = pointsFidelite / 10.0;
 						        var nouveauTotal = totalPanier - reductionEnEuros;
 
-						        
+						        // Appeler la fonction pour mettre à jour le nouveau total
 						        updateNouveauTotalPanier(nouveauTotal);
 						    }
 
+						    // Appeler la fonction pour mettre à jour le total lors du chargement initial
 						    window.onload = function() {
 						        updateTotalOnInit();
 						    };
 
+						    // Code existant pour l'événement 'voirPointsFidelitebtn'
 						    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
 						        var totalPanier = <%= total %>;
 
-						        var pointsFidelite = 100; 
+						        // Logique pour calculer le nouveauTotal directement dans la page JSP
+						        var pointsFidelite = 100; // Remplacez ceci par la logique pour obtenir les points de fidélité
 						        var reductionEnEuros = pointsFidelite / 10.0;
 						        var nouveauTotal = totalPanier - reductionEnEuros;
 
+						        // Appeler la fonction pour mettre à jour le nouveau total
 						        updateNouveauTotalPanier(nouveauTotal);
-						    });
-                             </script>
+
+						        // Afficher une alerte pour déboguer
+						        alert("Nouveau total calculé : " + nouveauTotal.toFixed(2) + ' €');
+						    });                             
+						</script>
                              
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
 

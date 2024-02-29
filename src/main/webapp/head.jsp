@@ -6,7 +6,12 @@
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="java.util.ArrayList" %>
 
-
+<% 
+    // Récupérer le panier depuis la requête
+    Panier panierAttribut = (Panier) request.getAttribute("panier");
+    // Vérifier si le panier est null
+    int panierSize = (panierAttribut != null) ? panierAttribut.getLignesPanier().size() : 0;
+%>
 
 <!DOCTYPE html>
 <html>
@@ -75,7 +80,7 @@
                           </li>
                         <li class="nav-item dropdown">
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= ((Panier)request.getAttribute("panier")).getLignesPanier().size() %></span>
+                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= panierSize %></span>
                             </a>
                             <div class="dropdown-menu shopping-cart">
                                 <ul>

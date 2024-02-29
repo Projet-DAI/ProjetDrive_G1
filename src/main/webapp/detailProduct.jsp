@@ -36,9 +36,10 @@
                         <p><strong>Nutriscore:</strong> ${product.nutriscore}</p>
                         <p><strong>Category ID:</strong> ${product.categorie.idCategorie}</p>
                           <!-- Formulaire pour ajouter au panier -->
-                        <form action="AjouterAuPanierServlet" method="post">
-                            <input type="hidden" name="productId" value="${product.idProduit}">
-                            <p class="mb-1"><strong>Quantity</strong></p>
+                        <form action="servletCentral" method="get">
+							 <input type="hidden" name="method" value="addToCart">
+							 <input type="hidden" name="productId" value="${product.idProduit}"> 
+							 <p class="mb-1"><strong>Quantity</strong></p>
                             <div class="row mb-3">
                                 <div class="col-sm-5">
                                     <input type="number" class="form-control" value="1" name="quantity" min="1">

@@ -74,6 +74,35 @@ public class servletCentral extends HttpServlet {
             	}
             	
             	break;
+            case "addToCart":
+                String productIdStr1 = request.getParameter("productId");
+                String quantityStr = request.getParameter("quantity");
+                
+                if (productIdStr1 != null && quantityStr != null && !productIdStr1.isEmpty() && !quantityStr.isEmpty()) {
+                    try {
+                        int productId = Integer.parseInt(productIdStr1);
+                        int quantity = Integer.parseInt(quantityStr);
+                        Produit product = hibernateMethode.getProductById(productId);
+                        
+                        // Gérez l'ajout au panier ici
+                        HttpSession session = request.getSession(true);
+                        Panier panier = (Panier) session.getAttribute("panier");
+                        if (panier == null) {
+                            panier = new Panier();
+                        }
+                        panier.ajouterProduit(product, quantity);
+                        session.setAttribute("panier", panier);
+                        
+                        // Redirigez vers la page de détails du produit avec un paramètre indiquant que le produit a été ajouté au panier
+                        response.sendRedirect("detailProduct.jsp?productId=" + productId + "&addedToCart=true");
+                    } catch (Exception ex) {
+                        // Gérez les erreurs ici
+                        request.setAttribute("error", "Une erreur s'est produite lors de l'ajout au panier: " + ex.getMessage());
+                        request.getRequestDispatcher("detailProduct.jsp?productId=" + productIdStr1).forward(request, response);
+                    }
+                }
+                break;
+
         }
         
 	}
@@ -82,35 +111,6 @@ public class servletCentral extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	        String productIdStr = request.getParameter("productId");
-	        String quantityStr = request.getParameter("quantity");
-	        
-	        if (productIdStr != null && quantityStr != null && !productIdStr.isEmpty() && !quantityStr.isEmpty()) {
-	            try {
-	                int productId = Integer.parseInt(productIdStr);
-	                int quantity = Integer.parseInt(quantityStr);
-	                Produit product = hibernateMethode.getProductById(productId);
-	                
-		                HttpSession session = request.getSession(true);
-	                    Panier panier = (Panier) session.getAttribute("panier");
-	                    if (panier == null) {
-	                        panier = new Panier();
-	                    }
-	                    panier.ajouterProduit(product, quantity);
-	                    session.setAttribute("panier", panier);
-	                    
-	                    response.sendRedirect("detailProduct.jsp?productId=" + productId + "&addedToCart=true");
-	                } else {
-	                    request.setAttribute("error", "Le produit n'est plus en stock.");
-	                    request.getRequestDispatcher("detailProduct.jsp?productId=" + productId).forward(request, response);
-	                }
-	            } catch (NumberFormatException e) {
-	                request.setAttribute("error", "Identifiant produit ou quantité invalide.");
-	                request.getRequestDispatcher("detailProduct.jsp").forward(request, response);
-	            }
-	        } else {
-	            request.setAttribute("error", "Identifiant produit ou quantité manquant.");
-	            request.getRequestDispatcher("detailProduct.jsp").forward(request, response);
-	        }
-	    }
-	}
+	  }}
+	  
+	  

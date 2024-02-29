@@ -234,7 +234,7 @@
 						        var totalPanier = <%= total %>;
 
 						        // Logique pour calculer le nouveauTotal directement dans la page JSP
-						        var pointsFidelite = 10;
+						        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
 						        var reductionEnEuros = pointsFidelite / 10.0;
 						        var nouveauTotal = totalPanier - reductionEnEuros;
 
@@ -252,8 +252,7 @@
 						        var totalPanier = <%= total %>;
 
 						        // Logique pour calculer le nouveauTotal directement dans la page JSP
-						        var pointsFidelite = 10;
-
+						        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
 						        var reductionEnEuros = pointsFidelite / 10.0;
 						        var nouveauTotal = totalPanier - reductionEnEuros;
 
@@ -261,12 +260,10 @@
 						        updateNouveauTotalPanier(nouveauTotal);
 
 						        // Afficher une alerte pour déboguer
-
-						        alert("Nouveau total calculé : " + nouveauTotal.toFixed(2) + ' €' );
+						        alert("Nouveau total calculé : " + nouveauTotal.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
 						    });                             
 						</script>
-                             
-
+                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
 
                         <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>

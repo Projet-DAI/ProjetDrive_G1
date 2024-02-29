@@ -35,16 +35,20 @@
                         <% } %> --%>
                         <p><strong>Nutriscore:</strong> ${product.nutriscore}</p>
                         <p><strong>Category ID:</strong> ${product.categorie.idCategorie}</p>
-                        <!-- Quantity and Add to Cart Button -->
-                        <p class="mb-1"><strong>Quantity</strong></p>
-                        <div class="row mb-3">
-                            <div class="col-sm-5">
-                                <input type="number" class="form-control" value="1" name="quantity" min="1">
+                          <!-- Formulaire pour ajouter au panier -->
+                        <form action="AjouterAuPanierServlet" method="post">
+                            <input type="hidden" name="productId" value="${product.idProduit}">
+                            <p class="mb-1"><strong>Quantity</strong></p>
+                            <div class="row mb-3">
+                                <div class="col-sm-5">
+                                    <input type="number" class="form-control" value="1" name="quantity" min="1">
+                                </div>
                             </div>
-                        </div>
-                        <button class="btn btn-primary btn-lg">
-                            <i class="fa fa-shopping-basket"></i> Add to Cart
-                        </button>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fa fa-shopping-basket"></i> Add to Cart
+                            </button>
+                        </form>
+                        
                     </div>
                 </div>
             </div>

@@ -41,7 +41,7 @@ public class ClientDAO {
 	        return isValidUser;
 	    }
 
-	    public int getPointsFideliteById(int clientId) {
+	    public int getPointsFideliteById1(int clientId) {
 	        int pointsFidelite = 0;
 	        Transaction transaction = null;
 

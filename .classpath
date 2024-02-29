@@ -31,13 +31,9 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/widad/Downloads/jar/javax.transaction-api-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/widad/Downloads/jar/jboss-logging-3.3.2.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Users/widad/Downloads/jar/byte-buddy-1.14.12.jar"/>
-	<classpathentry kind="lib" path="C:/Users/widad/Downloads/mysql-connector-java-8.0.26.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Imane/Downloads/TpAjax_correction_eclipse (1)/TpAjax/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.26.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Imane/Downloads/jboss-logging-3.3.2.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Imane/Downloads/javax.transaction-api-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Imane/Downloads/byte-buddy-1.14.12.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

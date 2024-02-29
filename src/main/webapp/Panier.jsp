@@ -3,6 +3,7 @@
 <%@ page import="Model.metier.Panier" %>
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="java.util.List" %>
+<%@ page import="Model.DAO.ClientDAO" %>
 
 
 <!DOCTYPE html>
@@ -30,6 +31,8 @@
 
 </head>
 <body>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+
     <div class="page-header">
         <!--=============== Navbar ===============-->
         <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
@@ -317,6 +320,22 @@
 
         alert('Points de fidélité : ' + pointsDeFidelite);    });
 </script>
+
+    <script type="text/javascript">
+        document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+            //var clientId = 1; 
+
+            var pointsDeFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+
+            var totalPanier = <%= total %>;
+
+            var reductionEnEuros = pointsDeFidelite / 10;
+
+            var nouveauTotal = totalPanier - reductionEnEuros;
+
+            alert('Points de fidélité : ' + pointsDeFidelite + '\nNouveau total à payer : ' + nouveauTotal + ' €');
+        });
+    </script>
 </body>
 </html>
 

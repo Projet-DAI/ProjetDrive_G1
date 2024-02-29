@@ -30,15 +30,6 @@
     <servlet-name>shop</servlet-name>
     <url-pattern>/shop</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>shop</display-name>
-    <servlet-name>shop</servlet-name>
-    <jsp-file>/shop.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>shop</servlet-name>
-    <url-pattern>/shop</url-pattern>
-  </servlet-mapping>
+
 
 </web-app>

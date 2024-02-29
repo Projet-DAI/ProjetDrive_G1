@@ -41,7 +41,7 @@ public class HibernateMain {
             System.out.println("Categories ajoutées avec succès à la base de données!");
 
             // Produits
-            List<Produit> produits = readCsvFileProduit("C:\\Users\\widad\\Downloads\\produit.csv", session);
+            List<Produit> produits = readCsvFileProduit("C:\\Users\\widad\\Downloads\\produit (1).csv", session);
             for (Produit produit : produits) {
                 session.save(produit);
             }
@@ -110,13 +110,14 @@ public class HibernateMain {
                 String[] fields = line.split(";");
 
                 Produit produit = new Produit();
-                produit.setNomProduit(fields[3]);
-                produit.setPrixProduit(Double.parseDouble(fields[5].trim()));
-                produit.setMarqueProduit(fields[2]);
-                produit.setPromotion(Boolean.parseBoolean(fields[6]));
+                produit.setNomProduit(fields[4]);
+                produit.setPrixProduit(Double.parseDouble(fields[6].trim()));
+                produit.setMarqueProduit(fields[3]);
+                produit.setDescription(fields[2]);
+                produit.setPromotion(Boolean.parseBoolean(fields[7]));
                 produit.setPourcentagePromotion(Double.parseDouble(fields[5]));
                 produit.setAdresseImageProduit(fields[1]);
-                produit.setNutriscore(fields[4]);
+                produit.setNutriscore(fields[5]);
 
                 // Faire lien avec la catégorie
                 int categoryId = Integer.parseInt(fields[7]);

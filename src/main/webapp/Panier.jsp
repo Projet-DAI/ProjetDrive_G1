@@ -316,17 +316,21 @@
         document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
             //var clientId = 1; 
 
-            var pointsDeFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
-
             var totalPanier = <%= total %>;
 
-            var reductionEnEuros = pointsDeFidelite / 10;
+            ClientDAO clientDAO = new ClientDAO();
+            int clientId = 1; 
+            int pointsFidelite = clientDAO.getPointsFideliteById(clientId);
 
+            double reductionEnEuros = pointsFidelite / 10.0;
+            
             var nouveauTotal = totalPanier - reductionEnEuros;
 
             alert('Points de fidélité : ' + pointsDeFidelite + '\nNouveau total à payer : ' + nouveauTotal + ' €');
         });
+
 </script>
+
 
 </body>
 </html>

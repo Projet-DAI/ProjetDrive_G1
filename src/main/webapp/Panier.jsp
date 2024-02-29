@@ -311,9 +311,9 @@
     <script type="text/javascript">
     document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
 
-    	var totalPanier = <%= total %>; 
+    	var totalPanier = <%= total %>;
 
-    	var pointsDeFidelite = Math.floor(totalPanier / 10) * 10;
+    	var pointsDeFidelite = <%= total %>;
 
         alert('Points de fidélité : ' + pointsDeFidelite);    });
 </script>

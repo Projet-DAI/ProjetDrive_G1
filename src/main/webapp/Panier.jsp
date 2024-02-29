@@ -220,6 +220,27 @@
 						    }
 						%>
 						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
+						    <script type="text/javascript">
+                                  document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+
+                                  document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+                                  //var clientId = 1; 
+
+                                  var totalPanier = <%= total %>;
+
+                                  ClientDAO clientDAO = new ClientDAO();
+                                  int clientId = 1; 
+                                  int pointsFidelite = clientDAO.getPointsFideliteById(clientId);
+
+                                  double reductionEnEuros = pointsFidelite / 10.0;
+            
+                                  var nouveauTotal = totalPanier - reductionEnEuros;
+            
+                                });
+
+                             </script>
+                             <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier">  € </span> </h6>
+
                         <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>
                     </div>
                 </div>
@@ -310,29 +331,7 @@
     <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
     <script type="text/javascript" src="assets/js/theme.js"></script>
     
-    <script type="text/javascript">
-    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
 
-        document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
-            //var clientId = 1; 
-
-            var totalPanier = <%= total %>;
-
-            ClientDAO clientDAO = new ClientDAO();
-            int clientId = 1; 
-            int pointsFidelite = clientDAO.getPointsFideliteById(clientId);
-
-            double reductionEnEuros = pointsFidelite / 10.0;
-            
-            var nouveauTotal = totalPanier - reductionEnEuros;
-            
-            System.out.println("Points de fidélité du client : " + pointsFidelite);
-            System.out.println("Euros correspondants : " + nouveauTotal);
-
-            alert('Points de fidélité : ' + pointsDeFidelite + '\nNouveau total à payer : ' + nouveauTotal + ' €');
-        });
-
-</script>
 
 
 </body>

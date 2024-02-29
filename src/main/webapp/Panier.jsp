@@ -310,9 +310,12 @@
     
     <script type="text/javascript">
     document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
-    // Vous pouvez remplacer le code ci-dessous par la logique réelle pour afficher les points
-    alert('Points de fidélité: 100');
-    });
+
+    	var totalPanier = <%= total %>; 
+
+    	var pointsDeFidelite = Math.floor(totalPanier / 10) * 10;
+
+        alert('Points de fidélité : ' + pointsDeFidelite);    });
 </script>
 </body>
 </html>

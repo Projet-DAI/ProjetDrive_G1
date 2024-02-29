@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
 </head>
 <body>
@@ -38,6 +39,14 @@
                 <div class="collapse navbar-collapse" id="navbarcollapse">
                     <!-- Navbar Menu -->
                     <ul class="navbar-nav ml-auto">
+                    	<li>
+                    		<div>
+                    			<form action="RechercheParMotCle" method="get">
+                    				<input name="motcle" placeholder="Search..." style="background-color: transparent;color: white; height: 25px">
+                    				<button type="submit" style="height:25px;"><i class="bi bi-search"></i></button>
+                    			</form>
+                    		</div>
+                    	</li>
                         <li class="nav-item">
                             <a href="shop.html" class="nav-link">Faire ses courses</a>
                         </li>

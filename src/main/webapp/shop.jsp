@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1"%>
-    
+	pageEncoding="ISO-8859-1"%>
+
 <%@page import="java.util.List"%>
 <%@page import="Model.metier.Produit"%>
 
@@ -69,10 +69,10 @@
                             out.println("</div>");
 	                        }
 	                    %>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
         
 

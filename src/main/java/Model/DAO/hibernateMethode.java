@@ -62,16 +62,7 @@ public class hibernateMethode {
 
 	
 	
-	// test
-	public static void main(String[] args) {
-//		List<Produit> res = getProductsFromDatabase();
-		String motcle = "fish";
-		List<Produit> res = rechercheParMotCle(motcle);
-		// 打印产品信息或进行其他操作
-        for (Produit product : res) {
-        return productsProm;
-	}
-	
+
 	// Afficher un produit
 	public static Produit getProductById(int productId) {
 	    Produit product = null;

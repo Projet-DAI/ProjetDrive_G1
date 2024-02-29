@@ -56,7 +56,7 @@
                             out.println("        </div>");
                             out.println("        <div class=\"card-body\">");
                             out.println("            <h4 class=\"card-title\">");
-                            out.println("                <a href=\"detail-product.html?productId=" + produit.getIdProduit() + "\">" + produit.getNomProduit() + "</a>");
+                            out.println("                <a href=\"detail-product.jsp?productId=" + produit.getIdProduit() + "\">" + produit.getNomProduit() + "</a>");
                             out.println("            </h4>");
                             out.println("            <div class=\"card-price\">");
                             out.println("                <span class=\"discount\">" + new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) + "</span>");

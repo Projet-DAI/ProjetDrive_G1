@@ -63,9 +63,9 @@ public class ClientDAO {
 	            }
 	            e.printStackTrace();
 	        }
-	        return pointsFidelite;
-	    }
-	   
+	        
+	        return pointsFidelite;}
+
 	    public int getPointsFideliteById(int clientId) {
 	        int pointsFidelite = 0;
 	        Transaction transaction = null;

@@ -3,6 +3,7 @@
 <%@ page import="Model.metier.Panier" %>
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="java.util.List" %>
+<%@ page import="Model.DAO.ClientDAO" %>
 
 
 <!DOCTYPE html>
@@ -30,6 +31,8 @@
 
 </head>
 <body>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+
     <div class="page-header">
         <!--=============== Navbar ===============-->
         <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
@@ -160,6 +163,7 @@
                 <div class="row">
                     <div class="col-md-12">
                       <button id="voirPointsFidelitebtn" class="btn btn-primary">Afficher les points de fidélité</button>
+                        
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -311,12 +315,28 @@
     <script type="text/javascript">
     document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
 
-    	var totalPanier = <%= total %>;
+    	var totalPanier = <%= total %>; 
 
-    	var pointsDeFidelite = <%= total %>;
+    	var pointsDeFidelite = Math.floor(totalPanier / 10) * 10;
 
         alert('Points de fidélité : ' + pointsDeFidelite);    });
 </script>
+
+    <script type="text/javascript">
+        document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+            //var clientId = 1; 
+
+            var pointsDeFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+
+            var totalPanier = <%= total %>;
+
+            var reductionEnEuros = pointsDeFidelite / 10;
+
+            var nouveauTotal = totalPanier - reductionEnEuros;
+
+            alert('Points de fidélité : ' + pointsDeFidelite + '\nNouveau total à payer : ' + nouveauTotal + ' €');
+        });
+    </script>
 </body>
 </html>
 

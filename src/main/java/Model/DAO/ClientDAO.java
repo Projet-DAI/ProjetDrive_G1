@@ -45,7 +45,7 @@ public class ClientDAO {
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 	            transaction = session.beginTransaction();
 
-	            String sql = "SELECT PointFideliteClient FROM client WHERE IdClient = :clientId";
+	            String sql = "SELECT pointFideliteClient FROM Client WHERE idClient = :clientId";
 	            Query<Integer> query = session.createQuery(sql, Integer.class);
 	            query.setParameter("clientId", clientId);
 

@@ -163,6 +163,7 @@
                 <div class="row">
                     <div class="col-md-12">
                       <button id="voirPointsFidelitebtn" class="btn btn-primary">Afficher les points de fidélité</button>
+                        
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>

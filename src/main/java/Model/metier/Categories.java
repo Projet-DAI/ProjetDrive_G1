@@ -1,5 +1,7 @@
 package Model.metier;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +18,9 @@ public class Categories {
     @ManyToOne
     @JoinColumn(name = "IdRayon")
     private Rayon rayon;
+    
+    @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
+    private List<Produit> produits;
 
 	public Categories(String nomCategorie, Rayon rayon) {
 		super();

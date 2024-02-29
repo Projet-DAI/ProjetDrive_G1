@@ -60,8 +60,7 @@ public class ClientDAO {
 	            e.printStackTrace();
 	        }
 	        
-	        return pointsFidelite;
-	    }
+	        return pointsFidelite;}
 	   
 	   
 	   public List<LignePanier> getProduitsDansPanier(Client client) {

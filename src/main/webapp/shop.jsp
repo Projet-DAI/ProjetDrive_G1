@@ -9,25 +9,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Page d'achat</title>
 </head>
 <body>
 
     <jsp:include flush="true" page="head.jsp"></jsp:include>
     
-    <%
-        List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");
-    %>
-    
-
+    <% List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");%>
     
     <div id="page-content" class="page-content">
     	<div class="banner">
             <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
                 <div class="container">
-                    <h1 class="pt-5">
-                        Page d'achat
-                    </h1>
+                    <h1 class="pt-5">Page d'achat</h1>
                 </div>
             </div>
         </div>
@@ -66,7 +60,7 @@
                             out.println("                <span class=\"discount\">" + new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) + "</span>");
                             out.println("                <span class=\"reguler\">" + new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit()) + "</span>");
                             out.println("            </div>");
-                            out.println("            <a href=\"add-to-cart.html?productId=" + produit.getIdProduit() + "\" class=\"btn btn-block btn-primary\">");
+                            out.println("            <a href=\"servletCentral?method=detailProduct&productId=" + produit.getIdProduit() + "\" class=\"btn btn-block btn-primary\">");
                             out.println("                Afficher les détails");
                             out.println("            </a>");
                             out.println("        </div>");

@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h4 class="card-title">
-                                            <a href="detail-product.html"><%=nomP %></a>
+											<a href="detailProduct.jsp?productId=<%= p.getIdProduit() %>"><%= nomP %></a>
                                         </h4>
                                         <div class="card-price">
                                         	<% if (promotion == true){ %>
@@ -75,7 +75,7 @@
                                             	<span class="reguler"><%=prixOriginal %>€</span>
                                             <%}%>
                                         </div>
-                                        <a href="detail-product.html" class="btn btn-block btn-primary">
+											<a href="detailProduct.jsp?productId=<%= p.getIdProduit() %>" class="btn btn-block btn-primary">Add to Cart</a>
                                             Add to Cart
                                         </a>
 

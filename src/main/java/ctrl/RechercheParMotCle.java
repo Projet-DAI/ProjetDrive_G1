@@ -52,6 +52,8 @@ public class RechercheParMotCle extends HttpServlet {
 		
 		// Rediriger vers detailProduct.jsp si un produit est sélectionné
 	    String selectedProductId = request.getParameter("productId");
+	    System.out.println("Selected Product ID: " + selectedProductId); // Ajout de l'instruction de journalisation
+
 	    if (selectedProductId != null) {
 	        Produit product = hibernateMethode.getProductById(Integer.parseInt(selectedProductId));
 	        request.setAttribute("product", product);

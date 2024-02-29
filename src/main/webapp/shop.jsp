@@ -75,8 +75,6 @@
 		</div>
 	</section>
         
-
-    <a href="servletCentral?method=accueil"><bouton>Retour</bouton></a> 
     
     <jsp:include flush="true" page="footer.jsp"></jsp:include>
 </body>

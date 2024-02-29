@@ -45,15 +45,19 @@ public class ClientDAO {
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 	            transaction = session.beginTransaction();
 
-	            String sql = "SELECT pointFideliteClient FROM Client WHERE idClient = :clientId";
-	            Query<Integer> query = session.createQuery(sql, Integer.class);
-	            query.setParameter("clientId", clientId);
+	            // Récupérer le client par son ID
+	            Client client = session.get(Client.class, clientId);
 
-	            pointsFidelite = query.uniqueResult();
+	            if (client != null) {
+	                // Récupérer les points de fidélité du client
+	                pointsFidelite = client.getPointFideliteClient();
+	            }
 
 	            transaction.commit();
 	        } catch (Exception e) {
-
+	            if (transaction != null) {
+	                transaction.rollback();
+	            }
 	            e.printStackTrace();
 	        }
 	        return pointsFidelite;

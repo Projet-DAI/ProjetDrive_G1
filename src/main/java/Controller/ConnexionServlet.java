@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,33 +39,34 @@ public class ConnexionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
 		System.out.println("nom "+request.getParameter("nomUtilisateurClient"));
-		String identifiant = request.getParameter("nomUtilisateurClient");
-        String motDePasse = request.getParameter("pwdClient");
+	    String identifiant = request.getParameter("nomUtilisateurClient");
+	    String motDePasse = request.getParameter("pwdClient");
 
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
+	    SessionFactory factory = HibernateUtil.getSessionFactory();
+	    Session session = factory.openSession();
 
-        try {
-            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :identifiant",Client.class);
-            query.setParameter("identifiant", identifiant);
-            query.setParameter("motDePasse", motDePasse);
+	    try {
+	        Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :identifiant AND pwdClient = :motDePasse", Client.class);
+	        query.setParameter("identifiant", identifiant);
+	        query.setParameter("motDePasse", motDePasse);
 
-            List<Client> clients = query.list();
+	        List<Client> clients = query.list();
 
-            if (!clients.isEmpty() && clients.get(0).verifierConnexion(identifiant, motDePasse)) {
-                // Utilisateur connecté avec succès
-                response.sendRedirect("shop.jsp");
-                System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
-            } else {
-                // Échec de la connexion
-                System.out.println("Connexion echouée");
-            }
+	        if (!clients.isEmpty()) {
+	            // Utilisateur connecté avec succès
+	            response.sendRedirect("shop.jsp");
+	            System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
+	        } else {
+	            // Échec de la connexion
+	            System.out.println("Connexion échouée");
+	        }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        session.close();
+	    }
+	    
 	}
 
 	/**

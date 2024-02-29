@@ -10,22 +10,6 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   
-      <servlet>
-        <servlet-name>ConnexionServlet</servlet-name>
-        <jsp-file>/login.jsp</jsp-file>
-    </servlet>
-        <servlet-mapping>
-        <servlet-name>ConnexionServlet</servlet-name>
-        <url-pattern>/Connexion</url-pattern>
-    </servlet-mapping>
-    
-          <servlet>
-        <servlet-name>InscriptionServlet</servlet-name>
-        <jsp-file>/register.jsp</jsp-file>
-    </servlet>
-        <servlet-mapping>
-        <servlet-name>InscriptionServlet</servlet-name>
-        <url-pattern>/inscription</url-pattern>
-    </servlet-mapping>
+
 
 </web-app>

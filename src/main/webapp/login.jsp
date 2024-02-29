@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="Model.DAO.ClientDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,7 @@
 
                     <div class="card card-login mb-5">
                         <div class="card-body">
-                            <form class="form-horizontal" action="Connexion">
+                            <form class="form-horizontal" action="">
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12">
                                         <input class="form-control" type="text" required="" name="identifiant" placeholder="Identifiant">
@@ -45,6 +46,20 @@
                                     </div>
                                 </div>
                             </form>
+                            <% 
+        String identifiant = request.getParameter("identifiant");
+        String password = request.getParameter("password");
+
+        if (identifiant != null && password != null) {
+            ClientDAO clientDAO = new ClientDAO();
+            if (clientDAO.verifierConnexion(identifiant, password)) {
+                response.sendRedirect("shop.jsp");
+            } else {
+                // Affichez un message d'erreur en cas d'échec de connexion
+                out.println("<p style='color:red;'>Identifiant ou mot de passe incorrect</p>");
+            }
+        }
+    %>
                         </div>
                     </div>
                 </div>

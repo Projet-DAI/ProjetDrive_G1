@@ -11,7 +11,7 @@ import Model.metier.LignePanier;
 
 public class ClientDAO {
 	
-	   public static boolean verifierConnexion(String nomUtilisateur, String motDePasse) {
+	   public boolean verifierConnexion(String nomUtilisateur, String motDePasse) {
 	        boolean isValidUser = false;
 	        Session session = HibernateUtil.getSessionFactory().openSession();
 	        Transaction tx = session.beginTransaction();

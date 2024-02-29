@@ -4,14 +4,16 @@
 <%@page import="Model.metier.Produit"%>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.metier.LignePanier" %>
+<%@ page import="java.util.ArrayList" %>
+
 
 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Freshcery | Groceries Organic Store</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Freshcery | Groceries Organic Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet" type="text/css">
@@ -28,7 +30,7 @@
 
 </head>
 <body>
-	<div class="page-header">
+    <div class="page-header">
         <!--=============== Navbar ===============-->
         <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
             <div class="container">
@@ -45,14 +47,14 @@
                 <div class="collapse navbar-collapse" id="navbarcollapse">
                     <!-- Navbar Menu -->
                     <ul class="navbar-nav ml-auto">
-                    	<li>
-                    		<div>
-                    			<form action="RechercheParMotCle" method="get">
-                    				<input name="motcle" placeholder="Search..." style="background-color: transparent;color: white; height: 25px">
-                    				<button type="submit" style="height:25px;"><i class="bi bi-search"></i></button>
-                    			</form>
-                    		</div>
-                    	</li>
+                        <li>
+                            <div>
+                                <form action="RechercheParMotCle" method="get">
+                                    <input name="motcle" placeholder="Search..." style="background-color: transparent;color: white; height: 25px">
+                                    <button type="submit" style="height:25px;"><i class="bi bi-search"></i></button>
+                                </form>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a href="shop.html" class="nav-link">Faire ses courses</a>
                         </li>
@@ -73,57 +75,50 @@
                           </li>
                         <li class="nav-item dropdown">
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= numberOfItemsInCart %></span>
+                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= ((Panier)request.getAttribute("panier")).getLignesPanier().size() %></span>
                             </a>
                             <div class="dropdown-menu shopping-cart">
                                 <ul>
                                     <li>
                                         <div class="drop-title">Mon Panier</div>
                                     </li>
-                                     <%-- Contenu du panier --%>
-                                    <% List<Produit> listeProduitsPanier = (List<Produit>) session.getAttribute("panier"); %>
-                                    <% if (listeProduitsPanier != null && !listeProduitsPanier.isEmpty()) { %>
-                                        <% for (Produit produit : listeProduitsPanier) { %>
+                                    <%-- Contenu du panier --%>
+									<%
+										Panier panier = (Panier) request.getAttribute("panier");
+										List<LignePanier> listeLignesPanier = (panier != null) ? panier.getLignesPanier() : new ArrayList<>();
+									%>
+                                    <% if (listeLignesPanier != null && !listeLignesPanier.isEmpty()) { %>
+                                        <% for (LignePanier lignePanier : listeLignesPanier) { %>
                                             <li>
                                                 <div class="shopping-cart-list">
                                                     <div class="media">
-                                                        <img class="d-flex mr-3" src="<%= produit.getAdresseImageProduit() %>" width="60">
+                                                        <img class="d-flex mr-3" src="<%= lignePanier.getProduit().getAdresseImageProduit() %>" width="60">
                                                         <div class="media-body">
-                                                            <h5><a href="javascript:void(0)"><%= produit.getNomProduit() %></a></h5>
+                                                            <h5><a href="javascript:void(0)"><%= lignePanier.getProduit().getNomProduit() %></a></h5>
                                                             <p class="price">
-                                                                <span class="discount text-muted"><%= produit.getPrixProduit() %></span>
-                                                                <span><%= produit.getPrixProduit() %></span>
+                                                                <span class="discount text-muted"><%= lignePanier.getProduit().getPrixProduit() %></span>
+                                                                <span><%= lignePanier.getProduit().getPrixProduit() %></span>
                                                             </p>
-                                                            <p class="text-muted">Qty: 1</p>
+                                                            <p class="text-muted">Qty: <%= lignePanier.getQuantite() %></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </li>
-                                        <%} %>
-                  
-                                    <li>
-                                  
-                                        <div class="drop-title d-flex justify-content-between">
-                                        <%
-										    // Initialiser le prix total à zéro
-										    double totalPrice = 0.0;
-										
-										    // Vérifier si le panier n'est pas vide
-										    if (panier != null && !panier.getLignesPanier().isEmpty()) {
-										        // Parcourir chaque ligne du panier
-										        for (LignePanier lignePanier : panier.getLignesPanier()) {
-										            // Calculer le prix total pour cette ligne (prix du produit * quantité)
-										            double lineTotal = lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
-										            // Ajouter le prix total de cette ligne au prix total global
-										            totalPrice += lineTotal;
-										        }
-										    }
-										%>
-                                            <span>Total:</span>
-                                            <span class="text-primary"><strong><%= totalPrice %> €</strong></span>
-                                        </div>
-                                    </li>
-                                   <% } else { %>
+                                        <% } %>
+                                        <li>
+                                            <div class="drop-title d-flex justify-content-between">
+                                                <%-- Calcul du total --%>
+                                                <%
+                                                    double totalPrice = 0.0;
+                                                    for (LignePanier lignePanier : listeLignesPanier) {
+                                                        totalPrice += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+                                                    }
+                                                %>
+                                                <span>Total:</span>
+                                                <span class="text-primary"><strong><%= totalPrice %> €</strong></span>
+                                            </div>
+                                        </li>
+                                    <% } else { %>
                                         <li><p>Aucun produit dans le panier</p></li>
                                     <% } %>
                                     <%-- Fin contenu du panier --%>
@@ -132,7 +127,6 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
         </nav>
     </div>

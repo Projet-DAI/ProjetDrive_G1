@@ -87,11 +87,14 @@ public class servletCentral extends HttpServlet {
                         // Gérez l'ajout au panier ici
                         HttpSession session = request.getSession(true);
                         Panier panier = (Panier) session.getAttribute("panier");
+                        //request.setAttribute("panier", panier);
+
                         if (panier == null) {
                             panier = new Panier();
                         }
                         panier.ajouterProduit(product, quantity);
                         session.setAttribute("panier", panier);
+
                         
                         // Redirigez vers la page de détails du produit avec un paramètre indiquant que le produit a été ajouté au panier
                         response.sendRedirect("detailProduct.jsp?productId=" + productId + "&addedToCart=true");

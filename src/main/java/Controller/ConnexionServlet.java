@@ -88,7 +88,7 @@ public class ConnexionServlet extends HttpServlet {
         Session session = factory.openSession();
 
         try {
-            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :identifiant",Client.class);
+        	Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :identifiant AND pwdClient = :motDePasse", Client.class);
             query.setParameter("identifiant", identifiant);
             query.setParameter("motDePasse", motDePasse);
 
@@ -106,7 +106,9 @@ public class ConnexionServlet extends HttpServlet {
             } else {
                 // Échec de la connexion
                 System.out.println("Connexion echouée");
-                
+                request.setAttribute("errorMessage", "Identifiant ou mot de passe incorrect");
+                rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request, response);
             }
 
         } catch (Exception e) {

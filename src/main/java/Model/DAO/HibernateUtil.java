@@ -52,10 +52,4 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return SESSION_FACTORY;
     }
-    
-    
-    public static void main(String[] args) {
-		HibernateUtil h = new HibernateUtil();
-		h.getSessionFactory();
-	}
 }

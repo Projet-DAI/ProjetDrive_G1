@@ -325,6 +325,9 @@
             double reductionEnEuros = pointsFidelite / 10.0;
             
             var nouveauTotal = totalPanier - reductionEnEuros;
+            
+            System.out.println("Points de fidélité du client : " + pointsFidelite);
+            System.out.println("Euros correspondants : " + nouveauTotal);
 
             alert('Points de fidélité : ' + pointsDeFidelite + '\nNouveau total à payer : ' + nouveauTotal + ' €');
         });

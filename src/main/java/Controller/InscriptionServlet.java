@@ -19,7 +19,7 @@ import Model.metier.Client;
 /**
  * Servlet implementation class InscriptionServlet
  */
-@WebServlet("/inscription")
+@WebServlet("/InscriptionServlet")
 public class InscriptionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

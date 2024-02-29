@@ -14,7 +14,6 @@
 
 </head>
 <body>
-
     <jsp:include flush="true" page="head.jsp"></jsp:include>
     
     <% List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");%>
@@ -76,8 +75,8 @@
 	    </div>
 	</section>
         
-    </div>
-    <a href="servletCentral?method=accueil"><bouton class="bouton">Retour</bouton></a>
+
+    <a href="servletCentral?method=accueil"><bouton>Retour</bouton></a> 
     
     <jsp:include flush="true" page="footer.jsp"></jsp:include>
 </body>

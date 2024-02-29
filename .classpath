@@ -36,8 +36,16 @@
 	<classpathentry kind="lib" path="C:/Users/widad/Downloads/jar/byte-buddy-1.14.12.jar"/>
 	<classpathentry kind="lib" path="C:/Users/widad/Downloads/mysql-connector-java-8.0.26.jar">
 		<attributes>
+<!--Conflit-->
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/MySQL/mysql-connector-java-8.0.26.jar"/>
+<!--Conflit-->
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+<!--Conflit-->
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

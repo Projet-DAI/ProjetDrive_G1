@@ -32,6 +32,10 @@
 	href="assets/css/theme.css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -64,6 +68,12 @@
                     			</form>
                     		</div>
                     	</li>
+                    	<!-- ajouter Drive pour choisir magasin-->
+                    	<li class="nav-item">
+						    <a href="#" class="nav-link" data-toggle="modal" data-target="#locationModal">Drive</a>
+						</li>
+                    	
+                    	
                         <li class="nav-item">
                             <a href="shop" class="nav-link">Faire ses courses</a>
                         </li>
@@ -188,5 +198,57 @@
 			</div>
 		</nav>
 	</div>
+	
+	<!-- ajouter Drive  -->
+	<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="locationModalLabel"> votre location</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form id="locationForm">
+	          <div class="form-group">
+	            <label for="userLocation" class="col-form-label">location:</label>
+	            <input type="text" class="form-control" id="userLocation">
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+	        <button type="button" class="btn btn-primary" onclick="submitLocation()">Vlider</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+<script>
+    function submitLocation() {
+        var userLocation = document.getElementById('userLocation').value;
+        
+        // 使用jQuery发送AJAX请求
+        $.ajax({
+            url: 'MagasinServlet', // Servlet的URL
+            type: 'POST',
+            data: {userLocation: userLocation}, // 发送到Servlet的数据
+            success: function(response) {
+                // 处理成功的响应
+                console.log(response);
+                // 可以根据需要更新页面内容
+            },
+            error: function(xhr, status, error) {
+                // 处理错误
+                console.error("AJAX请求失败: " + status + ", 错误: " + error);
+            }
+        });
+        
+        // 关闭模态框
+        $('#locationModal').modal('hide');
+    }
+</script>
+
 </body>
 </html>

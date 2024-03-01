@@ -36,6 +36,18 @@
                 <div class="collapse navbar-collapse" id="navbarcollapse">
                     <!-- Navbar Menu -->
                     <ul class="navbar-nav ml-auto">
+                       	<li>
+                    		<div>
+                    			<form action="RechercheParMotCle" method="get">
+                    				<input name="motcle" placeholder="Search..." style="background-color: transparent;color: white; height: 25px">
+                    				<button type="submit" style="height:25px;"><i class="bi bi-search"></i></button>
+                    			</form>
+                    		</div>
+                    	</li>
+                    	
+                        <!-- ajouter Drive pour choisir magasin-->
+                    	<li class="nav-item" data-toggle="modal" data-target="#locationModal">Drive</li>
+                        
                         <li class="nav-item">
                             <a href="shop" class="nav-link">Faire ses courses</a>
                         </li>
@@ -336,6 +348,34 @@
         </div>
         </section>
     </div>
+    
+    <!-- ajouter Drive  -->
+	<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="locationModalLabel"> votre location</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form id="locationForm">
+	          <div class="form-group">
+	            <label for="userLocation" class="col-form-label">location:</label>
+	            <input type="text" class="form-control" id="userLocation">
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+	        <button type="button" class="btn btn-primary" onclick="submitLocation()">Vlider</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    
+    
     <footer>
         <div class="container">
             <div class="row">

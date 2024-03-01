@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="UTF-8"%>
-<%@ page import="Model.metier.Panier"%>
-<%@ page import="Model.metier.LignePanier"%>
-<%@ page import="java.util.List"%>
+    pageEncoding="UTF-8"%>
+<%@ page import="Model.metier.Panier" %>
+<%@ page import="Model.metier.LignePanier" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Model.DAO.ClientDAO" %>
+
 
 
 <!DOCTYPE html>
@@ -182,26 +184,44 @@
 			</div>
 		</div>
 
-		<section id="cart">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th width="10%"></th>
-										<th>Produits</th>
-										<th>Prix unitaire</th>
-										<th width="15%">Quantité</th>
-										<th>Sous-total</th>
-										<th></th>
-									</tr>
-								</thead>
-								<%-- Boucle pour afficher chaque produit dans le panier --%>
-								<% if (request.getAttribute("panier") != null ){ %>
-								<% Panier panier = (Panier) request.getAttribute("panier"); %>
-								<tbody>
+        <section id="cart">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                      <button id="voirPointsFidelitebtn" class="btn btn-primary">Débloquer mes points de fidélité</button>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="10%"></th>
+                                        <th>Produits</th>
+                                        <th>Prix unitaire</th>
+                                        <th width="15%">Quantité</th>
+                                        <th>Sous-total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+								    <%-- Boucle pour afficher chaque produit dans le panier --%>
+					                <% if (request.getAttribute("panier") != null ){ %>
+					                  	<% Panier panier = (Panier) request.getAttribute("panier"); %>
+             	                        <tbody>
+
+	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
+						                        <tr>
+						                        	<td>    </td>
+						                            <td><%= lignePanier.getProduit().getNomProduit() %></td>
+						                            <td><%= lignePanier.getProduit().getPrixProduit() %></td>
+						                            <td><%= lignePanier.getQuantite() %></td>
+						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+						                        </tr>
+						                    <% } %>
+					                    </tbody>
+
+					                <% } else { %>
+					                    <tr>
+					                        <td colspan="4">Le panier est vide.</td>
+					                    </tr>
+					                <% } %>
 
 									<% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
 									<tr>
@@ -243,74 +263,98 @@
 						        }
 						    }
 						%>
-						<h6 class="mt-3">
-							Total: <span id="totalPanier"> <%= total %> €
-							</span>
-						</h6>
-						<a href="checkout.html" class="btn btn-lg btn-primary">Checkout
-							<i class="fa fa-long-arrow-right"></i>
-						</a>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3">
-					<h5>About</h5>
-					<p>Nisi esse dolor irure dolor eiusmod ex deserunt proident
-						cillum eu qui enim occaecat sunt aliqua anim eiusmod qui ut
-						voluptate.</p>
-				</div>
-				<div class="col-md-3">
-					<h5>Links</h5>
-					<ul>
-						<li><a href="about.html">About</a></li>
-						<li><a href="contact.html">Contact Us</a></li>
-						<li><a href="faq.html">FAQ</a></li>
-						<li><a href="javascript:void(0)">How it Works</a></li>
-						<li><a href="terms.html">Terms</a></li>
-						<li><a href="privacy.html">Privacy Policy</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3">
-					<h5>Contact</h5>
-					<ul>
-						<li><a href="tel:+620892738334"><i class="fa fa-phone"></i>
-								08272367238</a></li>
-						<li><a href="mailto:hello@domain.com"><i
-								class="fa fa-envelope"></i> hello@domain.com</a></li>
-					</ul>
 
-					<h5>Follow Us</h5>
-					<ul class="social">
-						<li><a href="javascript:void(0)" target="_blank"><i
-								class="fab fa-facebook-f"></i></a></li>
-						<li><a href="javascript:void(0)" target="_blank"><i
-								class="fab fa-instagram"></i></a></li>
-						<li><a href="javascript:void(0)" target="_blank"><i
-								class="fab fa-youtube"></i></a></li>
-					</ul>
-				</div>
-				<div class="col-md-3">
-					<h5>Get Our App</h5>
-					<ul class="mb-0">
-						<li class="download-app"><a href="#"><img
-								src="assets/img/playstore.png"></a></li>
-						<li style="height: 200px">
-							<div class="mockup">
-								<img src="assets/img/mockup.png">
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<p class="copyright">&copy; 2018 Freshcery | Groceries Organic
-			Store. All rights reserved.</p>
-	</footer>
+						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
+
+<script type="text/javascript">
+    // Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
+    var totalPanierString = '<%= String.valueOf(total) %>';
+    // Initialiser le total mis à jour à zéro
+    var nouveauTotalPanier = 0;
+
+    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
+    function updateNouveauTotalPanier() {
+        // Mettre à jour l'élément HTML avec le nouveau total
+        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
+    }
+
+    // Fonction pour effectuer le calcul du nouveau total
+    function calculerNouveauTotal(pointsFidelite) {
+        // Convertir la valeur du total en nombre
+        var totalPanier = parseFloat(totalPanierString.replace(",", "."));
+
+        // Vérifier si la conversion est un nombre valide
+        if (!isNaN(totalPanier)) {
+            var reductionEnEuros = pointsFidelite / 10.0;
+            nouveauTotalPanier = totalPanier - reductionEnEuros;
+
+            // Mettre à jour le nouveau total dans l'interface utilisateur
+            updateNouveauTotalPanier();
+
+            // Afficher une alerte pour déboguer
+            alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+        } else {
+            // Gérer l'erreur si la conversion n'est pas un nombre valide
+            console.error("Erreur de conversion du total en nombre.");
+        }
+    }
+
+    // Code existant pour l'événement 'voirPointsFidelitebtn'
+    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+
+        // Appeler la fonction pour calculer et mettre à jour le nouveau total
+        calculerNouveauTotal(pointsFidelite);
+    });
+</script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>
+                        <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
+
+                        <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>About</h5>
+                    <p>Nisi esse dolor irure dolor eiusmod ex deserunt proident cillum eu qui enim occaecat sunt aliqua anim eiusmod qui ut voluptate.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Links</h5>
+                    <ul>
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="faq.html">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">How it Works</a>
+                        </li>
+                        <li>
+                            <a href="terms.html">Terms</a>
+                        </li>
+                        <li>
+                            <a href="privacy.html">Privacy Policy</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                     <h5>Contact</h5>
+                     <ul>
+                         <li>
+                            <a href="tel:+620892738334"><i class="fa fa-phone"></i> 08272367238</a>
+                        </li>
+                        <li>
+                            <a href="mailto:hello@domain.com"><i class="fa fa-envelope"></i> hello@domain.com</a>
+                         </li>
+                     </ul>
 
 	<script type="text/javascript" src="assets/js/totalPanier.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
@@ -330,6 +374,19 @@
 	<script type="text/javascript"
 		src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
 	<script type="text/javascript" src="assets/js/theme.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
+    <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>
+    <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/packages/o2system-ui/o2system-ui.js"></script>
+    <script type="text/javascript" src="assets/packages/owl-carousel/owl-carousel.js"></script>
+    <script type="text/javascript" src="assets/packages/cloudzoom/cloudzoom.js"></script>
+    <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
+    <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
+    <script type="text/javascript" src="assets/js/theme.js"></script>
+
+
+
+
 </body>
 </html>
-

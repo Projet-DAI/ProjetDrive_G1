@@ -49,8 +49,20 @@ public class RechercheParMotCle extends HttpServlet {
 		
 		request.setAttribute("listP", listP);
 		request.setAttribute("motcle", mot);
-		request.getRequestDispatcher("/resRechercheParMotCle.jsp").forward(request, response);
 		
+		// Rediriger vers detailProduct.jsp si un produit est sélectionné
+	    String selectedProductId = request.getParameter("productId");
+	    System.out.println("Selected Product ID: " + selectedProductId); // Ajout de l'instruction de journalisation
+
+	    if (selectedProductId != null) {
+	        Produit product = hibernateMethode.getProductById(Integer.parseInt(selectedProductId));
+	        request.setAttribute("product", product);
+
+
+	        request.getRequestDispatcher("/detailProduct.jsp").forward(request, response);
+	    } else {
+		request.getRequestDispatcher("/resRechercheParMotCle.jsp").forward(request, response);
+	    }
 	}
 
 	/**

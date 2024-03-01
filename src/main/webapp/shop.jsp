@@ -15,9 +15,9 @@
 </head>
 <body>
     <jsp:include flush="true" page="head.jsp"></jsp:include>
-    
+
     <% List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");%>
-    
+
     <div id="page-content" class="page-content">
     	<div class="banner">
             <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
@@ -26,9 +26,9 @@
                 </div>
             </div>
         </div>
-        
+
         <jsp:include flush="true" page="rayon.jsp"></jsp:include>
-        
+
     </div>
  <section id="most-wanted">
     <div class="container">
@@ -84,8 +84,8 @@
     </div>
 </section>
 
-        
-    
+
+
     <jsp:include flush="true" page="footer.jsp"></jsp:include>
 </body>
 </html>

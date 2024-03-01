@@ -63,7 +63,7 @@ public class ServletPanier extends HttpServlet {
         request.getRequestDispatcher("/Panier.jsp").forward(request, response);
     }
 
-    /**
+    /**List<Demande> ld = (List<Demande>) q.list();
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
      */

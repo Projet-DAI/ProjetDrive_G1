@@ -30,55 +30,56 @@
 					String nomP = p.getNomProduit();
 					Double prixOriginal = p.getPrixProduit();
 					Boolean promotion = p.isPromotion();
-					
+
 					Double pourcentagePromo = 0.0;
 					Double prixPromo = 0.0;
 					if (promotion == true){
 						pourcentagePromo = p.getPourcentagePromotion();
 						prixPromo = prixOriginal * (1 - pourcentagePromo);
 					}
-					
+
 					// ex. off = 20.0 -> long 20 -> int 20
 					Double off = pourcentagePromo * 100;
 					long roundedValue = Math.round(off);
 
 					int off2 = (int) roundedValue;
-					
+
 					// ex. 16.00000003 -> 16.00
 					String prixPromoFinal = String.format("%.2f", prixPromo);
-					
+
 					%>
-			<div class="item">
-				<div class="card card-product">
-					<div class="card-ribbon">
-						<div class="card-ribbon-container right">
-							<% if (promotion == true){ %>
-							<span class="ribbon ribbon-primary">PROMO</span>
-							<%}%>
-						</div>
-					</div>
-					<div class="card-badge">
-						<div class="card-badge-container left">
-							<% if (promotion == true){ %>
-							<span class="badge badge-primary"><%=off2%>% OFF</span>
-							<%}%>
-						</div>
-						<img src=<%=adresseImg %> alt="Card image 2" class="card-img-top">
-					</div>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="detail-product.html"><%=nomP %></a>
-						</h4>
-						<div class="card-price">
-							<% if (promotion == true){ %>
-							<span class="discount"><%=prixOriginal %>€</span> <span
-								class="reguler"><%=prixPromoFinal %>€</span>
-							<%} else {%>
-							<span class="reguler"><%=prixOriginal %>€</span>
-							<%}%>
-						</div>
-						<a href="detail-product.html" class="btn btn-block btn-primary">
-							Add to Cart </a>
+					<div class="item">
+                                <div class="card card-product">
+                                    <div class="card-ribbon">
+                                        <div class="card-ribbon-container right">
+                                        	<% if (promotion == true){ %>
+                                        		<span class="ribbon ribbon-primary">PROMO</span>
+                                        	<%}%>
+                                        </div>
+                                    </div>
+                                    <div class="card-badge">
+                                        <div class="card-badge-container left">
+                                        <% if (promotion == true){ %>
+                                            <span class="badge badge-primary"><%=off2%>% OFF</span>
+                                        <%}%>
+                                        </div>
+                                        <img src=<%=adresseImg %> alt="Card image 2" class="card-img-top">
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+											<a href="detailProduct.jsp?productId=<%= p.getIdProduit() %>"><%= nomP %></a>
+                                        </h4>
+                                        <div class="card-price">
+                                        	<% if (promotion == true){ %>
+                                            	<span class="discount"><%=prixOriginal %>€</span>
+                                            	<span class="reguler"><%=prixPromoFinal %>€</span>
+                                            <%} else {%>
+                                            	<span class="reguler"><%=prixOriginal %>€</span>
+                                            <%}%>
+                                        </div>
+											<a href="detailProduct.jsp?productId=<%= p.getIdProduit() %>" class="btn btn-block btn-primary">Add to Cart</a>
+                                            Add to Cart
+                                        </a>
 
 					</div>
 				</div>

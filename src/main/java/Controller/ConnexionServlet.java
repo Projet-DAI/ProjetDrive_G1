@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +26,7 @@ import Model.metier.Client;
 @WebServlet("/Connexion")
 public class ConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -50,24 +51,25 @@ public class ConnexionServlet extends HttpServlet {
 	        query.setParameter("motDePasse", motDePasse);
 
 	        List<Client> clients = query.list();
+	        RequestDispatcher rd;
 
 	        if (!clients.isEmpty()) {// Utilisateur connecté avec succès
 	        	String username = clients.get(0).getNomUtilisateurClient();
-	        	
+
 	            HttpSession s = request.getSession();
 	            s.setAttribute("username", username);
-	            
+
 	            //request.getRequestDispatcher("ShopServlet").forward(request, response);
 	            //response.sendRedirect("servletCentral?method=shop");
 	            request.getRequestDispatcher("shop").forward(request, response);
-	            
-	            
+
+
 	        	//request.("servletCentral?method=shop").forward(request, response);
 	        } else {
 	            // Échec de la connexion
 	            System.out.println("Connexion échouée");
 	            String msg = "Nom d'utilisateur ou mot de passe incorrect.";
-	            
+
 	            request.setAttribute("msgE", msg);
 	            request.getRequestDispatcher("/login.jsp").forward(request, response);
 	        }
@@ -77,7 +79,7 @@ public class ConnexionServlet extends HttpServlet {
 	    } finally {
 	        session.close();
 	    }
-	    
+
 	}
 
 	/**

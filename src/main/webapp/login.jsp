@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ page import="Model.DAO.ClientDAO"%>
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="Model.DAO.ClientDAO" %>
+<%@ page import="Model.metier.Client" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +46,7 @@
 												moi ?</label>
 										</div>
 										<a href="login.jsp" class="text-light"><i
-											class="fa fa-bell"></i> Mot de passe oublié ?</a>
+											class="fa fa-bell"></i> Mot de passe oubliï¿½ ?</a>
 									</div>
 								</div>
 								<div class="form-group row text-center mt-4">
@@ -55,11 +57,11 @@
 									</div>
 								</div>
 							</form>
-							<% 
+							<%
 						        String msg = (String)request.getAttribute("msgE");
-						
+
 						        if (msg != null) {
-									// Affichez un message d'erreur en cas d'échec de connexion
+									// Affichez un message d'erreur en cas d'ï¿½chec de connexion
 									out.println("<p style='color:red;'>Identifiant ou mot de passe incorrect</p>");
 						        }
 						    %>
@@ -74,18 +76,18 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<h5>À propos</h5>
+				<h5>ï¿½ propos</h5>
 				<p></p>
 			</div>
 			<div class="col-md-3">
 				<h5>Liens Utiles</h5>
 				<ul>
-					<li><a href="about.html">À propos</a></li>
+					<li><a href="about.html">ï¿½ propos</a></li>
 					<li><a href="contact.html">Contactez-nous</a></li>
 					<li><a href="faq.html">FAQ</a></li>
-					<li><a href="javascript:void(0)">Comment ça fonctionne</a></li>
+					<li><a href="javascript:void(0)">Comment ï¿½a fonctionne</a></li>
 					<li><a href="terms.html">Termes et Conditions de Retrait</a></li>
-					<li><a href="privacy.html">Politique de confidentialité</a></li>
+					<li><a href="privacy.html">Politique de confidentialitï¿½</a></li>
 				</ul>
 			</div>
 			<div class="col-md-3">
@@ -108,7 +110,7 @@
 				</ul>
 			</div>
 			<div class="col-md-3">
-				<h5>Obtenez notre application dès maintenant</h5>
+				<h5>Obtenez notre application dï¿½s maintenant</h5>
 				<ul class="mb-0">
 					<li class="download-app"><a href="#"><img
 							src="assets/img/playstore.png"></a></li>

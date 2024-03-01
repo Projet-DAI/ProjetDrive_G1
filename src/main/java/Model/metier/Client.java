@@ -2,6 +2,12 @@ package Model.metier;
 
 import javax.persistence.*;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import Model.DAO.HibernateUtil;
+
 import java.util.List;
 
 @Entity
@@ -62,9 +68,9 @@ public class Client {
     	
     }
 
-    public boolean verifierConnexion(String nomUtilisateur, String motDePasse) {
+   /* public boolean verifierConnexion(String nomUtilisateur, String motDePasse) {
         return this.nomUtilisateurClient.equals(nomUtilisateur) && this.pwdClient.equals(motDePasse);
-    }
+    }*/
 
 	public int getIdClient() {
 		return idClient;
@@ -145,5 +151,32 @@ public class Client {
 	public void setCommandes(List<Commande> commandes) {
 		this.commandes = commandes;
 	}
+	
+	
+	 public static boolean verifierConnexion(String nomUtilisateur, String motDePasse) {
+	        boolean isValidUser = false;
+	        Session session = HibernateUtil.getSessionFactory().openSession();
+	        Transaction tx = session.beginTransaction();
+	        try {
+	          
+	            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :username AND pwdClient = :password");
+	            query.setParameter("username", nomUtilisateur);
+	            query.setParameter("password", motDePasse);
+
+	            Client client = query.uniqueResult();
+
+	            if (client != null) {
+	                isValidUser = true;
+	            }
+
+	            tx.commit();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            session.close();
+	        }
+
+	        return isValidUser;
     
+}
 }

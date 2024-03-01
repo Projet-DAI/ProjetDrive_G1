@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +69,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="transaction.html">Mon historique de commandes</a>
-                                <a class="dropdown-item" href="setting.html">ParamÃ¨tres</a>
+                                <a class="dropdown-item" href="setting.html">Paramètres</a>
                             </div>
                           </li>
                         <li class="nav-item dropdown">
@@ -154,7 +157,7 @@
                 </video>
                 <div class="container">
                     <h1 class="pt-5">
-                        Ã‰conomisez du temps et confiez-nous<br>
+                        Économisez du temps et confiez-nous<br>
                         vos courses
                     </h1>
 
@@ -185,7 +188,7 @@
                                 </div>
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        RÃ©cupÃ©rer
+                                        Récupérer
                                     </h4>
                                     <p class="card-text">
 										</p>
@@ -231,7 +234,7 @@
                                 <div class="media d-flex align-items-center justify-content-center">
                                     <span class="d-flex mr-2"><i class="sb-bistro-carrot"></i><i class="sb-bistro-apple"></i></span>
                                     <div class="media-body">
-                                        <h5>Fruits et LÃ©gumes</h5>
+                                        <h5>Fruits et Légumes</h5>
                                     </div>
                                 </div>
                             </a>
@@ -261,7 +264,7 @@
                                 <div class="media d-flex align-items-center justify-content-center">
                                     <span class="d-flex mr-2"><i class="sb-bistro-cake"></i></span>
                                     <div class="media-body">
-                                        <h5>Boulangerie et PÃ¢tisserie </h5>
+                                        <h5>Boulangerie et Pâtisserie </h5>
                                     </div>
                                 </div>
                             </a>
@@ -271,7 +274,7 @@
                                 <div class="media d-flex align-items-center justify-content-center">
                                     <span class="d-flex mr-2"><i class="sb-bistro-french-fries"></i></span>
                                     <div class="media-body">
-                                        <h5>Produits surgelÃ©s</h5>
+                                        <h5>Produits surgelés</h5>
                                     </div>
                                 </div>
                             </a>
@@ -281,7 +284,7 @@
                                 <div class="media d-flex align-items-center justify-content-center">
                                     <span class="d-flex mr-2"><i class="sb-bistro-coffee"></i></span>
                                     <div class="media-body">
-                                        <h5>Ã‰picerie</h5>
+                                        <h5>Épicerie</h5>
                                     </div>
                                 </div>
                             </a>
@@ -291,7 +294,7 @@
                                 <div class="media d-flex align-items-center justify-content-center">
                                     <span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
                                     <div class="media-body">
-                                        <h5>HygiÃ¨ne et BeautÃ©</h5>
+                                        <h5>Hygiène et Beauté</h5>
                                     </div>
                                 </div>
                             </a>
@@ -301,7 +304,7 @@
                                 <div class="media d-flex align-items-center justify-content-center">
                                     <span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
                                     <div class="media-body">
-                                        <h5>Entretien mÃ©nager</h5>
+                                        <h5>Entretien ménager</h5>
                                     </div>
                                 </div>
                             </a>
@@ -320,7 +323,7 @@
                                 <div class="media d-flex align-items-center justify-content-center">
                                     <span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
                                     <div class="media-body">
-                                        <h5>Articles pour bÃ©bÃ©s</h5>
+                                        <h5>Articles pour bébés</h5>
                                     </div>
                                 </div>
                             </a>
@@ -340,7 +343,7 @@
                                 <div class="media d-flex align-items-center justify-content-center">
                                     <span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
                                     <div class="media-body">
-                                        <h5>Articles mÃ©nagers</h5>
+                                        <h5>Articles ménagers</h5>
                                     </div>
                                 </div>
                             </a>
@@ -383,14 +386,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <h5>Ã€ propos</h5>
+                    <h5>À propos</h5>
                     <p></p>
                 </div>
                 <div class="col-md-3">
                     <h5>Liens Utiles</h5>
                     <ul>
                         <li>
-                            <a href="about.html">Ã€ propos</a>
+                            <a href="about.html">À propos</a>
                         </li>
                         <li>
                             <a href="contact.html">Contactez-nous</a>
@@ -399,13 +402,13 @@
                             <a href="faq.html">FAQ</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)">Comment Ã§a fonctionne</a>
+                            <a href="javascript:void(0)">Comment ça fonctionne</a>
                         </li>
                         <li>
                             <a href="terms.html">Termes et Conditions de Retrait</a>
                         </li>
                         <li>
-                            <a href="privacy.html">Politique de confidentialitÃ©</a>
+                            <a href="privacy.html">Politique de confidentialité</a>
                         </li>
                     </ul>
                 </div>
@@ -434,7 +437,7 @@
                      </ul>
                 </div>
                 <div class="col-md-3">
-                     <h5>Obtenez notre application dÃ¨s maintenant</h5>
+                     <h5>Obtenez notre application dès maintenant</h5>
                      <ul class="mb-0">
                          <li class="download-app">
                              <a href="#"><img src="assets/img/playstore.png"></a>
@@ -457,3 +460,4 @@
     <script type="text/javascript" src="assets/js/theme.js"></script>
 </body>
 </html>
+	

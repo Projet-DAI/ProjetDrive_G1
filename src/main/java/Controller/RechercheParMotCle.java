@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.DAO.PanierDAO;
 import Model.DAO.ProduitDAO;
 import Model.metier.Produit;
 
@@ -49,8 +50,20 @@ public class RechercheParMotCle extends HttpServlet {
 		
 		request.setAttribute("listP", listP);
 		request.setAttribute("motcle", mot);
-		request.getRequestDispatcher("/resRechercheParMotCle.jsp").forward(request, response);
 		
+		// Rediriger vers detailProduct.jsp si un produit est sélectionné
+	    String selectedProductId = request.getParameter("productId");
+	    System.out.println("Selected Product ID: " + selectedProductId); // Ajout de l'instruction de journalisation
+
+	    if (selectedProductId != null) {
+	        Produit product = ProduitDAO.getProductById(Integer.parseInt(selectedProductId));
+	        request.setAttribute("product", product);
+
+
+	        request.getRequestDispatcher("/detailProduct.jsp").forward(request, response);
+	    } else {
+		request.getRequestDispatcher("/resRechercheParMotCle.jsp").forward(request, response);
+	    }
 	}
 
 	/**

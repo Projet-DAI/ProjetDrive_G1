@@ -2,6 +2,7 @@ package Model.metier;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import Model.metier.*;
@@ -30,10 +31,24 @@ public class Panier {
 		this.client = client;
 		this.dateCreation = dateCreation;
 	}
-
+	
     public Panier() {
+         List<LignePanier> lignesPanier;
+        this.lignesPanier = new ArrayList<>();}
+
+        
+   /* public void ajouterProduit(Produit produit, int quantite) {
+        // Créez une nouvelle ligne de panier avec le produit et la quantité
+        LignePanier nouvelleLigne = new LignePanier(produit, quantite);
+        
+        // Ajoutez la nouvelle ligne de panier à la liste des lignes de panier du panier
+        lignesPanier.add(nouvelleLigne);
+    }*/
+
+
+
     	
-    }
+    
 
 	public int getIdPanier() {
 		return idPanier;

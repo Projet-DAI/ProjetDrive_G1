@@ -4,11 +4,13 @@ import java.io.IOException;
 
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,7 +26,7 @@ import Model.metier.Client;
 @WebServlet("/Connexion")
 public class ConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,28 +39,39 @@ public class ConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-		System.out.println("nom "+request.getParameter("nomUtilisateurClient"));
-	    String identifiant = request.getParameter("nomUtilisateurClient");
-	    String motDePasse = request.getParameter("pwdClient");
+	    String email = request.getParameter("email");
+	    String motDePasse = request.getParameter("password");
 
 	    SessionFactory factory = HibernateUtil.getSessionFactory();
 	    Session session = factory.openSession();
 
 	    try {
-	        Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :identifiant AND pwdClient = :motDePasse", Client.class);
-	        query.setParameter("identifiant", identifiant);
+	        Query<Client> query = session.createQuery("FROM Client WHERE emailClient = :email AND pwdClient = :motDePasse", Client.class);
+	        query.setParameter("email", email);
 	        query.setParameter("motDePasse", motDePasse);
 
 	        List<Client> clients = query.list();
+	        RequestDispatcher rd;
 
-	        if (!clients.isEmpty()) {
-	            // Utilisateur connecté avec succès
-	            response.sendRedirect("shop.jsp");
-	            System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
+	        if (!clients.isEmpty()) {// Utilisateur connecté avec succès
+	        	String username = clients.get(0).getNomUtilisateurClient();
+
+	            HttpSession s = request.getSession();
+	            s.setAttribute("username", username);
+
+	            //request.getRequestDispatcher("ShopServlet").forward(request, response);
+	            //response.sendRedirect("servletCentral?method=shop");
+	            request.getRequestDispatcher("shop").forward(request, response);
+
+
+	        	//request.("servletCentral?method=shop").forward(request, response);
 	        } else {
 	            // Échec de la connexion
 	            System.out.println("Connexion échouée");
+	            String msg = "Nom d'utilisateur ou mot de passe incorrect.";
+
+	            request.setAttribute("msgE", msg);
+	            request.getRequestDispatcher("/login.jsp").forward(request, response);
 	        }
 
 	    } catch (Exception e) {
@@ -66,43 +79,14 @@ public class ConnexionServlet extends HttpServlet {
 	    } finally {
 	        session.close();
 	    }
-	    
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		System.out.println("POST");
-        String identifiant = request.getParameter("nomUtilisateurClient");
-        String motDePasse = request.getParameter("pwdClient");
-
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
-
-        try {
-            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :identifiant",Client.class);
-            query.setParameter("identifiant", identifiant);
-            query.setParameter("motDePasse", motDePasse);
-
-            List<Client> clients = query.list();
-
-            if (!clients.isEmpty() && clients.get(0).verifierConnexion(identifiant, motDePasse)) {
-                // Utilisateur connecté avec succès
-                response.sendRedirect("shop.jsp");
-                System.out.println("Id : " + clients.get(0).getNomUtilisateurClient());
-            } else {
-                // Échec de la connexion
-                System.out.println("Connexion echouée");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
+		doGet(request, response);
 
 	}
-	
 }

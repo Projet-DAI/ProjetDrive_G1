@@ -17,7 +17,7 @@
     <jsp:include flush="true" page="head.jsp"></jsp:include>
 
     <% List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");%>
-
+	
     <div id="page-content" class="page-content">
     	<div class="banner">
             <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">

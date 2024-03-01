@@ -38,7 +38,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <a href="index.html" class="navbar-brand">
-                    <img src="assets/img/logo/logo.png" alt="">
+                    <img src="" alt="">
                 </a>
 
                 <!-- Toggle Button -->
@@ -151,7 +151,7 @@
                         Mon panier
                     </h1>
                     <p class="lead">
-                        Save time and leave the groceries to us.
+                        Économisez du temps et confiez-nous vos courses
                     </p>
                 </div>
             </div>
@@ -275,29 +275,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <h5>About</h5>
-                    <p>Nisi esse dolor irure dolor eiusmod ex deserunt proident cillum eu qui enim occaecat sunt aliqua anim eiusmod qui ut voluptate.</p>
+                    <h5>À propos</h5>
+                    <p></p>
                 </div>
                 <div class="col-md-3">
-                    <h5>Links</h5>
+                    <h5>Liens Utiles</h5>
                     <ul>
                         <li>
-                            <a href="about.html">About</a>
+                            <a href="about.html">À propos</a>
                         </li>
                         <li>
-                            <a href="contact.html">Contact Us</a>
+                            <a href="contact.html">Contactez-nous</a>
                         </li>
                         <li>
                             <a href="faq.html">FAQ</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)">How it Works</a>
+                            <a href="javascript:void(0)">Comment ça fonctionne</a>
                         </li>
                         <li>
-                            <a href="terms.html">Terms</a>
+                            <a href="terms.html">Termes et Conditions de Retrait</a>
                         </li>
                         <li>
-                            <a href="privacy.html">Privacy Policy</a>
+                            <a href="privacy.html">Politique de confidentialité</a>
                         </li>
                     </ul>
                 </div>
@@ -305,14 +305,14 @@
                      <h5>Contact</h5>
                      <ul>
                          <li>
-                            <a href="tel:+620892738334"><i class="fa fa-phone"></i> 08272367238</a>
+                            <a href="tel:+620892738334"><i class="fa fa-phone"></i> 00337236723</a>
                         </li>
                         <li>
-                            <a href="mailto:hello@domain.com"><i class="fa fa-envelope"></i> hello@domain.com</a>
+                            <a href="mailto:hello@domain.com"><i class="fa fa-envelope"></i> Drive@G1.com</a>
                          </li>
                      </ul>
 
-                     <h5>Follow Us</h5>
+                     <h5>Suivez-nous</h5>
                      <ul class="social">
                          <li>
                             <a href="javascript:void(0)" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -326,21 +326,15 @@
                      </ul>
                 </div>
                 <div class="col-md-3">
-                     <h5>Get Our App</h5>
+                     <h5>Obtenez notre application dès maintenant</h5>
                      <ul class="mb-0">
                          <li class="download-app">
                              <a href="#"><img src="assets/img/playstore.png"></a>
-                         </li>
-                         <li style="height: 200px">
-                             <div class="mockup">
-                                 <img src="assets/img/mockup.png">
-                             </div>
                          </li>
                      </ul>
                 </div>
             </div>
         </div>
-        <p class="copyright">&copy; 2018 Freshcery | Groceries Organic Store. All rights reserved.</p>
     </footer>
 	
 	<script type="text/javascript" src="assets/js/totalPanier.js"></script>

@@ -44,31 +44,7 @@ public class servletCentral extends HttpServlet {
 	        case "accueil":
 	            request.getRequestDispatcher("index").forward(request, response);
 	            break;
-        
-			/*
-			 * case "shop": try { // lire la liste des messages List<Produit>
-			 * promotedProducts = hibernateMethode.getProduitsProm(); // chainage vers la
-			 * vue "Afficher.jsp" avec la liste request.setAttribute("liste_msg",
-			 * promotedProducts); // Page d'affichage des informations
-			 * request.getRequestDispatcher("shop").forward(request, response);
-			 * }catch(Exception ex){ // chainage vers "index.jsp"
-			 * request.setAttribute("msg_erreur", ex.getMessage());
-			 * request.getRequestDispatcher("Index").forward(request, response); } break;
-			 */
-                
-			/*
-			 * case "detailProduct": String productIdStr =
-			 * request.getParameter("productId"); if(productIdStr != null &&
-			 * !productIdStr.isEmpty()) { try { int productId =
-			 * Integer.parseInt(productIdStr); Produit product =
-			 * hibernateMethode.getProductById(productId); request.setAttribute("product",
-			 * product); request.getRequestDispatcher("detailProduct.jsp").forward(request,
-			 * response); }catch(Exception ex){ // chainage vers "index.jsp"
-			 * request.setAttribute("msg_erreur", ex.getMessage());
-			 * request.getRequestDispatcher("Index").forward(request, response); } }
-			 * 
-			 * break;
-			 */
+	            
             case "addToCart":
                 String productIdStr1 = request.getParameter("productId");
                 String quantityStr = request.getParameter("quantity");

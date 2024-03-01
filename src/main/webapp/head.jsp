@@ -83,7 +83,7 @@
                     		</div>
                     	</li>
                     	<!-- ajouter Drive pour choisir magasin-->
-                    	<li class="nav-item">
+                    	<li class="nav-item" id="drive">
 						    <a href="#" class="nav-link" data-toggle="modal" data-target="#locationModal">Drive</a>
 						</li>
 
@@ -191,56 +191,79 @@
         	</div>
 	 	</nav>
 	 </div>
-	<!-- ajouter Drive  -->
-	<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="locationModalLabel"> votre location</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        <form id="locationForm">
-	          <div class="form-group">
-	            <label for="userLocation" class="col-form-label">location:</label>
-	            <input type="text" class="form-control" id="userLocation">
-	          </div>
-	        </form>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-	        <button type="button" class="btn btn-primary" onclick="submitLocation()">Vlider</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	<!-- 模态框 -->
+    <div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="locationModalLabel">Choisissez votre magasin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="locationForm">
+                        <div class="form-group">
+                            <label for="userLocation" class="col-form-label">Location:</label>
+                            <input type="text" class="form-control" id="userLocation">
+                        </div>
+                        <div id="shopsList"></div> <!-- Conteneur de la liste d'achats -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" onclick="submitLocation()">Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script>
-    function submitLocation() {
-        var userLocation = document.getElementById('userLocation').value;
+    <script>
+        function submitLocation() {
+            var userLocation = document.getElementById('userLocation').value;
+            $.ajax({
+                url: 'MagasinServlet', // Servlet - URL
+                type: 'GET', 
+                data: {userLocation: userLocation}, // dat pour envoyer Servlet
+                success: function(response) {
+                    // afficher shop list
+                    showShopsModal(response);
+                    console.log(response); 
+                },
+                error: function(xhr, status, error) {
+                    console.error("echec de la requete AJAX: " + status + ", incorrect: " + error);
+                }
+            });
+        }
 
-        // 使用jQuery发送AJAX请求
-        $.ajax({
-            url: 'MagasinServlet', // Servlet的URL
-            type: 'POST',
-            data: {userLocation: userLocation}, // 发送到Servlet的数据
-            success: function(response) {
-                // 处理成功的响应
-                console.log(response);
-                // 可以根据需要更新页面内容
-            },
-            error: function(xhr, status, error) {
-                // 处理错误
-                console.error("AJAX请求失败: " + status + ", 错误: " + error);
+        function showShopsModal(shops) {
+            
+            var shopsListHtml = shops.map(function(shop) {
+                return '<button onclick="selectShop(\'' + shop.nomMagasin + '\')">' + shop.nomMagasin + '</button>';
+            }).join('');
+            document.getElementById('shopsList').innerHTML = shopsListHtml;
+        }
+
+
+        function selectShop(shopName) {
+            sessionStorage.setItem('selectedShop', shopName);
+            $('#locationModal').on('hidden.bs.modal', function () {
+                // recharger page
+            	 window.location.reload();
+            }).modal('hide');
+        }
+ 
+        $(document).ready(function() {
+            var selectedShop = sessionStorage.getItem('selectedShop');
+            if (selectedShop) {
+                // Mise à jour de drive
+                document.getElementById('drive').innerText = selectedShop;
             }
-        });
+        }); 
+    </script>	
 
-        // 关闭模态框
-        $('#locationModal').modal('hide');
-    }
-</script>
+    
+
  <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>

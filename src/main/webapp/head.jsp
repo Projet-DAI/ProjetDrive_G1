@@ -197,7 +197,7 @@
                             <label for="userLocation" class="col-form-label">Location:</label>
                             <input type="text" class="form-control" id="userLocation">
                         </div>
-                        <div id="shopsList"></div> <!-- 商店列表容器 -->
+                        <div id="shopsList"></div> <!-- Conteneur de la liste d'achats -->
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -212,22 +212,22 @@
         function submitLocation() {
             var userLocation = document.getElementById('userLocation').value;
             $.ajax({
-                url: 'MagasinServlet', // Servlet的URL
-                type: 'GET', // 修改为GET，与Servlet匹配
-                data: {userLocation: userLocation}, // 发送到Servlet的数据
+                url: 'MagasinServlet', // Servlet - URL
+                type: 'GET', 
+                data: {userLocation: userLocation}, // dat pour envoyer Servlet
                 success: function(response) {
-                    // 显示商店列表
+                    // afficher shop list
                     showShopsModal(response);
-                    console.log(response); // 查看返回的对象结构
+                    console.log(response); 
                 },
                 error: function(xhr, status, error) {
-                    console.error("AJAX请求失败: " + status + ", 错误: " + error);
+                    console.error("echec de la requete AJAX: " + status + ", incorrect: " + error);
                 }
             });
         }
 
         function showShopsModal(shops) {
-            // 假设shops已经是一个JavaScript对象数组，不需要解析
+            
             var shopsListHtml = shops.map(function(shop) {
                 return '<button onclick="selectShop(\'' + shop.nomMagasin + '\')">' + shop.nomMagasin + '</button>';
             }).join('');

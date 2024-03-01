@@ -37,23 +37,14 @@ public class Panier {
         this.lignesPanier = new ArrayList<>();}
 
         
-     // Méthode pour ajouter un produit avec une quantité au panier
-        public boolean ajouterProduit(Produit produit, int quantite) {
-            // Vérifier si le produit et la quantité sont valides
-            if (produit != null && quantite > 0) {
-                // Créer une nouvelle ligne de panier avec le produit et la quantité
-                LignePanier lignePanier = new LignePanier(this, produit, quantite);
-                
-                // Ajouter la ligne de panier à la liste des lignes de panier du panier
-                lignesPanier.add(lignePanier);
-                
-                // Retourner true pour indiquer que l'ajout a réussi
-                return true;
-            } else {
-                // Retourner false pour indiquer que l'ajout a échoué
-                return false;
-            }
-        }
+   /* public void ajouterProduit(Produit produit, int quantite) {
+        // Créez une nouvelle ligne de panier avec le produit et la quantité
+        LignePanier nouvelleLigne = new LignePanier(produit, quantite);
+        
+        // Ajoutez la nouvelle ligne de panier à la liste des lignes de panier du panier
+        lignesPanier.add(nouvelleLigne);
+    }*/
+
 
 
     	

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import Model.DAO.hibernateMethode;
 import Model.metier.Panier;
+import Model.DAO.PanierDAO;
+
 import Model.metier.Produit;
 
 /**
@@ -84,22 +86,22 @@ public class servletCentral extends HttpServlet {
                         int quantity = Integer.parseInt(quantityStr);
                         Produit product = hibernateMethode.getProductById(productId);
                         
-                        // Gérez l'ajout au panier ici
                         HttpSession session = request.getSession(true);
                         Panier panier = (Panier) session.getAttribute("panier");
-                        //request.setAttribute("panier", panier);
-
                         if (panier == null) {
                             panier = new Panier();
                         }
-                        panier.ajouterProduit(product, quantity);
-                        session.setAttribute("panier", panier);
+                        PanierDAO panierDAO = new PanierDAO();
+                        panierDAO.ajouterProduitAuPanier(1, product, quantity); // Utilisez l'ID du panier correct ici
 
                         
-                        // Redirigez vers la page de détails du produit avec un paramètre indiquant que le produit a été ajouté au panier
+                       // panierDAO.ajouterProduitAuPanier(panier.getIdPanier(), product, quantity);
+                        session.setAttribute("panier", panier);
+
                         response.sendRedirect("detailProduct.jsp?productId=" + productId + "&addedToCart=true");
                     } catch (Exception ex) {
-                        // Gérez les erreurs ici
+                        // Gérer les erreurs ici
+                        ex.printStackTrace();
                         request.setAttribute("error", "Une erreur s'est produite lors de l'ajout au panier: " + ex.getMessage());
                         request.getRequestDispatcher("detailProduct.jsp?productId=" + productIdStr1).forward(request, response);
                     }

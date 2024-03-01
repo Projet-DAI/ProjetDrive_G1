@@ -265,7 +265,7 @@
 </script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
 
-                        <a href="checkout.html" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>
+                        <a href="checkout.html" class="btn btn-lg btn-primary">Valider Mom Panier <i class="fa fa-long-arrow-right"></i></a>
                     </div>
                 </div>
             </div>

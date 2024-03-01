@@ -1,28 +1,31 @@
 package Controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.DAO.ProduitDAO;
-import Model.metier.Produit;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import Model.DAO.HibernateUtil;
+import Model.DAO.MagasinDao;
+import Model.metier.Magasin;
+import java.util.List;
 
 /**
- * Servlet implementation class AffichierProduitServlet
+ * Servlet implementation class MagasinSerclet
  */
-@WebServlet("/shop")
-public class shop extends HttpServlet {
+@WebServlet("/MagasinServlet")
+public class MagasinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public shop() {
+    public MagasinServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,17 +35,18 @@ public class shop extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-            // lire la liste des messages
-            List<Produit> promotedProducts = ProduitDAO.getProduitsProm();                   
-            // chainage vers la vue "Afficher.jsp" avec la liste 
-            request.setAttribute("liste_msg", promotedProducts);
-            // Page d'affichage des informations
-            request.getRequestDispatcher("/shop.jsp").forward(request, response);
-        }catch(Exception ex){
+			String userLocation = request.getParameter("userLocation");	
+	        List<Magasin> mags = MagasinDao.choisirMagasins(userLocation);
+	        System.out.println(mags);
+	        request.setAttribute("mags", mags);
+	        // Page d'affichage des informations
+	        request.getRequestDispatcher("/magasin.jsp").forward(request, response);
+		}catch(Exception ex){
             // chainage vers "index.jsp"
             request.setAttribute("msg_erreur", ex.getMessage());
             response.sendRedirect("index.html");
         }
+		
 	}
 
 	/**

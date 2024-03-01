@@ -1,9 +1,9 @@
 <%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@ page import="java.util.List" %>
-<%@ page import="Model.metier.Produit" %>
+	pageEncoding="UTF-8"%>
+
+<%@ page import="java.util.List"%>
+<%@ page import="Model.metier.Produit"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,9 @@
 	<jsp:include flush="true" page="head.jsp"></jsp:include>
 	<div class="col-md-12" style="padding-top: 90px;">
 		<% String motcle = (String)request.getAttribute("motcle"); %>
-		<h2 class="title">Selon votre recherche : <%=motcle %></h2>
+		<h2 class="title">
+			Selon votre recherche :
+			<%=motcle %></h2>
 		<div class="product-carousel owl-carousel">
 			<%
 			Object obj = request.getAttribute("listP");
@@ -46,49 +48,48 @@
 					String prixPromoFinal = String.format("%.2f", prixPromo);
 					
 					%>
-					<div class="item">
-                                <div class="card card-product">
-                                    <div class="card-ribbon">
-                                        <div class="card-ribbon-container right">
-                                        	<% if (promotion == true){ %>
-                                        		<span class="ribbon ribbon-primary">PROMO</span>
-                                        	<%}%>
-                                        </div>
-                                    </div>
-                                    <div class="card-badge">
-                                        <div class="card-badge-container left">
-                                        <% if (promotion == true){ %>
-                                            <span class="badge badge-primary"><%=off2%>% OFF</span>
-                                        <%}%>	   
-                                        </div>
-                                        <img src=<%=adresseImg %> alt="Card image 2" class="card-img-top">
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">
-                                            <a href="detail-product.html"><%=nomP %></a>
-                                        </h4>
-                                        <div class="card-price">
-                                        	<% if (promotion == true){ %>
-                                            	<span class="discount"><%=prixOriginal %>€</span>
-                                            	<span class="reguler"><%=prixPromoFinal %>€</span>
-                                            <%} else {%>
-                                            	<span class="reguler"><%=prixOriginal %>€</span>
-                                            <%}%>
-                                        </div>
-                                        <a href="detail-product.html" class="btn btn-block btn-primary">
-                                            Add to Cart
-                                        </a>
+			<div class="item">
+				<div class="card card-product">
+					<div class="card-ribbon">
+						<div class="card-ribbon-container right">
+							<% if (promotion == true){ %>
+							<span class="ribbon ribbon-primary">PROMO</span>
+							<%}%>
+						</div>
+					</div>
+					<div class="card-badge">
+						<div class="card-badge-container left">
+							<% if (promotion == true){ %>
+							<span class="badge badge-primary"><%=off2%>% OFF</span>
+							<%}%>
+						</div>
+						<img src=<%=adresseImg %> alt="Card image 2" class="card-img-top">
+					</div>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="detail-product.html"><%=nomP %></a>
+						</h4>
+						<div class="card-price">
+							<% if (promotion == true){ %>
+							<span class="discount"><%=prixOriginal %>€</span> <span
+								class="reguler"><%=prixPromoFinal %>€</span>
+							<%} else {%>
+							<span class="reguler"><%=prixOriginal %>€</span>
+							<%}%>
+						</div>
+						<a href="detail-product.html" class="btn btn-block btn-primary">
+							Add to Cart </a>
 
-                                    </div>
-                                </div>
-                            </div>
-					<%
+					</div>
+				</div>
+			</div>
+			<%
 				}
 		}
 		%>
 		</div>
 	</div>
-	
+
 
 	<jsp:include flush="true" page="footer.jsp"></jsp:include>
 

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Model.DAO.hibernateMethode;
+import Model.DAO.ProduitDAO;
 import Model.metier.Panier;
 import Model.DAO.PanierDAO;
 
@@ -45,37 +45,30 @@ public class servletCentral extends HttpServlet {
 	            request.getRequestDispatcher("index").forward(request, response);
 	            break;
         
-            case "shop":
-                try {
-                    // lire la liste des messages
-                    List<Produit> promotedProducts = hibernateMethode.getProduitsProm();                   
-                    // chainage vers la vue "Afficher.jsp" avec la liste 
-                    request.setAttribute("liste_msg", promotedProducts);
-                    // Page d'affichage des informations
-                    request.getRequestDispatcher("shop").forward(request, response);
-                }catch(Exception ex){
-                    // chainage vers "index.jsp"
-                    request.setAttribute("msg_erreur", ex.getMessage());
-                    request.getRequestDispatcher("Index").forward(request, response);
-                }
-                break;
+			/*
+			 * case "shop": try { // lire la liste des messages List<Produit>
+			 * promotedProducts = hibernateMethode.getProduitsProm(); // chainage vers la
+			 * vue "Afficher.jsp" avec la liste request.setAttribute("liste_msg",
+			 * promotedProducts); // Page d'affichage des informations
+			 * request.getRequestDispatcher("shop").forward(request, response);
+			 * }catch(Exception ex){ // chainage vers "index.jsp"
+			 * request.setAttribute("msg_erreur", ex.getMessage());
+			 * request.getRequestDispatcher("Index").forward(request, response); } break;
+			 */
                 
-            case "detailProduct":
-            	String productIdStr = request.getParameter("productId");
-            	if(productIdStr != null && !productIdStr.isEmpty()) {
-            		try {
-            			int productId = Integer.parseInt(productIdStr);
-            			Produit product = hibernateMethode.getProductById(productId);
-            			request.setAttribute("product", product);
-                        request.getRequestDispatcher("detailProduct.jsp").forward(request, response);
-                	}catch(Exception ex){
-                        // chainage vers "index.jsp"
-                        request.setAttribute("msg_erreur", ex.getMessage());
-                        request.getRequestDispatcher("Index").forward(request, response);
-                    }
-            	}
-            	
-            	break;
+			/*
+			 * case "detailProduct": String productIdStr =
+			 * request.getParameter("productId"); if(productIdStr != null &&
+			 * !productIdStr.isEmpty()) { try { int productId =
+			 * Integer.parseInt(productIdStr); Produit product =
+			 * hibernateMethode.getProductById(productId); request.setAttribute("product",
+			 * product); request.getRequestDispatcher("detailProduct.jsp").forward(request,
+			 * response); }catch(Exception ex){ // chainage vers "index.jsp"
+			 * request.setAttribute("msg_erreur", ex.getMessage());
+			 * request.getRequestDispatcher("Index").forward(request, response); } }
+			 * 
+			 * break;
+			 */
             case "addToCart":
                 String productIdStr1 = request.getParameter("productId");
                 String quantityStr = request.getParameter("quantity");
@@ -90,7 +83,7 @@ public class servletCentral extends HttpServlet {
                     try {
                         int productId = Integer.parseInt(productIdStr1);
                         int quantity = Integer.parseInt(quantityStr);
-                        Produit product = hibernateMethode.getProductById(productId);
+                        Produit product = ProduitDAO.getProductById(productId);
                         
                         int clientId = (int) session.getAttribute("clientId");
 

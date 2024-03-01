@@ -131,7 +131,9 @@
                             <div class="dropdown-menu shopping-cart">
                                 <ul>
                                     <li>
-                                        <div class="drop-title">Mon Panier</div>
+                                        <div class="drop-title"> 
+                                         	<a href="Panier" class="nav-link">Mon Panier</a>
+                                        </div>
                                     </li>
                                     <%-- Contenu du panier --%>
                                     <% if (!listeLignesPanier.isEmpty()) { %>

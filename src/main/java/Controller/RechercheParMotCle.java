@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.DAO.PanierDAO;
 import Model.DAO.ProduitDAO;
 import Model.metier.Produit;
 
@@ -55,7 +56,7 @@ public class RechercheParMotCle extends HttpServlet {
 	    System.out.println("Selected Product ID: " + selectedProductId); // Ajout de l'instruction de journalisation
 
 	    if (selectedProductId != null) {
-	        Produit product = hibernateMethode.getProductById(Integer.parseInt(selectedProductId));
+	        Produit product = ProduitDAO.getProductById(Integer.parseInt(selectedProductId));
 	        request.setAttribute("product", product);
 
 

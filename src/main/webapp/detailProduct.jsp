@@ -2,7 +2,7 @@
 <%@ page import="Model.metier.Produit" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Model.DAO.hibernateMethode" %>
+<%@ page import="Model.DAO.ProduitDAO" %>
 
 <%
     // Récupérer l'ID du produit à partir de l'URL
@@ -16,7 +16,7 @@
         // Récupérer les détails du produit en fonction de son ID
         Produit product = null;
         try {
-            product = hibernateMethode.getProductById(idProduit);
+            product = ProduitDAO.getProductById(idProduit);
         } catch (Exception e) {
             e.printStackTrace();
         }

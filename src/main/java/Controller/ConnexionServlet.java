@@ -57,8 +57,10 @@ public class ConnexionServlet extends HttpServlet {
 	        	String username = clients.get(0).getNomUtilisateurClient();
 
 	            HttpSession s = request.getSession();
+	            
+	            s.setAttribute("emailCli", email);
 	            s.setAttribute("username", username);
-
+	            System.out.println(s.getAttribute("emailCli"));
 	            //request.getRequestDispatcher("ShopServlet").forward(request, response);
 	            //response.sendRedirect("servletCentral?method=shop");
 	            request.getRequestDispatcher("shop").forward(request, response);

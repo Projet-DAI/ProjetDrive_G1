@@ -103,7 +103,7 @@
                             </a>
                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="transaction.html">Mon historique de commandes</a>
-                                <a class="dropdown-item" href="List.jsp">Liste de courses</a>
+                                <a class="dropdown-item" href="ListCoursePreloadServlet">Liste de courses</a>
                                 <a class="dropdown-item" href="setting.html">Paramètres</a>
                                 <a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
 

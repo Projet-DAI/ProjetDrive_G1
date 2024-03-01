@@ -174,50 +174,52 @@
 								    <%-- Boucle pour afficher chaque produit dans le panier --%>
 					                <% if (request.getAttribute("panier") != null ){ %>
 					                  	<% Panier panier = (Panier) request.getAttribute("panier"); %>
-             	                        <tbody>
+                                <tbody>
+                                <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
+                                <tr>
+                                    <td></td>
+                                    <td><%= lignePanier.getProduit().getNomProduit() %></td>
+                                    <td><%= lignePanier.getProduit().getPrixProduit() %></td>
+                                    <td>
+                                        <!-- 添加的部分开始 -->
+                                        <button onclick="updateQuantity('<%= lignePanier.getProduit().getIdProduit() %>', <%= lignePanier.getQuantite() - 1 %>)">-</button>
+                                        <%= lignePanier.getQuantite() %>
+                                        <button onclick="updateQuantity('<%= lignePanier.getProduit().getIdProduit() %>', <%= lignePanier.getQuantite() + 1 %>)">+</button>
+                                        <!-- 添加的部分结束 -->
+                                    </td>
+                                    <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+                                </tr>
+                                <% } %>
+                                </tbody>
 
-	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
-						                        <tr>
-						                        	<td>    </td>
-						                            <td><%= lignePanier.getProduit().getNomProduit() %></td>
-						                            <td><%= lignePanier.getProduit().getPrixProduit() %></td>
-						                            <td><%= lignePanier.getQuantite() %></td>
-						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
-						                        </tr>
-						                    <% } %>
-					                    </tbody>
 
-					                <% } else { %>
+                                <% } else { %>
 					                    <tr>
 					                        <td colspan="4">Le panier est vide.</td>
 					                    </tr>
 					                <% } %>
                                 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                                <td>
-    <span class="quantity-container">
-        <button class="decrease-quantity-btn">-</button>
-        <input type="text" class="quantity" value="<%= lignePanier.getQuantite() %>" readonly="true">
-        <button class="increase-quantity-btn">+</button>
-    </span>
-                                </td>
-
+                       
                                 <script>
-                                    $(document).ready(function() {
-                                        $(".increase-quantity-btn").on("click", function() {
-                                            var quantityInput = $(this).siblings(".quantity");
-                                            var currentQuantity = parseInt(quantityInput.val());
-                                            quantityInput.val(currentQuantity + 1);
-                                        });
-
-                                        $(".decrease-quantity-btn").on("click", function() {
-                                            var quantityInput = $(this).siblings(".quantity");
-                                            var currentQuantity = parseInt(quantityInput.val());
-                                            if (currentQuantity > 1) {
-                                                quantityInput.val(currentQuantity - 1);
+                                    function updateQuantity(productId, quantity) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "UpdateQuantityServlet",
+                                            data: {
+                                                productId: productId,
+                                                quantity: quantity
+                                            },
+                                            success: function (data) {
+                                                // 刷新页面或者更新相关元素
+                                                location.reload();
+                                            },
+                                            error: function () {
+                                                alert("Failed to update quantity.");
                                             }
                                         });
-                                    });
+                                    }
                                 </script>
+
 
                             </table>
                         </div>

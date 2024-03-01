@@ -16,28 +16,43 @@
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
-
+	
+	<jsp:include flush="true" page="head.jsp"></jsp:include>
+	
 </head>
 <body>
-    <div class="page-header">
+	
+<!--     <div class="page-header"> -->
         <!--=============== Navbar ===============-->
-        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
+   <!--      <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
             <div class="container">
-                <!-- Navbar Brand -->
+                Navbar Brand
                 <a href="index.html" class="navbar-brand">
                     <img src="assets/img/logo/" alt="">
                 </a>
 
-                <!-- Toggle Button -->
+                Toggle Button
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarcollapse">
-                    <!-- Navbar Menu -->
+                    Navbar Menu
                     <ul class="navbar-nav ml-auto">
+                       	<li>
+                    		<div>
+                    			<form action="RechercheParMotCle" method="get">
+                    				<input name="motcle" placeholder="Search..." style="background-color: transparent;color: white; height: 25px">
+                    				<button type="submit" style="height:25px;"><i class="bi bi-search"></i></button>
+                    			</form>
+                    		</div>
+                    	</li>
+                    	
+                        ajouter Drive pour choisir magasin
+                    	<li class="nav-item" data-toggle="modal" data-target="#locationModal">Drive</li>
+                        
                         <li class="nav-item">
-                            <a href="shop.html" class="nav-link">Faire ses courses</a>
+                            <a href="shop" class="nav-link">Faire ses courses</a>
                         </li>
                         <li class="nav-item">
                             <a href="register.html" class="nav-link">S'inscrire</a>
@@ -128,8 +143,8 @@
                 </div>
 
             </div>
-        </nav>
-    </div>
+        </nav> -->
+   <!--  </div> -->
     <div id="page-content" class="page-content">
         <div class="banner">
             <div class="jumbotron jumbotron-video text-center bg-dark mb-0 rounded-0">
@@ -199,7 +214,7 @@
             </div>
         </div>
                     <div class="col-md-12 mt-5 text-center">
-                        <a href="shop.html" class="btn btn-primary btn-lg">Commencer ses courses</a>
+                        <a href="shop" class="btn btn-primary btn-lg">Commencer ses courses</a>
                     </div>
                 </div>
             </div>
@@ -336,6 +351,34 @@
         </div>
         </section>
     </div>
+    
+    <!-- ajouter Drive  -->
+	<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="locationModalLabel"> votre location</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form id="locationForm">
+	          <div class="form-group">
+	            <label for="userLocation" class="col-form-label">location:</label>
+	            <input type="text" class="form-control" id="userLocation">
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+	        <button type="button" class="btn btn-primary" onclick="submitLocation()">Vlider</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    
+    
     <footer>
         <div class="container">
             <div class="row">

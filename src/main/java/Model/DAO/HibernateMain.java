@@ -27,6 +27,8 @@ public class HibernateMain {
             // Client
             Client client = new Client("Dupont", "Chloe", "chloe.dupont@hotmail.com", "123", "chloe", 10, null);
             session.save(client);
+            Client client1 = new Client("BELBEKRI", "Widad", "widad.belbekri@gmail.com", "345677893", "widad", 15, null);
+            session.save(client1);
 
             // Rayon
             Rayon rayon = new Rayon("Épicerie Sucrée");
@@ -34,21 +36,21 @@ public class HibernateMain {
             System.out.println("Rayon ajouté avec succès à la base de données!");
 
             // Categories
-            List<Categories> categoriesList = readCsvFileCategories("C:\\Users\\widad\\Downloads\\categorie.csv", session);
+            List<Categories> categoriesList = readCsvFileCategories("C:\\Users\\mazhu\\Downloads\\categorie.csv", session);
             for (Categories category : categoriesList) {
                 session.save(category);
             }
             System.out.println("Categories ajoutées avec succès à la base de données!");
 
             // Produits
-            List<Produit> produits = readCsvFileProduit("C:\\Users\\widad\\Downloads\\produit.csv", session);
+            List<Produit> produits = readCsvFileProduit("C:\\Users\\mazhu\\Downloads\\produit.csv", session);
             for (Produit produit : produits) {
                 session.save(produit);
             }
             System.out.println("Produits ajoutés avec succès à la base de données!");
 
             // Panier
-            Client c2 = session.get(Client.class, 1);
+            Client c2 = session.get(Client.class, 2);
             Panier panier = new Panier();
             Date dateCreation = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.of("Europe/Paris")).toInstant());
             panier.setDateCreation(dateCreation);
@@ -76,7 +78,7 @@ public class HibernateMain {
         List<Categories> categoriesList = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
-            // Sauter la ligne d'en-tête d'un fichier CSV
+            // Skip the header line of the CSV file
             reader.readLine();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -85,8 +87,8 @@ public class HibernateMain {
                 Categories category = new Categories();
                 category.setNomCategorie(fields[1].trim());
 
-                // Faire lien avec le rayon
-                int rayonId = Integer.parseInt(fields[2]);
+                // Link with the rayon
+                int rayonId = Integer.parseInt(fields[2]); // Change index to 1
                 Rayon rayon = session.get(Rayon.class, rayonId);
                 category.setRayon(rayon);
 
@@ -99,6 +101,7 @@ public class HibernateMain {
         return categoriesList;
     }
 
+
     private static List<Produit> readCsvFileProduit(String csvFilePath, Session session) {
         List<Produit> produits = new ArrayList<>();
 
@@ -107,23 +110,25 @@ public class HibernateMain {
             reader.readLine();
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(";");
-
+                String[] fields = line.split(",");
+        
                 Produit produit = new Produit();
-                produit.setNomProduit(fields[3]);
-                produit.setPrixProduit(Double.parseDouble(fields[5].trim()));
-                produit.setMarqueProduit(fields[2]);
-                produit.setPromotion(Boolean.parseBoolean(fields[6]));
-                produit.setPourcentagePromotion(Double.parseDouble(fields[5]));
+                produit.setNomProduit(fields[4].trim());
+                produit.setPrixProduit(Double.parseDouble(fields[7].trim()));
+                produit.setMarqueProduit(fields[3]);
+                produit.setPromotion(Boolean.parseBoolean(fields[8]));
+                produit.setPourcentagePromotion(Double.parseDouble(fields[6]));
                 produit.setAdresseImageProduit(fields[1]);
-                produit.setNutriscore(fields[4]);
+                produit.setNutriscore(fields[5]);
+                produit.setDescription(fields[2]);
 
-                // Faire lien avec la catégorie
-                int categoryId = Integer.parseInt(fields[7]);
+                // Link with the category
+                int categoryId = Integer.parseInt(fields[9]);
                 Categories categorie = session.get(Categories.class, categoryId);
                 produit.setCategorie(categorie);
 
-                produits.add(produit);
+                    produits.add(produit);
+           
             }
         } catch (Exception e) {
             e.printStackTrace();

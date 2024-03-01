@@ -51,7 +51,7 @@
                     <span class="badge badge-default">Promo</span>
                     <span class="badge badge-primary"><%= produit.getPourcentagePromotion()*100 %>% OFF</span>
                 </div>
-                <a href="servletCentral?method=detailProduct&productId=<%= produit.getIdProduit() %>">
+                <a href="detail?productId=<%= produit.getIdProduit() %>">
                     <img src="<%= produit.getAdresseImageProduit() %>" alt="Product image" class="card-img-top">
                 </a>
             </div>
@@ -62,7 +62,7 @@
                     </svg>
                 </a>
                 <h4 class="card-title">
-                    <a href="servletCentral?method=detailProduct&productId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
+                    <a href="detail?productId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
                 </h4>
                 <div class="card-price">
                     <span class="discount"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) %></span>

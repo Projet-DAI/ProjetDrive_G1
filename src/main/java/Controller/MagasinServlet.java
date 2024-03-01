@@ -15,6 +15,9 @@ import Model.DAO.MagasinDao;
 import Model.metier.Magasin;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
 /**
  * Servlet implementation class MagasinSerclet
  */
@@ -33,18 +36,32 @@ public class MagasinServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String userLocation = request.getParameter("userLocation");	
 	        List<Magasin> mags = MagasinDao.choisirMagasins(userLocation);
 	        System.out.println(mags);
-	        request.setAttribute("mags", mags);
+	        
+	        // Convert the list of Magasin objects to a JSON string
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(mags);
+
+            // Set the content type of the response
+            response.setContentType("application/json");
+
+            // Write the JSON data to the response
+            response.getWriter().write(json);
+	        
+	        //request.setAttribute("mags", mags);
 	        // Page d'affichage des informations
-	        request.getRequestDispatcher("/magasin.jsp").forward(request, response);
+	        //request.getRequestDispatcher("/magasin.jsp").forward(request, response);
 		}catch(Exception ex){
             // chainage vers "index.jsp"
             request.setAttribute("msg_erreur", ex.getMessage());
-            response.sendRedirect("index.html");
+            response.sendRedirect("index.jsp");
         }
 		
 	}

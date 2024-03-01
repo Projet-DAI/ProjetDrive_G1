@@ -27,6 +27,8 @@ public class HibernateMain {
             // Client
             Client client = new Client("Dupont", "Chloe", "chloe.dupont@hotmail.com", "123", "chloe", 10, null);
             session.save(client);
+            Client client1 = new Client("BELBEKRI", "Widad", "widad.belbekri@gmail.com", "345677893", "widad", 15, null);
+            session.save(client1);
 
             // Rayon
             Rayon rayon = new Rayon("Épicerie Sucrée");
@@ -48,7 +50,7 @@ public class HibernateMain {
             System.out.println("Produits ajoutés avec succès à la base de données!");
 
             // Panier
-            Client c2 = session.get(Client.class, 1);
+            Client c2 = session.get(Client.class, 2);
             Panier panier = new Panier();
             Date dateCreation = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.of("Europe/Paris")).toInstant());
             panier.setDateCreation(dateCreation);

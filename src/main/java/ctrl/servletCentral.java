@@ -79,6 +79,12 @@ public class servletCentral extends HttpServlet {
             case "addToCart":
                 String productIdStr1 = request.getParameter("productId");
                 String quantityStr = request.getParameter("quantity");
+                HttpSession session = request.getSession();
+                if (session.getAttribute("clientId") == null) {
+                	response.sendRedirect("login.jsp");
+                    return;
+                }
+                
                 
                 if (productIdStr1 != null && quantityStr != null && !productIdStr1.isEmpty() && !quantityStr.isEmpty()) {
                     try {
@@ -86,17 +92,18 @@ public class servletCentral extends HttpServlet {
                         int quantity = Integer.parseInt(quantityStr);
                         Produit product = hibernateMethode.getProductById(productId);
                         
-                        HttpSession session = request.getSession(true);
-                        Panier panier = (Panier) session.getAttribute("panier");
-                        if (panier == null) {
-                            panier = new Panier();
-                        }
+                        int clientId = (int) session.getAttribute("clientId");
+
+//                        HttpSession session1 = request.getSession(true);
+//                        Panier panier = (Panier) session1.getAttribute("panier");
+//                        if (panier == null) {
+//                            panier = new Panier();
+//                        }
                         PanierDAO panierDAO = new PanierDAO();
                         panierDAO.ajouterProduitAuPanier(1, product, quantity); // Utilisez l'ID du panier correct ici
 
                         
                        // panierDAO.ajouterProduitAuPanier(panier.getIdPanier(), product, quantity);
-                        session.setAttribute("panier", panier);
 
                         response.sendRedirect("detailProduct.jsp?productId=" + productId + "&addedToCart=true");
                     } catch (Exception ex) {

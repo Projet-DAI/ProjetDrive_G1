@@ -15,60 +15,54 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import Model.DAO.HibernateUtil;
+import Model.metier.Commande;
 import Model.metier.ListeCourse;
 
 /**
- * Servlet implementation class ListCoursePreloadServlet
+ * Servlet implementation class TransactionPreloadServlet
  */
-@WebServlet("/ListCoursePreloadServlet")
-public class ListCoursePreloadServlet extends HttpServlet {
+@WebServlet("/TransactionPreloadServlet")
+public class TransactionPreloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListCoursePreloadServlet() {
+    public TransactionPreloadServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
- 
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 1. get info client from session
+		// 1. obtenir les info de client a partir de session
 		HttpSession s = request.getSession();
 		String username = (String) s.getAttribute("username");
 		String emailCli = (String) s.getAttribute("emailCli");
 		
 		System.out.println(emailCli);
 		
-		// 2. search all listecourse with emailCli
+		// 2. Recherche tous les commandes en utilisant emailCli
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
 		
-		
-		Query<ListeCourse> query = session.createQuery("SELECT lc FROM ListeCourse lc WHERE lc.client.emailClient = :email ORDER BY lc.dateCreation DESC", ListeCourse.class);
+		Query<Commande> query = session.createQuery("SELECT c FROM Commande c WHERE c.client.emailClient = :email ORDER BY c.dateCommande DESC", Commande.class);
 		query.setParameter("email", emailCli);
-
+		
 		// 3. getResult
-		List<ListeCourse> listeCourse = query.list();
+		List<Commande> listeCommandes = query.list();
 		
-		System.out.println("fini hiber");
-
-        
-        // verification de donnees
-        for (ListeCourse l : listeCourse) {
-        	System.out.println("------");
-        	System.out.println(l.getNomListeCourse());
-        }
-        
-        
-        s.setAttribute("listCourse", listeCourse);
+		// 4. tester res
+//		for (Commande c : listeCommande) {
+//			System.out.println(c.getIdCommande());
+//			System.out.println(c.getClient().getNomUtilisateurClient());
+//		}
 		
-		response.sendRedirect("List.jsp");
-		
+		request.setAttribute("listeCommandes", listeCommandes);
+		request.getRequestDispatcher("transaction.jsp").forward(request, response);
 	}
 
 	/**

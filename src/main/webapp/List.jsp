@@ -31,6 +31,7 @@
 		<div class="vertical-nav">
 			<p class="bold-item">Mes listes</p>
 	</div>
+	
 
 	<div class="shopping-list-summary-page__item" style="display: flex;align-items: center;">  																
 			<!-- Add un icon pour creer un liste -->

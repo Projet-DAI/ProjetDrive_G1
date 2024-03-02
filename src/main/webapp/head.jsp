@@ -60,7 +60,7 @@
 
 			<div class="container">
 				<!-- Navbar Brand -->
-				<a href="index.html" class="navbar-brand"> <img
+				<a href="index.jsp" class="navbar-brand"> <img
 					src="assets/img/logo/logo.png" alt="">
 				</a>
 
@@ -191,7 +191,7 @@
         	</div>
 	 	</nav>
 	 </div>
-	<!-- 模态框 -->
+	<!-- Drive Page -->
     <div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -263,8 +263,7 @@
     </script>	
 
     
-
- <script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>
@@ -273,6 +272,6 @@
     <script type="text/javascript" src="assets/packages/cloudzoom/cloudzoom.js"></script>
     <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
-    <script type="text/javascript" src="assets/js/theme.js"></script>
+    <script type="text/javascript" src="assets/js/theme.js"></script> 
 </body>
 </html>

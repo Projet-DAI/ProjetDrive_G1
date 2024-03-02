@@ -34,7 +34,11 @@ public class Fournisseur {
 		this.nomFournisseur = nomFournisseur;
 		this.produits = produits;
 	}
-
+	
+	public Fournisseur() {
+		
+	}
+	
 	/* getters and setters */
 	public int getIdFournisseur() {
 		return idFournisseur;

@@ -41,6 +41,9 @@ public class Produit {
     
     @Column(name = "Label")
     private String label;
+    
+    @Column(name = "Vente")
+    private int vente;
 
     @ManyToOne
     @JoinColumn(name = "IdCategorie")
@@ -62,10 +65,13 @@ public class Produit {
     
     private List<Fournisseur> fournisseurs;
         
+	
+
+
 	public Produit(int idProduit, int ean, String nomProduit, double prixProduit, String marqueProduit,
 			boolean promotion, double pourcentagePromotion, String adresseImageProduit, String nutriscore,
-			String description, String label, Categories categorie, List<Approvisionnement> approvisionnements,
-			List<Fournisseur> fournisseurs) {
+			String description, String label, int vente, Categories categorie,
+			List<Approvisionnement> approvisionnements, List<Fournisseur> fournisseurs) {
 		super();
 		this.idProduit = idProduit;
 		this.ean = ean;
@@ -78,6 +84,7 @@ public class Produit {
 		this.nutriscore = nutriscore;
 		this.description = description;
 		this.label = label;
+		this.vente = vente;
 		this.categorie = categorie;
 		this.approvisionnements = approvisionnements;
 		this.fournisseurs = fournisseurs;
@@ -225,6 +232,16 @@ public class Produit {
 
 	public void setFournisseurs(List<Fournisseur> fournisseurs) {
 		this.fournisseurs = fournisseurs;
+	}
+
+
+	public int getVente() {
+		return vente;
+	}
+
+
+	public void setVente(int vente) {
+		this.vente = vente;
 	}
     
     

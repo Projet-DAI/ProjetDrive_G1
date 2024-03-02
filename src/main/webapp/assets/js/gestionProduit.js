@@ -1,14 +1,14 @@
 /**
- * fonction pour gestion approvidionnement
+ * function de connection pour gestion produits
  */
-
-/*verfier password*/
 document.getElementById('gestionBtn').addEventListener('click', function() {
     var password = prompt("Veuillez entrer le mot de passe:", "");
     if (password == "marc") { 
-        window.location.href = "approvidionnement.jsp";
+        window.location.href = "gestionProduit.jsp";
     } else {
         alert("Mot de passe incorrect!");
     }
 });
+
+
 

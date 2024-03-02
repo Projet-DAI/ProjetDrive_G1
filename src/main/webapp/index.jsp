@@ -96,6 +96,12 @@
                     <div class="col-md-12 mt-5 text-center">
                         <a href="shop" class="btn btn-primary btn-lg">Commencer ses courses</a>
                     </div>
+                    
+                    <!-- Gestion d'approvidionnement -->
+                    <div class="col-md-12 mt-5 text-center">
+                        <a href="approvidionnement.jsp" class="btn btn-primary btn-lg">Gestion d'approvidionnement</a>
+                    </div>
+                    
                 </div>
             </div>
         </section>

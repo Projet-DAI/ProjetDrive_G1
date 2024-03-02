@@ -11,6 +11,9 @@ public class Produit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdProduit")
     private int idProduit;
+    
+    @Column(name = "EAN")
+    private int ean;
 
     @Column(name = "NomProduit")
     private String nomProduit;
@@ -35,6 +38,9 @@ public class Produit {
     
     @Column(name = "Description")
     private String description;
+    
+    @Column(name = "Label")
+    private String label;
 
     @ManyToOne
     @JoinColumn(name = "IdCategorie")
@@ -44,11 +50,25 @@ public class Produit {
     @JoinTable(name = "Produit_Approvisionnement",
                joinColumns = @JoinColumn(name = "produit_id"),
                inverseJoinColumns = @JoinColumn(name = "approvisionnement_id"))
+    
     private List<Approvisionnement> approvisionnements;
     
-	public Produit(String nomProduit, double prixProduit, String marqueProduit, boolean promotion,
-			double pourcentagePromotion, String adresseImageProduit, String nutriscore, Categories categorie,String description) {
+    @ManyToMany
+    @JoinTable(
+      name = "Produit_Fournisseur", 
+      joinColumns = @JoinColumn(name = "idProduit"), 
+      inverseJoinColumns = @JoinColumn(name = "idFournisseur")
+    )
+    
+    private List<Fournisseur> fournisseurs;
+        
+	public Produit(int idProduit, int ean, String nomProduit, double prixProduit, String marqueProduit,
+			boolean promotion, double pourcentagePromotion, String adresseImageProduit, String nutriscore,
+			String description, String label, Categories categorie, List<Approvisionnement> approvisionnements,
+			List<Fournisseur> fournisseurs) {
 		super();
+		this.idProduit = idProduit;
+		this.ean = ean;
 		this.nomProduit = nomProduit;
 		this.prixProduit = prixProduit;
 		this.marqueProduit = marqueProduit;
@@ -56,12 +76,15 @@ public class Produit {
 		this.pourcentagePromotion = pourcentagePromotion;
 		this.adresseImageProduit = adresseImageProduit;
 		this.nutriscore = nutriscore;
-		this.categorie = categorie;
 		this.description = description;
+		this.label = label;
+		this.categorie = categorie;
+		this.approvisionnements = approvisionnements;
+		this.fournisseurs = fournisseurs;
 	}
-    
-    
-    public Produit() {
+
+
+	public Produit() {
     	
     }
 
@@ -73,6 +96,15 @@ public class Produit {
 
 	public void setIdProduit(int idProduit) {
 		this.idProduit = idProduit;
+	}
+	
+	public int getEan() {
+		return ean;
+	}
+
+
+	public void setEan(int ean) {
+		this.ean = ean;
 	}
 
 
@@ -163,6 +195,36 @@ public class Produit {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+	public String getLabel() {
+		return label;
+	}
+
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+
+	public List<Approvisionnement> getApprovisionnements() {
+		return approvisionnements;
+	}
+
+
+	public void setApprovisionnements(List<Approvisionnement> approvisionnements) {
+		this.approvisionnements = approvisionnements;
+	}
+
+
+	public List<Fournisseur> getFournisseurs() {
+		return fournisseurs;
+	}
+
+
+	public void setFournisseurs(List<Fournisseur> fournisseurs) {
+		this.fournisseurs = fournisseurs;
 	}
     
     

@@ -8,7 +8,6 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-
   <servlet>
     <description></description>
     <display-name>Index</display-name>
@@ -19,6 +18,4 @@
     <servlet-name>Index</servlet-name>
     <url-pattern>/index</url-pattern>
   </servlet-mapping>
-  
-
 </web-app>

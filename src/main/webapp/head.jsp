@@ -101,6 +101,14 @@
                                 <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div>
                                 <%= nomU %>
                             </a>
+                               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="transaction.html">Mon historique de commandes</a>
+                                <a class="dropdown-item" href="ListCoursePreloadServlet">Liste de courses</a>
+                                <a class="dropdown-item" href="setting.html">Paramètres</a>
+                                <a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
+
+                            </div>
+                        </li>
 
                         <% } else { %>
                         <li class="nav-item">
@@ -115,15 +123,17 @@
                                 <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div>
                                 Mon Profil
                             </a>
-                        <% } %>
-
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="transaction.html">Mon historique de commandes</a>
-                                <a class="dropdown-item" href="List.jsp">Liste de cours</a>
-                                <a class="dropdown-item" href="setting.html">Paramètres</a>
+                            
+                               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="login.jsp">Mon historique de commandes</a>
+                                <a class="dropdown-item" href="login.jsp">Liste de courses</a>
+                                <a class="dropdown-item" href="login.jsp">Paramètres</a>
+                                <a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
 
                             </div>
-                          </li>
+                        </li>
+                        <% } %>
+                            
                         <li class="nav-item dropdown">
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= panierSize %></span>

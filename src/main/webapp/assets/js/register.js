@@ -2,7 +2,7 @@
  * Lancement après le chargement du DOM.
  */
 
-console.log("Connected to JS file!");
+//console.log("Connected to JS file!");
 document.addEventListener("DOMContentLoaded", () => {
 
 	document.getElementById("nomComplet").addEventListener("keyup", validateForm);

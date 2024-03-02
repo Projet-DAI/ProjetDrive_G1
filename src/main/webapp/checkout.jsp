@@ -56,39 +56,39 @@
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">
-										<input class="form-control" placeholder="Name" type="text">
+										<input class="form-control" placeholder="Prénom" type="text">
 									</div>
 									<div class="col">
-										<input class="form-control" placeholder="Last Name"
+										<input class="form-control" placeholder="Nom"
 											type="text">
 									</div>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Company Name"
+									<input class="form-control" placeholder="Nom de l'entreprise"
 										type="text">
 								</div>
 								<div class="form-group">
-									<textarea class="form-control" placeholder="Address"></textarea>
+									<textarea class="form-control" placeholder="Adresse"></textarea>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Town / City"
+									<input class="form-control" placeholder="Ville"
 										type="text">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="State / Country"
+									<input class="form-control" placeholder="Pays"
 										type="text">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Postcode / Zip"
+									<input class="form-control" placeholder="Code posta"
 										type="text">
 								</div>
 								<div class="form-group row">
 									<div class="col">
-										<input class="form-control" placeholder="Email Address"
+										<input class="form-control" placeholder="Adresse e-mail"
 											type="email">
 									</div>
 									<div class="col">
-										<input class="form-control" placeholder="Phone Number"
+										<input class="form-control" placeholder="Numéro de téléphone"
 											type="tel">
 									</div>
 								</div>

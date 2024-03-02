@@ -99,7 +99,7 @@
                     
                     <!-- Gestion d'approvidionnement -->
                     <div class="col-md-12 mt-5 text-center">
-                        <a href="approvidionnement.jsp" class="btn btn-primary btn-lg">Gestion d'approvidionnement</a>
+                        <button id="gestionBtn" class="btn btn-primary btn-lg">Gestion d'approvisionnement</button>
                     </div>
                     
                 </div>
@@ -240,7 +240,7 @@
     
     <jsp:include flush="true" page="footer.jsp"></jsp:include>
 
-
+	<script type="text/javascript" src="assets/js/approvidionnement.js"></script>
 </body>
 </html>
 	

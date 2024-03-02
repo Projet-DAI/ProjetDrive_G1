@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+import org.hibernate.SessionFactory;
+
 import Model.DAO.ChoisirProduitDao;
-import Model.DAO.ProduitDAO;
+import Model.DAO.HibernateUtil;
 import Model.DAO.PostitDao;
 import Model.metier.PostIt;
 import Model.metier.Produit;
@@ -23,6 +26,7 @@ import Model.metier.Produit;
 @WebServlet("/listCourse")
 public class ListeCourseServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private SessionFactory sessionFactory;
     
        
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,9 +57,14 @@ public class ListeCourseServlet extends HttpServlet {
     private void createKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keyword = request.getParameter("keyword");
         if (keyword != null && !keyword.isEmpty()) {
-            // 创建 PostIt 对象并设置属性
-            
-            // 更新会话中的关键字
+        	 PostIt postit = new PostIt();
+        	
+        	 PostitDao postitDao = new PostitDao(sessionFactory); 
+             postit.setContenu(keyword);
+             postit.setDateCreation(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant())); 
+       //    System.out.println(postit);
+             postitDao.save(postit); 
+
             HttpSession session = request.getSession();
             String sessionKeyword = (String) session.getAttribute("keyword");
             if (sessionKeyword != null && !sessionKeyword.isEmpty()) {
@@ -84,6 +93,7 @@ public class ListeCourseServlet extends HttpServlet {
 
     private void deleteKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keywordToDelete = request.getParameter("keyword");
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         
         HttpSession session = request.getSession();
         String sessionKeyword = (String) session.getAttribute("keyword");
@@ -109,7 +119,15 @@ public class ListeCourseServlet extends HttpServlet {
             session.setAttribute("keyword", newKeywords.toString());
             
             if (deleted) {
-                response.getWriter().write("Mot-clé supprimé avec succès !");
+                // 检查 sessionFactory 是否为 null
+                if (sessionFactory != null) {
+                    // 初始化 PostitDao 并调用 deleteByContenu 方法
+                    PostitDao postitDao = new PostitDao(sessionFactory);
+                    postitDao.deleteByContenu(keywordToDelete);
+                    response.getWriter().write("Mot-clé supprimé avec succès !");
+                } else {
+                    response.getWriter().write("Erreur: sessionFactory est null !");
+                }
             } else {
                 response.getWriter().write("Mot-clé non trouvé !");
             }
@@ -119,15 +137,22 @@ public class ListeCourseServlet extends HttpServlet {
     }
 
     private void clearAllKeywords(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        session.removeAttribute("keyword");
-        
-        // 检查关键字属性是否成功删除
-        if (session.getAttribute("keyword") == null) {
-            response.getWriter().write("Tous les mots-clés ont été effacés avec succès !");
-        } else {
-            response.getWriter().write("Échec de la suppression de tous les mots-clés !");
-        }
+    	 HttpSession session = request.getSession();
+    	    String sessionKeyword = (String) session.getAttribute("keyword");
+    	    
+    	    if (sessionKeyword != null && !sessionKeyword.isEmpty()) {
+    	        // 在数据库中删除所有关键字对应的数据
+    	        String[] keywords = sessionKeyword.split(",");
+    	        PostitDao postitDao = new PostitDao(sessionFactory);
+    	        for (String keyword : keywords) {
+    	            postitDao.deleteByContenu(keyword.trim());
+    	        }
+    	        
+    	        session.removeAttribute("keyword");
+    	        response.getWriter().write("Tous les mots-clés ont été effacés avec succès !");
+    	    } else {
+    	        response.getWriter().write("Aucun mot-clé trouvé !");
+    	    }
     }
     
     

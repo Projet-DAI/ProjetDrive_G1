@@ -248,7 +248,7 @@
             updateNouveauTotalPanier();
 
             // Afficher une alerte pour déboguer
-            alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+            //alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
         } else {
             // Gérer l'erreur si la conversion n'est pas un nombre valide
             console.error("Erreur de conversion du total en nombre.");

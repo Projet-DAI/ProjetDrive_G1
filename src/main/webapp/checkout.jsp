@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="Model.metier.Client" %>
+<%@ page import="Model.DAO.ClientDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +53,23 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-7">
 						<h5 class="mb-3">DÉTAILS DE FACTURATION</h5>
-						<!-- Bill Detail of the Page -->
+<%
+    String nomUtilisateur = (String) request.getSession().getAttribute("nomUtilisateurClient");
+    String motDePasse = (String) request.getParameter("password");
+
+    ClientDAO clientDAO = new ClientDAO();
+    Client clientConnecte = clientDAO.getClientByUserName(nomUtilisateur, motDePasse);
+
+        if (clientConnecte != null) {
+%>
+            <input class="form-control" placeholder="Prénom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
+            <input class="form-control" placeholder="Nom" type="text" value="<%= clientConnecte.getNomUtilisateurClient() %>">
+<%
+
+    } else {
+        response.sendRedirect("connexion.jsp");
+    }
+%>
 						<form action="#" class="bill-detail">
 							<fieldset>
 								<div class="form-group row">

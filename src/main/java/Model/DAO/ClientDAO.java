@@ -41,6 +41,31 @@ public class ClientDAO {
 	        return isValidUser;
 	    }
 
+	    public Client getClientByUserName(String nomUtilisateur, String motDePasse) {
+	        Session session = HibernateUtil.getSessionFactory().openSession();
+	        Transaction tx = null;
+	        Client client = null;
+
+	        try {
+	            tx = session.beginTransaction();
+	            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :username AND pwdClient = :password");
+	            query.setParameter("username", nomUtilisateur);
+	            query.setParameter("password", motDePasse);
+
+	            client = query.uniqueResult();
+
+	            tx.commit();
+	        } catch (Exception e) {
+	            if (tx != null) {
+	                tx.rollback();
+	            }
+	            e.printStackTrace();
+	        } finally {
+	            session.close();
+	        }
+
+	        return client;
+	    }
 	   
 	   public int getPointsFideliteById(int clientId) {
 		    int pointsFidelite = 0;
@@ -54,9 +79,9 @@ public class ClientDAO {
 		        e.printStackTrace();
 		    }
 		    return pointsFidelite;
-		}	    
-	    
-	    public List<LignePanier> getProduitsDansPanier(Client client) {
+		}	 
+	   	    
+	    /*public List<LignePanier> getProduitsDansPanier(Client client) {
 	        List<LignePanier> produits = null;
 	        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 	        Transaction transaction = session.beginTransaction();
@@ -94,5 +119,5 @@ public class ClientDAO {
 	            e.printStackTrace();
 	        }
 	        return pointsFidelite;
-	    }
+	    }*/
 }

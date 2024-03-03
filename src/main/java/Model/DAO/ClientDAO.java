@@ -41,16 +41,15 @@ public class ClientDAO {
 	        return isValidUser;
 	    }
 
-	    public Client getClientByUserName(String nomUtilisateur, String motDePasse) {
+	    public Client getClientByUserName(String nomUtilisateur) {
 	        Session session = HibernateUtil.getSessionFactory().openSession();
 	        Transaction tx = null;
 	        Client client = null;
 
 	        try {
 	            tx = session.beginTransaction();
-	            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :username AND pwdClient = :password");
+	            Query<Client> query = session.createQuery("FROM Client WHERE nomUtilisateurClient = :username");
 	            query.setParameter("username", nomUtilisateur);
-	            query.setParameter("password", motDePasse);
 
 	            client = query.uniqueResult();
 
@@ -66,13 +65,27 @@ public class ClientDAO {
 
 	        return client;
 	    }
-	   
+
+	    public Client getClientById(int clientId) {
+	        Client client = null;
+	        
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            client = session.get(Client.class, clientId);
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return client;
+	    }
+	    
+	    
 	   public int getPointsFideliteById(int clientId) {
 		    int pointsFidelite = 0;
 		    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 		        Client client = session.get(Client.class, clientId);
 
 		        if (client != null) {
+		        	
 		            pointsFidelite = client.getPointFideliteClient();
 		        }
 		    } catch (Exception e) {

@@ -4,7 +4,7 @@
 	<session-factory>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</property>
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ProjetDrive</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ProjetDrive?createDatabaseIfNotExist=true</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password"></property>
 
@@ -18,7 +18,7 @@
 
 		<!-- Mode de mise à jour de la base de données - create, validate, update, 
 			none -->
-		<property name="hibernate.hbm2ddl.auto">create</property> 
+		<property name="hibernate.hbm2ddl.auto">update</property> 
 
 	</session-factory>
 </hibernate-configuration>

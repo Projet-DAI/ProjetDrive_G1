@@ -36,43 +36,43 @@ public class HibernateMain {
             System.out.println("Rayon ajouté avec succès à la base de données!");
 
             // Categories
-            List<Categories> categoriesList = readCsvFileCategories("C:\\Users\\mazhu\\Downloads\\categorie.csv", session);
-            for (Categories category : categoriesList) {
-                session.save(category);
-            }
-            System.out.println("Categories ajoutées avec succès à la base de données!");
+//            List<Categories> categoriesList = readCsvFileCategories("X:\\Telechargement\\categorie.csv", session);
+//            for (Categories category : categoriesList) {
+//                session.save(category);
+//            }
+//            System.out.println("Categories ajoutées avec succès à la base de données!");
 
             // Produits
-            List<Produit> produits = readCsvFileProduit("C:\\Users\\mazhu\\Downloads\\produit.csv", session);
-            for (Produit produit : produits) {
-                session.save(produit);
-            }
-            System.out.println("Produits ajoutés avec succès à la base de données!");
+//            List<Produit> produits = readCsvFileProduit("X:\\Telechargement\\produit.csv", session);
+//            for (Produit produit : produits) {
+//                session.save(produit);
+//            }
+//            System.out.println("Produits ajoutés avec succès à la base de données!");
 
             // Panier
-            Client c2 = session.get(Client.class, 2);
-            Panier panier = new Panier();
-            Date dateCreation = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.of("Europe/Paris")).toInstant());
-            panier.setDateCreation(dateCreation);
-            panier.setClient(c2);
-            session.save(panier);
-            System.out.println("Panier ajouté avec succès à la base de données!");
-
-            // Récupération d'un produit par son identifiant
-            Produit produit = session.get(Produit.class, 1);
-            Produit produit2 = session.get(Produit.class, 2);
-            Produit produit3 = session.get(Produit.class, 3);
-
-            // Ajout d'une ligne au panier
-            addLignePanier(panier, produit, 5, session);
-            addLignePanier(panier, produit2, 3, session);
-            addLignePanier(panier, produit3, 2, session);
-
+//            Client c2 = session.get(Client.class, 2);
+//            Panier panier = new Panier();
+//            Date dateCreation = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.of("Europe/Paris")).toInstant());
+//            panier.setDateCreation(dateCreation);
+//            panier.setClient(c2);
+//            session.save(panier);
+//            System.out.println("Panier ajouté avec succès à la base de données!");
+//
+//            // Récupération d'un produit par son identifiant
+//            Produit produit = session.get(Produit.class, 1);
+//            Produit produit2 = session.get(Produit.class, 2);
+//            Produit produit3 = session.get(Produit.class, 3);
+//
+//            // Ajout d'une ligne au panier
+//            addLignePanier(panier, produit, 5, session);
+//            addLignePanier(panier, produit2, 3, session);
+//            addLignePanier(panier, produit3, 2, session);
+//
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+   }
 
     private static List<Categories> readCsvFileCategories(String csvFilePath, Session session) {
         List<Categories> categoriesList = new ArrayList<>();

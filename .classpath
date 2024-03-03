@@ -37,7 +37,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/MySQL/mysql-connector-java-8.0.26.jar">
+	<classpathentry exported="true" kind="lib" path="D:/MySQL/mysql-connector-java-8.0.26.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

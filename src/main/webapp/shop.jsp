@@ -16,7 +16,7 @@
 <body>
     <jsp:include flush="true" page="head.jsp"></jsp:include>
 
-    <% List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");%>
+    <% List<Produit> liste = (List<Produit>)request.getAttribute("liste");%>
 	
     <div id="page-content" class="page-content">
     	<div class="banner">

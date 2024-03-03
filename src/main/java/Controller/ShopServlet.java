@@ -35,13 +35,13 @@ public class ShopServlet extends HttpServlet {
             // lire la liste des messages
             List<Produit> promotedProducts = ProduitDAO.getProduitsProm();                   
             // chainage vers la vue "Afficher.jsp" avec la liste 
-            request.setAttribute("liste_msg", promotedProducts);
+            request.setAttribute("liste", promotedProducts);
             // Page d'affichage des informations
             request.getRequestDispatcher("/shop.jsp").forward(request, response);
         }catch(Exception ex){
             // chainage vers "index.jsp"
             request.setAttribute("msg_erreur", ex.getMessage());
-            response.sendRedirect("index.html");
+            response.sendRedirect("index.jsp");
         }
 	}
 

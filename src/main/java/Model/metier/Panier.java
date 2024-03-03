@@ -15,7 +15,7 @@ public class Panier {
     @Column(name = "IdPanier")
     private int idPanier;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "IdClient")
     private Client client;
 
@@ -30,11 +30,13 @@ public class Panier {
 		super();
 		this.client = client;
 		this.dateCreation = dateCreation;
+        this.lignesPanier = new ArrayList<>();
+
 	}
 	
     public Panier() {
-         List<LignePanier> lignesPanier;
-        this.lignesPanier = new ArrayList<>();}
+        this.lignesPanier = new ArrayList<>();
+        }
 
         
    /* public void ajouterProduit(Produit produit, int quantite) {

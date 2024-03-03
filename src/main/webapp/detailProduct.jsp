@@ -60,19 +60,18 @@
                         <p><strong>Nutriscore:</strong> <%= product.getNutriscore() %></p>
                         <p><strong>Category ID:</strong> <%= product.getCategorie().getIdCategorie() %></p>
                           <!-- Formulaire pour ajouter au panier -->
-                        <form action="servletCentral" method="get">
-							 <input type="hidden" name="method" value="addToCart">
-							 <input type="hidden" name="productId" value="<%= product.getIdProduit() %>"> 
-							 <p class="mb-1"><strong>Quantité</strong></p>
-                            <div class="row mb-3">
-                                <div class="col-sm-5">
-                                    <input type="number" class="form-control" value="1" name="quantity" min="1">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fa fa-shopping-basket"></i> Ajouter au panier
-                            </button>
-                        </form>
+                        <form action="AjouterPanierServlet" method="post">
+						    <input type="hidden" name="productId" value="<%= product.getIdProduit() %>"> 
+						    <p class="mb-1"><strong>Quantité</strong></p>
+						    <div class="row mb-3">
+						        <div class="col-sm-5">
+						            <input type="number" class="form-control" value="1" name="quantity" min="1">
+						        </div>
+						    </div>
+						    <button type="submit" class="btn btn-primary btn-lg">
+						        <i class="fa fa-shopping-basket"></i> Ajouter au panier
+						    </button>
+						</form>
                         
                     </div>
                 </div>

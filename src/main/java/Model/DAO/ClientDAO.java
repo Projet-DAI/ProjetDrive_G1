@@ -79,4 +79,17 @@ public class ClientDAO {
 	        }
 	        return pointsFidelite;
 	    }
-}
+	    
+	    
+	    public Client getClientById(int clientId) {
+	        Client client = null;
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            client = session.get(Client.class, clientId);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return client;
+	    }
+	
+	}
+

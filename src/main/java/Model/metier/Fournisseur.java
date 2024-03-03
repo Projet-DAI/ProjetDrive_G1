@@ -1,6 +1,9 @@
 package Model.metier;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 import javax.persistence.Column;
@@ -26,20 +29,23 @@ public class Fournisseur {
     private String nomFournisseur;
 	
 	@ManyToMany(mappedBy = "fournisseurs")
-	private List<Produit> produits;
-	
-	public Fournisseur(int idFournisseur, String nomFournisseur, List<Produit> produits) {
-		super();
-		this.idFournisseur = idFournisseur;
-		this.nomFournisseur = nomFournisseur;
-		this.produits = produits;
-	}
+	private Set<Produit> produits = new HashSet<>();
 	
 	public Fournisseur() {
 		
 	}
 	
-	/* getters and setters */
+	
+	
+	public Fournisseur(int idFournisseur, String nomFournisseur, Set<Produit> produits) {
+		super();
+		this.idFournisseur = idFournisseur;
+		this.nomFournisseur = nomFournisseur;
+		this.produits = produits;
+	}
+
+
+
 	public int getIdFournisseur() {
 		return idFournisseur;
 	}
@@ -55,6 +61,17 @@ public class Fournisseur {
 	public void setNomFournisseur(String nomFournisseur) {
 		this.nomFournisseur = nomFournisseur;
 	}
+
+	public Set<Produit> getProduits() {
+		return produits;
+	}
+
+	public void setProduits(Set<Produit> produits) {
+		this.produits = produits;
+	}
+	
+	
+	
 	
 	
 	

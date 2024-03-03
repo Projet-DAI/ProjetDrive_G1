@@ -1,6 +1,8 @@
 package Model.metier;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -36,7 +38,7 @@ public class Produit {
     @Column(name = "Nutriscore")
     private String nutriscore;
     
-    @Column(name = "Description")
+    @Column(name = "Description", length = 1000)
     private String description;
     
     @Column(name = "Label")
@@ -63,15 +65,14 @@ public class Produit {
       inverseJoinColumns = @JoinColumn(name = "idFournisseur")
     )
     
-    private List<Fournisseur> fournisseurs;
-        
+    //private List<Fournisseur> fournisseurs;
+    private Set<Fournisseur> fournisseurs = new HashSet<>();
 	
-
-
+    
 	public Produit(int idProduit, int ean, String nomProduit, double prixProduit, String marqueProduit,
 			boolean promotion, double pourcentagePromotion, String adresseImageProduit, String nutriscore,
 			String description, String label, int vente, Categories categorie,
-			List<Approvisionnement> approvisionnements, List<Fournisseur> fournisseurs) {
+			List<Approvisionnement> approvisionnements, Set<Fournisseur> fournisseurs) {
 		super();
 		this.idProduit = idProduit;
 		this.ean = ean;
@@ -224,17 +225,20 @@ public class Produit {
 		this.approvisionnements = approvisionnements;
 	}
 
-
-	public List<Fournisseur> getFournisseurs() {
+	public Set<Fournisseur> getFournisseurs() {
 		return fournisseurs;
 	}
 
 
-	public void setFournisseurs(List<Fournisseur> fournisseurs) {
+	public void setFournisseurs(Set<Fournisseur> fournisseurs) {
 		this.fournisseurs = fournisseurs;
 	}
 
-
+	public void addFournisseur(Fournisseur fournisseur) {
+        this.fournisseurs.add(fournisseur);
+        fournisseur.getProduits().add(this); 
+    }
+	
 	public int getVente() {
 		return vente;
 	}

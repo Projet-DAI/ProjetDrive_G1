@@ -36,7 +36,7 @@ public class ProduitDAO{
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
             // Use HQL (Hibernate Query Language) to retrieve products
-            Query<Produit> query = session.createQuery("FROM Produit where NomProduit like '%" + motcle + "%'", Produit.class);
+            Query<Produit> query = session.createQuery("FROM Produit	 where NomProduit like '%" + motcle + "%'", Produit.class);
             listP = query.list();
 
            

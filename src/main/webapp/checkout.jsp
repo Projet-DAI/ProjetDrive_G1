@@ -53,24 +53,14 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-7">
 						<h5 class="mb-3">DÉTAILS DE FACTURATION</h5>
-<%
-    String nomUtilisateur = (String) request.getSession().getAttribute("nomUtilisateurClient");
-    String motDePasse = (String) request.getParameter("password");
+                        <%
+                            int clientId = 1; // Vous pouvez obtenir l'ID du client à partir de votre session ou d'une autre source
+                            Client clientConnecte = new ClientDAO().getClientById(clientId);
+                        %>
+                        <input class="form-control" placeholder="Prénom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
+                        <input class="form-control" placeholder="Nom" type="text" value="<%= clientConnecte.getNomUtilisateurClient() %>">
 
-    ClientDAO clientDAO = new ClientDAO();
-    Client clientConnecte = clientDAO.getClientByUserName(nomUtilisateur, motDePasse);
-
-        if (clientConnecte != null) {
-%>
-            <input class="form-control" placeholder="Prénom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
-            <input class="form-control" placeholder="Nom" type="text" value="<%= clientConnecte.getNomUtilisateurClient() %>">
-<%
-
-    } else {
-        response.sendRedirect("connexion.jsp");
-    }
-%>
-						<form action="#" class="bill-detail">
+            			<form action="#" class="bill-detail">
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">

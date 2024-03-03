@@ -88,7 +88,7 @@
 		<h1 class="title">Choisissez votre travail</h1>
 	    <!-- Gestion des produits -->
 	    <div class="col-md-12 mt-5 text-center">
-	    	<div class="btn btn-primary btn-lg" id="gestionBtn">Gestion des produits</div>
+	    	<a href="gestionProduit.jsp" class="btn btn-primary btn-lg" id="gestionBtn">Gestion des produits</a>
 	    </div>
                     
     </div>

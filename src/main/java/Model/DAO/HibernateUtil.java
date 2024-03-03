@@ -36,7 +36,9 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(Model.metier.PostIt.class);
             configuration.addAnnotatedClass(Model.metier.Panier.class);
             configuration.addAnnotatedClass(Model.metier.LignePanier.class);
+            configuration.addAnnotatedClass(Model.metier.TempsRetait.class);
             configuration.addAnnotatedClass(Model.metier.Fournisseur.class);
+
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

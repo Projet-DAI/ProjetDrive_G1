@@ -2,6 +2,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="Model.metier.Produit"%>
 <%@ page import="Model.metier.PostIt"%>
+<%@page import="Model.metier.ListeCourse"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,19 +80,18 @@
 <div id="page-content" class="page-content">
     <div class="banner">
         <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
-        <script>
-        // 从会话中获取用户名并在页面上显示
-        var username = '<%= session.getAttribute("username") %>';
-        document.getElementById("username").textContent = username;
-        </script>
+       
     </div>
 </div>
 
+<%String listeCourseName = request.getParameter("listeCourseName");%>
+
 <div class="container">
     <div class="listCourse">
-        <a href="List.jsp" class="bi bi-arrow-left">&nbsp; Mes listes</a> 
-        <p>M&eacute;mo</p>
-    </div>
+        <a href="ListCoursePreloadServlet" class="bi bi-arrow-left">&nbsp; Mes listes</a>
+        <p><%= listeCourseName %></p>
+	</div>
+</div>
 
 <div class="keyword-list" id="keyword-list">
     <% 

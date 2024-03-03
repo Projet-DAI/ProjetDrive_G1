@@ -1,6 +1,8 @@
 package Model.metier;
 
 import javax.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -85,8 +87,8 @@ public class PostIt {
 		return dateCreation;
 	}
 
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
+	public void setDateCreation(Date localDateTime) {
+		this.dateCreation = localDateTime;
 	}
 	
 	

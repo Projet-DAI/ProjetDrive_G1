@@ -105,8 +105,10 @@ public class PanierDAO {
 	    
 	    public Panier getPanierByClientId(int clientId) {
 	        	Panier panier = null;
+	            Transaction transaction = null;
+
 	    	 	try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-		            session.beginTransaction();
+	    	 		transaction = session.beginTransaction();
 		            // Créez la requête HQL pour récupérer le panier par l'ID du client
 		            String hql = "SELECT p \r\n"
 		            		+ "FROM Panier p \r\n"
@@ -117,12 +119,17 @@ public class PanierDAO {
 		            query.setParameter("clientId", clientId);
 		            
 		            panier = query.uniqueResult();
+		            
+		            transaction.commit();
 
 		          
-		            session.getTransaction().commit();
+		            //session.getTransaction().commit();
 	
 		        } catch (Exception e) {
-		            e.printStackTrace();
+		        	  if (transaction != null) {
+		                  transaction.rollback();
+		              }
+		              e.printStackTrace();
 		        }
 		        return panier;
 		    }

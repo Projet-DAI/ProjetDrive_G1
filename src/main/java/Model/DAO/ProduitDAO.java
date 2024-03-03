@@ -114,5 +114,34 @@ public class ProduitDAO{
 	}
 	
 	/* Fin de la test */ 
+	
+	
+	public class Main {
+	    public  void main(String[] args) {
+	        // Spécifiez l'ID du produit que vous souhaitez récupérer
+	        int productId = 1; // Remplacez 1 par l'ID du produit que vous souhaitez récupérer
+
+	        // Appelez la méthode getProductById pour récupérer le produit
+	        Produit product = ProduitDAO.getProductById(productId);
+
+	        // Vérifiez si le produit a été trouvé
+	        if (product != null) {
+	            // Affichez les détails du produit
+	            System.out.println("Product ID: " + product.getIdProduit());
+	            System.out.println("Product Name: " + product.getNomProduit());
+	            System.out.println("Product Price: " + product.getPrixProduit());
+	            System.out.println("Product Brand: " + product.getMarqueProduit());
+	            System.out.println("Product Promotion: " + product.isPromotion());
+	            System.out.println("Product Promotion Percentage: " + product.getPourcentagePromotion());
+	            System.out.println("Product Image Address: " + product.getAdresseImageProduit());
+	            System.out.println("Product Nutriscore: " + product.getNutriscore());
+	            System.out.println("Product Category ID: " + (product.getCategorie() != null ? product.getCategorie().getIdCategorie() : "N/A"));
+	        } else {
+	            // Si le produit n'est pas trouvé, affichez un message
+	            System.out.println("No product found with ID: " + productId);
+	        }
+	    }
+	}
+
 }
 

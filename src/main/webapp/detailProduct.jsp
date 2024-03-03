@@ -65,7 +65,7 @@
 						    <p class="mb-1"><strong>Quantité</strong></p>
 						    <div class="row mb-3">
 						        <div class="col-sm-5">
-						            <input type="number" class="form-control" value="1" name="quantity" min="1">
+						            <input type="number" class="form-control" value="1" name="quantite" min="1">
 						        </div>
 						    </div>
 						    <button type="submit" class="btn btn-primary btn-lg">

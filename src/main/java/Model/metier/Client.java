@@ -77,6 +77,14 @@ public class Client {
 	}
 
 
+	public Panier getPanier() {
+		return panier;
+	}
+
+	public void setPanier(Panier panier) {
+		this.panier = panier;
+	}
+
 	public void setIdClient(int idClient) {
 		this.idClient = idClient;
 	}

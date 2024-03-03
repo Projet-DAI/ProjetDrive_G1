@@ -54,58 +54,37 @@
 					<div class="col-xs-12 col-sm-7">
 						<h5 class="mb-3">DÉTAILS DE FACTURATION</h5>
                         <%
-                            int clientId = 1; // Vous pouvez obtenir l'ID du client à partir de votre session ou d'une autre source
+                            int clientId = 1; 
                             Client clientConnecte = new ClientDAO().getClientById(clientId);
                         %>
-                        <input class="form-control" placeholder="Prénom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
-                        <input class="form-control" placeholder="Nom" type="text" value="<%= clientConnecte.getNomUtilisateurClient() %>">
 
             			<form action="#" class="bill-detail">
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">
-										<input class="form-control" placeholder="Prénom" type="text">
+										<input class="form-control" placeholder="Nom Prénom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
 									</div>
 									<div class="col">
-										<input class="form-control" placeholder="Nom"
-											type="text">
+										<input class="form-control" placeholder="Nom utilisateur" type="text" value="<%= clientConnecte.getNomUtilisateurClient() %>">
 									</div>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Nom de l'entreprise"
-										type="text">
+									<input class="form-control" placeholder="Email"
+										type="text" value="<%= clientConnecte.getEmailClient() %>">
 								</div>
 								<div class="form-group">
-									<textarea class="form-control" placeholder="Adresse"></textarea>
-								</div>
-								<div class="form-group">
-									<input class="form-control" placeholder="Ville"
-										type="text">
+									<input class="form-control" placeholder="Téléphone"
+										type="text" value="<%= clientConnecte.getTelephoneClient() %>">
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Pays"
 										type="text">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Code posta"
+									<input class="form-control" placeholder="Code postal"
 										type="text">
 								</div>
-								<div class="form-group row">
-									<div class="col">
-										<input class="form-control" placeholder="Adresse e-mail"
-											type="email">
-									</div>
-									<div class="col">
-										<input class="form-control" placeholder="Numéro de téléphone"
-											type="tel">
-									</div>
-								</div>
-								<div class="form-group">
-									<input type="checkbox"> Envoyer à une adresse différente ?
-								</div>
-								<div class="form-group">
-									<textarea class="form-control" placeholder="Order Notes"></textarea>
-								</div>
+
 							</fieldset>
 						</form>
 						<!-- Bill Detail of the Page end -->

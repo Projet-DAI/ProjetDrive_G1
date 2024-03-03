@@ -7,9 +7,14 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import Model.metier.Client;
+import Model.metier.Commande;
 import Model.metier.LignePanier;
 
 public class ClientDAO {
+	
+	   public ClientDAO() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	   public boolean verifierConnexion(String nomUtilisateur, String motDePasse) {
 	        boolean isValidUser = false;
@@ -41,7 +46,7 @@ public class ClientDAO {
 	        return isValidUser;
 	    }
 
-	    public Client getClientByUserName(String nomUtilisateur) {
+	    /*public Client getClientByUserName(String nomUtilisateur) {
 	        Session session = HibernateUtil.getSessionFactory().openSession();
 	        Transaction tx = null;
 	        Client client = null;
@@ -64,12 +69,16 @@ public class ClientDAO {
 	        }
 
 	        return client;
-	    }
+	    }*/
 
 	    public Client getClientById(int clientId) {
-	        Client client = null;
+	        Client client = new Client();
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        	
 	            client = session.get(Client.class, clientId);
+	            if(client!= null) {
+	            	client = new Client(client.getNomCompletClient(), client.getNomUtilisateurClient(), client.getEmailClient(), client.getTelephoneClient(), client.getPwdClient(), client.getPointFideliteClient(), null);
+	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }

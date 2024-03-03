@@ -21,20 +21,16 @@ public class PostIt {
     @JoinColumn(name = "IdListeCourse")
     private ListeCourse listeCourse;
 
-    @Column(name = "Titre")
-    private String titre;
-
     @Column(name = "Contenu")
     private String contenu;
 
     @Column(name = "DateCreation")
     private Date dateCreation;
 
-	public PostIt(Client client, ListeCourse listeCourse, String titre, String contenu, Date dateCreation) {
+	public PostIt(Client client, ListeCourse listeCourse, String contenu, Date dateCreation) {
 		super();
 		this.client = client;
 		this.listeCourse = listeCourse;
-		this.titre = titre;
 		this.contenu = contenu;
 		this.dateCreation = dateCreation;
 	}
@@ -65,14 +61,6 @@ public class PostIt {
 
 	public void setListeCourse(ListeCourse listeCourse) {
 		this.listeCourse = listeCourse;
-	}
-
-	public String getTitre() {
-		return titre;
-	}
-
-	public void setTitre(String titre) {
-		this.titre = titre;
 	}
 
 	public String getContenu() {

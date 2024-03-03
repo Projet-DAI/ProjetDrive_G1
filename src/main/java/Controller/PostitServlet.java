@@ -24,8 +24,8 @@ import Model.metier.ListeCourse;
 import Model.metier.PostIt;
 import Model.metier.Produit;
 
-@WebServlet("/ListeCourseServlet")
-public class ListeCourseServlet extends HttpServlet {
+@WebServlet("/PostitServlet")
+public class PostitServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private SessionFactory sessionFactory;
     

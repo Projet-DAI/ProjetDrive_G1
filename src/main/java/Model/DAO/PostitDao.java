@@ -104,7 +104,7 @@ public class PostitDao {
 	    }
 	    
 	    
-	    public static void main(String[] args) {
+	    public void main(String[] args) {
 	        String listeCourseName = "example";
 	        PostitDao postitDao = new PostitDao(HibernateUtil.getSessionFactory());
 	        int listeId = postitDao.getListeId(listeCourseName);

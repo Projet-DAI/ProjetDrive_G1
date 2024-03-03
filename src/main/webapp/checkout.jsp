@@ -106,24 +106,14 @@
 										</tr>
 									</thead>
 									<tbody>
-<% for (LignePanier lignePanier : panierClient.getLignesPanier()) { %>
-    <tr>
-        <td><%= lignePanier.getProduit().getNomProduit() %> x<%= lignePanier.getQuantite() %></td>
-        <td class="text-right">Rp <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
-    </tr>
-<% } %>
+
 									</tbody>
 									<tfooter>
 									
-									<%
-    double total = 0.0;
-    for (LignePanier lignePanier : panierClient.getLignesPanier()) {
-        total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
-    }
-%>
+
 									<tr>
 										<td><strong>Sous-total du panier</strong></td>
-										<td class="text-right"><%= total %></td>
+										<td class="text-right"></td>
 									</tr>
 									<tr>
 										<td><strong>Frais de livraison</strong></td>
@@ -154,7 +144,7 @@
 						<p class="text-right mt-3">
 							<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
 						</p>
-						<a href="#" class="btn btn-primary float-right">PROCÉDER AU PAIEMENT <i class="fa fa-check"></i>
+                         <button type="submit" class="btn btn-primary float-right">PROCEDER AU PAIEMENT <i class="fa fa-check"></i></button>
 						</a>
 						<div class="clearfix"></div>
 					</div>

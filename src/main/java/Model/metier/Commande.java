@@ -25,26 +25,28 @@ public class Commande {
     @ManyToOne
     @JoinColumn(name = "IdStatutCommande")
     private StatutCommande statutCommande;
-
-    @ManyToOne
-    @JoinColumn(name = "IdMagasin")
-    private Magasin magasin;
     
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     private List<LigneCommande> lignesCommande;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IdTempsRetrait", referencedColumnName = "IdTempsRetrait")
+    private TempsRetait tempsRetait;
+    
+	public Commande() {
+		
+	}
 
-	public Commande(Client client, Date dateCommande, double montantTotal, StatutCommande statutCommande,
-			Magasin magasin) {
+	public Commande(int idCommande, Client client, Date dateCommande, double montantTotal,
+			StatutCommande statutCommande, List<LigneCommande> lignesCommande, TempsRetait tempsRetait) {
 		super();
+		this.idCommande = idCommande;
 		this.client = client;
 		this.dateCommande = dateCommande;
 		this.montantTotal = montantTotal;
 		this.statutCommande = statutCommande;
-		this.magasin = magasin;
-	}
-	
-	public Commande() {
-		
+		this.lignesCommande = lignesCommande;
+		this.tempsRetait = tempsRetait;
 	}
 
 	public int getIdCommande() {
@@ -87,15 +89,22 @@ public class Commande {
 		this.statutCommande = statutCommande;
 	}
 
-	public Magasin getMagasin() {
-		return magasin;
+	public List<LigneCommande> getLignesCommande() {
+		return lignesCommande;
 	}
 
-	public void setMagasin(Magasin magasin) {
-		this.magasin = magasin;
+	public void setLignesCommande(List<LigneCommande> lignesCommande) {
+		this.lignesCommande = lignesCommande;
 	}
-    
-    
 
+	public TempsRetait getTempsRetait() {
+		return tempsRetait;
+	}
+
+	public void setTempsRetait(TempsRetait tempsRetait) {
+		this.tempsRetait = tempsRetait;
+	}
+
+	
 }
 

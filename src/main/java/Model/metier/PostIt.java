@@ -25,18 +25,19 @@ public class PostIt {
     private String contenu;
 
     @Column(name = "DateCreation")
-    private Date dateCreation;
+    private LocalDateTime  dateCreation;
 
-	public PostIt(Client client, ListeCourse listeCourse, String contenu, Date dateCreation) {
+	public PostIt() {
+		
+	}
+
+	public PostIt(int idPostIt, Client client, ListeCourse listeCourse, String contenu, LocalDateTime dateCreation) {
 		super();
+		this.idPostIt = idPostIt;
 		this.client = client;
 		this.listeCourse = listeCourse;
 		this.contenu = contenu;
 		this.dateCreation = dateCreation;
-	}
-
-	public PostIt() {
-		
 	}
 
 	public int getIdPostIt() {
@@ -71,13 +72,15 @@ public class PostIt {
 		this.contenu = contenu;
 	}
 
-	public Date getDateCreation() {
+	public LocalDateTime getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(Date localDateTime) {
-		this.dateCreation = localDateTime;
+	public void setDateCreation(LocalDateTime dateCreation) {
+		this.dateCreation = dateCreation;
 	}
+
+	
 	
 	
 }

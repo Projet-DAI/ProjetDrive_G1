@@ -90,6 +90,11 @@
 	    <div class="col-md-12 mt-5 text-center">
 	    	<a href="gestionProduit.jsp" class="btn btn-primary btn-lg" id="gestionBtn">Gestion des produits</a>
 	    </div>
+	    
+	    <!-- US5.1 Consulter un panier pour preparer un retait -->
+	    <div class="col-md-12 mt-5 text-center">
+	    	<a href="preparationPreloadServlet" class="btn btn-primary btn-lg" id="gestionBtn">préparer pour un retrait</a>
+	    </div>
                     
     </div>
     

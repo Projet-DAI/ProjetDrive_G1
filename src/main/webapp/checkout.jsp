@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="Model.metier.Client" %>
 <%@ page import="Model.DAO.ClientDAO" %>
+<%@ page import="Model.metier.Panier" %>
+<%@ page import="Model.metier.LignePanier" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +45,7 @@
 				style="background-image: url('assets/img/bg-header.jpg');">
 				<div class="container">
 					<h1 class="pt-5">Valider mon panier</h1>
-					<p class="lead">Économisez du temps et confiez-nous vos courses</p>
+					<p class="lead">Economisez du temps et confiez-nous vos courses</p>
 				</div>
 			</div>
 		</div>
@@ -52,7 +54,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-7">
-						<h5 class="mb-3">DÉTAILS DE FACTURATION</h5>
+						<h5 class="mb-3">DETAILS DE FACTURATION</h5>
                         <%
                             int clientId = 1; 
                             Client clientConnecte = new ClientDAO().getClientById(clientId);
@@ -87,8 +89,11 @@
 
 							</fieldset>
 						</form>
-						<!-- Bill Detail of the Page end -->
 					</div>
+                     <%
+                        
+                        Panier panierClient = clientConnecte.getPanier();
+                     %>
 					<div class="col-xs-12 col-sm-5">
 						<div class="holder">
 							<h5 class="mb-3">VOTRE COMMANDE</h5>
@@ -101,31 +106,32 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Ikan Segar x1</td>
-											<td class="text-right">Rp 30.000</td>
-										</tr>
-										<tr>
-											<td>Sirloin x1</td>
-											<td class="text-right">Rp 120.000</td>
-										</tr>
-										<tr>
-											<td>Mix Vegetables x1</td>
-											<td class="text-right">Rp 30.000</td>
-										</tr>
+<% for (LignePanier lignePanier : panierClient.getLignesPanier()) { %>
+    <tr>
+        <td><%= lignePanier.getProduit().getNomProduit() %> x<%= lignePanier.getQuantite() %></td>
+        <td class="text-right">Rp <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+    </tr>
+<% } %>
 									</tbody>
 									<tfooter>
+									
+									<%
+    double total = 0.0;
+    for (LignePanier lignePanier : panierClient.getLignesPanier()) {
+        total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+    }
+%>
 									<tr>
 										<td><strong>Sous-total du panier</strong></td>
-										<td class="text-right">Rp 180.000</td>
+										<td class="text-right"><%= total %></td>
 									</tr>
 									<tr>
 										<td><strong>Frais de livraison</strong></td>
-										<td class="text-right">Rp 20.000</td>
+										<td class="text-right"></td>
 									</tr>
 									<tr>
 										<td><strong>TOTAL DE LA COMMANDE</strong></td>
-										<td class="text-right"><strong>Rp 200.000</strong></td>
+										<td class="text-right"><strong></strong></td>
 									</tr>
 									</tfooter>
 								</table>

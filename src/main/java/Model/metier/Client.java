@@ -72,6 +72,7 @@ public class Client {
         return this.nomUtilisateurClient.equals(nomUtilisateur) && this.pwdClient.equals(motDePasse);
     }*/
 
+    
 	public int getIdClient() {
 		return idClient;
 	}

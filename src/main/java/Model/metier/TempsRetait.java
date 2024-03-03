@@ -23,12 +23,8 @@ public class TempsRetait {
     @Column(name = "TempsDeRetrait")
     private String tempsDeRetrait;
     
-    @ManyToMany
-    @JoinTable(
-      name = "TempsRetait_Magasin", 
-      joinColumns = @JoinColumn(name = "IdTempsRetrait"), 
-      inverseJoinColumns = @JoinColumn(name = "IdMagasin"))
-    private Set<Magasin> magasins = new HashSet<>();
+    @ManyToMany(mappedBy = "tempsRetaits")
+    private Set<Magasin> magasins;
     
     public TempsRetait() {}
 
@@ -62,7 +58,6 @@ public class TempsRetait {
 	public void setMagasins(Set<Magasin> magasins) {
 		this.magasins = magasins;
 	}
-    
     
 }
 

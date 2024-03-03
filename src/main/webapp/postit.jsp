@@ -13,64 +13,8 @@
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
-.custom-button {
-    background-color: pink;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100%;
-}
-
-.custom-button:hover {
-    background-color: lightpink;
-}
-
-
-.modal-dialog {
-    max-height: 100%;
-    margin: 0 auto;
-}
-
-.modal-content {
-    overflow-y: auto;
-    height: 100%;
-}
-
-.modal-body {
-    height: calc(100% - 58px); 
-    overflow-y: auto;
-}
-
-
-.keyword-name {
-    margin-right: 10px;
-}
-
-.keyword-link {
-    margin-right: 10px;
-}
-.center-text {
-    display: block;
-    text-align: center;
-}
-
-#keyword-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-#clear-all {
-    margin-top: 20px;
-    text-align: center;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" media="all" href="assets/css/Postit.css">	
+<script type="text/JavaScript" src="assets/js/postit.js"></script>
 
 </head>
 <body>
@@ -122,14 +66,14 @@
 
     <div id="clear-all" class="center-text" onclick="clearAll()">Tout Effacer</div>
 
-    <button class="custom-button" onclick="openModal()">Ajouter des mots-cl&eacute;s +</button>
+    <button class="custom-button" onclick="openModal()">Ajouter un post-it +</button>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajouter des mots-cl&eacute;s</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un post-it</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

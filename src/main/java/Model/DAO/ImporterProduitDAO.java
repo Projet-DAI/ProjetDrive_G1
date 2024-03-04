@@ -99,7 +99,7 @@ public class ImporterProduitDAO {
 	    if (categorie == null) {
 	        categorie = new Categories();
 	        categorie.setNomCategorie(nomCategorie);
-	        categorie.setRayon(rayon); // Assume Rayon is already defined or created
+	        categorie.setRayon(rayon); 
 	        session.save(categorie);
 	    }
 	    return categorie;

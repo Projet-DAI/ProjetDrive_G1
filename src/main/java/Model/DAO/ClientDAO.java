@@ -79,4 +79,53 @@ public class ClientDAO {
 	        }
 	        return pointsFidelite;
 	    }
+	    
+	    // obtenir clientID par mail
+	    public int getClienteIdByEmail(String email) {
+	        Session session = HibernateUtil.getSessionFactory().openSession();
+	        Transaction transaction = null;
+	        int clientId = -1;
+
+	        try {
+	            transaction = session.beginTransaction();
+	           
+	            Query query = session.createQuery("SELECT c.idClient FROM Client c WHERE c.emailClient = :emailClient");
+	            query.setParameter("emailClient", email);
+	            
+	            Object result = query.uniqueResult();
+	            
+	            if (result != null) {
+	                clientId = (int) result;
+	            }
+	            
+	            transaction.commit();
+	        } catch (Exception e) {
+	            if (transaction != null) {
+	                transaction.rollback();
+	            }
+	            e.printStackTrace();
+	        } finally {
+	            session.close();
+	        }
+
+	        return clientId;
+	    }
+	    
+	    // obtenie objet client par mail
+	    public Client findClientByEmail(String email) {
+	        Session session = HibernateUtil.getSessionFactory().openSession();
+	        Client client = null;
+	        try {
+	            String hql = "FROM Client C WHERE C.emailClient = :emailClient";
+	            Query query = session.createQuery(hql);
+	            query.setParameter("emailClient", email);
+	            client = (Client) query.uniqueResult();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            session.close();
+	        }
+	        return client;
+	    }
+	   
 }

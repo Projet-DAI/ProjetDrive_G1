@@ -5,10 +5,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import com.mysql.cj.xdevapi.Client;
+
 import Model.metier.ListeCourse;
 import Model.metier.Panier;
 import Model.metier.PostIt;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PostitDao {

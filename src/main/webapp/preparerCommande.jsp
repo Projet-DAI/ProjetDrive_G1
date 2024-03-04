@@ -72,71 +72,6 @@
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary">5</span>
                             </a>
-                            <div class="dropdown-menu shopping-cart">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title">Mon panier</div>
-                                    </li>
-                                    <li>
-                                        <div class="shopping-cart-list">
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
-                                                <div class="media-body">
-                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
-                                                    <p class="price">
-                                                        <span class="discount text-muted">Rp. 700.000</span>
-                                                        <span>Rp. 100.000</span>
-                                                    </p>
-                                                    <p class="text-muted">Qty: 1</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="drop-title d-flex justify-content-between">
-                                            <span>Total:</span>
-                                            <span class="text-primary"><strong>Rp. 2000.000</strong></span>
-                                        </div>
-                                    </li>
-                                    <li class="d-flex justify-content-between pl-3 pr-3 pt-3">
-                                        <a href="cart.html" class="btn btn-default">View Cart</a>
-                                        <a href="checkout.html" class="btn btn-primary">Checkout</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
                     </ul>
                 </div>
@@ -167,32 +102,45 @@
                                     <tr>
                                         <th width="10%"></th>
                                         <th>Produits</th>
-                                        <th width="15%">Quantité</th>
+                                        <th width="15%">Quantité</th>                                        
                                         <th></th>
                                     </tr>
+                                   
                                 </thead>
-								    <%-- Boucle pour afficher chaque produit dans le panier --%>
-					                <% if (request.getAttribute("panier") != null ){ %>
-					                  	<% Panier panier = (Panier) request.getAttribute("panier"); %>
-             	                        <tbody>
-					                  	
-	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
-						                        <tr>
-						                        	<td>    </td>
-						                            <td><%= lignePanier.getProduit().getNomProduit() %></td>
-						                            <td><%= lignePanier.getProduit().getPrixProduit() %></td>
-						                            <td><%= lignePanier.getQuantite() %></td>
-						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
-						                        </tr>
-						                    <% } %>
-					                    </tbody>
-					                    
-					                <% } else { %>
-					                    <tr>
-					                        <td colspan="4">Pas d'article à preparer pour cette commande.</td>
-					                    </tr>
-					                <% } %>
+								    <% if (request.getAttribute("panier") != null ){ %>
+								    <% Panier panier = (Panier) request.getAttribute("panier"); %>
+								    <tbody>
+								        <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
 
+								            
+								            <tr>
+								                <td>    </td>
+								                <td><%= lignePanier.getProduit().getNomProduit() %></td>
+								                <td><%= lignePanier.getProduit().getPrixProduit() %></td>
+								                <td><%= lignePanier.getQuantite() %></td>
+								                <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+								                <td>
+								                    <button id="toggle-btn-<%= lignePanier.getIdLignePanier() %>" class="btn btn-primary" onclick="toggleCommande(<%= lignePanier.getIdLignePanier() %>)">On/Off</button>
+								                </td>
+								            </tr>
+								        <% } %>
+								    </tbody>
+								<% } else { %>
+								    <tr>
+								        <td colspan="5">Pas d'article à préparer pour cette commande.</td>
+								    </tr>
+								<% } %>
+																
+								<script>
+								    function toggleCommande(idLignePanier) {
+								        var btn = document.getElementById('toggle-btn-' + idLignePanier);
+								
+								        btn.classList.toggle('btn-success');
+								
+								        btn.innerHTML = (btn.classList.contains('btn-success')) ? 'On' : 'Off';
+								    }
+								</script>
+  
                             </table>
                         </div>
                     </div>

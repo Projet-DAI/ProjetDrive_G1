@@ -145,8 +145,9 @@
 								<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
 							</p>
 						    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
+														
+							<a href="ConfirmCommand.jsp" class="btn btn-primary float-right" onclick="confirmerCommande"> Confirmer <i class="fa fa-check"></i></a>
 							
-	                        <button type="button" class="btn btn-primary float-right" onclick="confirmerCommande">Confirmer <i class="fa fa-check"></i></button>
 							</a>
 							
 	<%
@@ -157,7 +158,6 @@
 	        CommandeDAO commandeDAO = new CommandeDAO(); 
 	        int commandeId = commandeDAO.insererCommande(nouvelleCommande);
 	
-	        response.sendRedirect("ConfirmCommand.jsp");
 	    }
 	%>
 							<div class="clearfix"></div>

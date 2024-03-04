@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 	
 <!DOCTYPE html>
 <html>
@@ -33,7 +33,7 @@
                 </video>
                 <div class="container">
                     <h1 class="pt-5">
-                        Économisez du temps et confiez-nous<br>
+                        Ã‰conomisez du temps et confiez-nous<br>
                         vos courses
                     </h1>
 
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        Récupérer
+                                        RÃ©cupÃ©rer
                                     </h4>
                                     <p class="card-text">
 										</p>
@@ -93,14 +93,8 @@
             </div>
         </div>
                     <div class="col-md-12 mt-5 text-center">
-                        <a href="shop" class="btn btn-primary btn-lg">Commencer ses courses</a>
+                        <a id="commencerCoursesBtn" href="#" class="btn btn-primary btn-lg">Commencer ses courses</a>
                     </div>
-                    
-                    <!-- Gestion des produits -->
-                    <!-- <div class="col-md-12 mt-5 text-center">
-                       <div class="btn btn-primary btn-lg" id="gestionBtn">Gestion des produits</div>
-                    </div> -->
-                    
          </div>
     
     <section id="categories" class="pb-0 gray-bg">
@@ -110,7 +104,8 @@
     
     <jsp:include flush="true" page="footer.jsp"></jsp:include>
 
-	<script type="text/javascript" src="assets/js/gestionProduit.js"></script>
+	<script type="text/javascript" src="assets/js/index.js"></script>
+	
 </body>
 </html>
 	

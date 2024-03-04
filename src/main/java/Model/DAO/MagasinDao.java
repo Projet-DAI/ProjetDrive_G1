@@ -33,8 +33,7 @@ public class MagasinDao {
 	
 	// test
 	public static void main(String[] args) {
-		List<Magasin> mag = choisirMagasins("compance");
-		
+		List<Magasin> mag = choisirMagasins("Compans");		
         for (Magasin magasin : mag) {
             System.out.println("Nom: " + magasin.getNomMagasin() + ", Aress: " + magasin.getAdresseMagasin());
         }

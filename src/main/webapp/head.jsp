@@ -89,7 +89,7 @@
 
 
                         <li class="nav-item">
-                            <a href="shop" class="nav-link">Faire ses courses</a>
+                            <a href="#" id="faireCoursesBtn" class="nav-link">Faire ses courses</a>
                         </li>
                         <%
                         	String nomU = (String)session.getAttribute("username");
@@ -209,7 +209,7 @@
                             <label for="userLocation" class="col-form-label">Location:</label>
                             <input type="text" class="form-control" id="userLocation">
                         </div>
-                        <div id="shopsList"></div> <!-- Conteneur de la liste d'achats -->
+                        <div id="magasinsList"></div> <!-- Conteneur de la liste d'achats -->
                     </form>
                 </div>
                 <div class="modal-footer">

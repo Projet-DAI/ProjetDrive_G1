@@ -98,39 +98,25 @@ public class AjouterPanierServlet extends HttpServlet {
                 System.out.println("query resultat : " + query);
 
 
-                if (panier != null) {
+                if (panier1 != null) {
                     //Hibernate.initialize(panier.getLignesPanier());
 
                     // Récupérer le produit à partir de la base de données
                     Produit produit = ProduitDAO.getProductById(productId);
                     System.out.println("Produit récupéré: " + produit);
-                /*}else {
-                        // Si aucun panier n'est trouvé, gérer l'erreur
-                        System.out.println("Aucun panier trouvé pour le client: " + clientId);
 
-                        // Créer un nouveau panier pour le client
-                        panier = new Panier();
-                        panier.setClient(new Client(clientId));
-                        
-                        // Enregistrer le nouveau panier dans la base de données
-                        panierDAO.createPanier(panier);
-
-                        // Récupérer le produit à partir de la base de données
-                        Produit produit = ProduitDAO.getProductById(productId);
-                        System.out.println("Produit récupéré: " + produit);
-                 	*/
                     if (produit != null) {
                         // Créer une nouvelle instance de LignePanier
                         LignePanier lignePanier = new LignePanier();
                         lignePanier.setQuantite(quantite);
-                        lignePanier.setPanier(panier);
+                        lignePanier.setPanier(panier1);
                         lignePanier.setProduit(produit); // Vous devez récupérer le produit ici
 
                         System.out.println("Ligne de panier créée: " + lignePanier); // Ajout d'un message de débogage
 
                         // Enregistrer la nouvelle lignePanier dans la base de données
-                        //panier.getLignesPanier().add(lignePanier); // Ajoutez la ligne au panier
-                        panierDAO.addToCart(panier.getIdPanier(), productId, quantite); // Utilisez votre méthode addToCart
+                        panier1.getLignesPanier().add(lignePanier); // Ajoutez la ligne au panier
+                        panierDAO.addToCart(panier1.getIdPanier(), productId, quantite); // Utilisez votre méthode addToCart
 
                         System.out.println("Produit ajouté au panier."); // Ajout d'un message de débogage
 
@@ -141,14 +127,14 @@ public class AjouterPanierServlet extends HttpServlet {
                         System.out.println("Produit non trouvé pour l'ID: " + productId);
                         response.sendRedirect("shop.jsp");
                     }
+                } else {
+                    // Si aucun panier n'est trouvé, gérer l'erreur
+                    System.out.println("Aucun panier trouvé pour le client: " + clientId); // Ajout d'un message de débogage
+
+                    response.sendRedirect("login.jsp");
                 }
             }
         }
     }
 }
-               
-            
-        
-    
-
 

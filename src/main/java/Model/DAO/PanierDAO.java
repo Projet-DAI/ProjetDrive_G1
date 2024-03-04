@@ -170,84 +170,7 @@ public class PanierDAO {
 	    }
 
 	
-	    // Méthode pour supprimer un produit du panier
-	    public void removeProduit(Panier panier, Produit produit) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction tx = null;
-	        
-	        try {
-	            tx = session.beginTransaction();
-	            LignePanier ligneToRemove = null;
-	            // Parcourir les lignes de panier pour trouver celle correspondant au produit à supprimer
-	            for (LignePanier ligne : panier.getLignesPanier()) {
-	                if (ligne.getProduit().equals(produit)) {
-	                    ligneToRemove = ligne;
-	                    break;
-	                }
-	            }
-	            // Supprimer la ligne correspondante du panier
-	            if (ligneToRemove != null) {
-	                panier.getLignesPanier().remove(ligneToRemove);
-	                session.delete(ligneToRemove);
-	                tx.commit();
-	            }
-	        } catch (RuntimeException e) {
-	            if (tx != null && tx.isActive()) {
-	                tx.rollback();
-	            }
-	            throw e; // Rethrow l'exception pour une gestion au niveau supérieur
-	        } finally {
-	            session.close();
-	        }
-	    }
-		    
-		 // Méthode pour mettre à jour la quantité d'un produit dans le panier
-		    public void updateQuantiteProduit(Panier panier, Produit produit, int nouvelleQuantite) {
-		        Session session = HibernateUtil.getSessionFactory().openSession();
-		        Transaction tx = null;
-		        
-		        try {
-		            tx = session.beginTransaction();
-		            // Parcourir les lignes de panier pour trouver celle correspondant au produit à mettre à jour
-		            for (LignePanier ligne : panier.getLignesPanier()) {
-		                if (ligne.getProduit().equals(produit)) {
-		                    // Mettre à jour la quantité de la ligne correspondante
-		                    ligne.setQuantite(nouvelleQuantite);
-		                    session.update(ligne);
-		                    break;
-		                }
-		            }
-		            tx.commit();
-		        } catch (RuntimeException e) {
-		            if (tx != null && tx.isActive()) {
-		                tx.rollback();
-		            }
-		            throw e; // Rethrow l'exception pour une gestion au niveau supérieur
-		        } finally {
-		            session.close();
-		        }
-		    }
-		    
-		    // Méthode pour mettre à jour le panier dans la base de données
-		    public void updatePanier(Panier panier) {
-		        Session session = HibernateUtil.getSessionFactory().openSession();
-		        Transaction tx = null;
-		        
-		        try {
-		            tx = session.beginTransaction();
-		            session.update(panier);
-		            tx.commit();
-		        } catch (RuntimeException e) {
-		            if (tx != null && tx.isActive()) {
-		                tx.rollback();
-		            }
-		            throw e; // Rethrow l'exception pour une gestion au niveau supérieur
-		        } finally {
-		            session.close();
-		        }
-		    }
-		
-	    
+	 	
 	
 
 
@@ -257,7 +180,7 @@ public class PanierDAO {
 	        PanierDAO panierDAO = new PanierDAO();
 
 	        // Spécifiez l'identifiant du client pour lequel vous souhaitez récupérer le panier
-	        int clientId = 1;
+	        int clientId = 2;
 
 	        // Récupérez l'ID du panier pour le client spécifié
 	        	Panier panier = panierDAO.getPanierByClientId(clientId);

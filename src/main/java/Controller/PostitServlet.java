@@ -43,68 +43,27 @@ public class PostitServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 
-		// 根据email从session中获取Client对象
+		// get Client objet par email dans session
 		String emailCli = (String) session.getAttribute("emailCli");
 		ClientDAO clientDAO = new ClientDAO();
 		Client client = clientDAO.findClientByEmail(emailCli);
 		
-		// 从会话中获取ListeCourse对象列表
+		// get objet ListeCourse
 		ListeCourse listeCourse = null; 
 		Object listCourseObj = session.getAttribute("listCourse");
 
 		if (listCourseObj instanceof List) {
 	        List<?> listCourses = (List<?>) listCourseObj;
 	        if (!listCourses.isEmpty() && listCourses.get(0) instanceof ListeCourse) {
-	            listeCourse = (ListeCourse) listCourses.get(0); // 获取列表中的第一个ListeCourse对象
+	            listeCourse = (ListeCourse) listCourses.get(0); 
 	        }
 	    }
-
-		
-		// 从session中直接获取ListeCourse对象
-		//Object listCourseObj = session.getAttribute("listCourse");
-		//ListeCourse listeCourse = (ListeCourse) session.getAttribute("listCourse").get(0);
-		//ListeCourse listeCourse = (ListeCourse) listCourses.get(0);
-
-		// 获取会话中所有属性的名称
-		// Enumeration<String> attributeNames = session.getAttributeNames();
-
-		// 准备用于存储会话信息的JSONObject
-		// JSONObject sessionInfo = new JSONObject();
-
-		// 遍历所有属性名称
-		/*
-		 * while (attributeNames.hasMoreElements()) { String attributeName =
-		 * attributeNames.nextElement(); // 获取属性值 Object attributeValue =
-		 * session.getAttribute(attributeName);
-		 * 
-		 * System.out.println(attributeName + ": " + attributeValue);
-		 * 
-		 * }
-		 */
-
-		
-
-		// 从会话中获取ListeCourse对象
-		// ListeCourse listeCourse = (ListeCourse) session.getAttribute("listCourse");
-		// 假设存在方法来获取IdListeCourse（取决于ListeCourse类的实现）
-		// int idListeCourse = listeCourse.getIdListeCourse();
-		// System.out.println("idListeCourse: " + idListeCourse);
-
-		// 从会话中获取客户信息，获取IdClient（需要查询数据库）
-		// 假设存在方法getClienteIdByEmail来从email获取客户ID
-		/*
-		 * String emailCli = (String) session.getAttribute("emailCli"); ClientDAO
-		 * clientDAO = new ClientDAO(); int idClient =
-		 * clientDAO.getClienteIdByEmail(emailCli); System.out.println("idClient: " +
-		 * idClient);
-		 */
 
 		switch (action) {
 		case "create":
 			String postitContent = request.getParameter("postit");
-			System.out.println("Postit content: " + postitContent);
-			// String listeCourseName = request.getParameter("listeCourseName");
-			// System.out.println("listeCourseName: " + listeCourseName);
+			//System.out.println("Postit content: " + postitContent);
+			
 			if (postitContent != null && !postitContent.isEmpty() && client != null && listeCourse != null) {
 				PostIt postit = new PostIt();
 				postit.setContenu(postitContent);
@@ -113,7 +72,7 @@ public class PostitServlet extends HttpServlet {
 				postit.setListeCourse(listeCourse);
 
 				PostitDao postitDao = new PostitDao();
-				postitDao.save(postit); // 确保PostitDao有一个适当的save方法
+				postitDao.save(postit); 
 
 				JSONObject json = new JSONObject();
 				json.put("content", postit.getContenu());
@@ -127,34 +86,7 @@ public class PostitServlet extends HttpServlet {
 						"Veuillez entrer un mot-clé valide ou s'assurer que le client et la liste de cours existent.");
 			}
 			break;
-		/*
-		 * if (postitContent != null && !postitContent.isEmpty()) { PostIt postit = new
-		 * PostIt(); PostitDao postitDao = new PostitDao();
-		 * 
-		 * 
-		 * ListeCourse listeCourse = postitDao.findListeCourseByName(listeCourseName);
-		 * if (listeCourse != null) { postit.setListeCourse(listeCourse); } else {
-		 * response.getWriter().write("Liste de course introuvable.");
-		 * System.out.println("no set list COURS"); return; }
-		 * 
-		 * 
-		 * postit.setContenu(postitContent);
-		 * postit.setDateCreation(LocalDateTime.now());
-		 * 
-		 * postitDao.save(postit);
-		 * 
-		 * 
-		 * JSONObject json = new JSONObject(); //System.out.println("Postit content: " +
-		 * postit.getContenu()); //System.out.println("Postit date: " +
-		 * postit.getContenu()); json.put("content", postit.getContenu());
-		 * json.put("creationDate", postit.getDateCreation().toString());
-		 * 
-		 * response.setContentType("application/json");
-		 * response.setCharacterEncoding("UTF-8");
-		 * 
-		 * response.getWriter().write(json.toString()); } else {
-		 * response.getWriter().write("Veuillez entrer un mot-clé valide !"); } break;
-		 */
+		
 		case "delete":
 			// deleteKeyword(request, response);
 			break;

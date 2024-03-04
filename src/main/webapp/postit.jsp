@@ -61,13 +61,11 @@
 	        </div>
 	    </div>
 		
-		<!-- 插入成功之后显示 -->
-		
 		<div class="keyword-list" id="keyword-list">
 		    <div class="col-md-8"> 
 		        <table class="table">
 		            <tbody id="keyword-table-body">
-		                <!-- 这里将通过JavaScript动态插入新的postit信息 -->
+		                <!--afficher des infos de postit -->
 		            </tbody>
 		        </table>
 		    </div>

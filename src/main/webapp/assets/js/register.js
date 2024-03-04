@@ -124,6 +124,6 @@ function verifierEmail() {
 			}
 		}
 		// Envoie de la requête.
-				xhr.send();
+		xhr.send();
 	}
 }

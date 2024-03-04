@@ -43,9 +43,9 @@ public class preparationPreloadServlet extends HttpServlet {
 			
 			List<Magasin> listeM = query.list();
 			
-			for (Magasin m : listeM) {
-				System.out.println(m.getNomMagasin());	
-			}
+//			for (Magasin m : listeM) {
+//				System.out.println(m.getNomMagasin());	
+//			}
 			
 			transaction.commit();
 			session.close();

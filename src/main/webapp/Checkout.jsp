@@ -4,6 +4,8 @@
 <%@ page import="Model.DAO.ClientDAO" %>
 <%@ page import="Model.metier.Panier" %>
 <%@ page import="Model.metier.LignePanier" %>
+<%@ page import="Model.metier.Commande" %>
+<%@ page import="Model.DAO.CommandeDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +62,7 @@
                             Client clientConnecte = new ClientDAO().getClientById(clientId);
                         %>
 
-            			<form action="#" class="bill-detail">
+            			<form action="confirmerCommande.jsp" method="post" id="commandeForm">
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">
@@ -154,8 +156,22 @@
 						<p class="text-right mt-3">
 							<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
 						</p>
-						<a href="#" class="btn btn-primary float-right">PROCÉDER AU PAIEMENT <i class="fa fa-check"></i>
+					    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
+						
+                        <button type="button" class="btn btn-primary float-right" onclick="confirmerCommande()">Confirmer <i class="fa fa-check"></i></button>
 						</a>
+						
+<%
+    if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("confirmerCommande") != null) {
+
+        Commande nouvelleCommande = new Commande();
+
+        CommandeDAO commandeDAO = new CommandeDAO(); 
+        int commandeId = commandeDAO.insererCommande(nouvelleCommande);
+
+        response.sendRedirect("confirmerCommande.jsp");
+    }
+%>
 						<div class="clearfix"></div>
 					</div>
 				</div>

@@ -65,7 +65,7 @@
                             Client clientConnecte = new ClientDAO().getClientById(clientId);
                         %>
 
-            			<form action="confirmerCommande.jsp" method="post" id="commandeForm">
+            			<form action="ConfirmCommand.jsp" method="post" id="commandeForm">
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">

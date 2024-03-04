@@ -169,7 +169,7 @@
 							</p>
 						    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
 							
-	                        <button type="button" class="btn btn-primary float-right" onclick="confirmerCommande()">Confirmer <i class="fa fa-check"></i></button>
+	                        <button type="button" class="btn btn-primary float-right" onclick="confirmerCommande">Confirmer <i class="fa fa-check"></i></button>
 							</a>
 							
 	<%

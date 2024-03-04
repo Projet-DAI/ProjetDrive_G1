@@ -94,7 +94,16 @@ public class Commande {
 	public void setMagasin(Magasin magasin) {
 		this.magasin = magasin;
 	}
+
+	public List<LigneCommande> getLignesCommande() {
+		return lignesCommande;
+	}
+
+	public void setLignesCommande(List<LigneCommande> lignesCommande) {
+		this.lignesCommande = lignesCommande;
+	}
     
+	
     
 
 }

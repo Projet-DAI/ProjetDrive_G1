@@ -6,6 +6,9 @@
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="Model.metier.Commande" %>
 <%@ page import="Model.DAO.CommandeDAO" %>
+
+<% Panier panier = (Panier) session.getAttribute("Panier"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +65,7 @@
                             Client clientConnecte = new ClientDAO().getClientById(clientId);
                         %>
 
-            			<form action="confirmerCommande.jsp" method="post" id="commandeForm">
+            			<form action="ConfirmCommand.jsp" method="post" id="commandeForm">
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">
@@ -108,115 +111,100 @@
 										</tr>
 									</thead>
 									<tbody>
-<% for (LignePanier lignePanier : panierClient.getLignesPanier()) { %>
-    <tr>
-        <td><%= lignePanier.getProduit().getNomProduit() %> x<%= lignePanier.getQuantite() %></td>
-        <td class="text-right">Rp <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
-    </tr>
-<% } %>
-									</tbody>
-									<tfooter>
-									
-									<%
-    double total = 0.0;
-    for (LignePanier lignePanier : panierClient.getLignesPanier()) {
-        total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
-    }
-%>
-									<tr>
-										<td><strong>Sous-total du panier</strong></td>
-										<td class="text-right"><%= total %></td>
-									</tr>
-									<tr>
-										<td><strong>Frais de livraison</strong></td>
-										<td class="text-right"></td>
-									</tr>
-									<tr>
-										<td><strong>TOTAL DE LA COMMANDE</strong></td>
-										<td class="text-right"><strong></strong></td>
-									</tr>
-									</tfooter>
-								</table>
-							</div>
-
-							<h5 class="mb-3">Payment Methods</h5>
-							<div class="form-check-inline">
-								<label class="form-check-label"> <input
-									class="form-check-input" type="radio" name="exampleRadios"
-									id="exampleRadios1" value="option1" checked> Virement bancaire direct
-								</label>
-							</div>
-							<div class="form-check-inline">
-								<label class="form-check-label"> <input
-									class="form-check-input" type="radio" name="exampleRadios"
-									id="exampleRadios2" value="option2"> Carte de crédit
-								</label>
-							</div>
+									<% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
+             	                        <tbody>
+					                  	
+	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
+											    <tr>
+											        <td><%= lignePanier.getProduit().getNomProduit() %> x<%= lignePanier.getQuantite() %></td>
+											        <td class="text-right">Rp <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+											    </tr>
+											<% } %>
+			                                <% } %>
+											
+												</tbody>
+												<tfooter>
+												
+											 <%
+											    double total = 0.0;
+											    if (request.getAttribute("panier") != null) {
+											        for (LignePanier lignePanier : panier.getLignesPanier()) {
+											            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+											        }
+											    }
+											%>
+										<tr>
+											<td><strong>TOTAL DE LA COMMANDE</strong></td>
+											<td class="text-right"><strong><%= total %></strong></td>
+										</tr>
+										</tfooter>
+									</table>
+								</div>
+		
+							<p class="text-right mt-3">
+								<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
+							</p>
+						    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
+							
+	                        <button type="button" class="btn btn-primary float-right" onclick="confirmerCommande">Confirmer <i class="fa fa-check"></i></button>
+							</a>
+							
+	<%
+	    if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("confirmerCommande") != null) {
+	
+	        Commande nouvelleCommande = new Commande();
+	
+	        CommandeDAO commandeDAO = new CommandeDAO(); 
+	        int commandeId = commandeDAO.insererCommande(nouvelleCommande);
+	
+	        response.sendRedirect("ConfirmCommand.jsp");
+	    }
+	%>
+							<div class="clearfix"></div>
 						</div>
-						<p class="text-right mt-3">
-							<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
-						</p>
-					    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
-						
-                        <button type="button" class="btn btn-primary float-right" onclick="confirmerCommande()">Confirmer <i class="fa fa-check"></i></button>
-						</a>
-						
-<%
-    if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("confirmerCommande") != null) {
-
-        Commande nouvelleCommande = new Commande();
-
-        CommandeDAO commandeDAO = new CommandeDAO(); 
-        int commandeId = commandeDAO.insererCommande(nouvelleCommande);
-
-        response.sendRedirect("confirmerCommande.jsp");
-    }
-%>
-						<div class="clearfix"></div>
 					</div>
-				</div>
-		</section>
-	</div>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h5>À propos</h5>
-                    <p></p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Liens Utiles</h5>
-                    <ul>
-                        <li>
-                            <a href="about.html">À propos</a>
-                        </li>
-                        <li>
-                            <a href="contact.html">Contactez-nous</a>
-                        </li>
-                        <li>
-                            <a href="faq.html">FAQ</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">Comment ça fonctionne</a>
-                        </li>
-                        <li>
-                            <a href="terms.html">Termes et Conditions de Retrait</a>
-                        </li>
-                        <li>
-                            <a href="privacy.html">Politique de confidentialité</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                     <h5>Contact</h5>
-                     <ul>
-                         <li>
-                            <a href="tel:+620892738334"><i class="fa fa-phone"></i> 00337236723</a>
-                        </li>
-                        <li>
-                            <a href="mailto:hello@domain.com"><i class="fa fa-envelope"></i> Drive@G1.com</a>
-                         </li>
-                     </ul>
+			</section>
+		</div>
+	    <footer>
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-md-3">
+	                    <h5>À propos</h5>
+	                    <p></p>
+	                </div>
+	                <div class="col-md-3">
+	                    <h5>Liens Utiles</h5>
+	                    <ul>
+	                        <li>
+	                            <a href="about.html">À propos</a>
+	                        </li>
+	                        <li>
+	                            <a href="contact.html">Contactez-nous</a>
+	                        </li>
+	                        <li>
+	                            <a href="faq.html">FAQ</a>
+	                        </li>
+	                        <li>
+	                            <a href="javascript:void(0)">Comment ça fonctionne</a>
+	                        </li>
+	                        <li>
+	                            <a href="terms.html">Termes et Conditions de Retrait</a>
+	                        </li>
+	                        <li>
+	                            <a href="privacy.html">Politique de confidentialité</a>
+	                        </li>
+	                    </ul>
+	                </div>
+	                <div class="col-md-3">
+	                     <h5>Contact</h5>
+	                     <ul>
+	                         <li>
+	                            <a href="tel:+620892738334"><i class="fa fa-phone"></i> 00337236723</a>
+	                        </li>
+	                        <li>
+	                            <a href="mailto:hello@domain.com"><i class="fa fa-envelope"></i> Drive@G1.com</a>
+	                         </li>
+	                     </ul>
 
                      <h5>Suivez-nous</h5>
                      <ul class="social">

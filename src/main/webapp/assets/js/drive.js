@@ -10,7 +10,7 @@ var faireCoursesBtn = document.getElementById('faireCoursesBtn');
 faireCoursesBtn.addEventListener('click', function() {
     // Si l'utilisateur a sélectionné magasin, il peut alors accéder à la page shop.list.
     if (selectedMagasin) {
-        window.location.href = 'shop.jsp';
+        window.location.href = 'shop';
     } else {
         $('#locationModal').modal('show');
     }
@@ -26,9 +26,9 @@ function submitLocation() {
     var userLocation = document.getElementById('userLocation').value;
     if (!userLocation.trim()) {
         console.error("userLocation is empty");
-        return; // 阻止发送请求
+        return;
     }
-    userLocation = encodeURIComponent(userLocation); // 确保编码
+    userLocation = encodeURIComponent(userLocation);
     $.ajax({
         url: 'MagasinServlet', 
         type: 'GET', 

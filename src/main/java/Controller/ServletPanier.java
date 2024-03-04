@@ -67,7 +67,7 @@ public class ServletPanier extends HttpServlet {
             }
         } else {
             System.out.println("Le client ou le panier est introuvable dans la session.");
-            response.sendRedirect("referer");
+            response.sendRedirect("index.jsp");
         }
     }
 

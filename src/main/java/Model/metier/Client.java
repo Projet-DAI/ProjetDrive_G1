@@ -72,6 +72,12 @@ public class Client {
         return this.nomUtilisateurClient.equals(nomUtilisateur) && this.pwdClient.equals(motDePasse);
     }*/
 
+	public Client(int clientId) {
+		this.idClient=idClient;
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public int getIdClient() {
 		return idClient;
 	}

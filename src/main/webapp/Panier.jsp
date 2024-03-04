@@ -78,8 +78,19 @@
 						                        	<td>    </td>
 						                            <td><%= lignePanier.getProduit().getNomProduit() %></td>
 						                            <td><%= lignePanier.getProduit().getPrixProduit() %></td>
-						                            <td><%= lignePanier.getQuantite() %></td>
+						                            <td>
+									                    <div class="input-group">
+													        <span class="input-group-btn">
+													            
+													        </span>
+													        <input class="vertical-spin form-control input-number" type="text" id="quantite_<%= lignePanier.getProduit().getIdProduit() %>" name="quantite_<%= lignePanier.getProduit().getIdProduit() %>" value="<%= lignePanier.getQuantite() %>" min="1" data-bts-button-down-class="btn btn-primary" data-bts-button-up-class="btn btn-primary">
+													            </button>
+													        </span>
+													    </div>
+									                </td>
 						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+													<td><a href="#" class="text-danger" onclick="supprimerArticle('<%= lignePanier.getProduit().getIdProduit() %>')"><i class="fa fa-times"></i></a></td>
+						                        	
 						                        </tr>
 						                    <% } %>
 					                    </tbody>
@@ -94,15 +105,9 @@
                         </div>
                     </div>
                     <div class="col">
-                        <a href="shop.html" class="btn btn-default">Continue Shopping</a>
+                        <a href="shop.jsp" class="btn btn-default">Continuer mes achats</a>
                     </div>
-                    <div class="col text-right">
-                        <div class="input-group w-50 float-right">
-                            <input class="form-control" placeholder="Coupon Code" type="text">
-                            <div class="input-group-append">
-                                <button class="btn btn-default" type="button">Apply</button>
-                            </div>
-                        </div>
+                    
                         <div class="clearfix"></div>
                         <%
 						    double total = 0.0;
@@ -236,12 +241,8 @@
         <p class="copyright">&copy; 2018 Freshcery | Groceries Organic Store. All rights reserved.</p>
     </footer>
 	
-	<script type="text/javascript" src="assets/js/totalPanier.js"></script>
     <script type="text/javascript" src="assets/js/jquery.js"></script>
-<<<<<<< HEAD
     <script type="text/javascript" src="assets/js/totalPanier.js"></script>
-=======
->>>>>>> parent of 9604dbf (modifierQuantitePanier)
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>

@@ -5,18 +5,12 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@page import="Model.DAO.PanierDAO"%>
+<% Panier panier = (Panier) session.getAttribute("Panier"); %>
 
-<%
-    // Récupérer le panier depuis la requête
-    Panier panierAttribut = (Panier) request.getAttribute("panier");
-    // Vérifier si le panier est null
-    int panierSize = (panierAttribut != null) ? panierAttribut.getLignesPanier().size() : 0;
-    // Déclaration de la liste des lignes du panier
-    List<LignePanier> listeLignesPanier = new ArrayList<>();
-    if (panierAttribut != null) {
-        listeLignesPanier = panierAttribut.getLignesPanier();
-    }
-%>
+
 
 <!DOCTYPE html>
 <html>
@@ -124,9 +118,12 @@
 
                             </div>
                           </li>
+                		<% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
+                			
+							
                         <li class="nav-item dropdown">
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= panierSize %></span>
+                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= panier.getLignesPanier().size() %></span>
                             </a>
                             <div class="dropdown-menu shopping-cart">
                                 <ul>
@@ -135,47 +132,50 @@
                                          	<a href="Panier" class="nav-link">Mon Panier</a>
                                         </div>
                                     </li>
+                                    <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
+                                    
                                     <%-- Contenu du panier --%>
-                                    <% if (!listeLignesPanier.isEmpty()) { %>
-
-                                   	 	<% for (LignePanier lignePanier : listeLignesPanier) { %>
-                                        <li>
+               							 <li>
                                             <div class="shopping-cart-list">
                                                 <div class="media">
                                                     <img class="d-flex mr-3" src="<%= lignePanier.getProduit().getAdresseImageProduit() %>" width="60">
                                                     <div class="media-body">
                                                         <h5><a href="javascript:void(0)"><%= lignePanier.getProduit().getNomProduit() %></a></h5>
                                                         <p class="price">
-                                                            <span class="discount text-muted"><%= lignePanier.getProduit().getPrixProduit() %></span>
-                                                            <span><%= lignePanier.getProduit().getPrixProduit() %></span>
+                                    						<span class="discount text-muted"><%= lignePanier.getProduit().getPrixProduit() %></span>
+                                                            <%-- <span><%= lignePanier.getProduit().getPrixProduit() %></span>--%>
                                                         </p>
-                                                        <p class="text-muted">Qty: <%= lignePanier.getQuantite() %></p>
+                                                        <p class="text-muted">Quantité: <%= lignePanier.getQuantite() %></p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
                                     <% } %>
-									    <% double totalPrice = 0.0; %>
-									    <% for (LignePanier lignePanier : listeLignesPanier) { %>
-									        <% totalPrice += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite(); %>
-									    <% } %>
-									    <li>
+                                    							
 									        <div class="drop-title d-flex justify-content-between">
+									        <%
+											    double total = 0.0;
+											    if (request.getAttribute("panier") != null) {
+											        for (LignePanier lignePanier : panier.getLignesPanier()) {
+											            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+											        }
+											    }
+											%>
+						
 									            <span>Total:</span>
-									            <span class="text-primary"><strong><%= totalPrice %> €</strong></span>
+									            <span class="text-primary"><strong><%= total %> €</strong></span>
+									          
+									            
 									        </div>
 									    </li>
 									    <li class="d-flex justify-content-between pl-3 pr-3 pt-3">
-									        <a href="cart.html" class="btn btn-default">View Cart</a>
-									        <a href="checkout.html" class="btn btn-primary">Checkout</a>
-									    </li>
-									<% } else { %>
-									    <li><p>Aucun produit dans le panier</p></li>
-									<% } %>
+                							<a href="Panier.jsp" class="btn btn-default">Voir mon panier</a>
+									
                                     <%-- Fin contenu du panier --%>
                                 </ul>
                             </div>
                         </li>
+                         <% } %>
                     </ul>
                 </div>
         	</div>

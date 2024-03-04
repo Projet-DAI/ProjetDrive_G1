@@ -1,8 +1,12 @@
 package Model.DAO;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.transaction.Synchronization;
@@ -13,12 +17,15 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
+import Model.metier.Categories;
 import Model.metier.Client;
 import Model.metier.Commande;
 import Model.metier.LigneCommande;
 import Model.metier.Magasin;
 import Model.metier.Produit;
+import Model.metier.Rayon;
 import Model.metier.StatutCommande;
+import Model.metier.TempsRetait;
 
 public class dataTEST {
 	
@@ -239,14 +246,97 @@ public class dataTEST {
 			e.printStackTrace();
 		}
 	}
+	public static void insertCSV() {
+	    try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+	        Transaction transaction = session.beginTransaction();
+	        
+	        // Lecture du fichier CSV TempsRetrait et insertion des données dans la base de données
+	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("C:\\Users\\LUO\\Downloads\\TempsRetrairsRetrait.csv", session);
+	        for (TempsRetait tempsRetrait : tempsRetraitList) {
+	            session.save(tempsRetrait);
+	        }
+	        
+	        // Lecture du fichier CSV Magasin et insertion des données dans la base de données
+	        List<Magasin> magasinList = readCsvFileMagasin("C:\\Users\\LUO\\Downloads\\Magasin.csv", session);
+	        for (Magasin magasin : magasinList) {
+	            session.save(magasin);
+	        }
+	        
+	       
+	        
+	        // Validation des transactions et confirmation de l'ajout des données
+	        transaction.commit();
+	        System.out.println("Données ajoutées avec succès à la base de données!");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
 	
+	 private static List<TempsRetait> readCsvFileTempRetrait(String csvFilePath, Session session) {
+	        List<TempsRetait> TempList = new ArrayList<>();
+
+	        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+	            // Skip the header line of the CSV file
+	            reader.readLine();
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] fields = line.split(",");
+
+	                TempsRetait tempsretait = new TempsRetait();
+	                tempsretait.setTempsDeRetrait(fields[1].trim());
+
+
+	                TempList.add(tempsretait);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return TempList;
+	    }
+	 
+	 private static List<Magasin> readCsvFileMagasin(String csvFilePath, Session session) {
+		    List<Magasin> magasinList = new ArrayList<>();
+
+		    try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+		        // Skip the header line of the CSV file
+		        reader.readLine();
+		        String line;
+		        while ((line = reader.readLine()) != null) {
+		            String[] fields = line.split(";");
+
+		            Magasin magasin = new Magasin();
+		            // Assurez-vous que vous avez au moins trois champs dans chaque ligne
+		            if (fields.length >= 3) {
+		                magasin.setAdresseMagasin(fields[1].trim());
+		                magasin.setNomMagasin(fields[2].trim());
+		                // Ajoutez l'objet Magasin à la liste
+		                magasinList.add(magasin);
+		            } else {
+		                // Gérer les lignes avec moins de champs que prévu
+		                System.out.println("Erreur: la ligne du fichier CSV ne contient pas assez de champs.");
+		            }
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return magasinList;
+		}
+
+	
+
+
 	
 	
 	public static void main(String[] args) {
-		// dataTEST.insertDataClient();
-		// dataTEST.insertDataStatutCommande();
-		// dataTEST.insertDataCommande();
-		// dataTEST.insertLigneCommande();
+		//dataTEST.insertDataClient();
+		//dataTEST.insertDataStatutCommande();
+		//dataTEST.insertDataCommande();
+		//dataTEST.insertLigneCommande();
+		//dataTEST.insertCSV();
 		
 		
 		

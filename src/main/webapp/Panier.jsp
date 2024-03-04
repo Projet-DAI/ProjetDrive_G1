@@ -8,25 +8,7 @@
 
 <% Panier panier = (Panier) session.getAttribute("Panier"); %>
 
-<%!
 
-	void supprimerArticle(String idProduit) {
-	    %>
-	    <form id="formSupprimer" action="supprimerArticle.jsp" method="post">
-	        <input type="hidden" name="idProduit" value="<%= idProduit %>">
-	    </form>
-	    <script>
-	        document.getElementById('formSupprimer').submit();
-	    </script>
-	    <%
-	
-	%>
-
-    <%
-}finally{
-	return 0;
-}
-%>
 
 <!DOCTYPE html>
 <html>
@@ -260,7 +242,6 @@
     </footer>
 	
     <script type="text/javascript" src="assets/js/jquery.js"></script>
-    <script type="text/javascript" src="assets/js/modifierQuantitePanier.js"></script>
     <script type="text/javascript" src="assets/js/totalPanier.js"></script>
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>

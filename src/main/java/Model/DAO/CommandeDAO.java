@@ -16,6 +16,10 @@ public class CommandeDAO {
     public CommandeDAO(Connection connection) {
         this.connection = connection;
     }
+    
+    public CommandeDAO() {
+		// TODO Auto-generated constructor stub
+	}
 
     public int insererCommande(Commande commande) {
         int commandeId = -1;

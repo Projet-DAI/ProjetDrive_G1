@@ -4,6 +4,8 @@
 <%@ page import="Model.DAO.ClientDAO" %>
 <%@ page import="Model.metier.Panier" %>
 <%@ page import="Model.metier.LignePanier" %>
+<%@ page import="Model.metier.Commande" %>
+<%@ page import="Model.DAO.CommandeDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +62,7 @@
                             Client clientConnecte = new ClientDAO().getClientById(clientId);
                         %>
 
-            			<form action="#" class="bill-detail">
+            			<form action="confirmerCommande.jsp" method="post" id="commandeForm">
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">
@@ -106,14 +108,24 @@
 										</tr>
 									</thead>
 									<tbody>
-
+<% for (LignePanier lignePanier : panierClient.getLignesPanier()) { %>
+    <tr>
+        <td><%= lignePanier.getProduit().getNomProduit() %> x<%= lignePanier.getQuantite() %></td>
+        <td class="text-right">Rp <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+    </tr>
+<% } %>
 									</tbody>
 									<tfooter>
 									
-
+									<%
+    double total = 0.0;
+    for (LignePanier lignePanier : panierClient.getLignesPanier()) {
+        total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+    }
+%>
 									<tr>
 										<td><strong>Sous-total du panier</strong></td>
-										<td class="text-right"></td>
+										<td class="text-right"><%= total %></td>
 									</tr>
 									<tr>
 										<td><strong>Frais de livraison</strong></td>
@@ -144,22 +156,22 @@
 						<p class="text-right mt-3">
 							<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
 						</p>
-                         						 
-						 <button type="submit" class="btn btn-primary float-right">Annuler<i class="fa fa-check"></i></button>
-						                         
-                         <button type="submit" class="btn btn-primary float-right">Confirmer<i class="fa fa-check"></i></button>
+					    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
 						
-						<%
-    double montantTotal = panierClient.calculerMontantTotal();  // Assurez-vous d'avoir une méthode pour calculer le montant total dans votre modèle.
-
-    Commande nouvelleCommande = new Commande(clientConnecte, new Date(), montantTotal, statutCommande, magasin);
-
-    CommandeDAO commandeDAO = new CommandeDAO();
-    commandeDAO.insertCommande(nouvelleCommande);
-    commandeDAO.close();
-%>
-						
+                        <button type="button" class="btn btn-primary float-right" onclick="confirmerCommande()">Confirmer <i class="fa fa-check"></i></button>
 						</a>
+						
+<%
+    if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("confirmerCommande") != null) {
+
+        Commande nouvelleCommande = new Commande();
+
+        CommandeDAO commandeDAO = new CommandeDAO(); 
+        int commandeId = commandeDAO.insererCommande(nouvelleCommande);
+
+        response.sendRedirect("confirmerCommande.jsp");
+    }
+%>
 						<div class="clearfix"></div>
 					</div>
 				</div>

@@ -144,7 +144,21 @@
 						<p class="text-right mt-3">
 							<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
 						</p>
-                         <button type="submit" class="btn btn-primary float-right">PROCEDER AU PAIEMENT <i class="fa fa-check"></i></button>
+                         						 
+						 <button type="submit" class="btn btn-primary float-right">Annuler<i class="fa fa-check"></i></button>
+						                         
+                         <button type="submit" class="btn btn-primary float-right">Confirmer<i class="fa fa-check"></i></button>
+						
+						<%
+    double montantTotal = panierClient.calculerMontantTotal();  // Assurez-vous d'avoir une méthode pour calculer le montant total dans votre modèle.
+
+    Commande nouvelleCommande = new Commande(clientConnecte, new Date(), montantTotal, statutCommande, magasin);
+
+    CommandeDAO commandeDAO = new CommandeDAO();
+    commandeDAO.insertCommande(nouvelleCommande);
+    commandeDAO.close();
+%>
+						
 						</a>
 						<div class="clearfix"></div>
 					</div>

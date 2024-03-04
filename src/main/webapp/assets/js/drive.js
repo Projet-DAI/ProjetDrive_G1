@@ -10,7 +10,7 @@ var faireCoursesBtn = document.getElementById('faireCoursesBtn');
 faireCoursesBtn.addEventListener('click', function() {
     // Si l'utilisateur a sélectionné magasin, il peut alors accéder à la page shop.list.
     if (selectedMagasin) {
-        window.location.href = 'shop';
+        window.location.href = 'shop?selectedMagasin=' + encodeURIComponent(selectedMagasin);
     } else {
         $('#locationModal').modal('show');
     }
@@ -54,10 +54,17 @@ function showMagasinsModal(magasins) {
         return;
     }
     
-    // Création d'une liste de boutons
-    var magasinsListHtml = magasins.map(function(magasin) {
-        return '<button onclick="selectMagasin(\'' + magasin.nomMagasin + '\')">' + magasin.nomMagasin + '</button>';
-    }).join('');
+    // Afficher magasins peut choisir
+    var magasinsListHtml = '<ul class="list-group">';
+    magasins.forEach(function(magasin) {
+        magasinsListHtml += '<li class="list-group-item">' +
+            'Nom Magasin: <strong>' + magasin.nomMagasin + '</strong><br>' +
+            'Adresse: <em>' + magasin.adresseMagasin + '</em>' +
+            '<button class="btn btn-primary float-right" onclick="selectMagasin(\'' + magasin.nomMagasin + '\', \'' + magasin.adresseMagasin + '\')">Choisir</button>' +
+            '</li>';
+    });
+    magasinsListHtml += '</ul>';
+    
     document.getElementById('magasinsList').innerHTML = magasinsListHtml;
 }
 

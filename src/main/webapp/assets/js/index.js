@@ -10,7 +10,7 @@ var commencerCoursesBtn = document.getElementById('commencerCoursesBtn');
 commencerCoursesBtn.addEventListener('click', function() {
     // Si l'utilisateur a sélectionné magasin, il peut alors accéder à la page shop.list.
     if (selectedMagasin) {
-        window.location.href = 'shop';
+        window.location.href = 'shop?selectedMagasin=' + encodeURIComponent(selectedMagasin);
     } else {
         $('#locationModal').modal('show');
     }

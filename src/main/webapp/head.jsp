@@ -12,7 +12,8 @@
 <%@page import="Model.DAO.PanierDAO"%>
 <% Panier panier = (Panier) session.getAttribute("Panier"); %>
 
-
+<%-- Récupération du total du panier depuis la requête --%>
+<% Double totalPanier = (Double) request.getAttribute("totalPanier"); %>
 
 <!DOCTYPE html>
 <html>
@@ -165,22 +166,10 @@
                                     	<li>
                                     							
 									        <div class="drop-title d-flex justify-content-between">
-									        <%
-											    double total = 0.0;
-											    if (request.getAttribute("panier") != null) {
-											        for (LignePanier lignePanier1 : panier.getLignesPanier()) {
-											            total += lignePanier1.getProduit().getPrixProduit() * lignePanier1.getQuantite();
-											        }
-											    }
-											    
-											    // Formatter le total en tant que devise avec le symbole d'euro
-											    Locale locale = new Locale("fr", "FR");
-											    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-											    String totalFormatted = currencyFormatter.format(total);
-											%>
+									       
 											
 											
-												<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> &#8364 </span> </h6>
+												<h6 class="mt-3">Total: <span id="nouveauTotalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
 												
 									            <%-- <span>Total:</span>
 									            <span class="text-primary"><strong><%=total %> €</strong></span>

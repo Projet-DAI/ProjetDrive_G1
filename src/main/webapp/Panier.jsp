@@ -8,6 +8,8 @@
 
 <% Panier panier = (Panier) session.getAttribute("Panier"); %>
 
+<%-- Récupération du total du panier depuis la requête --%>
+<% Double totalPanier = (Double) request.getAttribute("totalPanier"); %>
 
 
 <!DOCTYPE html>
@@ -33,6 +35,20 @@
             var nouvelleQuantite = document.getElementById('quantite_' + idProduit).value;
             // Appeler la servlet pour modifier la quantité du produit dans le panier
             window.location.href = 'ModifierQuantitePanierServlet?idProduit=' + idProduit + '&nouvelleQuantite=' + nouvelleQuantite;
+        }
+        function calculerNouveauTotal(pointsFidelite) {
+            var totalPanier = <%= totalPanier %>;
+            if (!isNaN(totalPanier)) {
+                var reductionEnEuros = pointsFidelite / 10.0;
+                var nouveauTotal = totalPanier - reductionEnEuros;
+                updateNouveauTotalPanier(nouveauTotal);
+            } else {
+                console.error("Erreur: le total du panier n'est pas un nombre valide.");
+            }
+        }
+
+        function updateNouveauTotalPanier(nouveauTotal) {
+            document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
         }
     </script>
 <title>Mon Panier</title>
@@ -142,9 +158,9 @@
     // Fonction pour effectuer le calcul du nouveau total
     function calculerNouveauTotal(pointsFidelite) {
         // Vérifier si le total est un nombre valide
-        if (!isNaN(total)) {
+        if (!isNaN(totalPanier)) {
             var reductionEnEuros = pointsFidelite / 10.0;
-            var nouveauTotal = total - reductionEnEuros;
+            var nouveauTotal = totalPanier - reductionEnEuros;
 
             // Mettre à jour le nouveau total dans l'interface utilisateur
             updateNouveauTotalPanier(nouveauTotal);
@@ -161,8 +177,10 @@
         calculerNouveauTotal(pointsFidelite);
     });
 </script>
+	  <div class="drop-title d-flex justify-content-between">
 
-		<h6 class="mt-3">Total: <span id="nouveauTotalPanier">&#8364</span></h6>
+
+		<h6 class="mt-3">Total: <span id="totalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
 		<br>
 		                  
 		<h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
@@ -178,6 +196,8 @@
                     </div>
                 </div>
             </div>
+           </div>
+            
     <footer>
         <div class="container">
             <div class="row">

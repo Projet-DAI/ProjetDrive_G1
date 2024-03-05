@@ -262,6 +262,11 @@ public class dataTEST {
 	            session.save(magasin);
 	        }
 	        
+	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\LUO\\Downloads\\gestion_produit.csv", session);
+	        for (Produit produit : produitList) {
+	            session.save(produit);
+	        }
+	        
 	       
 	        
 	        // Validation des transactions et confirmation de l'ajout des données
@@ -274,7 +279,38 @@ public class dataTEST {
 
 
 	
-	 private static List<TempsRetait> readCsvFileTempRetrait(String csvFilePath, Session session) {
+	 private static List<Produit> readCsvFileProduit(String csvFilePath, Session session) {
+	        List<Produit> produits = new ArrayList<>();
+
+	        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+	            // Sauter la ligne d'en-tête d'un fichier CSV
+	            reader.readLine();
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] fields = line.split(";");
+	        
+	                Produit produit = new Produit();
+	                produit.setNomProduit(fields[3].trim());
+	                produit.setPrixProduit(fields[8].trim());
+	                produit.setMarqueProduit(fields[2]);
+	                produit.setPromotion(Boolean.parseBoolean(fields[6]));
+	                produit.setAdresseImageProduit(fields[1]);
+	                produit.setNutriscore(fields[5]);
+	                produit.setDescription(fields[4]);
+
+	        
+
+	                    produits.add(produit);
+	           
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return produits;
+	    }
+
+	private static List<TempsRetait> readCsvFileTempRetrait(String csvFilePath, Session session) {
 	        List<TempsRetait> TempList = new ArrayList<>();
 
 	        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
@@ -336,7 +372,7 @@ public class dataTEST {
 		//dataTEST.insertDataStatutCommande();
 		//dataTEST.insertDataCommande();
 		//dataTEST.insertLigneCommande();
-		//dataTEST.insertCSV();
+		dataTEST.insertCSV();
 		
 		
 		

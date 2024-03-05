@@ -247,14 +247,16 @@ section .card-title {
 }
 
 .page-header .navbar .shopping-cart .shopping-cart-list {
-	height: 200px;
+	height: auto;
 	position: relative;
 	overflow-y: auto;
+	margin-bottom: 15px;
 }
 
 .page-header .navbar .shopping-cart .shopping-cart-list .media {
 	border-bottom: 1px solid rgba(120, 130, 140, 0.13);
 	padding: 10px 15px;
+	margin-bottom: 15px;
 }
 
 .page-header .navbar .shopping-cart .shopping-cart-list .media h5 {

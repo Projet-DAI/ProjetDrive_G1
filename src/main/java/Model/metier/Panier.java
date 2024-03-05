@@ -2,6 +2,8 @@ package Model.metier;
 
 import javax.persistence.*;
 
+import org.hibernate.Hibernate;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +17,7 @@ public class Panier {
     @Column(name = "IdPanier")
     private int idPanier;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "IdClient")
     private Client client;
 
@@ -30,11 +32,13 @@ public class Panier {
 		super();
 		this.client = client;
 		this.dateCreation = dateCreation;
+        this.lignesPanier = new ArrayList<>();
+
 	}
 	
     public Panier() {
-         List<LignePanier> lignesPanier;
-        this.lignesPanier = new ArrayList<>();}
+        this.lignesPanier = new ArrayList<>();
+        }
 
         
    /* public void ajouterProduit(Produit produit, int quantite) {
@@ -82,6 +86,8 @@ public class Panier {
 	        this.lignesPanier = lignesPanier;
 	    }
 	    
+	 
+	  
 
     
     

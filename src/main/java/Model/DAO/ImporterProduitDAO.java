@@ -77,7 +77,7 @@ public class ImporterProduitDAO {
 	        produit.setNomProduit(record.get("NomProduit"));
 	        produit.setAdresseImageProduit(record.get("AdresseImageProduit"));
 	        produit.setMarqueProduit(record.get("MarqueProduit"));
-	        produit.setPrixProduit(Double.parseDouble(record.get("PrixProduit").replace(',', '.')));
+	        produit.setPrixProduit(record.get("PrixProduit").replace(',', '.'));
 	        produit.setPromotion(Boolean.parseBoolean(record.get("Promotion")));
 	        produit.setPourcentagePromotion(Double.parseDouble(record.get("PourcentagePromotion").replace(',', '.')));
 	        produit.setNutriscore(record.get("Nutriscore"));
@@ -99,7 +99,7 @@ public class ImporterProduitDAO {
 	    if (categorie == null) {
 	        categorie = new Categories();
 	        categorie.setNomCategorie(nomCategorie);
-	        categorie.setRayon(rayon); // Assume Rayon is already defined or created
+	        categorie.setRayon(rayon); 
 	        session.save(categorie);
 	    }
 	    return categorie;

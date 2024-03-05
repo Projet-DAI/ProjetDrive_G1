@@ -1,50 +1,10 @@
 /**
- * fonction d'ourir page pour ajouter post-it
+ * 
  */
 
 function openModal() {
     $('#myModal').modal('show');
 }
-
-/**
- * function de ajouter et afficher postit
- */
-function addKeyword() {
-    
-	var postitInput = document.getElementById("postit-input");
-    var postit = postitInput.value.trim();
-    
-	if (postit !== "") {
-        $.ajax({
-            type: "POST",
-            url: "PostitServlet",
-            data: { action: "create", postit: postit },
-            success: function(response) {
-				console.log(response)
-				var newPostitHtml = '<tr>' +
-                                    '<td>' + response.content + '</td>' +
-                                    '<td>' + response.creationDate + '</td>' +
-                                    '<td><a href="#" class="keyword-link">Choisir mon produit</a></td>' +
-                                    '<td><button class="btn btn-danger btn-sm">Delete</button></td>' +
-                                    '</tr>';
-        		$('#keyword-table-body').append(newPostitHtml);
-				$('#keyword-list, #clear-all').show();
-                //$('#keyword-table-body').append(response);
-              
-                postitInput.value = "";
-                $('#myModal').modal('hide');
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert("Une erreur" + errorThrown);
-            }
-        });
-    } else {
-        alert("Veuillez remplir le champ mot-clÃ© !");
-    }
-}
-
-
-
 
 $(document).ready(function() {
     
@@ -56,8 +16,31 @@ $(document).ready(function() {
     }
 });
 
+function addKeyword() {
+    var keywordInput = document.getElementById("keyword-input");
+    var keyword = keywordInput.value.trim();
+    if (keyword !== "") {
+        $.ajax({
+            type: "POST",
+            url: "PostitServlet",
+            data: { action: "create", keyword: keyword },
+            success: function(response) {
+            	$('#keyword-list, #clear-all').show();
+                $('#keyword-table-body').append(response);
+              
+                keywordInput.value = "";
+                $('#myModal').modal('hide');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Une erreur" + errorThrown);
+            }
+        });
+    } else {
+        alert("Veuillez remplir le champ mot-clÃ© !");
+    }
+}
 
-
+
 function clearAll() {
     if (confirm("Voulez-vous vraiment effacer tous les mots-clÃ©s?")) {
         $.ajax({
@@ -78,6 +61,7 @@ function clearAll() {
 }
 
 
+
 function deleteKeyword(keyword) {
     $.ajax({
         type: "POST",
@@ -94,14 +78,14 @@ function deleteKeyword(keyword) {
 
 
 
-/*function openProductModal(keyword) {
+function openProductModal(keyword) {
     
     
     var carouselInner = document.getElementById("carouselInner");
     carouselInner.innerHTML = "";
 
     
-    var products = [
+/*    var products = [
         { name: "Product 1", image: "path/to/image1.jpg", price: "$100" },
         { name: "Product 2", image: "path/to/image2.jpg", price: "$200" },
        
@@ -121,6 +105,6 @@ function deleteKeyword(keyword) {
         `;
     });
 
-    $('#productModal').modal('show');
+    $('#productModal').modal('show');*/
 }
-*/
+

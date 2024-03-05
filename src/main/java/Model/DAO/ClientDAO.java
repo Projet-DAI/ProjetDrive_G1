@@ -128,7 +128,7 @@ public class ClientDAO {
 	        return client;
 	    }
 	   
-}
+
 	    
 	    public Client getClientById(int clientId) {
 	        Client client = null;

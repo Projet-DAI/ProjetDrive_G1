@@ -3,6 +3,8 @@ package Model.DAO;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import Model.DAO.HibernateUtil;
 import Model.metier.Categories;
 import Model.metier.Client;
 import Model.metier.LignePanier;

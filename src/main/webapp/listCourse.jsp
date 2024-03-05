@@ -1,7 +1,3 @@
-
-<%@ page import="java.util.List"%>
-<%@ page import="Model.metier.Produit"%>
-<%@ page import="Model.metier.PostIt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -250,19 +246,22 @@ function clearAll() {
 
 //JavaScript函数，用于删除关键字
 function deleteKeyword(keyword) {
-    $.ajax({
-        type: "POST",
-        url: "listCourse",
-        data: { action: "delete", keyword: keyword },
-        success: function(response) {
-            location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert("Une erreur s'est produite lors de la suppression du mot-clé: " + errorThrown);
-        }
-    });
+    if (confirm("Voulez-vous vraiment supprimer ce mot-clé?")) {
+        $.ajax({
+            type: "POST",
+            url: "listCourse",
+            data: { action: "delete", keyword: keyword },
+            success: function(response) {
+                alert(response); // 在成功时显示响应消息
+                // 如果成功删除关键字，则重新加载关键字列表
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Une erreur s'est produite lors de la suppression du mot-clé: " + errorThrown);
+            }
+        });
+    }
 }
-
 
 
 function openProductModal(keyword) {

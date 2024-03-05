@@ -3,6 +3,8 @@
 <%@page import="Model.metier.Panier"%>
 <%@page import="Model.metier.Produit"%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
+
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.DecimalFormat" %>
@@ -54,7 +56,7 @@
 
 			<div class="container">
 				<!-- Navbar Brand -->
-				<a href="index.html" class="navbar-brand"> <img
+				<a href="index.jsp" class="navbar-brand"> <img
 					src="assets/img/logo/logo.png" alt="">
 				</a>
 
@@ -71,7 +73,7 @@
                     	<li>
                     		<div>
                     			<form action="RechercheParMotCle" method="get">
-                    				<input name="motcle" placeholder="Search..." style="background-color: transparent;color: white; height: 25px">
+                    				<input name="motcle" placeholder="Rechercher..." style="background-color: transparent;color: white; height: 25px">
                     				<button type="submit" style="height:25px;"><i class="bi bi-search"></i></button>
                     			</form>
                     		</div>
@@ -95,6 +97,8 @@
                                 <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div>
                                 <%= nomU %>
                             </a>
+                        
+                            
 
                         <% } else { %>
                         <li class="nav-item">
@@ -109,22 +113,24 @@
                                 <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div>
                                 Mon Profil
                             </a>
+                        </li>
+                            
                         <% } %>
                         
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="transaction.html">Mon historique de commandes</a>
                                 <a class="dropdown-item" href="List.jsp">Liste de courses</a>
                                 <a class="dropdown-item" href="setting.html">Paramètres</a>
 
                             </div>
-                          </li>
                 		
                 			
 							
                         <li class="nav-item dropdown">
+                             <% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
+                        
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
                                 <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= panier.getLignesPanier().size() %></span>
                             </a>
                             <div class="dropdown-menu shopping-cart">
@@ -154,6 +160,7 @@
                                                 </div>
                                              </div>
                                         </li>
+						            <% } %>
 									     
                                     	<li>
                                     							
@@ -165,14 +172,20 @@
 											            total += lignePanier1.getProduit().getPrixProduit() * lignePanier1.getQuantite();
 											        }
 											    }
+											    
+											    // Formatter le total en tant que devise avec le symbole d'euro
+											    Locale locale = new Locale("fr", "FR");
+											    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+											    String totalFormatted = currencyFormatter.format(total);
 											%>
 											
-									            <span>Total:</span>
+											
+												<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> &#8364 </span> </h6>
+												
+									            <%-- <span>Total:</span>
 									            <span class="text-primary"><strong><%=total %> €</strong></span>
-									          
-									                                  <% } %>
-									                                  <% } %>
-									            
+									           --%>
+									                                  
 									        </div>
 									 </li>
 									        
@@ -183,7 +196,10 @@
 									
                                     <%-- Fin contenu du panier --%>
                                 </ul>
-                            </div></li>
+                            </div>
+		                  <% } %>
+                            
+                          </li>
                     </ul>
                 </div>
         	</div>
@@ -238,7 +254,9 @@
         // 关闭模态框
         $('#locationModal').modal('hide');
     }
+    
 </script>
+
  <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>

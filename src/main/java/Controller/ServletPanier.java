@@ -52,12 +52,20 @@ public class ServletPanier extends HttpServlet {
             
             if (panier != null) {
             	
-                // Afficher les détails du panier
-                panierDAO.afficherDetailsPanier(panier);
                 
-                // Ajouter le panier à la requête avec le nom correct
-                session.setAttribute("Panier", panier);
+                double total = panierDAO.calculerTotalPanier(panier);
+
                 
+                
+                request.setAttribute("totalPanier", total);
+                
+	             // Afficher les détails du panier
+	                panierDAO.afficherDetailsPanier(panier);
+	                
+	             // Ajouter le panier à la requête avec le nom correct
+	                session.setAttribute("Panier", panier);
+	                
+
                 // Rediriger vers Panier.jsp
                 request.getRequestDispatcher("/Panier.jsp").forward(request, response);
                 

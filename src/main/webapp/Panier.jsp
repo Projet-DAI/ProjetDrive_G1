@@ -129,58 +129,55 @@
 						    }
 						%>
 						
-						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
-						    
 <script type="text/javascript">
-    // Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
-    var totalPanierString = '<%= String.valueOf(total) %>';
-    // Initialiser le total mis à jour à zéro
-    var nouveauTotalPanier = 0;
-
+    // Récupérer le total du panier du côté serveur
+    var total = <%= total %>;
+    
     // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
-    function updateNouveauTotalPanier() {
+    function updateNouveauTotalPanier(nouveauTotal) {
         // Mettre à jour l'élément HTML avec le nouveau total
-        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
+        document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
     }
 
     // Fonction pour effectuer le calcul du nouveau total
     function calculerNouveauTotal(pointsFidelite) {
-        // Convertir la valeur du total en nombre
-        var totalPanier = parseFloat(totalPanierString.replace(",", "."));
-
-        // Vérifier si la conversion est un nombre valide
-        if (!isNaN(totalPanier)) {
+        // Vérifier si le total est un nombre valide
+        if (!isNaN(total)) {
             var reductionEnEuros = pointsFidelite / 10.0;
-            nouveauTotalPanier = totalPanier - reductionEnEuros;
+            var nouveauTotal = total - reductionEnEuros;
 
             // Mettre à jour le nouveau total dans l'interface utilisateur
-            updateNouveauTotalPanier();
-
-            // Afficher une alerte pour déboguer
-            alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+            updateNouveauTotalPanier(nouveauTotal);
         } else {
-            // Gérer l'erreur si la conversion n'est pas un nombre valide
-            console.error("Erreur de conversion du total en nombre.");
+            console.error("Erreur: le total du panier n'est pas un nombre valide.");
         }
     }
 
-    // Code existant pour l'événement 'voirPointsFidelitebtn'
+    // Écouter l'événement 'voirPointsFidelitebtn'
     document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
         var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
 
         // Appeler la fonction pour calculer et mettre à jour le nouveau total
         calculerNouveauTotal(pointsFidelite);
     });
-</script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
-                        <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
+</script>
+
+		<h6 class="mt-3">Total: <span id="nouveauTotalPanier">&#8364</span></h6>
+		<br>
+		                  
+		<h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
+		<br>
+		
+		<h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
+		<br>
                         
 
-                        <a href="Checkout.jsp" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>
+                        <a href="Checkout.jsp" class="btn btn-lg btn-primary">Checkout 
+                        <i class="fa fa-long-arrow-right"></i>
+                       </a>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
     <footer>
         <div class="container">
             <div class="row">

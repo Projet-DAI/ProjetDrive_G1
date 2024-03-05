@@ -42,7 +42,6 @@ public class ModifierQuantitePanierServlet extends HttpServlet {
         Panier panier = panierDAO.getPanierById(panierId);
         panierDAO.modifierQuantiteProduit(panier, produitId, nouvelleQuantite);
 
-        // Récupérer à nouveau le panier mis à jour
         
 
         // Mettre à jour le panier dans la session

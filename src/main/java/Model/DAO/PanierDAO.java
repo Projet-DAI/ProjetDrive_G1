@@ -1,5 +1,9 @@
 package Model.DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -133,6 +137,18 @@ public class PanierDAO {
 		        }
 		        return panier;
 		    }
+	    
+	    public double calculerTotalPanier(Panier panier) {
+	        List<LignePanier> lignesPanier = panier.getLignesPanier();
+	        double total = 0.0;
+	        
+	        for (LignePanier lignePanier : lignesPanier) {
+	            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+	        }
+	        
+	        return total;
+	    }
+	
 
 
 	    public static void createPanier(Panier panier) {

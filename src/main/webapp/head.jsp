@@ -3,6 +3,8 @@
 <%@page import="Model.metier.Panier"%>
 <%@page import="Model.metier.Produit"%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
+
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.DecimalFormat" %>
@@ -10,7 +12,8 @@
 <%@page import="Model.DAO.PanierDAO"%>
 <% Panier panier = (Panier) session.getAttribute("Panier"); %>
 
-
+<%-- Récupération du total du panier depuis la requête --%>
+<% Double totalPanier = (Double) request.getAttribute("totalPanier"); %>
 
 <!DOCTYPE html>
 <html>
@@ -71,7 +74,7 @@
                     	<li>
                     		<div>
                     			<form action="RechercheParMotCle" method="get">
-                    				<input name="motcle" placeholder="Search..." style="background-color: transparent;color: white; height: 25px">
+                    				<input name="motcle" placeholder="Rechercher..." style="background-color: transparent;color: white; height: 25px">
                     				<button type="submit" style="height:25px;"><i class="bi bi-search"></i></button>
                     			</form>
                     		</div>
@@ -131,8 +134,9 @@
                         <% } %>
                             
                         <li class="nav-item dropdown">
+                             <% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
+                        
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
                                 <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= panier.getLignesPanier().size() %></span>
                             </a>
                             <div class="dropdown-menu shopping-cart">
@@ -162,25 +166,20 @@
                                                 </div>
                                              </div>
                                         </li>
+						            <% } %>
 									     
                                     	<li>
                                     							
 									        <div class="drop-title d-flex justify-content-between">
-									        <%
-											    double total = 0.0;
-											    if (request.getAttribute("panier") != null) {
-											        for (LignePanier lignePanier1 : panier.getLignesPanier()) {
-											            total += lignePanier1.getProduit().getPrixProduit() * lignePanier1.getQuantite();
-											        }
-											    }
-											%>
+									       
 											
-									            <span>Total:</span>
+											
+												<h6 class="mt-3">Total: <span id="nouveauTotalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
+												
+									            <%-- <span>Total:</span>
 									            <span class="text-primary"><strong><%=total %> €</strong></span>
-									          
-									                                  <% } %>
-									                                  <% } %>
-									            
+									           --%>
+									                                  
 									        </div>
 									 </li>
 									        
@@ -191,7 +190,10 @@
 									
                                     <%-- Fin contenu du panier --%>
                                 </ul>
-                            </div></li>
+                            </div>
+		                  <% } %>
+                            
+                          </li>
                     </ul>
                 </div>
         	</div>
@@ -226,6 +228,33 @@
 
     
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
+<script>
+    function submitLocation() {
+        var userLocation = document.getElementById('userLocation').value;
+
+        // 使用jQuery发送AJAX请求
+        $.ajax({
+            url: 'MagasinServlet', // Servlet的URL
+            type: 'POST',
+            data: {userLocation: userLocation}, // 发送到Servlet的数据
+            success: function(response) {
+                // 处理成功的响应
+                console.log(response);
+                // 可以根据需要更新页面内容
+            },
+            error: function(xhr, status, error) {
+                // 处理错误
+                console.error("AJAX请求失败: " + status + ", 错误: " + error);
+            }
+        });
+
+        // 关闭模态框
+        $('#locationModal').modal('hide');
+    }
+    
+</script>
+
+ <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/js/drive.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>

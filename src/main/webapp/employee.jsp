@@ -86,9 +86,10 @@
         </div>  
             
 		<h1 class="title">Choisissez votre travail</h1>
+		
 	    <!-- Gestion des produits -->
 	    <div class="col-md-12 mt-5 text-center">
-	    	<a href="gestionProduit.jsp" class="btn btn-primary btn-lg" id="gestionBtn">Gestion des produits</a>
+	    	<a href="gestionStocks.jsp" class="btn btn-primary btn-lg" id="gestionStockBtn">Gestion des stocks</a>
 	    </div>
 	    
 	    <!-- US5.1 Consulter un panier pour preparer un retait -->

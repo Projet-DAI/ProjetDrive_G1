@@ -2,6 +2,7 @@ package Model.metier;
 
 import javax.persistence.*;
 
+
 import org.hibernate.Hibernate;
 
 import java.util.ArrayList;

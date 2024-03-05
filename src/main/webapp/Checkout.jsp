@@ -69,7 +69,7 @@
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">
-										<input class="form-control" placeholder="Nom Prénom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
+										<input class="form-control" placeholder="Nom PrÃ©nom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
 									</div>
 									<div class="col">
 										<input class="form-control" placeholder="Nom utilisateur" type="text" value="<%= clientConnecte.getNomUtilisateurClient() %>">
@@ -80,7 +80,7 @@
 										type="text" value="<%= clientConnecte.getEmailClient() %>">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Téléphone"
+									<input class="form-control" placeholder="TÃ©lÃ©phone"
 										type="text" value="<%= clientConnecte.getTelephoneClient() %>">
 								</div>
 								<div class="form-group">
@@ -142,7 +142,7 @@
 								</div>
 		
 							<p class="text-right mt-3">
-								<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
+								<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions gÃ©nÃ©rales</a>
 							</p>
 						    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
 														
@@ -169,14 +169,14 @@
 	        <div class="container">
 	            <div class="row">
 	                <div class="col-md-3">
-	                    <h5>À propos</h5>
+	                    <h5>Ã€ propos</h5>
 	                    <p></p>
 	                </div>
 	                <div class="col-md-3">
 	                    <h5>Liens Utiles</h5>
 	                    <ul>
 	                        <li>
-	                            <a href="about.html">À propos</a>
+	                            <a href="about.html">Ã€ propos</a>
 	                        </li>
 	                        <li>
 	                            <a href="contact.html">Contactez-nous</a>
@@ -185,13 +185,13 @@
 	                            <a href="faq.html">FAQ</a>
 	                        </li>
 	                        <li>
-	                            <a href="javascript:void(0)">Comment ça fonctionne</a>
+	                            <a href="javascript:void(0)">Comment Ã§a fonctionne</a>
 	                        </li>
 	                        <li>
 	                            <a href="terms.html">Termes et Conditions de Retrait</a>
 	                        </li>
 	                        <li>
-	                            <a href="privacy.html">Politique de confidentialité</a>
+	                            <a href="privacy.html">Politique de confidentialitÃ©</a>
 	                        </li>
 	                    </ul>
 	                </div>
@@ -220,7 +220,7 @@
                      </ul>
                 </div>
                 <div class="col-md-3">
-                     <h5>Obtenez notre application dès maintenant</h5>
+                     <h5>Obtenez notre application dÃ¨s maintenant</h5>
                      <ul class="mb-0">
                          <li class="download-app">
                              <a href="#"><img src="assets/img/playstore.png"></a>

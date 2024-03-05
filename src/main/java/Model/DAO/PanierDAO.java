@@ -170,89 +170,210 @@ public class PanierDAO {
 	    }
 
 	
-	    // Méthode pour supprimer un produit du panier
+	   
+	    public void modifierQuantiteProduit(Panier panier, int produitId, int nouvelleQuantite) {
+	        Transaction transaction = null;
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            transaction = session.beginTransaction();
+
+	            // Trouver la ligne de panier correspondant au produit dans le panier
+	            for (LignePanier ligne : panier.getLignesPanier()) {
+	                if (ligne.getProduit().getIdProduit() == produitId) {
+	                    // Mettre à jour la quantité du produit dans la ligne de panier
+	                    ligne.setQuantite(nouvelleQuantite);
+	                    session.update(ligne);
+	                    break;
+	                }
+	            }
+	            session.update(panier);
+	            transaction.commit();
+	        } catch (Exception e) {
+	            if (transaction != null) {
+	                transaction.rollback();
+	            }
+	            e.printStackTrace();
+	        }
+	    }
+
+
+
+	    public void updateQuantiteProduit(int panierId, int produitId, int nouvelleQuantite) {
+	        Transaction transaction = null;
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            transaction = session.beginTransaction();
+
+	            String hql = "UPDATE LignePanier lp SET lp.quantite = :nouvelleQuantite " +
+	                         "WHERE lp.panier.idPanier = :panierId AND lp.produit.idProduit = :produitId";
+
+	            // Exécuter la requête HQL
+	            int lignesModifiees = session.createQuery(hql)
+	                                        .setParameter("nouvelleQuantite", nouvelleQuantite)
+	                                        .setParameter("panierId", panierId)
+	                                        .setParameter("produitId", produitId)
+	                                        .executeUpdate();
+
+	            if (lignesModifiees > 0) {
+	                System.out.println("La quantité du produit a été mise à jour avec succès dans le panier.");
+	            } else {
+	                System.out.println("Aucune ligne de panier mise à jour.");
+	            }
+
+	            transaction.commit();
+	        } catch (Exception e) {
+	            if (transaction != null) {
+	                transaction.rollback();
+	            }
+	            e.printStackTrace();
+	        }
+	    }
+
+	    
 	    public void removeProduit(Panier panier, Produit produit) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction tx = null;
-	        
-	        try {
-	            tx = session.beginTransaction();
+	        Transaction transaction = null;
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            transaction = session.beginTransaction();
+
+	            // Supprimer la ligne de panier correspondant au produit du panier
 	            LignePanier ligneToRemove = null;
-	            // Parcourir les lignes de panier pour trouver celle correspondant au produit à supprimer
 	            for (LignePanier ligne : panier.getLignesPanier()) {
 	                if (ligne.getProduit().equals(produit)) {
 	                    ligneToRemove = ligne;
 	                    break;
 	                }
 	            }
-	            // Supprimer la ligne correspondante du panier
+
 	            if (ligneToRemove != null) {
 	                panier.getLignesPanier().remove(ligneToRemove);
 	                session.delete(ligneToRemove);
-	                tx.commit();
+	                session.update(panier);
+	                transaction.commit();
 	            }
-	        } catch (RuntimeException e) {
-	            if (tx != null && tx.isActive()) {
-	                tx.rollback();
+	        } catch (Exception e) {
+	            if (transaction != null) {
+	                transaction.rollback();
 	            }
-	            throw e; // Rethrow l'exception pour une gestion au niveau supérieur
-	        } finally {
-	            session.close();
+	            e.printStackTrace();
 	        }
 	    }
-		    
-		 // Méthode pour mettre à jour la quantité d'un produit dans le panier
-		    public void updateQuantiteProduit(Panier panier, Produit produit, int nouvelleQuantite) {
-		        Session session = HibernateUtil.getSessionFactory().openSession();
-		        Transaction tx = null;
-		        
-		        try {
-		            tx = session.beginTransaction();
-		            // Parcourir les lignes de panier pour trouver celle correspondant au produit à mettre à jour
-		            for (LignePanier ligne : panier.getLignesPanier()) {
-		                if (ligne.getProduit().equals(produit)) {
-		                    // Mettre à jour la quantité de la ligne correspondante
-		                    ligne.setQuantite(nouvelleQuantite);
-		                    session.update(ligne);
-		                    break;
-		                }
-		            }
-		            tx.commit();
-		        } catch (RuntimeException e) {
-		            if (tx != null && tx.isActive()) {
-		                tx.rollback();
-		            }
-		            throw e; // Rethrow l'exception pour une gestion au niveau supérieur
-		        } finally {
-		            session.close();
-		        }
-		    }
-		    
-		    // Méthode pour mettre à jour le panier dans la base de données
-		    public void updatePanier(Panier panier) {
-		        Session session = HibernateUtil.getSessionFactory().openSession();
-		        Transaction tx = null;
-		        
-		        try {
-		            tx = session.beginTransaction();
-		            session.update(panier);
-		            tx.commit();
-		        } catch (RuntimeException e) {
-		            if (tx != null && tx.isActive()) {
-		                tx.rollback();
-		            }
-		            throw e; // Rethrow l'exception pour une gestion au niveau supérieur
-		        } finally {
-		            session.close();
-		        }
-		    }
-		
+
+	    public void updatePanier(Panier panier) {
+	        Transaction transaction = null;
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            transaction = session.beginTransaction();
+
+	            session.update(panier);
+
+	            transaction.commit();
+	        } catch (Exception e) {
+	            if (transaction != null) {
+	                transaction.rollback();
+	            }
+	            e.printStackTrace();
+	        }
+	    }
 	    
-	
-
-
+	    
+	    public void supprimerLignePanier(int idPanier, int idProduit) {
+	        Transaction transaction = null;
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            transaction = session.beginTransaction();
+	            // Charger les entités associées avant de les supprimer
+	            Panier panier = session.load(Panier.class, idPanier);
+	            Produit produit = session.load(Produit.class, idProduit);
+	            
+	            // Trouver la ligne de panier à supprimer
+	            LignePanier lignePanier = panier.getLignesPanier().stream()
+	                .filter(lp -> lp.getProduit().getIdProduit() == idProduit)
+	                .findFirst()
+	                .orElse(null);
+	            
+	            // Supprimer la ligne de panier
+	            if (lignePanier != null) {
+	                panier.getLignesPanier().remove(lignePanier);
+	                session.delete(lignePanier);
+	                System.out.println("Ligne de panier supprimée avec succès.");
+	            } else {
+	                System.out.println("Ligne de panier non trouvée.");
+	            }
+	            
+	            transaction.commit();
+	        } catch (Exception e) {
+	            if (transaction != null) {
+	                transaction.rollback();
+	            }
+	            e.printStackTrace();
+	        }
+	    
+	    }
 
 	    public static void main(String[] args) {
+	        // Création de l'instance de PanierDAO
+	    	int panierId = 7;
+	    	int produitId = 3;
+
+	        PanierDAO panierDAO = new PanierDAO();
+	        Panier panier = panierDAO.getPanierById(panierId);
+	        //Produit produit = panier.getLignesPanier().get(0).getProduit();
+	        int nouvelleQuantite = 4;
+	        panierDAO.modifierQuantiteProduit(panier, produitId, nouvelleQuantite);
+	        System.out.println("La quatité du panier"+ panierId+" du produit"+produitId+ "la nvelle quantite"+nouvelleQuantite);
+	       // panierDAO.updateQuantiteProduit(panierId, produitId, nouvelleQuantite);
+
+	        //ProduitDAO produitDAO = new ProduitDAO();
+	        
+	        
+	        
+	        
+	        
+
+
+	       /* // Spécifiez l'identifiant du panier que vous souhaitez modifier
+	        int panierId = 7;
+
+	        // Spécifiez l'identifiant du produit que vous souhaitez modifier
+	        int produitId = 3;
+
+	        // Spécifiez la nouvelle quantité pour le produit
+	        int nouvelleQuantite = 5;
+	        System.out.println("Test de la méthode modifierQuantiteProduit...");
+
+	        // Test de la méthode modifierQuantiteProduit
+	        Panier panier = panierDAO.getPanierById(panierId);
+	        Produit produit = produitDAO.getProductById(produitId);// récupérez le produit correspondant à produitId depuis la base de données
+	        panierDAO.modifierQuantiteProduit(panier, produit, nouvelleQuantite);
+	        System.out.println("La quantité du produit a été modifiée avec succès.");
+
+	        System.out.println("Test de la méthode updateQuantiteProduit...");
+	        
+	        
+	        // Test de la méthode updateQuantiteProduit
+	        panierDAO.updateQuantiteProduit(panierId, produitId, nouvelleQuantite);
+	        System.out.println("La quantité du produit a été mise à jour avec succès dans le panier.");
+	        
+	        System.out.println("Test de la méthode removeProduit...");
+
+	    /*    // Test de la méthode removeProduit
+	        Produit produitToRemove = produitDAO.getProductById(produitId);
+	        panierDAO.removeProduit(panier, produitToRemove);
+	        System.out.println("Le produit a été retiré avec succès du panier.");
+	        
+	        System.out.println("Test de la méthode updatePanier...");
+*/
+	        // Test de la méthode updatePanier
+	        /*panierDAO.updatePanier(panier);
+	        System.out.println("Le panier a été mis à jour avec succès.");
+
+	        
+	        System.out.println("Test de la méthode supprimerLignePanier...");*/
+
+	        /*// Test de la méthode supprimerLignePanier
+	        panierDAO.supprimerLignePanier(panierId, produitId);
+	        System.out.println("La ligne de panier a été supprimée avec succès.");
+*/
+	    }
+}
+
+	   /* public static void main(String[] args) {
 	        // Création de l'instance de PanierDAO
 	        PanierDAO panierDAO = new PanierDAO();
 
@@ -275,7 +396,7 @@ public class PanierDAO {
 	            System.out.println("Aucun panier trouvé pour le client avec l'ID: " + clientId);
 	        }
 	    }
-	    }
+	    }*/
 
 
 		/*

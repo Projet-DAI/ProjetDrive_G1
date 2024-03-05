@@ -28,13 +28,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
-	 <script type="text/javascript">
-        function modifierQuantiteProduit(idProduit) {
-            var nouvelleQuantite = document.getElementById('quantite_' + idProduit).value;
-            // Appeler la servlet pour modifier la quantité du produit dans le panier
-            window.location.href = 'ModifierQuantitePanierServlet?idProduit=' + idProduit + '&nouvelleQuantite=' + nouvelleQuantite;
-        }
-    </script>
+	
 <title>Mon Panier</title>
 <head>
     <title>Freshcery | Groceries Organic Store</title>
@@ -85,23 +79,18 @@
 						                            <td><%= lignePanier.getProduit().getNomProduit() %></td>
 						                            <td><%= lignePanier.getProduit().getPrixProduit() %></td>
 						                            <td>
-									                    <form action="ModifierQuantitePanierServlet" method="post">
-									                        <input type="hidden" name="panierId" value="<%= panier.getIdPanier() %>">
-									                        <input type="hidden" name="produitId" value="<%= lignePanier.getProduit().getIdProduit() %>">
-									                        <input class="vertical-spin form-control input-number" type="text" name="nouvelleQuantite" value="<%= lignePanier.getQuantite() %>" min="1">
-									                        <button type="submit" class="btn btn-primary">Modifier</button>
-									                    </form>
+									                    <div class="input-group">
+													        <span class="input-group-btn">
+													            
+													        </span>
+													        <input class="vertical-spin form-control input-number" type="text" id="quantite_<%= lignePanier.getProduit().getIdProduit() %>" name="quantite_<%= lignePanier.getProduit().getIdProduit() %>" value="<%= lignePanier.getQuantite() %>" min="1" data-bts-button-down-class="btn btn-primary" data-bts-button-up-class="btn btn-primary">
+													            </button>
+													        </span>
+													    </div>
 									                </td>
 						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
-													<td><a href="#" class="text-danger" onclick="supprimerLignePanier('<%= lignePanier.getProduit().getIdProduit() %>')"><i class="fa fa-times"></i></a></td>
-						                        	<script>
-														function supprimerLignePanier(idProduit) {
-														    var idPanier = <%= panier.getIdPanier() %>;
-														    if (confirm("Voulez-vous vraiment supprimer cet article du panier?")) {
-														        window.location.href = 'SupprimerLignePanierServlet?idPanier=' + idPanier + '&idProduit=' + idProduit;
-														    }
-														}
-														</script>
+													<td><a href="#" class="text-danger" onclick="supprimerArticle('<%= lignePanier.getProduit().getIdProduit() %>')"><i class="fa fa-times"></i></a></td>
+						                        	
 						                        </tr>
 						                    <% } %>
 					                    </tbody>
@@ -173,7 +162,6 @@
     });
 </script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
-                        
 
                         <a href="Checkout.jsp" class="btn btn-lg btn-primary">Checkout <i class="fa fa-long-arrow-right"></i></a>
                     </div>

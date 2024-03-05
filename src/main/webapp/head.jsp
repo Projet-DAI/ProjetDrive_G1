@@ -110,7 +110,6 @@
                                 Mon Profil
                             </a>
                         <% } %>
-                        
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="transaction.html">Mon historique de commandes</a>
@@ -119,12 +118,11 @@
 
                             </div>
                           </li>
-                		
+                		<% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
                 			
 							
                         <li class="nav-item dropdown">
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
                                 <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= panier.getLignesPanier().size() %></span>
                             </a>
                             <div class="dropdown-menu shopping-cart">
@@ -134,13 +132,11 @@
                                          	<a href="Panier" class="nav-link">Mon Panier</a>
                                         </div>
                                     </li>
-                                    
                                     <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
                                     
                                     <%-- Contenu du panier --%>
                							 <li>
                                             <div class="shopping-cart-list">
-                                            
                                                 <div class="media">
                                                     <img class="d-flex mr-3" src="<%= lignePanier.getProduit().getAdresseImageProduit() %>" width="60">
                                                     <div class="media-body">
@@ -152,38 +148,34 @@
                                                         <p class="text-muted">Quantité: <%= lignePanier.getQuantite() %></p>
                                                     </div>
                                                 </div>
-                                             </div>
+                                            </div>
                                         </li>
-									     
-                                    	<li>
+                                    <% } %>
                                     							
 									        <div class="drop-title d-flex justify-content-between">
 									        <%
 											    double total = 0.0;
 											    if (request.getAttribute("panier") != null) {
-											        for (LignePanier lignePanier1 : panier.getLignesPanier()) {
-											            total += lignePanier1.getProduit().getPrixProduit() * lignePanier1.getQuantite();
+											        for (LignePanier lignePanier : panier.getLignesPanier()) {
+											            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
 											        }
 											    }
 											%>
-											
+						
 									            <span>Total:</span>
-									            <span class="text-primary"><strong><%=total %> €</strong></span>
+									            <span class="text-primary"><strong><%= total %> €</strong></span>
 									          
-									                                  <% } %>
-									                                  <% } %>
 									            
 									        </div>
-									 </li>
-									        
-									    
+									    </li>
 									    <li class="d-flex justify-content-between pl-3 pr-3 pt-3">
                 							<a href="Panier.jsp" class="btn btn-default">Voir mon panier</a>
-								</li>
 									
                                     <%-- Fin contenu du panier --%>
                                 </ul>
-                            </div></li>
+                            </div>
+                        </li>
+                         <% } %>
                     </ul>
                 </div>
         	</div>
@@ -209,7 +201,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-	        <button type="button" class="btn btn-primary" onclick="submitLocation()">Valider</button>
+	        <button type="button" class="btn btn-primary" onclick="submitLocation()">Vlider</button>
 	      </div>
 	    </div>
 	  </div>

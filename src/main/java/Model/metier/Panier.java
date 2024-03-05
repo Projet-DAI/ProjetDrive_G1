@@ -2,8 +2,6 @@ package Model.metier;
 
 import javax.persistence.*;
 
-import org.hibernate.Hibernate;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -86,8 +84,6 @@ public class Panier {
 	        this.lignesPanier = lignesPanier;
 	    }
 	    
-	 
-	  
 
     
     

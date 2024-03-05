@@ -185,7 +185,8 @@
 						                            <td><%= lignePanier.getProduit().getNomProduit() %></td>
 						                            <td><%= lignePanier.getProduit().getPrixProduit() %></td>
 						                            <td><%= lignePanier.getQuantite() %></td>
-						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+						       	                    <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+						                            
 						                        </tr>
 						                    <% } %>
 					                    </tbody>

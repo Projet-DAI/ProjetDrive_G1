@@ -25,7 +25,6 @@ import Model.metier.Magasin;
 import Model.metier.Produit;
 import Model.metier.Rayon;
 import Model.metier.StatutCommande;
-import Model.metier.TempsRetait;
 
 public class dataTEST {
 	

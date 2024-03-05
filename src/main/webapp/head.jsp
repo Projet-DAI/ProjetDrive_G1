@@ -167,7 +167,13 @@
                                     <% } %>
 									    <% double totalPrice = 0.0; %>
 									    <% for (LignePanier lignePanier : listeLignesPanier) { %>
-									        <% totalPrice += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite(); %>
+											<%
+											    // Convertir la chaîne de prix en un nombre
+											    double prixProduit = Double.parseDouble(lignePanier.getProduit().getPrixProduit());
+											
+											    // Calculer le prix total en multipliant le prix du produit par la quantité
+											    totalPrice += prixProduit * lignePanier.getQuantite();
+											%>									    
 									    <% } %>
 									    <li>
 									        <div class="drop-title d-flex justify-content-between">

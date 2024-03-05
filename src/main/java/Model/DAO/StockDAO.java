@@ -28,14 +28,11 @@ public class StockDAO {
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        
+        } 
         return magasins;
     }
     
-	 // afficher detaille de stovks
+	 // afficher detaille de stocks
 	public static List<Object[]> getProductsAndStocksForMagasin(int magasinId) {
         List<Object[]> results = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -50,8 +47,13 @@ public class StockDAO {
             for (Stock stock : stocks) {
                 Produit produit = stock.getProduit();
                 double predictedStock = calculatePredictedStock(produit.getVente());
+                
+                String stockStatus = determineStockStatus(stock.getQuantiteEnStock(), predictedStock);  
+                // 组装结果：产品ID，产品名称，产品EAN，当前库存量，预测库存量，Action
+                results.add(new Object[]{produit.getIdProduit(), produit.getNomProduit(), produit.getEan(), stock.getQuantiteEnStock(), predictedStock, stockStatus});
+               
                 // 组装结果：产品ID，产品名称，产品EAN，当前库存量，预测库存量
-                results.add(new Object[]{produit.getIdProduit(), produit.getNomProduit(), produit.getEan(), stock.getQuantiteEnStock(), predictedStock});
+                //results.add(new Object[]{produit.getIdProduit(), produit.getNomProduit(), produit.getEan(), stock.getQuantiteEnStock(), predictedStock});
             }
 
             session.getTransaction().commit();
@@ -60,8 +62,6 @@ public class StockDAO {
                 session.getTransaction().rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
 
         return results;
@@ -73,7 +73,15 @@ public class StockDAO {
         return vente / 90.0 * 15;
     }
 	
-	
+    private static String determineStockStatus(int currentStock, double predictedStock) {
+        if (currentStock > predictedStock * 3) {
+            return "Promotions nécessaires";
+        } else if (currentStock < predictedStock) {
+            return "Besoin de réapprovisionnement";
+        } else {
+            return "normalité";
+        }
+    }
 	
 	// test
 	public static void main(String[] args) {
@@ -88,14 +96,20 @@ public class StockDAO {
 
         // 打印结果
         if (productsAndStocks != null && !productsAndStocks.isEmpty()) {
-            System.out.println("产品ID\t产品名称\tEAN\t当前库存量\t预测库存量");
+			/*
+			 * System.out.println("产品ID\t产品名称\tEAN\t当前库存量\t预测库存量"); for (Object[] row :
+			 * productsAndStocks) { System.out.println(row[0] + "\t" + row[1] + "\t" +
+			 * row[2] + "\t" + row[3] + "\t" + row[4]); }
+			 */
+        	System.out.println("产品ID\t产品名称\tEAN\t当前库存量\t预测库存量\t库存状态");
             for (Object[] row : productsAndStocks) {
-                System.out.println(row[0] + "\t" + row[1] + "\t" + row[2] + "\t" + row[3] + "\t" + row[4]);
+                System.out.println(row[0] + "\t" + row[1] + "\t" + row[2] + "\t" + row[3] + "\t" + row[4] + "\t" + row[5]);
             }
         } else {
             System.out.println("没有找到指定商店的库存信息。");
         }
 		
+        
 		/*
 		 * List stocks = getProductsAndStocksForMagasin(1);
 		 * System.out.println("stocks: " + stocks);

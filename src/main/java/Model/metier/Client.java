@@ -78,6 +78,7 @@ public class Client {
 	}
 
 
+    
 	public int getIdClient() {
 		return idClient;
 	}

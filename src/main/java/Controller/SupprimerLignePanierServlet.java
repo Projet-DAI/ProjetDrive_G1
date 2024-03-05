@@ -36,10 +36,15 @@ public class SupprimerLignePanierServlet extends HttpServlet {
 
         // Créer une instance de PanierDAO
         PanierDAO panierDAO = new PanierDAO();
+        Panier panier = panierDAO.getPanierById(idPanier);
+
 
         // Appeler la méthode pour supprimer la ligne de panier
         panierDAO.supprimerLignePanier(idPanier, idProduit);
-
+        // Mettre à jour le panier dans la session
+        HttpSession session = request.getSession();
+        session.setAttribute("Panier", panier);
+        
         // Rediriger vers la page Panier.jsp
         response.sendRedirect("Panier.jsp");
     }

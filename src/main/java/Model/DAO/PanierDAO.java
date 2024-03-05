@@ -1,5 +1,9 @@
 package Model.DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -133,6 +137,9 @@ public class PanierDAO {
 		        }
 		        return panier;
 		    }
+	    
+	    
+	
 
 
 	    public static void createPanier(Panier panier) {
@@ -305,10 +312,54 @@ public class PanierDAO {
 	        }
 	    
 	    }
+	    
+	    public static double calculerTotalPanier(Panier panier) {
+	        List<LignePanier> lignesPanier = panier.getLignesPanier();
+	        double total = 0.0;
+	        
+	        for (LignePanier lignePanier : lignesPanier) {
+	            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+	        }
+	        
+	        return total;
+	    }
+
 
 	    public static void main(String[] args) {
+	    	 PanierDAO panierDAO = new PanierDAO();
+	         
+	         // Récupération d'un panier avec ses lignes de panier depuis la base de données (vous devez ajuster cela en fonction de votre DAO)
+	         int panierId = 1; // ID du panier à récupérer depuis la base de données
+	         Panier panier = panierDAO.getPanierById(panierId);
+	         
+	         // Vérification si le panier existe dans la base de données
+	         if (panier != null) {
+	             // Appel de la méthode calculerTotalPanier pour calculer le total du panier
+	             double totalPanier = calculerTotalPanier(panier);
+	             
+	             // Affichage du total du panier
+	             System.out.println("Total du panier: " + totalPanier + "€");
+	         } else {
+	             System.out.println("Le panier avec l'ID " + panierId + " n'existe pas dans la base de données.");
+	         }
+	     }
+
+	    
+	 
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
 	        // Création de l'instance de PanierDAO
-	    	int panierId = 7;
+	   /* 	int panierId = 7;
 	    	int produitId = 3;
 
 	        PanierDAO panierDAO = new PanierDAO();
@@ -371,7 +422,7 @@ public class PanierDAO {
 	        System.out.println("La ligne de panier a été supprimée avec succès.");
 */
 	    }
-}
+
 
 	   /* public static void main(String[] args) {
 	        // Création de l'instance de PanierDAO

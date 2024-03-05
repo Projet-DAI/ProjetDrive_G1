@@ -46,7 +46,7 @@
 												moi ?</label>
 										</div>
 										<a href="login.jsp" class="text-light"><i
-											class="fa fa-bell"></i> Mot de passe oublié?</a>
+											class="fa fa-bell"></i> Mot de passe oubliï¿½ ?</a>
 									</div>
 								</div>
 								<div class="form-group row text-center mt-4">

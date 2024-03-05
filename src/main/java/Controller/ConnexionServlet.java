@@ -60,19 +60,10 @@ public class ConnexionServlet extends HttpServlet {
 	            
 	            s.setAttribute("emailCli", email);
 	            s.setAttribute("username", username);
-	            //System.out.println(s.getAttribute("emailCli"));
+	            System.out.println(s.getAttribute("emailCli"));
 	            //request.getRequestDispatcher("ShopServlet").forward(request, response);
 	            //response.sendRedirect("servletCentral?method=shop");
-	            
-	            if (email.equals("marc@stuff.com") || email.equals("adam@stuff.com")) {
-	            	
-	            	response.sendRedirect("employee.jsp");
-	            	
-	            } else {
-	            	
-	            	request.getRequestDispatcher("shop").forward(request, response);
-	            }
-	           
+	            request.getRequestDispatcher("shop").forward(request, response);
 
 
 	        	//request.("servletCentral?method=shop").forward(request, response);

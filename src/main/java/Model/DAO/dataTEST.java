@@ -292,7 +292,11 @@ public class dataTEST {
 	                Produit produit = new Produit();
 	                produit.setNomProduit(fields[3].trim());
 <<<<<<< HEAD
+<<<<<<< HEAD
 	                produit.setPrixProduit(Double.parseDouble(fields[8].trim()));
+=======
+	                produit.setPrixProduit(fields[8].trim());
+>>>>>>> parent of 0a4c169 (AllDatabase)
 =======
 	                produit.setPrixProduit(fields[8].trim());
 >>>>>>> parent of 0a4c169 (AllDatabase)

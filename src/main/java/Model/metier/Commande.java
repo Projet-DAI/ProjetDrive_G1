@@ -135,6 +135,18 @@ public class Commande {
 		this.magasin = magasin;
 	}
 
+
+	public List<LigneCommande> getLignesCommande() {
+		return lignesCommande;
+	}
+
+	public void setLignesCommande(List<LigneCommande> lignesCommande) {
+		this.lignesCommande = lignesCommande;
+	}
+    
+	
+    
+
 	
 
 	

@@ -32,11 +32,21 @@ function chercherCommande(){
 			
 			const json = JSON.parse(xhr.responseText);
 			
-			//console.log(json)
+			console.log(json);
 			
 			var html = "";
 			
-			for (var idc in json) {
+			if (Object.keys(json).length === 0){
+				
+				html += "<div class=\"shopping-list-summary-page__item\" id=\"existing-list-item\">"+
+							"Il n'a pas de commande sur ce magadin </div>";
+					
+				document.getElementById("commandeListe").innerHTML = html;
+			} else {
+				
+				console.log("else" + json);
+				
+				for (var idc in json) {
 				
   				// 获取 TempsRetaitCom 和 Status 属性
 				var tempsRetaitCom = json[idc].TempsRetaitCom;
@@ -62,10 +72,11 @@ function chercherCommande(){
 				" <div style=\"float: right;\">"+ tempsRetaitCom +"</div> " +
 				" <a href=\"MagasinCommmandeDetailServlet?idc="+ idc + "\"><p>Préparer la commande</p></a></div> ";
 			
-		}
+				}		
 		
-		document.getElementById("commandeListe").innerHTML = html;
-	}
+				document.getElementById("commandeListe").innerHTML = html;
+			}		
+		}
 
 	}
 	

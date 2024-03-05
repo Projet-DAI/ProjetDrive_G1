@@ -37,8 +37,6 @@ public class MagasinCommmandeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("hahha");
-		
 		String idm = (String) request.getParameter("idm");
 		
 		System.out.println(idm);
@@ -75,7 +73,10 @@ public class MagasinCommmandeServlet extends HttpServlet {
 				sb.append("\"" + c.getIdCommande() + "\":{\"TempsRetaitCom\":\"" + c.getTempsRetaitCom() + "\", \"Status\":\"" + c.getStatutCommande().getLibelleStatut() + "\"},");
 			}
 			
-			sb.deleteCharAt(sb.length() - 1);
+			if (sb.length() > 1) {
+				sb.deleteCharAt(sb.length() - 1);
+			}
+			
 			sb.append("}");
 			
 			

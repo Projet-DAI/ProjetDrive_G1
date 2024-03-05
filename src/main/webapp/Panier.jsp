@@ -36,20 +36,6 @@
             // Appeler la servlet pour modifier la quantité du produit dans le panier
             window.location.href = 'ModifierQuantitePanierServlet?idProduit=' + idProduit + '&nouvelleQuantite=' + nouvelleQuantite;
         }
-        function calculerNouveauTotal(pointsFidelite) {
-            var totalPanier = <%= totalPanier %>;
-            if (!isNaN(totalPanier)) {
-                var reductionEnEuros = pointsFidelite / 10.0;
-                var nouveauTotal = totalPanier - reductionEnEuros;
-                updateNouveauTotalPanier(nouveauTotal);
-            } else {
-                console.error("Erreur: le total du panier n'est pas un nombre valide.");
-            }
-        }
-
-        function updateNouveauTotalPanier(nouveauTotal) {
-            document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
-        }
     </script>
 <title>Mon Panier</title>
 <head>
@@ -146,38 +132,47 @@
 						%>
 						
 <script type="text/javascript">
-    // Récupérer le total du panier du côté serveur
-    var total = <%= total %>;
-    
-    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
-    function updateNouveauTotalPanier(nouveauTotal) {
-        // Mettre à jour l'élément HTML avec le nouveau total
-        document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
+// Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
+var totalPanierString = '<%= String.valueOf(total) %>';
+// Initialiser le total mis à jour à zéro
+var nouveauTotalPanier = 0;
+
+// Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
+function updateNouveauTotalPanier() {
+    // Mettre à jour l'élément HTML avec le nouveau total
+    document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
+}
+
+// Fonction pour effectuer le calcul du nouveau total
+function calculerNouveauTotal(pointsFidelite) {
+    // Convertir la valeur du total en nombre
+    var totalPanier = parseFloat(totalPanierString.replace(",", "."));
+
+    // Vérifier si la conversion est un nombre valide
+    if (!isNaN(totalPanier)) {
+        var reductionEnEuros = pointsFidelite / 10.0;
+        nouveauTotalPanier = totalPanier - reductionEnEuros;
+
+        // Mettre à jour le nouveau total dans l'interface utilisateur
+        updateNouveauTotalPanier();
+
+        // Afficher une alerte pour déboguer
+        //alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+    } else {
+        // Gérer l'erreur si la conversion n'est pas un nombre valide
+        console.error("Erreur de conversion du total en nombre.");
     }
+}
 
-    // Fonction pour effectuer le calcul du nouveau total
-    function calculerNouveauTotal(pointsFidelite) {
-        // Vérifier si le total est un nombre valide
-        if (!isNaN(totalPanier)) {
-            var reductionEnEuros = pointsFidelite / 10.0;
-            var nouveauTotal = totalPanier - reductionEnEuros;
+// Code existant pour l'événement 'voirPointsFidelitebtn'
+document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+    var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
 
-            // Mettre à jour le nouveau total dans l'interface utilisateur
-            updateNouveauTotalPanier(nouveauTotal);
-        } else {
-            console.error("Erreur: le total du panier n'est pas un nombre valide.");
-        }
-    }
+    // Appeler la fonction pour calculer et mettre à jour le nouveau total
+    calculerNouveauTotal(pointsFidelite);
+});
 
-    // Écouter l'événement 'voirPointsFidelitebtn'
-    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
-        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
-
-        // Appeler la fonction pour calculer et mettre à jour le nouveau total
-        calculerNouveauTotal(pointsFidelite);
-    });
 </script>
-	  <div class="drop-title d-flex justify-content-between">
 
 
 		<h6 class="mt-3">Total: <span id="totalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
@@ -196,7 +191,9 @@
                     </div>
                 </div>
             </div>
-           </div>
+        </section>
+            </div>
+        
             
     <footer>
         <div class="container">

@@ -66,6 +66,7 @@
                 </h4>
                 <div class="card-price">
                     <span class="discount"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) %></span>
+                
                     <span class="reguler"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit()) %></span>
                 </div>
                 <a href="ServletPanier?method=ajouterPanier&productId=<%= produit.getIdProduit() %>" class="btn btn-block btn-primary">

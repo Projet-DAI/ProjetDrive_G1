@@ -21,7 +21,7 @@ public class Produit {
     private String nomProduit;
 
     @Column(name = "PrixProduit")
-    private String prixProduit;
+    private double prixProduit;
 
     @Column(name = "MarqueProduit")
     private String marqueProduit;
@@ -69,7 +69,7 @@ public class Produit {
     private Set<Fournisseur> fournisseurs = new HashSet<>();
 	
     
-	public Produit(int idProduit, int ean, String nomProduit, String prixProduit, String marqueProduit,
+	public Produit(int idProduit, int ean, String nomProduit, double prixProduit, String marqueProduit,
 			boolean promotion, double pourcentagePromotion, String adresseImageProduit, String nutriscore,
 			String description, String label, int vente, Categories categorie,
 			List<Approvisionnement> approvisionnements, Set<Fournisseur> fournisseurs) {
@@ -126,13 +126,13 @@ public class Produit {
 	}
 
 
-	public String getPrixProduit() {
+	public double getPrixProduit() {
 		return prixProduit;
 	}
 
 
-	public void setPrixProduit(String prixProduit) {
-		this.prixProduit = prixProduit;
+	public void setPrixProduit(double d) {
+		this.prixProduit = d;
 	}
 
 

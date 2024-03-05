@@ -134,7 +134,7 @@
 						    double total = 0.0;
 						    if (request.getAttribute("panier") != null) {
 						        for (LignePanier lignePanier : panier.getLignesPanier()) {
-						            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+						        	total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
 						        }
 						    }
 						%>

@@ -291,7 +291,7 @@ public class dataTEST {
 	        
 	                Produit produit = new Produit();
 	                produit.setNomProduit(fields[3].trim());
-	                produit.setPrixProduit(fields[8].trim());
+	                produit.setPrixProduit(Double.parseDouble(fields[8].trim()));
 	                produit.setMarqueProduit(fields[2]);
 	                produit.setPromotion(Boolean.parseBoolean(fields[6]));
 	                produit.setAdresseImageProduit(fields[1]);

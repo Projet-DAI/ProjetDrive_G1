@@ -318,7 +318,7 @@ public class PanierDAO {
 	        double total = 0.0;
 	        
 	        for (LignePanier lignePanier : lignesPanier) {
-	            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+	        	total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
 	        }
 	        
 	        return total;

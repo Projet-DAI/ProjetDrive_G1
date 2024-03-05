@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
 	
-	<jsp:include flush="true" page="head.jsp"></jsp:include>
+	<jsp:include flush="true" page="headPreparateur.jsp"></jsp:include>
 	
 </head>
 <body>

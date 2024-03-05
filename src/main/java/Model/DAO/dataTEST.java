@@ -265,16 +265,16 @@ public class dataTEST {
 	            session.save(magasin);
 	        }
 	        
-	        List<Rayon> rayonList = readCsvFileRayon("C:\\Users\\LUO\\Downloads\\rayon.csv", session);
+	        List<Rayon> rayonList = readCsvFileRayon("X:\\Telechargement\\rayon.csv", session);
 	        for (Rayon rayon : rayonList) {
 	            session.save(rayon);
 	        }
-	        List<Categories> cateList = readCsvFileCate("C:\\Users\\LUO\\Downloads\\categorie.csv", session);
+	        List<Categories> cateList = readCsvFileCate("X:\\Telechargement\\categorie.csv", session);
 	        for (Categories cate : cateList) {
 	            session.save(cate);
 	        }
 	        
-	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\LUO\\Downloads\\gestion_produit.csv", session);
+	        List<Produit> produitList = readCsvFileProduit("X:\\Telechargement\\gestion_produit.csv", session);
 	        for (Produit produit : produitList) {
 	            session.save(produit);
 	        }
@@ -460,7 +460,7 @@ public class dataTEST {
 		            transaction = session.beginTransaction();
 
 		            // 读取CSV文件
-		            try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\LUO\\Downloads\\magasin_tempsretait.csv"))) {
+		            try (BufferedReader reader = new BufferedReader(new FileReader("X:\\Telechargement\\magasin_tempsretait.csv"))) {
 		                String line;
 		                boolean isFirstLine = true; // 标记是否是第一行
 		                while ((line = reader.readLine()) != null) {
@@ -469,7 +469,7 @@ public class dataTEST {
 		                        continue;
 		                    }
 		                    // 解析CSV行数据
-		                    String[] fields = line.split(","); // 假设CSV文件中使用逗号作为分隔符
+		                    String[] fields = line.split(";"); // 假设CSV文件中使用逗号作为分隔符
 
 		                    // 将字符串转换为整数
 		                    int idMagasin = Integer.parseInt(fields[0]);
@@ -506,12 +506,12 @@ public class dataTEST {
 	
 	
 	public static void main(String[] args) {
-		//dataTEST.insertDataClient();
-		//dataTEST.insertDataStatutCommande();
-		//dataTEST.insertDataCommande();
-		//dataTEST.insertLigneCommande();
-		dataTEST.insertCSV();
-		insertMagasinTempRetrait();
+//		dataTEST.insertDataClient();
+//		dataTEST.insertDataStatutCommande();
+//		dataTEST.insertDataCommande();
+//		dataTEST.insertLigneCommande();
+//		dataTEST.insertCSV();
+		//insertMagasinTempRetrait();
 		
 		
 		

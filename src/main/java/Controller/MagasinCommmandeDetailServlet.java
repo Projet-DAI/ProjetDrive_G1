@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transaction;
 
 import org.hibernate.Session;
@@ -83,9 +84,13 @@ public class MagasinCommmandeDetailServlet extends HttpServlet {
 			
 			session.close();
 			
-			request.setAttribute("listeStock", listeStock);
-			request.setAttribute("listeLigneCom", listeLigneCom);
-			request.getRequestDispatcher("preparationCom.jsp").forward(request, response);
+			HttpSession s = request.getSession();
+			s.setAttribute("listeStock", listeStock);
+			s.setAttribute("listeLigneCom", listeLigneCom);
+			
+			//System.out.println(s.getAttribute("listeStock").toString());
+			
+			response.sendRedirect("preparationCom.jsp");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

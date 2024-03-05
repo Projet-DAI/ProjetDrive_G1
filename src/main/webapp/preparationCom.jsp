@@ -67,8 +67,9 @@
 								</thead>
 								<tbody>
 
-								<%  List<LigneCommande> listeLigneCom = (List<LigneCommande>)request.getAttribute("listeLigneCom");
-									List<Integer> listeStock = (List<Integer>)request.getAttribute("listeStock"); 
+								<%  HttpSession s = request.getSession();
+									List<LigneCommande> listeLigneCom = (List<LigneCommande>)s.getAttribute("listeLigneCom");
+									List<Integer> listeStock = (List<Integer>)s.getAttribute("listeStock"); 
 									int count = 0;
 									for (LigneCommande lc : listeLigneCom) {
 										count += 1;

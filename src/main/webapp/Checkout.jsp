@@ -133,43 +133,21 @@
 											        }
 											    }
 											%>
-											
-										<tr>
-											<td><strong>Sous-total du panier</strong></td>
-											<td class="text-right"><%= total %></td>
-										</tr>
-										<tr>
-											<td><strong>Frais de livraison</strong></td>
-											<td class="text-right"></td>
-										</tr>
 										<tr>
 											<td><strong>TOTAL DE LA COMMANDE</strong></td>
-											<td class="text-right"><strong></strong></td>
+											<td class="text-right"><strong><%= total %></strong></td>
 										</tr>
 										</tfooter>
 									</table>
 								</div>
-	
-								<h5 class="mb-3">Payment Methods</h5>
-								<div class="form-check-inline">
-									<label class="form-check-label"> <input
-										class="form-check-input" type="radio" name="exampleRadios"
-										id="exampleRadios1" value="option1" checked> Virement bancaire direct
-									</label>
-								</div>
-								<div class="form-check-inline">
-									<label class="form-check-label"> <input
-										class="form-check-input" type="radio" name="exampleRadios"
-										id="exampleRadios2" value="option2"> Carte de crédit
-									</label>
-								</div>
-							</div>
+		
 							<p class="text-right mt-3">
 								<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
 							</p>
 						    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
+														
+							<a href="ConfirmCommand.jsp" class="btn btn-primary float-right" onclick="confirmerCommande"> Confirmer <i class="fa fa-check"></i></a>
 							
-	                        <button type="button" class="btn btn-primary float-right" onclick="confirmerCommande()">Confirmer <i class="fa fa-check"></i></button>
 							</a>
 							
 	<%
@@ -180,7 +158,6 @@
 	        CommandeDAO commandeDAO = new CommandeDAO(); 
 	        int commandeId = commandeDAO.insererCommande(nouvelleCommande);
 	
-	        response.sendRedirect("ConfirmCommand.jsp");
 	    }
 	%>
 							<div class="clearfix"></div>

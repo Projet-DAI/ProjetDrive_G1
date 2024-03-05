@@ -18,7 +18,7 @@
 	</div>
 	
 	<div class="col-md-12 mt-5 text-center" style="padding-bottom: 200px;">
-			<a href="shop" class="btn btn-primary btn-lg">Commencer votre courses</a>
+			<a href="shop" class="btn btn-primary btn-lg">Poursuivre mes courses</a>
 	</div>
 	
 	<jsp:include flush="true" page="footer.jsp"></jsp:include>

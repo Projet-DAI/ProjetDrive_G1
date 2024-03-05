@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@page import="java.util.List"%>
+<%@ page import="java.util.ArrayList" %>
+<%@page import="Model.metier.Categories"%>
 <%@page import="Model.metier.Produit"%>
 
 
@@ -16,7 +18,17 @@
 <body>
     <jsp:include flush="true" page="head.jsp"></jsp:include>
 
-    <% List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");%>
+    <% List<Produit> liste = (List<Produit>)request.getAttribute("liste_msg");
+    List<Produit> listeFiltree = new ArrayList<>();
+
+    for (Produit produit : liste) {
+        Categories categorie = produit.getCategorie();
+        if (categorie != null && categorie.getIdCategorie() == 1 ) {
+            listeFiltree.add(produit);
+        }
+    }
+    
+    %>
 
     <div id="page-content" class="page-content">
     	<div class="banner">

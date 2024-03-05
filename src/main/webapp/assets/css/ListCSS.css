@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.vertical-nav {
+	background-color: #f5f5f5;
+	padding: 20px;
+}
+
+.vertical-nav a {
+	display: inline-block;
+	color: #444;
+	text-decoration: none;
+	margin-right: 10px; /* 添加右侧间距 */
+}
+
+.vertical-nav a:last-child {
+	margin-right: 0; /* 最后一个链接移除右侧间距 */
+}
+
+.bold-item {
+	font-weight: bold;
+	color: #333; /* 设置深颜色 */
+}
+
+.bi.bi-card-checklist {
+	font-size: 2.5rem; /* 调整图标大小 */
+	color: pink;
+}
+
+.bi.bi-cart-check {
+	font-size: 7rem; /* 调整图标大小 */
+	color: pink;
+}
+
+.buttonCreer {
+	margin-left:10px;
+}
+
+/* 添加样式，控制模态窗的显示和隐藏 */
+.modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 按钮样式 */
+.shopping-list-summary-page__item {
+	border: 1px solid #ccc;
+	padding: 10px;
+	align-content: center;
+}
+
+.shopping-list-summary-page__item:hover {
+	background-color: #f0f0f0;
+}

@@ -8,9 +8,7 @@ import org.hibernate.query.Query;
 
 import Model.DAO.HibernateUtil;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "TempsRetait")
@@ -19,50 +17,56 @@ public class TempsRetait {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdTempsRetrait")
     private int idTempsRetrait;
+
+    @ManyToOne
+    @JoinColumn(name = "IdCommande")
+    private Commande commande;
+
+    @ManyToOne
+    @JoinColumn(name = "IdMagasin")
+    private Magasin magasin;
     
     @Column(name = "TempsDeRetrait")
     private String tempsDeRetrait;
     
-    @ManyToMany
-    @JoinTable(
-      name = "TempsRetait_Magasin", 
-      joinColumns = @JoinColumn(name = "IdTempsRetrait"), 
-      inverseJoinColumns = @JoinColumn(name = "IdMagasin"))
-    private Set<Magasin> magasins = new HashSet<>();
+    public TempsRetait(Commande commande, Magasin magasin, String tempsDeRetrait) {
+        this.commande = commande;
+        this.magasin = magasin;
+        this.tempsDeRetrait = tempsDeRetrait;
+    }
     
     public TempsRetait() {}
-
-	public TempsRetait(int idTempsRetrait, String tempsDeRetrait, Set<Magasin> magasins) {
-		super();
-		this.idTempsRetrait = idTempsRetrait;
-		this.tempsDeRetrait = tempsDeRetrait;
-		this.magasins = magasins;
-	}
-
-	public int getIdTempsRetrait() {
-		return idTempsRetrait;
-	}
-
-	public void setIdTempsRetrait(int idTempsRetrait) {
-		this.idTempsRetrait = idTempsRetrait;
-	}
-
-	public String getTempsDeRetrait() {
-		return tempsDeRetrait;
-	}
-
-	public void setTempsDeRetrait(String tempsDeRetrait) {
-		this.tempsDeRetrait = tempsDeRetrait;
-	}
-
-	public Set<Magasin> getMagasins() {
-		return magasins;
-	}
-
-	public void setMagasins(Set<Magasin> magasins) {
-		this.magasins = magasins;
-	}
     
-    
+    public int getIdTempsRetrait() {
+        return idTempsRetrait;
+    }
+
+    public void setIdTempsRetrait(int idTempsRetrait) {
+        this.idTempsRetrait = idTempsRetrait;
+    }
+
+    public Commande getCommande() {
+        return commande;
+    }
+
+    public void setCommande(Commande commande) {
+        this.commande = commande;
+    }
+
+    public Magasin getMagasin() {
+        return magasin;
+    }
+
+    public void setMagasin(Magasin magasin) {
+        this.magasin = magasin;
+    }
+
+    public String getTempsDeRetrait() {
+        return tempsDeRetrait;
+    }
+
+    public void setTempsDeRetrait(String tempsDeRetrait) {
+        this.tempsDeRetrait = tempsDeRetrait;
+    }
 }
 

@@ -1,8 +1,6 @@
 package Model.metier;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -20,20 +18,18 @@ public class Magasin {
     @Column(name = "AdresseMagasin")
     private String adresseMagasin;
     
-    @ManyToMany(mappedBy = "magasins")
-    private Set<TempsRetait> tempsRetaits = new HashSet<>();
+    @OneToMany(mappedBy = "magasin", cascade = CascadeType.ALL)
+    private List<Commande> commandes;
+
+	public Magasin(String nomMagasin, String adresseMagasin) {
+		super();
+		this.nomMagasin = nomMagasin;
+		this.adresseMagasin = adresseMagasin;
+	}
 
     public Magasin() {
     	
     }
-
-	public Magasin(int idMagasin, String nomMagasin, String adresseMagasin, Set<TempsRetait> tempsRetaits) {
-		super();
-		this.idMagasin = idMagasin;
-		this.nomMagasin = nomMagasin;
-		this.adresseMagasin = adresseMagasin;
-		this.tempsRetaits = tempsRetaits;
-	}
 
 	public int getIdMagasin() {
 		return idMagasin;
@@ -58,16 +54,7 @@ public class Magasin {
 	public void setAdresseMagasin(String adresseMagasin) {
 		this.adresseMagasin = adresseMagasin;
 	}
-
-	public Set<TempsRetait> getTempsRetaits() {
-		return tempsRetaits;
-	}
-
-	public void setTempsRetaits(Set<TempsRetait> tempsRetaits) {
-		this.tempsRetaits = tempsRetaits;
-	}
-
-	
+    
     
 }
 

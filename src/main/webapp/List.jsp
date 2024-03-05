@@ -56,7 +56,7 @@
 		</div>
 		<div style="float: right;"><%=l.getDateCreation() %></div>
 		<!-- 设置链接到您想要的目标页面 -->
-		<a href="postit.jsp?listeCourseName=<%= l.getNomListeCourse() %>"><p>Voir la liste</p></a>
+		<a href="listCourse.jsp?listeCourseName=<%= l.getNomListeCourse() %>"><p>Voir la liste</p></a>
 	</div>
 	<%}%>
 		

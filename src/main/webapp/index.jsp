@@ -240,7 +240,7 @@
                             </a>
                         </div>
                         <div class="item">
-                            <a href="shop.html">
+                            <a href="BoissonsShop.jsp">
                                 <div class="media d-flex align-items-center justify-content-center">
                                     <span class="d-flex mr-2"><i class="sb-bistro-drinks"></i></span>
                                     <div class="media-body">

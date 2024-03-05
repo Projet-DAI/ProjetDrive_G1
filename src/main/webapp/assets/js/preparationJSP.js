@@ -60,7 +60,7 @@ function chercherCommande(){
 						"class=\"bi bi-trash\" onclick=\"showDeleteModal()\"></i></span> " +
 				" </div> " +
 				" <div style=\"float: right;\">"+ tempsRetaitCom +"</div> " +
-				" <a href=\"\"><p>Préparer la commande</p></a></div> ";
+				" <a href=\"MagasinCommmandeDetailServlet?idc="+ idc + "\"><p>Préparer la commande</p></a></div> ";
 			
 		}
 		

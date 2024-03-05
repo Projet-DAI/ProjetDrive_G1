@@ -138,13 +138,18 @@
 	animation-name: fadeOut;
 }
 
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+@
+keyframes fadeOut { 0% {
+	opacity: 1;
+}
+
+100
+%
+{
+opacity
+:
+0;
+}
 }
 
 /*
@@ -264,7 +269,7 @@
 .owl-theme .owl-dots .owl-dot {
 	display: inline-block;
 	zoom: 1;
-	display: inline;
+	*display: inline;
 }
 
 .owl-theme .owl-dots .owl-dot span {

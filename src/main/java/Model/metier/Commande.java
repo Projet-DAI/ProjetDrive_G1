@@ -135,8 +135,6 @@ public class Commande {
 		this.magasin = magasin;
 	}
 
-
-	
 	
 
 	

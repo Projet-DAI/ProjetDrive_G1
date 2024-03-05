@@ -1,7 +1,7 @@
 package Controller;
 
 import java.io.IOException;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,11 +17,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import Model.DAO.ClientDAO;
 import Model.DAO.HibernateUtil;
-import Model.DAO.PanierDAO;
 import Model.metier.Client;
-import Model.metier.Panier;
 
 /**
  * Servlet implementation class ConnexionServlet
@@ -58,8 +55,6 @@ public class ConnexionServlet extends HttpServlet {
 
 	        if (!clients.isEmpty()) {// Utilisateur connecté avec succès
 	        	String username = clients.get(0).getNomUtilisateurClient();
-	        	
-	            int clientId = clients.get(0).getIdClient();
 
 	            HttpSession s = request.getSession();
 	            
@@ -78,44 +73,6 @@ public class ConnexionServlet extends HttpServlet {
 	            	request.getRequestDispatcher("shop").forward(request, response);
 	            }
 	           
-	            s.setAttribute("clientId", clientId);
-	            
-	            System.out.println("clientId: " + clientId);
-	         
-	            // Vérifier si le client a déjà un panier
-	            PanierDAO panierDAO = new PanierDAO();
-	            Panier panier = panierDAO.getPanierByClientId(clientId);
-	            
-	            if (panier != null) {
-	                int panierId = panier.getIdPanier();
-	                System.out.println("panierId: " + panierId);
-	                s.setAttribute("panierId", panierId);
-
-	            }
-	            
-	            if (panier == null) {
-	            	
-	                // Si le client n'a pas de panier, en créer un nouveau
-	                panier = new Panier();
-	                
-	                ClientDAO clientDAO = new ClientDAO();
-	                Client client = clientDAO.getClientById(clientId); 
-	                
-	                panier.setClient(client);
-	                panier.setDateCreation(new Date());
-	                panierDAO.createPanier(panier);
-	                System.out.println("Le nouveau panier est panierId: " + panier.getIdPanier());
-
-	            }
-	            
-		         // Rediriger vers la page du panier
-		            response.sendRedirect("Panier");
-		            System.out.println("Redirection vers Panier.jsp effectuée avec succès.");
-
-	            
-	            //request.getRequestDispatcher("ShopServlet").forward(request, response);
-	            //response.sendRedirect("servletCentral?method=shop");
-	            //request.getRequestDispatcher("shop").forward(request, response);
 
 
 	        	//request.("servletCentral?method=shop").forward(request, response);

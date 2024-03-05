@@ -247,7 +247,7 @@ section .card-title {
 }
 
 .page-header .navbar .shopping-cart .shopping-cart-list {
-	height: auto;
+	height: 200px;
 	position: relative;
 	overflow-y: auto;
 }

@@ -29,7 +29,6 @@
 					String adresseImg = p.getAdresseImageProduit();
 					String nomP = p.getNomProduit();
 					Double prixOriginal = p.getPrixProduit();
-
 					Boolean promotion = p.isPromotion();
 
 					Double pourcentagePromo = 0.0;

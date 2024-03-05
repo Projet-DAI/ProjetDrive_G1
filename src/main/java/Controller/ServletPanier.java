@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -39,49 +38,32 @@ public class ServletPanier extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        
-        // Vérifier si les attributs de session sont présents
-        Integer clientId = (Integer) session.getAttribute("clientId");
-        Integer panierId = (Integer) session.getAttribute("panierId");
-
-        if (clientId != null && panierId != null && panierId != 0) {
-        	PanierDAO panierDAO = new PanierDAO();
-            Panier panier = panierDAO.getPanierById(panierId);
-            
-            if (panier != null) {
-            	
-                
-                double total = panierDAO.calculerTotalPanier(panier);
-
-                
-                
-                request.setAttribute("totalPanier", total);
-                
-	             // Afficher les détails du panier
-	                panierDAO.afficherDetailsPanier(panier);
-	                
-	             // Ajouter le panier à la requête avec le nom correct
-	                session.setAttribute("Panier", panier);
-	                
-
-                // Rediriger vers Panier.jsp
-                request.getRequestDispatcher("/Panier.jsp").forward(request, response);
-                
-            } else {
-                System.out.println("Le panier est introuvable.");
-                response.sendRedirect("index.jsp");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        PanierDAO panierDAO = new PanierDAO();
+        int panierId = 1;
+        Panier panier = panierDAO.getPanierById(panierId);
+        if (panier != null) {
+            // Afficher les détails du panier
+            System.out.println("ID Panier: " + panier.getIdPanier());
+            System.out.println("Date de création: " + panier.getDateCreation());
+            // Afficher les lignes de panier
+            System.out.println("Contenu du panier:");
+            for (LignePanier lignePanier : panier.getLignesPanier()) {
+                System.out.println("Produit: " + lignePanier.getProduit().getNomProduit() + ", Quantité: "
+                        + lignePanier.getQuantite());
+                // Afficher d'autres détails de la ligne de panier selon vos besoins
             }
+            // Ajouter le panier à la requête avec le nom correct
+            request.setAttribute("panier", panier);
         } else {
-            System.out.println("Le client ou le panier est introuvable dans la session.");
-            response.sendRedirect("index.jsp");
+            System.out.println("Le panier est introuvable.");
         }
+        // Rediriger vers Panier.jsp
+        request.getRequestDispatcher("/Panier.jsp").forward(request, response);
     }
 
-    
-
-    /**
+    /**List<Demande> ld = (List<Demande>) q.list();
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
      */

@@ -12,7 +12,7 @@ public class LignePanier {
 
     @ManyToOne
     @JoinColumn(name = "IdPanier")
-    private  Panier panier;
+    private Panier panier;
 
     @ManyToOne
     @JoinColumn(name = "IdProduit")

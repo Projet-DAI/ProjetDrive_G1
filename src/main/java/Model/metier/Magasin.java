@@ -86,14 +86,6 @@ public class Magasin {
 	}
 
 	
-	@Override
-	public String toString() {
-	    return "Magasin{" +
-	            "id=" + idMagasin +
-	            ", nom='" + nomMagasin + '\'' +
-	            ", adresse='" + adresseMagasin + '\'' +
-	            '}';
-	}
 
 	
     

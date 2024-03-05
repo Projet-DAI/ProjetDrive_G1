@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 	
 <!DOCTYPE html>
 <html>
@@ -33,7 +33,7 @@
                 </video>
                 <div class="container">
                     <h1 class="pt-5">
-                        Ã‰conomisez du temps et confiez-nous<br>
+                        Économisez du temps et confiez-nous<br>
                         vos courses
                     </h1>
 
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        RÃ©cupÃ©rer
+                                        Récupérer
                                     </h4>
                                     <p class="card-text">
 										</p>
@@ -93,144 +93,15 @@
             </div>
         </div>
                     <div class="col-md-12 mt-5 text-center">
-                        <a id="commencerCoursesBtn" href="#" class="btn btn-primary btn-lg">Commencer ses courses</a>
+                        <a href="shop" class="btn btn-primary btn-lg">Commencer ses courses</a>
                     </div>
+                    
+                    <!-- Gestion des produits -->
+                    <!-- <div class="col-md-12 mt-5 text-center">
+                       <div class="btn btn-primary btn-lg" id="gestionBtn">Gestion des produits</div>
+                    </div> -->
+                    
          </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="categories" class="pb-0 gray-bg">
-            <h1 class="title">Categories</h1>
-           <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="shop-categories owl-carousel mt-5">
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-carrot"></i><i class="sb-bistro-apple"></i></span>
-                                    <div class="media-body">
-                                        <h5>Fruits et Lï¿½gumes</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="BoissonsShop.jsp">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-drinks"></i></span>
-                                    <div class="media-body">
-                                        <h5>Boissons</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-roast-leg"></i><i class="sb-bistro-fish-1"></i></span>
-                                    <div class="media-body">
-                                        <h5>Viandes et Poissons</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-cake"></i></span>
-                                    <div class="media-body">
-                                        <h5>Boulangerie et Pï¿½tisserie </h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-french-fries"></i></span>
-                                    <div class="media-body">
-                                        <h5>Produits surgelï¿½s</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-coffee"></i></span>
-                                    <div class="media-body">
-                                        <h5>ï¿½picerie</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
-                                    <div class="media-body">
-                                        <h5>Hygiï¿½ne et Beautï¿½</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
-                                    <div class="media-body">
-                                        <h5>Entretien mï¿½nager</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-apple"></i></span>
-                                    <div class="media-body">
-                                        <h5>Produits laitiers</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>                      <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
-                                    <div class="media-body">
-                                        <h5>Articles pour bï¿½bï¿½s</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
-                                    <div class="media-body">
-                                        <h5>Articles pour animaux</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="shop.html">
-                                <div class="media d-flex align-items-center justify-content-center">
-                                    <span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
-                                    <div class="media-body">
-                                        <h5>Articles mï¿½nagers</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>                                                                                           
-                    </div>
-                </div>
-            </div>
-        </div>
-        </section>
-    </div>
     
     <section id="categories" class="pb-0 gray-bg">
     	<h1 class="title">Categories</h1>    
@@ -239,8 +110,7 @@
     
     <jsp:include flush="true" page="footer.jsp"></jsp:include>
 
-	<script type="text/javascript" src="assets/js/index.js"></script>
-	
+	<script type="text/javascript" src="assets/js/gestionProduit.js"></script>
 </body>
 </html>
 	

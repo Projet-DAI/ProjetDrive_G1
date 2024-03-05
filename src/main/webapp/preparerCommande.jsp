@@ -7,6 +7,7 @@
 <%@ page import="Model.metier.Produit" %>
 <%@ page import="Model.metier.LignePanier" %>
 
+<% Panier panier = (Panier) session.getAttribute("Panier"); %>
 
 <!DOCTYPE html>
 <html>
@@ -107,20 +108,22 @@
                                     </tr>
                                    
                                 </thead>
-								    <% if (request.getAttribute("panier") != null ){ %>
-								    <% Panier panier = (Panier) request.getAttribute("panier"); %>
-								    <tbody>
-								        <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
-
-								            
-								            <tr>
-								                <td>    </td>
-								                <td><%= lignePanier.getProduit().getNomProduit() %></td>
-								                <td><%= lignePanier.getProduit().getPrixProduit() %></td>
-								                <td><%= lignePanier.getQuantite() %></td>
-								                <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
-								                <td>
-								                    <button id="toggle-btn-<%= lignePanier.getIdLignePanier() %>" class="btn btn-primary" onclick="toggleCommande(<%= lignePanier.getIdLignePanier() %>)">On/Off</button>
+									<% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
+             	                        <tbody>
+					                  	
+	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
+						                        <tr>
+						                        	<td>    </td>
+						                            <td><%= lignePanier.getProduit().getNomProduit() %></td>
+						                            <td><%= lignePanier.getProduit().getPrixProduit() %></td>
+						                            <td>
+									                    <form action="ModifierQuantitePanierServlet" method="post">
+									                        <input type="hidden" name="panierId" value="<%= panier.getIdPanier() %>">
+									                        <input type="hidden" name="produitId" value="<%= lignePanier.getProduit().getIdProduit() %>">
+									                        <input class="vertical-spin form-control input-number" type="text" name="nouvelleQuantite" value="<%= lignePanier.getQuantite() %>" min="1">
+									                        <button type="submit" class="btn btn-primary">Modifier</button>
+									                    </form>
+									                   <button id="toggle-btn-<%= lignePanier.getIdLignePanier() %>" class="btn btn-primary" onclick="toggleCommande(<%= lignePanier.getIdLignePanier() %>)">On/Off</button>
 								                </td>
 								            </tr>
 								        <% } %>

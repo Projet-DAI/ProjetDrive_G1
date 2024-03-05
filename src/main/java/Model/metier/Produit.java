@@ -46,8 +46,21 @@ public class Produit {
     
     @Column(name = "Vente")
     private int vente;
+    
+    @Column(name = "kiloProduit")
+    private String kiloProduit;
 
-    @ManyToOne
+    public String getKiloProduit() {
+		return kiloProduit;
+	}
+
+
+	public void setKiloProduit(String kiloProduit) {
+		this.kiloProduit = kiloProduit;
+	}
+
+
+	@ManyToOne
     @JoinColumn(name = "IdCategorie")
     private Categories categorie;
     

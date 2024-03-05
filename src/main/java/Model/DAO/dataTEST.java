@@ -6,12 +6,15 @@ import java.io.FileReader;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Synchronization;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -262,11 +265,23 @@ public class dataTEST {
 	            session.save(magasin);
 	        }
 	        
+	        List<Rayon> rayonList = readCsvFileRayon("C:\\Users\\LUO\\Downloads\\rayon.csv", session);
+	        for (Rayon rayon : rayonList) {
+	            session.save(rayon);
+	        }
+	        List<Categories> cateList = readCsvFileCate("C:\\Users\\LUO\\Downloads\\categorie.csv", session);
+	        for (Categories cate : cateList) {
+	            session.save(cate);
+	        }
+	        
 	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\LUO\\Downloads\\gestion_produit.csv", session);
 	        for (Produit produit : produitList) {
 	            session.save(produit);
 	        }
 	        
+	       
+	        
+	       
 	       
 	        
 	        // Validation des transactions et confirmation de l'ajout des données
@@ -279,7 +294,61 @@ public class dataTEST {
 
 
 	
-	 private static List<Produit> readCsvFileProduit(String csvFilePath, Session session) {
+	 private static List<Rayon> readCsvFileRayon(String csvFilePath, Session session)  {
+		 List<Rayon> rayonList = new ArrayList<>();
+		 try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+	            // Skip the header line of the CSV file
+	            reader.readLine();
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] fields = line.split(",");
+
+	                Rayon rayon = new Rayon();
+	                rayon.setNomRayon(fields[1].trim());
+
+
+	                rayonList.add(rayon);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return rayonList;
+		 
+		 
+		 
+		
+	}
+
+	private static List<Categories> readCsvFileCate(String csvFilePath, Session session) {
+		 List<Categories> cateList = new ArrayList<>();
+
+		    try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+		        // Skip the header line of the CSV file
+		        reader.readLine();
+		        String line;
+		        while ((line = reader.readLine()) != null) {
+	                String[] fields = line.split(",");
+
+	                Categories categories = new Categories();
+	                categories.setNomCategorie(fields[1].trim());
+	                
+	                
+	                
+	                int rayonId = Integer.parseInt(fields[2]); 
+	                Rayon rayon = session.get(Rayon.class, rayonId);
+	                categories.setRayon(rayon);
+	                cateList.add(categories);
+
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return cateList;
+	}
+
+	private static List<Produit> readCsvFileProduit(String csvFilePath, Session session) {
 	        List<Produit> produits = new ArrayList<>();
 
 	        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
@@ -291,12 +360,34 @@ public class dataTEST {
 	        
 	                Produit produit = new Produit();
 	                produit.setNomProduit(fields[3].trim());
-	                produit.setPrixProduit(Double.parseDouble(fields[8].trim()));
+	                produit.setPrixProduit(Double.parseDouble(fields[8]));
 	                produit.setMarqueProduit(fields[2]);
-	                produit.setPromotion(Boolean.parseBoolean(fields[6]));
+	             // 将字符串转换为布尔值
+	                boolean promotion = fields[6].equals("1") || fields[6].equalsIgnoreCase("true");
+
+	                // 设置产品的促销属性
+	                produit.setPromotion(promotion);
+
 	                produit.setAdresseImageProduit(fields[1]);
 	                produit.setNutriscore(fields[5]);
 	                produit.setDescription(fields[4]);
+	                produit.setLabel(fields[10].trim());
+	                produit.setKiloProduit(fields[9]);
+	             // 在设置pourcentagePromotion之前添加检查
+	                if (!fields[7].isEmpty()) {
+	                    produit.setPourcentagePromotion(Double.parseDouble(fields[7]));
+	                } else {
+	                    // 如果字符串为空，设置为默认值或采取其他适当的处理方式
+	                    produit.setPourcentagePromotion(0.0); // 或者设置为其他默认值
+	                }
+
+	                produit.setVente(Integer.parseInt(fields[11]));
+	                
+	                
+	                
+	                int cateID = Integer.parseInt(fields[15]); 
+	                Categories cate = session.get(Categories.class, cateID);
+	                produit.setCategorie(cate);
 
 	        
 
@@ -361,6 +452,53 @@ public class dataTEST {
 
 		    return magasinList;
 		}
+	 
+	 public static void insertMagasinTempRetrait() {
+		    try {
+		        Transaction transaction = null;
+		        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		            transaction = session.beginTransaction();
+
+		            // 读取CSV文件
+		            try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\LUO\\Downloads\\magasin_tempsretait.csv"))) {
+		                String line;
+		                boolean isFirstLine = true; // 标记是否是第一行
+		                while ((line = reader.readLine()) != null) {
+		                    if (isFirstLine) { // 如果是第一行，则跳过
+		                        isFirstLine = false;
+		                        continue;
+		                    }
+		                    // 解析CSV行数据
+		                    String[] fields = line.split(","); // 假设CSV文件中使用逗号作为分隔符
+
+		                    // 将字符串转换为整数
+		                    int idMagasin = Integer.parseInt(fields[0]);
+		                    int idTempsRetrait = Integer.parseInt(fields[1]);
+
+		                    // 创建插入数据的SQL语句
+		                    String sql = "INSERT INTO magasin_tempsretait (IdMagasin, IdTempsRetrait) VALUES (:field1, :field2)";
+
+		                    // 创建SQLQuery对象
+		                    SQLQuery query = session.createSQLQuery(sql);
+
+		                    // 设置参数值
+		                    query.setParameter("field1", idMagasin); // 设置第一个字段的值
+		                    query.setParameter("field2", idTempsRetrait); // 设置第二个字段的值
+
+		                    // 执行SQL语句插入数据
+		                    query.executeUpdate();
+		                }
+		            }
+
+		            // 提交事务
+		            transaction.commit();
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		}
+
+
 
 	
 
@@ -373,6 +511,7 @@ public class dataTEST {
 		//dataTEST.insertDataCommande();
 		//dataTEST.insertLigneCommande();
 		dataTEST.insertCSV();
+		insertMagasinTempRetrait();
 		
 		
 		

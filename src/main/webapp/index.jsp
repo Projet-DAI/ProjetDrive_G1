@@ -97,9 +97,9 @@
                     </div>
                     
                     <!-- Gestion des produits -->
-                    <!-- <div class="col-md-12 mt-5 text-center">
+                    <div class="col-md-12 mt-5 text-center">
                        <div class="btn btn-primary btn-lg" id="gestionBtn">Gestion des produits</div>
-                    </div> -->
+                    </div>
                     
          </div>
     

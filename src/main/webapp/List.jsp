@@ -38,7 +38,6 @@
 			<button onclick="openModal()" class="buttonCreer">Créer une nouvelle liste</button>
 	</div>
 		<% 
-		 String listeCourseName = request.getParameter("listeCourseName");
 		HttpSession s = request.getSession();
 		List<ListeCourse> list = (List<ListeCourse>)s.getAttribute("listCourse");
 		for (ListeCourse l : list){
@@ -56,7 +55,7 @@
 		</div>
 		<div style="float: right;"><%=l.getDateCreation() %></div>
 		<!-- 设置链接到您想要的目标页面 -->
-		<a href="listCourse.jsp?listeCourseName=<%= l.getNomListeCourse() %>"><p>Voir la liste</p></a>
+		<a href="shoppingList.jsp"><p>Voir la liste</p></a>
 	</div>
 	<%}%>
 		

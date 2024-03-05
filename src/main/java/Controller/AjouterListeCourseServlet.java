@@ -90,7 +90,8 @@ public class AjouterListeCourseServlet extends HttpServlet {
         // commit et close session
         session.getTransaction().commit();
         session.close();
-       
+        
+
 		response.sendRedirect("ListCoursePreloadServlet");
 		
 	}

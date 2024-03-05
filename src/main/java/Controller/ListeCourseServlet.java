@@ -14,24 +14,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
+
 import org.hibernate.SessionFactory;
 
-
+import Model.DAO.ChoisirProduitDao;
 import Model.DAO.HibernateUtil;
 import Model.DAO.PostitDao;
-import Model.metier.ListeCourse;
 import Model.metier.PostIt;
 import Model.metier.Produit;
 
-@WebServlet("/PostitServlet")
-public class PostitServlet extends HttpServlet {
+@WebServlet("/listCourse")
+public class ListeCourseServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private SessionFactory sessionFactory;
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	doPost(request, response);
-    	}
     
        
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,46 +43,29 @@ public class PostitServlet extends HttpServlet {
             case "clearAll":
                 clearAllKeywords(request, response);
                 break;
-            /*
             case "choisir":
                 choisirProduit(request, response);
                 break;
-                
-                */
             default:
                 // Handle invalid action
                 break;
         }
     }
-    
-    
 
    
 
     private void createKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keyword = request.getParameter("keyword");
-        String listeCourseName = request.getParameter("listeCourseName");
-        HttpSession session = request.getSession();
-        
-    
-        
         if (keyword != null && !keyword.isEmpty()) {
-        	
         	 PostIt postit = new PostIt();
-        	 ListeCourse listeCourse = new ListeCourse();
-        	 PostitDao postitDao = new PostitDao(sessionFactory);   
-
-             int listeId = postitDao.getListeId(listeCourseName);
-             System.out.println(listeId);
-             listeCourse.setIdListeCourse(listeId);
-
-             postit.setListeCourse(listeCourse);
+        	
+        	 PostitDao postitDao = new PostitDao(sessionFactory); 
              postit.setContenu(keyword);
              postit.setDateCreation(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant())); 
+       //    System.out.println(postit);
              postitDao.save(postit); 
-             
 
-            
+            HttpSession session = request.getSession();
             String sessionKeyword = (String) session.getAttribute("keyword");
             if (sessionKeyword != null && !sessionKeyword.isEmpty()) {
                 sessionKeyword += ", " + keyword;
@@ -177,7 +155,7 @@ public class PostitServlet extends HttpServlet {
     	    }
     }
     
-    /*
+    
     private void choisirProduit(HttpServletRequest request, HttpServletResponse response) {
     	
     	String keyword = request.getParameter("keyword");
@@ -198,10 +176,4 @@ public class PostitServlet extends HttpServlet {
 		
 		
 	}
-	*/
-    
-   
-
-		
-    
 }

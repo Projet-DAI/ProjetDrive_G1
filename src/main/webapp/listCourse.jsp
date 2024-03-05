@@ -2,7 +2,6 @@
 <%@ page import="java.util.List"%>
 <%@ page import="Model.metier.Produit"%>
 <%@ page import="Model.metier.PostIt"%>
-<%@page import="Model.metier.ListeCourse"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +28,7 @@
     background-color: lightpink;
 }
 
-
+/* 调整模态框高度 */
 .modal-dialog {
     max-height: 100%;
     margin: 0 auto;
@@ -41,7 +40,7 @@
 }
 
 .modal-body {
-    height: calc(100% - 58px); 
+    height: calc(100% - 58px); /* 58px 是头部和底部按钮的高度之和 */
     overflow-y: auto;
 }
 
@@ -80,18 +79,19 @@
 <div id="page-content" class="page-content">
     <div class="banner">
         <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
-       
+        <script>
+        // 从会话中获取用户名并在页面上显示
+        var username = '<%= session.getAttribute("username") %>';
+        document.getElementById("username").textContent = username;
+        </script>
     </div>
 </div>
 
-<%String listeCourseName = request.getParameter("listeCourseName");%>
-
 <div class="container">
     <div class="listCourse">
-        <a href="ListCoursePreloadServlet" class="bi bi-arrow-left">&nbsp; Mes listes</a>
-        <p><%= listeCourseName %></p>
-	</div>
-</div>
+        <a href="List.jsp" class="bi bi-arrow-left">&nbsp; Mes listes</a> 
+        <p>M&eacute;mo</p>
+    </div>
 
 <div class="keyword-list" id="keyword-list">
     <% 
@@ -137,7 +137,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    
+                    <!-- 修改这里，将 onclick 调用的函数改为 addKeyword() -->
                     <button type="button" class="btn btn-primary" onclick="addKeyword()">Confirmer</button>
                 </div>
             </div>
@@ -152,10 +152,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                
+                <!-- 轮播组件 -->
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner" id="carouselInner">
-                       
+                        <!-- 动态加载产品信息到这里 -->
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -182,13 +182,13 @@
 
 
 <script>
-�
+// JavaScript函数，用于显示模态框
 function openModal() {
     $('#myModal').modal('show');
 }
 
 $(document).ready(function() {
-    
+    // 检查关键字列表是否为空，决定是否显示 "Tout Effacer" 按钮
     var keywordListIsEmpty = ($('#keyword-list table tbody tr').length === 0);
     if (keywordListIsEmpty) {
         $('#clear-all').hide();
@@ -203,7 +203,7 @@ function addKeyword() {
     if (keyword !== "") {
         $.ajax({
             type: "POST",
-            url: "PostitServlet",
+            url: "listCourse",
             data: { action: "create", keyword: keyword },
             success: function(response) {
             	$('#keyword-list, #clear-all').show();
@@ -221,17 +221,23 @@ function addKeyword() {
     }
 }
 
-�
+
+
+
+
+
+
+// JavaScript函数，用于清除所有关键词
 function clearAll() {
     if (confirm("Voulez-vous vraiment effacer tous les mots-clés?")) {
         $.ajax({
             type: "POST",
-            url: "PostitServlet",
+            url: "listCourse",
             data: { action: "clearAll" },
             success: function(response) {
-                
+                // 更新关键词列表为空
                 $('#keyword-list table tbody').html("");
-                
+                // 隐藏 "Tout Effacer" 按钮
                 $('#clear-all').hide();
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -242,11 +248,11 @@ function clearAll() {
 }
 
 
-�
+//JavaScript函数，用于删除关键字
 function deleteKeyword(keyword) {
     $.ajax({
         type: "POST",
-        url: "PostitServlet",
+        url: "listCourse",
         data: { action: "delete", keyword: keyword },
         success: function(response) {
             location.reload();
@@ -261,18 +267,18 @@ function deleteKeyword(keyword) {
 
 function openProductModal(keyword) {
     
-    
+    // 清空轮播内部的内容
     var carouselInner = document.getElementById("carouselInner");
     carouselInner.innerHTML = "";
 
-    
+    // 这里是一个示例数据，您需要根据您的需求进行修改
     var products = [
         { name: "Product 1", image: "path/to/image1.jpg", price: "$100" },
         { name: "Product 2", image: "path/to/image2.jpg", price: "$200" },
-       ��
+        // 可以根据需要添加更多产品
     ];
 
-
+    // 动态加载产品信息到轮播组件中
     products.forEach(function(product, index) {
         var activeClass = index === 0 ? "active" : "";
         carouselInner.innerHTML += `
@@ -285,7 +291,8 @@ function openProductModal(keyword) {
             </div>
         `;
     });
-�
+
+    // 打开模态框
     $('#productModal').modal('show');
 }
 

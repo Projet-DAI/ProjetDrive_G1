@@ -21,7 +21,7 @@ public class Produit {
     private String nomProduit;
 
     @Column(name = "PrixProduit")
-    private double prixProduit;
+    private String prixProduit;
 
     @Column(name = "MarqueProduit")
     private String marqueProduit;
@@ -46,21 +46,8 @@ public class Produit {
     
     @Column(name = "Vente")
     private int vente;
-    
-    @Column(name = "kiloProduit")
-    private String kiloProduit;
 
-    public String getKiloProduit() {
-		return kiloProduit;
-	}
-
-
-	public void setKiloProduit(String kiloProduit) {
-		this.kiloProduit = kiloProduit;
-	}
-
-
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "IdCategorie")
     private Categories categorie;
     
@@ -82,7 +69,7 @@ public class Produit {
     private Set<Fournisseur> fournisseurs = new HashSet<>();
 	
     
-	public Produit(int idProduit, int ean, String nomProduit, double prixProduit, String marqueProduit,
+	public Produit(int idProduit, int ean, String nomProduit, String prixProduit, String marqueProduit,
 			boolean promotion, double pourcentagePromotion, String adresseImageProduit, String nutriscore,
 			String description, String label, int vente, Categories categorie,
 			List<Approvisionnement> approvisionnements, Set<Fournisseur> fournisseurs) {
@@ -139,13 +126,13 @@ public class Produit {
 	}
 
 
-	public double getPrixProduit() {
+	public String getPrixProduit() {
 		return prixProduit;
 	}
 
 
-	public void setPrixProduit(double d) {
-		this.prixProduit = d;
+	public void setPrixProduit(String prixProduit) {
+		this.prixProduit = prixProduit;
 	}
 
 

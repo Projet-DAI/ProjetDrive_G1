@@ -2,7 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@page import="java.util.List"%>
+<%@ page import="java.util.ArrayList" %>
 <%@page import="Model.metier.Produit"%>
+<%@page import="Model.metier.Categories"%>
 
 
 <!DOCTYPE html>
@@ -16,8 +18,18 @@
 <body>
     <jsp:include flush="true" page="head.jsp"></jsp:include>
 
-    <% List<Produit> liste = (List<Produit>)request.getAttribute("liste");%>
-	
+<%
+    List<Produit> liste = (List<Produit>) request.getAttribute("liste_msg");
+    List<Produit> listeFiltree = new ArrayList<>();
+
+    for (Produit produit : liste) {
+        Categories categorie = produit.getCategorie();
+        if (categorie != null && categorie.getIdCategorie() == 1 ) {
+            listeFiltree.add(produit);
+        }
+    }
+%>
+
     <div id="page-content" class="page-content">
     	<div class="banner">
             <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
@@ -37,7 +49,7 @@
                 <h2 class="title">Produits en promotion</h2>
                 <div class="product-carousel owl-carousel">
                     <%
-    for(Produit produit : liste) {
+    for(Produit produit : listeFiltree) {
 %>
     <div class="item">
         <div class="card card-product">
@@ -65,8 +77,7 @@
                     <a href="detail?productId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
                 </h4>
                 <div class="card-price">
-                    <span class="discount"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) %></span>
-                
+					<span class="discount"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) %></span>
                     <span class="reguler"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit()) %></span>
                 </div>
                 <a href="ServletPanier?method=ajouterPanier&productId=<%= produit.getIdProduit() %>" class="btn btn-block btn-primary">
@@ -94,6 +105,6 @@
 
 <style>
         .card-badge {
-            height: 250px; /* 设置为所需的高度 */
+            height: 250px;
         }
     </style>

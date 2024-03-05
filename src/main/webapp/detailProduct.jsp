@@ -32,7 +32,7 @@
 		<jsp:include flush="true" page="head.jsp"></jsp:include>
 </head>
 <body>
-
+	
     <div id="page-content" class="page-content">
         <div class="banner">
             <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
@@ -57,20 +57,22 @@
                         <% } else { %>
                             <p><strong>Promotion:</strong> No</p>
                         <% } %> --%>
-                        <p><strong>Nutriscore:</strong> ${product.nutriscore}</p>
-                        <p><strong>Category ID:</strong> ${product.categorie.idCategorie}</p>
-                        <p><strong>Description:</strong> ${product.description}</p>
-                        <!-- Quantity and Add to Cart Button -->
-                        <p class="mb-1"><strong>Quantity</strong></p>
-                        <div class="row mb-3">
-                            <div class="col-sm-5">
-                                <input type="number" class="form-control" value="1" name="quantity" min="1">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fa fa-shopping-basket"></i> Ajouter au panier
-                            </button>
-                        </form>
-
+                        <p><strong>Nutriscore:</strong> <%= product.getNutriscore() %></p>
+                        <p><strong>Category ID:</strong> <%= product.getCategorie().getIdCategorie() %></p>
+                          <!-- Formulaire pour ajouter au panier -->
+                        <form action="AjouterPanierServlet" method="post">
+						    <input type="hidden" name="productId" value="<%= product.getIdProduit() %>"> 
+						    <p class="mb-1"><strong>Quantité</strong></p>
+						    <div class="row mb-3">
+						        <div class="col-sm-5">
+						            <input type="number" class="form-control" value="1" name="quantite" min="1">
+						        </div>
+						    </div>
+						    <button type="submit" class="btn btn-primary btn-lg">
+						        <i class="fa fa-shopping-basket"></i> Ajouter au panier
+						    </button>
+						</form>
+                        
                     </div>
                 </div>
             </div>

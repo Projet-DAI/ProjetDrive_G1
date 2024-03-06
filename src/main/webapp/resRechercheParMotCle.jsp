@@ -79,9 +79,6 @@
                                             <%}%>
                                         </div>
 											<a href="detailProduct.jsp?productId=<%= p.getIdProduit() %>" class="btn btn-block btn-primary">Add to Cart</a>
-                                            Add to Cart
-                                        </a>
-
 					</div>
 				</div>
 			</div>

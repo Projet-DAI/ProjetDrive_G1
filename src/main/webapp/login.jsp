@@ -38,15 +38,9 @@
 									</div>
 								</div>
 								<div class="form-group row">
-									<div
-										class="col-md-12 d-flex justify-content-between align-items-center">
-										<div class="checkbox">
-											<input id="checkbox0" type="checkbox" name="remember">
-											<label for="checkbox0" class="mb-0"> Se souvenir de
-												moi ?</label>
-										</div>
-										<a href="login.jsp" class="text-light"><i
-											class="fa fa-bell"></i> Mot de passe oublié?</a>
+									<div class="col-md-12 d-flex justify-content-between align-items-center">
+										<a href="register.jsp" class="text-light" style="margin-left:5px;margin-top: 7px;">
+										<i class="fa fa-bell"></i> Vous n'avez pas encore de compte ?</a>
 									</div>
 								</div>
 								<div class="form-group row text-center mt-4">

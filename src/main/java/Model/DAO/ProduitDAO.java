@@ -30,6 +30,15 @@ public class ProduitDAO{
 	}
 	
 	public static List<Produit> rechercheParMotCle(String motcle) {
+		
+		String[] listeMot = motcle.split("");
+		
+		if (listeMot.length > 1) {
+			for (String mot : listeMot) {
+				rechercheParMotCle(mot);
+			}
+		}
+		
         List<Produit> listP = new ArrayList<>();
 
 
@@ -97,11 +106,20 @@ public class ProduitDAO{
 	// test
 	public static void main(String[] args) {
 		
-		List<Produit> produits = getProduitsPromParIdMagasin(1); // Assuming magasinId = 1 for testing
-	    for (Produit produit : produits) {
-	        System.out.println("Produit ID: " + produit.getIdProduit() + ", Nom: " + produit.getNomProduit() + ", Promotion: " + produit.isPromotion());
-	        // If you wish to display stock, ensure you fetch it accordingly
-	    }
+//		List<Produit> produits = getProduitsPromParIdMagasin(1); // Assuming magasinId = 1 for testing
+//	    for (Produit produit : produits) {
+//	        System.out.println("Produit ID: " + produit.getIdProduit() + ", Nom: " + produit.getNomProduit() + ", Promotion: " + produit.isPromotion());
+//	        // If you wish to display stock, ensure you fetch it accordingly
+//	    }
+		
+		String s = "kdk";
+    	String[] ls = s.split(" ");
+    	
+    	for (String m : ls) {
+    		System.out.println(ls.length);
+    		System.out.println(m);
+    	}
+    	
 		
 		/*
 		 * List<Produit> res = getProduitsProm();
@@ -143,29 +161,31 @@ public class ProduitDAO{
 	
 	
 	public class Main {
-	    public  void main(String[] args) {
-	        // Spécifiez l'ID du produit que vous souhaitez récupérer
-	        int productId = 1; // Remplacez 1 par l'ID du produit que vous souhaitez récupérer
-
-	        // Appelez la méthode getProductById pour récupérer le produit
-	        Produit product = ProduitDAO.getProductById(productId);
-
-	        // Vérifiez si le produit a été trouvé
-	        if (product != null) {
-	            // Affichez les détails du produit
-	            System.out.println("Product ID: " + product.getIdProduit());
-	            System.out.println("Product Name: " + product.getNomProduit());
-	            System.out.println("Product Price: " + product.getPrixProduit());
-	            System.out.println("Product Brand: " + product.getMarqueProduit());
-	            System.out.println("Product Promotion: " + product.isPromotion());
-	            System.out.println("Product Promotion Percentage: " + product.getPourcentagePromotion());
-	            System.out.println("Product Image Address: " + product.getAdresseImageProduit());
-	            System.out.println("Product Nutriscore: " + product.getNutriscore());
-	            System.out.println("Product Category ID: " + (product.getCategorie() != null ? product.getCategorie().getIdCategorie() : "N/A"));
-	        } else {
-	            // Si le produit n'est pas trouvé, affichez un message
-	            System.out.println("No product found with ID: " + productId);
-	        }
+	    public void main(String[] args) {
+//	        // Spécifiez l'ID du produit que vous souhaitez récupérer
+//	        int productId = 1; // Remplacez 1 par l'ID du produit que vous souhaitez récupérer
+//
+//	        // Appelez la méthode getProductById pour récupérer le produit
+//	        Produit product = ProduitDAO.getProductById(productId);
+//
+//	        // Vérifiez si le produit a été trouvé
+//	        if (product != null) {
+//	            // Affichez les détails du produit
+//	            System.out.println("Product ID: " + product.getIdProduit());
+//	            System.out.println("Product Name: " + product.getNomProduit());
+//	            System.out.println("Product Price: " + product.getPrixProduit());
+//	            System.out.println("Product Brand: " + product.getMarqueProduit());
+//	            System.out.println("Product Promotion: " + product.isPromotion());
+//	            System.out.println("Product Promotion Percentage: " + product.getPourcentagePromotion());
+//	            System.out.println("Product Image Address: " + product.getAdresseImageProduit());
+//	            System.out.println("Product Nutriscore: " + product.getNutriscore());
+//	            System.out.println("Product Category ID: " + (product.getCategorie() != null ? product.getCategorie().getIdCategorie() : "N/A"));
+//	        } else {
+//	            // Si le produit n'est pas trouvé, affichez un message
+//	            System.out.println("No product found with ID: " + productId);
+//	        }
+	    	
+	    	
 	    }
 	}
 

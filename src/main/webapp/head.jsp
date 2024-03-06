@@ -10,6 +10,7 @@
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@page import="Model.DAO.PanierDAO"%>
+
 <% Panier panier = (Panier) session.getAttribute("Panier"); %>
 
 <%-- Récupération du total du panier depuis la requête --%>
@@ -141,13 +142,14 @@
                             </a>
                             <div class="dropdown-menu shopping-cart">
                                 <ul>
+                                   <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
+                                
                                     <li>
                                         <div class="drop-title"> 
                                          	<a href="Panier" class="nav-link">Mon Panier</a>
                                         </div>
                                     </li>
                                     
-                                    <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
                                     
                                     <%-- Contenu du panier --%>
                							 <li>
@@ -167,6 +169,9 @@
                                              </div>
                                         </li>
 						            <% } %>
+						            <% } else { %>
+										    <p>Le panier est vide.</p>
+										<% } %>
 									     
                                     	<li>
                                     							
@@ -191,7 +196,6 @@
                                     <%-- Fin contenu du panier --%>
                                 </ul>
                             </div>
-		                  <% } %>
                             
                           </li>
                     </ul>

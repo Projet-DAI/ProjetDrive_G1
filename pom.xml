@@ -152,6 +152,14 @@
 		    <artifactId>pdfbox</artifactId>
 		    <version>2.0.24</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.5.0-b01</version>
+		</dependency>
+
 
 	</dependencies>
 

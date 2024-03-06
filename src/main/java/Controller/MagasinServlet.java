@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -47,9 +48,15 @@ public class MagasinServlet extends HttpServlet {
 		
 		try {
 	        String userLocation = request.getParameter("userLocation");
+	        
+	        // Récupérer l'ID du magasin en fonction de la localisation
+	        int idMagasin = MagasinDao.getIdMagasinByLocation(userLocation); // Remplacez cette ligne par votre logique pour obtenir l'ID du magasin
+	        
+	        // Stoker l'ID du magasin dans la session
+	        HttpSession session = request.getSession();
+	        session.setAttribute("idMagasin", idMagasin);
 	        List<Magasin> mags = MagasinDao.choisirMagasins(userLocation);
 
-	        // Pour éviter les problèmes de chargement paresseux, créez une liste de cartes contenant les informations requises.
 	        List<Map<String, Object>> magasinsData = new ArrayList<>();
 	        for (Magasin magasin : mags) {
 	            Map<String, Object> magasinData = new HashMap<>();
@@ -69,6 +76,8 @@ public class MagasinServlet extends HttpServlet {
 	        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	        response.getWriter().write("{\"error\":\"" + ex.getMessage() + "\"}");
 	    }
+		
+		
 		
 	}
 

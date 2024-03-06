@@ -45,40 +45,29 @@ public class ServletPanier extends HttpServlet {
         // Vérifier si les attributs de session sont présents
         Integer clientId = (Integer) session.getAttribute("clientId");
         Integer panierId = (Integer) session.getAttribute("panierId");
-
+        
         if (clientId != null && panierId != null && panierId != 0) {
         	PanierDAO panierDAO = new PanierDAO();
             Panier panier = panierDAO.getPanierById(panierId);
             
             if (panier != null) {
-            	
-                
-                	double total = panierDAO.calculerTotalPanier(panier);
-
-                
-                
-                	request.setAttribute("totalPanier", total);
-                
+   
                 
 	             // Afficher les détails du panier
 	                panierDAO.afficherDetailsPanier(panier);
 	                
 	             // Ajouter le panier à la requête avec le nom correct
-	                session.setAttribute("Panier", panier);
+	                session.setAttribute("panier", panier);
+	                
+	            } else {
+	                System.out.println("Le panier est introuvable.");
+	            }
 	                
 
                 // Rediriger vers Panier.jsp
                 request.getRequestDispatcher("/Panier.jsp").forward(request, response);
-                
-            } else {
-                System.out.println("Le panier est introuvable.");
-                response.sendRedirect("index.jsp");
-            }
-        } else {
-            System.out.println("Le client ou le panier est introuvable dans la session.");
-            response.sendRedirect("index.jsp");
+        }  
         }
-    }
 
     
 
@@ -87,23 +76,6 @@ public class ServletPanier extends HttpServlet {
      *      response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Obtenir le panier de la session
-        HttpSession session = request.getSession();
-        Panier panier = (Panier) session.getAttribute("Panier");
-
-        // Mettre à jour le panier en fonction de l'action effectuée (modification ou suppression)
-        // Code pour la modification ou suppression de produit dans le panier
-
-        // Mettre à jour le total du panier
-        if (panier != null) {
-            PanierDAO panierDAO = new PanierDAO();
-            double total = panierDAO.calculerTotalPanier(panier);
-            session.setAttribute("totalPanier", total);
-        }
-
-        // Rediriger vers la page du panier
-        response.sendRedirect(request.getContextPath() + "/Panier");
     }
-
 
 }

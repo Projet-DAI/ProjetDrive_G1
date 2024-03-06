@@ -6,10 +6,10 @@
 <%@ page import="Model.DAO.ClientDAO" %>
 <%-- Récupération du panier depuis la session --%>
 
-<% Panier panier = (Panier) session.getAttribute("Panier"); %>
+<% Panier panier = (Panier) session.getAttribute("panier"); %>
 
 <%-- Récupération du total du panier depuis la requête --%>
-<% Double totalPanier = (Double) request.getAttribute("totalPanier"); %>
+<% Double totalPanier = (Double) session.getAttribute("totalPanier"); %>
 
 
 <!DOCTYPE html>
@@ -131,9 +131,12 @@
 						    }
 						%>
 						
+						<h6 class="mt-3">Total: <span id="totalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
+						
+						
 <script type="text/javascript">
 // Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
-var totalPanierString = '<%= String.valueOf(total) %>';
+var totalPanierString = '<%= String.valueOf(totalPanier) %>';
 // Initialiser le total mis à jour à zéro
 var nouveauTotalPanier = 0;
 
@@ -155,9 +158,8 @@ function calculerNouveauTotal(pointsFidelite) {
 
         // Mettre à jour le nouveau total dans l'interface utilisateur
         updateNouveauTotalPanier();
-
-        // Afficher une alerte pour déboguer
-        //alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+     // Afficher une alerte pour déboguer
+        alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
     } else {
         // Gérer l'erreur si la conversion n'est pas un nombre valide
         console.error("Erreur de conversion du total en nombre.");
@@ -174,10 +176,7 @@ document.getElementById('voirPointsFidelitebtn').addEventListener('click', funct
 
 </script>
 
-
-		<h6 class="mt-3">Total: <span id="totalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
-		<br>
-		                  
+                  
 		<h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
 		<br>
 		

@@ -6,39 +6,33 @@
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="Model.metier.Commande" %>
 <%@ page import="Model.DAO.CommandeDAO" %>
+<%@ page import="Model.DAO.MagasinDao" %>
+<%@ page import="java.util.List" %>
 
-<% Panier panier = (Panier) session.getAttribute("Panier"); %>
+
+
+<% Panier panier = (Panier) session.getAttribute("panier"); %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>Valider mon panier</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css">
-<link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet"
-	type="text/css">
-<link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet"
-	type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet" type="text/css">
+    <link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet" type="text/css">
 
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/bootstrap/bootstrap.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/o2system-ui/o2system-ui.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/owl-carousel/owl-carousel.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/cloudzoom/cloudzoom.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/thumbelina/thumbelina.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/css/theme.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap/bootstrap.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/o2system-ui/o2system-ui.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/owl-carousel/owl-carousel.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/cloudzoom/cloudzoom.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
+	
+
 
 </head>
 <body>
@@ -94,6 +88,47 @@
 
 							</fieldset>
 						</form>
+						
+							<h5 class="mb-3">Choix du créneau de retrait</h5>
+							<form action="ChoixCreneauServlet" method="post">
+							    <select name="creneau">
+								    <!-- Utilisez une boucle pour afficher chaque créneau disponible -->
+								    <% if (request.getAttribute("creneauxDisponibles") != null && !((List<String>)request.getAttribute("creneauxDisponibles")).isEmpty()) { %>
+								        <% for (String creneau : (List<String>)request.getAttribute("creneauxDisponibles")) { %>
+								            <option value="<%= creneau %>"><%= creneau %></option>
+								        <% } %>
+								    <% } else { %>
+								        <option value="">Aucun créneau disponible</option>
+								    <% } %>
+								</select>
+								
+
+ 							  <input type="submit" value="Choisir">							    
+							</form>
+								<p id="creneauChoisiText" class="mt-3">Le créneau choisi est : </p>
+								
+								<script>
+								    document.addEventListener("DOMContentLoaded", function() {
+								        // Sélectionnez l'élément HTML où afficher le créneau choisi
+								        var creneauChoisiText = document.getElementById("creneauChoisiText");
+								        
+								        // Sélectionnez le menu déroulant
+								        var selectCreneau = document.querySelector("selectCreneau");
+								        
+								        // Écoutez les changements de sélection dans le menu déroulant
+								        selectCreneau.addEventListener("change", function() {
+								            // Récupérez la valeur sélectionnée dans le menu déroulant
+								            var selectedCreneau = this.value;
+								            
+								            // Mettez à jour le texte avec le créneau choisi
+								            creneauChoisiText.textContent = "Le créneau choisi est : " + selectedCreneau;
+								        });
+								    });
+								</script>
+								
+							
+			
+		
 					</div>
                      <%
                         

@@ -117,7 +117,7 @@
 	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
 											    <tr>
 											        <td><%= lignePanier.getProduit().getNomProduit() %> x<%= lignePanier.getQuantite() %></td>
-											        <td class="text-right"> <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %>&#8364</td>
+											        <td class="text-right">Rp <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
 											    </tr>
 											<% } %>
 			                                <% } %>

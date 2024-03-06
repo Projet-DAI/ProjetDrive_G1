@@ -48,7 +48,7 @@
 
 			<div class="container">
 				<!-- Navbar Brand -->
-				<a href="index.jsp" class="navbar-brand"> <img
+				<a href="employee.jsp" class="navbar-brand"> <img
 					src="assets/img/logo/logo.png" alt="">
 				</a>
 

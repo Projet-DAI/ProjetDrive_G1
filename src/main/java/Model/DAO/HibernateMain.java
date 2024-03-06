@@ -32,10 +32,10 @@ public class HibernateMain {
             Client client1 = new Client("BELBEKRI", "Widad", "widad.belbekri@gmail.com", "345677893", "widad", 15, null);
             session.save(client1);
 
-            // Rayon
-            Rayon rayon = new Rayon("Épicerie Sucrée");
-            session.save(rayon);
-            System.out.println("Rayon ajouté avec succès à la base de données!");
+//            // Rayon
+//            Rayon rayon = new Rayon("Épicerie Sucrée");
+//            session.save(rayon);
+//            System.out.println("Rayon ajouté avec succès à la base de données!");
 
             // Categories
 //            List<Categories> categoriesList = readCsvFileCategories("X:\\Telechargement\\categorie.csv", session);

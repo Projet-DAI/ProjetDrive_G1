@@ -469,7 +469,7 @@ public class dataTEST {
 		                        continue;
 		                    }
 		                    // 解析CSV行数据
-		                    String[] fields = line.split(","); // 假设CSV文件中使用逗号作为分隔符
+		                    String[] fields = line.split(";"); // 假设CSV文件中使用逗号作为分隔符
 
 		                    // 将字符串转换为整数
 		                    int idMagasin = Integer.parseInt(fields[0]);
@@ -506,12 +506,12 @@ public class dataTEST {
 	
 	
 	public static void main(String[] args) {
-		//dataTEST.insertDataClient();
-		//dataTEST.insertDataStatutCommande();
-		//dataTEST.insertDataCommande();
-		//dataTEST.insertLigneCommande();
-		dataTEST.insertCSV();
-		insertMagasinTempRetrait();
+//		dataTEST.insertDataClient();
+//		dataTEST.insertDataStatutCommande();
+//		dataTEST.insertDataCommande();
+//		dataTEST.insertLigneCommande();
+//		dataTEST.insertCSV();
+		//insertMagasinTempRetrait();
 		
 		
 		

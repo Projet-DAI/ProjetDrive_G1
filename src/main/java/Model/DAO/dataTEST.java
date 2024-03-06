@@ -256,6 +256,31 @@ public class dataTEST {
 	        
 	        // Lecture du fichier CSV TempsRetrait et insertion des données dans la base de données
 
+	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("C:\\Users\\mazhu\\Downloads\\TempsRetrairsRetrait.csv", session);
+	        for (TempsRetait tempsRetrait : tempsRetraitList) {
+	            session.save(tempsRetrait);
+	        }
+	        
+	        // Lecture du fichier CSV Magasin et insertion des données dans la base de données
+	        List<Magasin> magasinList = readCsvFileMagasin("C:\\Users\\mazhu\\Downloads\\Magasin.csv", session);
+	        for (Magasin magasin : magasinList) {
+	            session.save(magasin);
+	        }
+	        
+	        List<Rayon> rayonList = readCsvFileRayon("C:\\Users\\mazhu\\Downloads\\rayon.csv", session);
+	        for (Rayon rayon : rayonList) {
+	            session.save(rayon);
+	        }
+	        List<Categories> cateList = readCsvFileCate("C:\\Users\\mazhu\\Downloads\\categorie.csv", session);
+	        for (Categories cate : cateList) {
+	            session.save(cate);
+	        }
+	        
+	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\mazhu\\Downloads\\gestion_produit.csv", session);
+	        for (Produit produit : produitList) {
+	            session.save(produit);
+
+
 //	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("X:\\Telechargement\\TempsRetrairsRetrait.csv", session);
 
 	        //List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("C:\\Users\\Imane\\Downloads\\TempsRetrairsRetrait.csv", session);
@@ -300,6 +325,7 @@ public class dataTEST {
 	        List<Stock> stockList = readCsvFilestock("C:\\Users\\LUO\\Downloads\\stock.csv", session);
 	        for (Stock stock : stockList) {
 	            session.save(stock);
+
 	        }
 	       
 	        
@@ -516,6 +542,8 @@ public class dataTEST {
 		            transaction = session.beginTransaction();
 
 		            // 读取CSV文件
+		           // try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\mazhu\\Downloads\\magasin_tempsretait.csv"))) {
+
 
 //		            try (BufferedReader reader = new BufferedReader(new FileReader("X:\\Telechargement\\magasin_tempsretait.csv"))) {
 //

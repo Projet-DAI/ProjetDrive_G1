@@ -25,7 +25,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet" type="text/css">
     <link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet" type="text/css">
-    
 
 <link rel="stylesheet" type="text/css" media="all"
 	href="assets/packages/bootstrap/bootstrap.css">
@@ -137,11 +136,10 @@
                         <li class="nav-item dropdown">
                              <% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
                         
-                           <a class="nav-link dropdown-toggle" href="javascript:void(0)"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							    <div class="fa fa-shopping-basket"> <span class="badge badge-primary"><%= panier.getLignesPanier().size() %></span></div>
-							</a>
-
-                            <div class="dropdown-menu shopping-cart" aria-labelledby="navbarDropdown">
+                            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%= panier.getLignesPanier().size() %></span>
+                            </a>
+                            <div class="dropdown-menu shopping-cart">
                                 <ul>
                                     <li>
                                         <div class="drop-title"> 
@@ -176,7 +174,7 @@
 									       
 											
 											
-												<span>Total:</span>  <span id="nouveauTotalPanier"><strong><%= String.format("%.2f", totalPanier) %>&#8364</strong></span>
+												<h6 class="mt-3">Total: <span id="nouveauTotalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
 												
 									            <%-- <span>Total:</span>
 									            <span class="text-primary"><strong><%=total %> €</strong></span>

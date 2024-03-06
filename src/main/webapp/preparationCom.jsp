@@ -50,6 +50,7 @@
 		</div>
 
 		<section id="cart">
+			<form action="FinirPreparationServlet" method="get">
 			<div class="container">
 				<div class="row" >
 					<div class="col-md-12">
@@ -95,10 +96,11 @@
 								</tbody>
 							</table>
 						</div>
-					</div>
-					<div id="finirPre" class="col-md-12 d-flex justify-content-end"><button type="button" class="btn btn-default btn-lg text-white" style="background-color: #0075FF;">Finir la préparation</button></div>
+					</div>	
+					<div id="finirPre" class="col-md-12 d-flex justify-content-end"><button type="submit" class="btn btn-default btn-lg text-white" style="background-color: #0075FF;">Finir la préparation</button></div>
 				</div>
 			</div>
+			</form>
 		</section>
 
 		<!-- Modal -->

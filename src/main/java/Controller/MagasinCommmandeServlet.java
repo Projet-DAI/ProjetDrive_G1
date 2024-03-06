@@ -39,7 +39,7 @@ public class MagasinCommmandeServlet extends HttpServlet {
 		
 		String idm = (String) request.getParameter("idm");
 		
-		System.out.println(idm);
+		//System.out.println(idm);
 		
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			
@@ -80,8 +80,8 @@ public class MagasinCommmandeServlet extends HttpServlet {
 			sb.append("}");
 			
 			
-			System.out.println(sb);
-			System.out.println("finish json");
+			//System.out.println(sb);
+			//System.out.println("finish json");
 			
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().print(sb);

@@ -77,7 +77,7 @@ public class MagasinCommmandeDetailServlet extends HttpServlet {
 				query2.setParameter("idP", idP);
 				int stockP = query2.getSingleResult();
 				
-				System.out.println(stockP);
+				//System.out.println(stockP);
 				listeStock.add(stockP);
 			}
 			

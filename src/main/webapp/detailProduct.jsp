@@ -33,8 +33,8 @@
 </head>
 <body>
 
-<jsp:include flush="true" page="head.jsp"></jsp:include>
 
+	<jsp:include flush="true" page="head.jsp"></jsp:include>
 
 	
     <div id="page-content" class="page-content">
@@ -65,7 +65,31 @@
                         <p><strong>Nutriscore:</strong> <%= product.getNutriscore() %></p>
                         
 
-                        <p><strong>Description:</strong> <%= product.getDescription() %></p>
+                     <p id="descriptionText"><strong>Description:</strong> <%= product.getDescription().substring(0, 100) %></p>
+<p id="showMoreButton" onclick="showMore()" style="color: blue; font-weight: bold; cursor: pointer;">Voir plus</p>
+<p id="showLessButton" onclick="showLess()" style="color: blue; font-weight: bold; cursor: pointer; display: none;">Réduire</p>
+
+<script>
+    function showMore() {
+        var description = "<strong>Description:</strong> <%= product.getDescription() %>";
+        document.getElementById("descriptionText").innerHTML = description;
+        document.getElementById("showMoreButton").style.display = "none";
+        document.getElementById("showLessButton").style.display = "inline"; // 显示"收回"按钮
+    }
+
+    function showLess() {
+        var truncatedDescription = "<strong>Description:</strong> <%= product.getDescription().substring(0, 100) %>";
+        document.getElementById("descriptionText").innerHTML = truncatedDescription;
+        document.getElementById("showMoreButton").style.display = "inline"; // 显示"Voir plus"按钮
+        document.getElementById("showLessButton").style.display = "none"; // 隐藏"收回"按钮
+    }
+</script>
+
+<p></p>
+<p></p>
+
+
+
                           <!-- Formulaire pour ajouter au panier -->
                         <form action="AjouterPanierServlet" method="post">
 						    <input type="hidden" name="productId" value="<%= product.getIdProduit() %>"> 
@@ -100,15 +124,6 @@
 &nbsp;
 <jsp:include flush="true" page="footer.jsp"></jsp:include>
     
-    <script type="text/javascript" src="assets/js/jquery.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
-    <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>
-    <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="assets/packages/o2system-ui/o2system-ui.js"></script>
-    <script type="text/javascript" src="assets/packages/owl-carousel/owl-carousel.js"></script>
-    <script type="text/javascript" src="assets/packages/cloudzoom/cloudzoom.js"></script>
-    <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
-    <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
-    <script type="text/javascript" src="assets/js/theme.js"></script>
+  
 </body>
 </html>

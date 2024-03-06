@@ -2,11 +2,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="Model.DAO.ProduitDAO" %>
 <%@ page import="Model.metier.Produit" %>
+<%@ page import="Model.metier.Categories" %>
 <%@ page import="java.util.List" %>
 
 <%
+    ProduitDAO produitDAO = new ProduitDAO(); 
     int rayonId = Integer.parseInt(request.getParameter("rayonId"));
-    List<Produit> listeProduits = ProduitDAO.getProduitsByRayon(rayonId);
+    String nomRayon = produitDAO.getNomRayonById(rayonId);
+    List<String> categories = produitDAO.getCategoriesByRayon(rayonId);
+    String selectedCategory = request.getParameter("categorie");
+    if (selectedCategory == null && !categories.isEmpty()) {
+        selectedCategory = categories.get(1);  
+    }
+    List<Produit> listeProduits = produitDAO.getProduitsByRayonAndCategory(rayonId, selectedCategory);
 %>
 
 <!DOCTYPE html>
@@ -15,6 +23,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produits du Rayon</title>
+    
+    <script>
+        function updateProducts() {
+            var selectedCategory = document.getElementById("categories").value;
+            window.location.href = "rayon_products.jsp?rayonId=<%= rayonId %>&categorie=" + selectedCategory;
+        }
+    </script>
 </head>
 <body>
 
@@ -36,16 +51,33 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="title">Produits par Catégorie de Rayon</h2>
+			  <h2 class="title">Produits du Rayon - <%= nomRayon %>  </h2>
+			    <label for="categories">Choisir une catégorie :</label>
+			    <select id="categories" name="categories" onchange="updateProducts()">
+			        <%
+			            if (categories.isEmpty()) {
+			        %>
+			                <p>Aucune categorie n'est disponible pour le moment.</p>
+			        <%
+			            } else {
+			                for (String category : categories) {
+			        %>
+			                    <option value="<%= category %>" <%= category.equals(selectedCategory) ? "selected" : "" %>><%= category %></option>
+			        <%
+			                }
+			            }
+			        %>
+			    </select>               
                 <div class="product-carousel owl-carousel">
             
-						<%					
-						    if (listeProduits.isEmpty()) {
-						%>
-						<p>Aucun produit n'est disponible pour le moment.</p>
-					    <%
-						    for (Produit produit : listeProduits) {
-						%>
+					<%					
+					    if (listeProduits.isEmpty()) {
+					%>
+					    <p>Aucun produit n'est disponible pour le moment.</p>
+					<%
+					    } else {
+					        for (Produit produit : listeProduits) {
+					%>
 						<div class="item">
 					        <div class="card card-product">
 					            <div class="card-ribbon">

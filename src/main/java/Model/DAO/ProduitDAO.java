@@ -8,185 +8,251 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.HibernateException;
 
-
 import Model.metier.Produit;
 
-public class ProduitDAO{
-	
-	// Afficher touts les produits
-	public static List<Produit> getToutsLesProduits() {
+public class ProduitDAO {
+
+    public static List<Produit> getToutsLesProduits() {
         List<Produit> products = new ArrayList<>();
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
 
-            // Use HQL (Hibernate Query Language) to retrieve products
             Query<Produit> query = session.createQuery("FROM Produit", Produit.class);
             products = query.list();
-            
+
+            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return products;
-	}
-	
-	public static List<Produit> rechercheParMotCle(String motcle) {
+    }
+
+    public static List<Produit> rechercheParMotCle(String motcle) {
         List<Produit> listP = new ArrayList<>();
 
-
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
 
-            // Use HQL (Hibernate Query Language) to retrieve products
-            Query<Produit> query = session.createQuery("FROM Produit	 where NomProduit like '%" + motcle + "%'", Produit.class);
+            Query<Produit> query = session.createQuery("FROM Produit WHERE NomProduit LIKE :motcle", Produit.class);
+            query.setParameter("motcle", "%" + motcle + "%");
             listP = query.list();
-            
+
+            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return listP;
-	}
-  	
-	//Afficher produits promotion
-	public static List<Produit> getProduitsProm() {
+    }
+
+    public static List<Produit> getProduitsProm() {
         List<Produit> productsProm = new ArrayList<>();
-            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-               Query<Produit> query = session.createQuery("FROM Produit WHERE promotion = 1", Produit.class);
-              productsProm = query.list();
-                } catch (Exception e) {
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            Query<Produit> query = session.createQuery("FROM Produit WHERE promotion = true", Produit.class);
+            productsProm = query.list();
+
+            transaction.commit();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return productsProm;
-	}
+    }
 
-	public static List<Produit> getProduitsByRayon(int rayonId) {
-	    List<Produit> produits = null;
+    public List<String> getCategoriesByRayon(int rayonId) {
+        List<String> categories = new ArrayList<>();
 
-	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-	        String hql = "FROM Produit P WHERE P.categorie.rayon.idRayon = :rayonId";
-	        Query<Produit> query = session.createQuery(hql);
-	        query.setParameter("rayonId", rayonId);
-	        produits = query.list();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
 
-	        // Ajoutez des messages de débogage ici
-	        System.out.println("Produits récupérés pour le rayon " + rayonId + ": " + produits);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+            String hql = "SELECT DISTINCT P.categorie.nomCategorie FROM Produit P WHERE P.categorie.rayon.idRayon = :rayonId";
+            Query<String> query = session.createQuery(hql);
+            query.setParameter("rayonId", rayonId);
+            categories = query.list();
 
-	    return produits;
-	}
-	
-	//Afficher produits promotion Par IdMagasin
-	public static List<Produit> getProduitsPromParIdMagasin(int magasinId) {
-	    Session session = null;
-	    List<Produit> produits = new ArrayList<>();
-	    try {
-	        session = HibernateUtil.getSessionFactory().openSession();
-	        // Adjusted HQL query to join through Stock
-	        String hql = "SELECT s.produit FROM Stock s " +
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return categories;
+    }
+
+    public static List<Produit> getProduitsByRayonAndCategory(int rayonId, String categorie) {
+        List<Produit> produits = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            String hql = "SELECT DISTINCT P FROM Produit P WHERE P.categorie.rayon.idRayon = :rayonId AND P.categorie.nomCategorie = :categorie";
+            Query<Produit> query = session.createQuery(hql);
+            query.setParameter("rayonId", rayonId);
+            query.setParameter("categorie", categorie);
+            produits = query.list();
+
+            transaction.commit();
+
+            // Ajoutez des messages de débogage ici
+            System.out.println("Produits récupérés pour le rayon " + rayonId + " et la catégorie " + categorie + ": " + produits);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return produits;
+    }
+
+    public static List<Produit> getProduitsByRayon(int rayonId) {
+        List<Produit> produits = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            String hql = "FROM Produit P WHERE P.categorie.rayon.idRayon = :rayonId";
+            Query<Produit> query = session.createQuery(hql);
+            query.setParameter("rayonId", rayonId);
+            produits = query.list();
+
+            transaction.commit();
+
+            // Ajoutez des messages de débogage ici
+            System.out.println("Produits récupérés pour le rayon " + rayonId + ": " + produits);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return produits;
+    }
+
+    public static String getNomRayonById(int rayonId) {
+        switch (rayonId) {
+            case 1:
+                return "Boucherie";
+            case 2:
+                return "Brasserie";
+            case 3:
+                return "Charcuterie";
+            case 4:
+                return "Crémerie";
+            case 5:
+                return "Épicerie Salée";
+            case 6:
+                return "Épicerie Sucrée";
+            case 7:
+                return "Fruits et Légumes";
+            case 8:
+                return "Marée";
+            case 9:
+                return "Spiritueux";
+            case 10:
+                return "Surgelé";
+            case 11:
+                return "Traiteur";
+            case 12:
+                return "Vin et Champagne";
+            case 13:
+                return "Entretien et Nettoyage";
+
+            default:
+                return "Rayon inconnu";
+        }
+    }
+
+    public static List<Produit> getProduitsPromParIdMagasin(int magasinId) {
+        Session session = null;
+        List<Produit> produits = new ArrayList<>();
+
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+
+            // Adjusted HQL query to join through Stock
+            String hql = "SELECT s.produit FROM Stock s " +
                     "WHERE s.magasin.idMagasin = :magasinId " +
                     "AND s.produit.promotion = true " +
                     "AND s.quantiteEnStock > 0";
-	        Query<Produit> query = session.createQuery(hql, Produit.class);
-	        query.setParameter("magasinId", magasinId);
-	        produits = query.getResultList();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        if (session != null) {
-	            session.close();
-	        }
-	    }
-	    return produits;
-	}
+            Query<Produit> query = session.createQuery(hql, Produit.class);
+            query.setParameter("magasinId", magasinId);
+            produits = query.getResultList();
 
-	// Afficher un produit
-	public static Produit getProductById(int productId) {
-	    Produit product = null;
-	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-	        product = session.get(Produit.class, productId);
-	    } catch (HibernateException e) {
-	        e.printStackTrace();
-	    }
-	    return product;
-	}
-	
-	// test
-	public static void main(String[] args) {
-		
-		List<Produit> produits = getProduitsPromParIdMagasin(1); // Assuming magasinId = 1 for testing
-	    for (Produit produit : produits) {
-	        System.out.println("Produit ID: " + produit.getIdProduit() + ", Nom: " + produit.getNomProduit() + ", Promotion: " + produit.isPromotion());
-	        // If you wish to display stock, ensure you fetch it accordingly
-	    }
-		
-		/*
-		 * List<Produit> res = getProduitsProm();
-		 * 
-		 * for (Produit product : res) { System.out.println("Product ID: " +
-		 * product.getIdProduit()); System.out.println("Product Name: " +
-		 * product.getNomProduit()); System.out.println("Product Price: " +
-		 * product.getPrixProduit()); System.out.println("Product Brand: " +
-		 * product.getMarqueProduit()); System.out.println("Product Promotion: " +
-		 * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
-		 * product.getPourcentagePromotion());System.out.println("Product description: "
-		 * + product.getDescription()); System.out.println("Product Image Address: " +
-		 * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
-		 * + product.getNutriscore()); System.out.println("Product Category ID: " +
-		 * product.getCategorie().getIdCategorie());
-		 * System.out.println("------------------------------"); }
-		 */
-		
-		/*
-		 * int testProductId = 1; Produit product = getProductById(testProductId);
-		 * 
-		 * if (product != null) { System.out.println("Product ID: " +
-		 * product.getIdProduit()); System.out.println("Product Name: " +
-		 * product.getNomProduit()); System.out.println("Product Price: " +
-		 * product.getPrixProduit()); System.out.println("Product Brand: " +
-		 * product.getMarqueProduit()); System.out.println("Product Promotion: " +
-		 * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
-		 * product.getPourcentagePromotion());
-		 * System.out.println("Product Image Address: " +
-		 * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
-		 * + product.getNutriscore()); System.out.println("Product Category ID: " +
-		 * (product.getCategorie() != null ? product.getCategorie().getIdCategorie() :
-		 * "N/A")); } else { System.out.println("No product found with ID: " +
-		 * testProductId); }
-		 */
-	}
-	
-	/* Fin de la test */ 
-	
-	
-	public class Main {
-	    public  void main(String[] args) {
-	        // Spécifiez l'ID du produit que vous souhaitez récupérer
-	        int productId = 1; // Remplacez 1 par l'ID du produit que vous souhaitez récupérer
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return produits;
+    }
 
-	        // Appelez la méthode getProductById pour récupérer le produit
-	        Produit product = ProduitDAO.getProductById(productId);
+    public static Produit getProductById(int productId) {
+        Produit product = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
 
-	        // Vérifiez si le produit a été trouvé
-	        if (product != null) {
-	            // Affichez les détails du produit
-	            System.out.println("Product ID: " + product.getIdProduit());
-	            System.out.println("Product Name: " + product.getNomProduit());
-	            System.out.println("Product Price: " + product.getPrixProduit());
-	            System.out.println("Product Brand: " + product.getMarqueProduit());
-	            System.out.println("Product Promotion: " + product.isPromotion());
-	            System.out.println("Product Promotion Percentage: " + product.getPourcentagePromotion());
-	            System.out.println("Product Image Address: " + product.getAdresseImageProduit());
-	            System.out.println("Product Nutriscore: " + product.getNutriscore());
-	            System.out.println("Product Category ID: " + (product.getCategorie() != null ? product.getCategorie().getIdCategorie() : "N/A"));
-	        } else {
-	            // Si le produit n'est pas trouvé, affichez un message
-	            System.out.println("No product found with ID: " + productId);
-	        }
-	    }
-	}
+            product = session.get(Produit.class, productId);
 
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return product;
+    }
+
+    // Test
+    public static void main(String[] args) {
+
+        // Test for getting products with promotion from a specific store (assuming magasinId = 1 for testing)
+        List<Produit> produits = getProduitsPromParIdMagasin(1);
+        for (Produit produit : produits) {
+            System.out.println("Produit ID: " + produit.getIdProduit() +
+                    ", Nom: " + produit.getNomProduit() +
+                    ", Promotion: " + produit.isPromotion());
+            // If you wish to display stock, ensure you fetch it accordingly
+        }
+
+        /*
+         * Other test cases can be uncommented and executed as needed
+         */
+
+        /*
+         * List<Produit> res = getProduitsProm();
+         *
+         * for (Produit product : res) { System.out.println("Product ID: " +
+         * product.getIdProduit()); System.out.println("Product Name: " +
+         * product.getNomProduit()); System.out.println("Product Price: " +
+         * product.getPrixProduit()); System.out.println("Product Brand: " +
+         * product.getMarqueProduit()); System.out.println("Product Promotion: " +
+         * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
+         * product.getPourcentagePromotion());System.out.println("Product description: "
+         * + product.getDescription()); System.out.println("Product Image Address: " +
+         * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
+         * + product.getNutriscore()); System.out.println("Product Category ID: " +
+         * product.getCategorie().getIdCategorie());
+         * System.out.println("------------------------------"); }
+         */
+
+        /*
+         * int testProductId = 1; Produit product = getProductById(testProductId);
+         *
+         * if (product != null) { System.out.println("Product ID: " +
+         * product.getIdProduit()); System.out.println("Product Name: " +
+         * product.getNomProduit()); System.out.println("Product Price: " +
+         * product.getPrixProduit()); System.out.println("Product Brand: " +
+         * product.getMarqueProduit()); System.out.println("Product Promotion: " +
+         * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
+         * product.getPourcentagePromotion());
+         * System.out.println("Product Image Address: " +
+         * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
+         * + product.getNutriscore()); System.out.println("Product Category ID: " +
+         * (product.getCategorie() != null ? product.getCategorie().getIdCategorie() :
+         * "N/A")); } else { System.out.println("No product found with ID: " +
+         * testProductId); }
+         */
+    }
 }
-

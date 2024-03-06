@@ -3,6 +3,7 @@
 <%@ page import="Model.DAO.ProduitDAO" %>
 <%@ page import="Model.metier.Produit" %>
 <%@ page import="Model.metier.Categories" %>
+<%@ page import="java.util.HashSet" %>
 <%@ page import="java.util.List" %>
 
 <%
@@ -70,13 +71,16 @@
 			    </select>               
                 <div class="product-carousel owl-carousel">
             
-					<%					
+					<%
+				        HashSet<Integer> displayedProductIds = new HashSet<>();
 					    if (listeProduits.isEmpty()) {
 					%>
 					    <p>Aucun produit n'est disponible pour le moment.</p>
 					<%
 					    } else {
 					        for (Produit produit : listeProduits) {
+					            if (displayedProductIds.add(produit.getIdProduit())) {
+
 					%>
 						<div class="item">
 					        <div class="card card-product">
@@ -116,6 +120,7 @@
 					    </div>					    <%
 					            }
 					        }
+					    }
 					    %>
 
                         </div>

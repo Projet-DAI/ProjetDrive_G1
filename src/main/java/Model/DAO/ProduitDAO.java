@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -89,13 +90,20 @@ public class ProduitDAO {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            String hql = "SELECT DISTINCT P FROM Produit P WHERE P.categorie.rayon.idRayon = :rayonId AND P.categorie.nomCategorie = :categorie";
+            String hql = "SELECT p FROM Produit p " +
+                    "JOIN FETCH p.categorie " +
+                    "WHERE p.categorie.rayon.idRayon = :rayonId " +
+                    "AND p.categorie.nomCategorie = :categorie";
             Query<Produit> query = session.createQuery(hql);
             query.setParameter("rayonId", rayonId);
             query.setParameter("categorie", categorie);
-            produits = query.list();
+            List<Produit> rawProducts = query.list();
 
             transaction.commit();
+
+            // Utiliser un HashSet pour éliminer les doublons
+            HashSet<Produit> uniqueProducts = new HashSet<>(rawProducts);
+            produits = new ArrayList<>(uniqueProducts);
 
             // Ajoutez des messages de débogage ici
             System.out.println("Produits récupérés pour le rayon " + rayonId + " et la catégorie " + categorie + ": " + produits);
@@ -105,7 +113,6 @@ public class ProduitDAO {
 
         return produits;
     }
-
     public static List<Produit> getProduitsByRayon(int rayonId) {
         List<Produit> produits = null;
 

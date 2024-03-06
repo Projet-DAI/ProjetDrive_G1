@@ -66,52 +66,9 @@
 		</div>
 	</div>
 </body>
-<footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-				<h5>� propos</h5>
-				<p></p>
-			</div>
-			<div class="col-md-3">
-				<h5>Liens Utiles</h5>
-				<ul>
-					<li><a href="about.html">� propos</a></li>
-					<li><a href="contact.html">Contactez-nous</a></li>
-					<li><a href="faq.html">FAQ</a></li>
-					<li><a href="javascript:void(0)">Comment �a fonctionne</a></li>
-					<li><a href="terms.html">Termes et Conditions de Retrait</a></li>
-					<li><a href="privacy.html">Politique de confidentialit�</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3">
-				<h5>Contact</h5>
-				<ul>
-					<li><a href="tel:+620892738334"><i class="fa fa-phone"></i>
-							00337236723</a></li>
-					<li><a href="mailto:hello@domain.com"><i
-							class="fa fa-envelope"></i> Drive@G1.com</a></li>
-				</ul>
 
-				<h5>Suivez-nous</h5>
-				<ul class="social">
-					<li><a href="javascript:void(0)" target="_blank"><i
-							class="fab fa-facebook-f"></i></a></li>
-					<li><a href="javascript:void(0)" target="_blank"><i
-							class="fab fa-instagram"></i></a></li>
-					<li><a href="javascript:void(0)" target="_blank"><i
-							class="fab fa-youtube"></i></a></li>
-				</ul>
-			</div>
-			<div class="col-md-3">
-				<h5>Obtenez notre application d�s maintenant</h5>
-				<ul class="mb-0">
-					<li class="download-app"><a href="#"><img
-							src="assets/img/playstore.png"></a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</footer>
+
+<jsp:include flush="true" page="footer.jsp"></jsp:include>
+
 
 </html>

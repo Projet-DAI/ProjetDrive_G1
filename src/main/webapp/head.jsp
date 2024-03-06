@@ -75,23 +75,45 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-				<div class="collapse navbar-collapse" id="navbarcollapse">
-					<!-- Navbar Menu -->
-					<ul class="navbar-nav ml-auto">
-						<li>
-							<div>
-								<form action="RechercheParMotCle" method="get">
-									<input name="motcle" placeholder="Rechercher..."
-										style="background-color: transparent; color: grey; height: 25px">
-									<button type="submit" style="height: 25px;">
-										<i class="bi bi-search"></i>
-									</button>
-								</form>
-							</div>
+                <div class="collapse navbar-collapse" id="navbarcollapse">
+                    <!-- Navbar Menu -->
+                    <ul class="navbar-nav ml-auto">
+               
+                    	
+                    	<form action="RechercheParMotCle" method="get">
+                    	
+                    	<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+      <div role="separator" class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+  </div>
+  <input type="text" name="motcle" class="form-control" aria-label="Text input with dropdown button">
+</div>
+                    	
+                    	
+                    	</form>
+                    	
+                    	
+                    	
+                    	<!-- ajouter Drive pour choisir magasin-->
+                    	<li class="nav-item" id="drive">
+						    <a href="#" class="nav-link drive-link" data-toggle="modal" data-target="#locationModal">Drive</a>
 						</li>
-						<!-- ajouter Drive pour choisir magasin-->
-						<li class="nav-item" id="drive"><a href="#" class="nav-link"
-							data-toggle="modal" data-target="#locationModal">Drive</a></li>
+						<style>
+    .drive-link {
+        color: white;
+    }
+
+    .drive-link:hover {
+        color: pink;
+    }
+</style>
 
 
 						<li class="nav-item"><a href="#" id="faireCoursesBtn"

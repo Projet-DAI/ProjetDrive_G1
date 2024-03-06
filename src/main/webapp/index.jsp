@@ -24,6 +24,14 @@
 	
 </head>
 <body>
+ <div class="page-header">
+        <!--=============== Navbar ===============-->
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
+            <div class="container">
+                <!-- Navbar Brand -->
+                <a href="index.jsp" class="navbar-brand">
+                    <img src="" alt="">
+                </a>
     <div id="page-content" class="page-content">
         <div class="banner">
             <div class="jumbotron jumbotron-video text-center bg-dark mb-0 rounded-0">

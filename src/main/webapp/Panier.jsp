@@ -40,13 +40,27 @@
 <title>Mon Panier</title>
 <head>
     <title>Freshcery | Groceries Organic Store</title>
-    <jsp:include flush="true" page="head.jsp"></jsp:include>
     
 
 </head>
 <body>
-    
 
+    <div id="page-content" class="page-content">
+        <div class="banner">
+            <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
+                <div class="container">
+                    <h1 class="pt-5">
+                        Mon panier
+                    </h1>
+                    <p class="lead">
+                        Économisez du temps et confiez-nous vos courses
+                    </p>
+                </div>
+            </div>
+        </div>
+
+	    <jsp:include flush="true" page="head.jsp"></jsp:include>
+	
         <section id="cart">
             <div class="container">
                 <div class="row">
@@ -108,7 +122,6 @@
                         <a href="shop.jsp" class="btn btn-default">Continuer mes achats</a>
                     </div>
                     
-                        <div class="clearfix"></div>
                         <%
 						    double total = 0.0;
 						    if (request.getAttribute("panier") != null) {

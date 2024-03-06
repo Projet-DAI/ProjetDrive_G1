@@ -53,11 +53,12 @@ public class ServletPanier extends HttpServlet {
             if (panier != null) {
             	
                 
-                double total = panierDAO.calculerTotalPanier(panier);
+                	double total = panierDAO.calculerTotalPanier(panier);
 
                 
                 
-                request.setAttribute("totalPanier", total);
+                	request.setAttribute("totalPanier", total);
+                
                 
 	             // Afficher les détails du panier
 	                panierDAO.afficherDetailsPanier(panier);
@@ -85,10 +86,24 @@ public class ServletPanier extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        doGet(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Obtenir le panier de la session
+        HttpSession session = request.getSession();
+        Panier panier = (Panier) session.getAttribute("Panier");
+
+        // Mettre à jour le panier en fonction de l'action effectuée (modification ou suppression)
+        // Code pour la modification ou suppression de produit dans le panier
+
+        // Mettre à jour le total du panier
+        if (panier != null) {
+            PanierDAO panierDAO = new PanierDAO();
+            double total = panierDAO.calculerTotalPanier(panier);
+            session.setAttribute("totalPanier", total);
+        }
+
+        // Rediriger vers la page du panier
+        response.sendRedirect(request.getContextPath() + "/Panier");
     }
+
 
 }

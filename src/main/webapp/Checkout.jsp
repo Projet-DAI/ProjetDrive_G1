@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <%@ page import="Model.metier.Client" %>
 <%@ page import="Model.DAO.ClientDAO" %>
 <%@ page import="Model.metier.Panier" %>
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="Model.metier.Commande" %>
 <%@ page import="Model.DAO.CommandeDAO" %>
+<%@ page import="Model.metier.TempsRetait" %>
+<%@ page import="java.util.List" %>
+
+
 
 <% Panier panier = (Panier) session.getAttribute("Panier"); %>
+<%-- R√©cup√©ration du total du panier depuis la requ√™te --%>
+<% Double totalPanier = (Double) request.getAttribute("totalPanier"); %>
 
 <!DOCTYPE html>
 <html>
@@ -69,7 +75,7 @@
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">
-										<input class="form-control" placeholder="Nom PrÈnom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
+										<input class="form-control" placeholder="Nom Pr√©nom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
 									</div>
 									<div class="col">
 										<input class="form-control" placeholder="Nom utilisateur" type="text" value="<%= clientConnecte.getNomUtilisateurClient() %>">
@@ -80,7 +86,7 @@
 										type="text" value="<%= clientConnecte.getEmailClient() %>">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="TÈlÈphone"
+									<input class="form-control" placeholder="T√©l√©phone"
 										type="text" value="<%= clientConnecte.getTelephoneClient() %>">
 								</div>
 								<div class="form-group">
@@ -91,14 +97,27 @@
 									<input class="form-control" placeholder="Code postal"
 										type="text">
 								</div>
+								
 
 							</fieldset>
 						</form>
-					</div>
+							<h5 class="mb-3">Choix du cr√©neau de retrait : </h5>
+							<%-- Afficher les cr√©neaux disponibles --%>
+							   <% if (creneauxDisponibles != null) { %>
+								        <ul>
+								            <% for (TempsRetait creneau : creneauxDisponibles) { %>
+								                <li><%= creneau.getTempsDeRetrait() %></li>
+								            <% } %>
+								        </ul>
+								    <% } else { %>
+								        <p>Aucun cr√©neau de retrait disponible pour le moment.</p>
+								    <% } %>
+								</div>
                      <%
                         
                         Panier panierClient = clientConnecte.getPanier();
                      %>
+                    
 					<div class="col-xs-12 col-sm-5">
 						<div class="holder">
 							<h5 class="mb-3">VOTRE COMMANDE</h5>
@@ -117,32 +136,31 @@
 	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
 											    <tr>
 											        <td><%= lignePanier.getProduit().getNomProduit() %> x<%= lignePanier.getQuantite() %></td>
-											        <td class="text-right">Rp <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+											        <td class="text-right"><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %> &#8364</td>
 											    </tr>
 											<% } %>
 			                                <% } %>
 											
 												</tbody>
 												<tfooter>
-												
-											 <%
-											    double total = 0.0;
-											    if (request.getAttribute("panier") != null) {
-											        for (LignePanier lignePanier : panier.getLignesPanier()) {
-											        	total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
-											        }
-											    }
-											%>
+											<%  
+		                                        double totalPanier1 = 0.0;
+		                                            if (totalPanier != null) {
+		                                                totalPanier1 = totalPanier;
+		                                            }
+                                            %>
+											
+											
 										<tr>
 											<td><strong>TOTAL DE LA COMMANDE</strong></td>
-											<td class="text-right"><strong><%= total %></strong></td>
+											<td class="text-right"><strong><%= String.format("%.2f", totalPanier1) %>&#8364</strong></td>
 										</tr>
 										</tfooter>
 									</table>
 								</div>
 		
 							<p class="text-right mt-3">
-								<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions gÈnÈrales</a>
+								<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions g√©n√©rales</a>
 							</p>
 						    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
 														
@@ -169,14 +187,14 @@
 	        <div class="container">
 	            <div class="row">
 	                <div class="col-md-3">
-	                    <h5>¿ propos</h5>
+	                    <h5>√Ä propos</h5>
 	                    <p></p>
 	                </div>
 	                <div class="col-md-3">
 	                    <h5>Liens Utiles</h5>
 	                    <ul>
 	                        <li>
-	                            <a href="about.html">¿ propos</a>
+	                            <a href="about.html">√Ä propos</a>
 	                        </li>
 	                        <li>
 	                            <a href="contact.html">Contactez-nous</a>
@@ -185,13 +203,13 @@
 	                            <a href="faq.html">FAQ</a>
 	                        </li>
 	                        <li>
-	                            <a href="javascript:void(0)">Comment Áa fonctionne</a>
+	                            <a href="javascript:void(0)">Comment √ßa fonctionne</a>
 	                        </li>
 	                        <li>
 	                            <a href="terms.html">Termes et Conditions de Retrait</a>
 	                        </li>
 	                        <li>
-	                            <a href="privacy.html">Politique de confidentialitÈ</a>
+	                            <a href="privacy.html">Politique de confidentialit√©</a>
 	                        </li>
 	                    </ul>
 	                </div>
@@ -220,7 +238,7 @@
                      </ul>
                 </div>
                 <div class="col-md-3">
-                     <h5>Obtenez notre application dËs maintenant</h5>
+                     <h5>Obtenez notre application d√®s maintenant</h5>
                      <ul class="mb-0">
                          <li class="download-app">
                              <a href="#"><img src="assets/img/playstore.png"></a>

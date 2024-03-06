@@ -260,6 +260,12 @@ public class Produit {
 	public void setVente(int vente) {
 		this.vente = vente;
 	}
+
+
+	public Stock getStock() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     
 

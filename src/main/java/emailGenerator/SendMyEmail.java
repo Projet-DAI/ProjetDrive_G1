@@ -3,10 +3,15 @@ package emailGenerator;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class SendMyEmail {
 	  // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
@@ -79,7 +84,7 @@ public class SendMyEmail {
      * @return
      * @throws Exception
      */
-    public static void createMimeMessage(String receiveMail) throws Exception {
+    public static void createMimeMessage(String receiveMail, String pdfPath, String nomU, String idC) throws Exception {
         // 初始化
     	 // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties();                    // 参数配置
@@ -111,17 +116,35 @@ public class SendMyEmail {
         MimeMessage message = new MimeMessage(session);
 
         // 2. From: 发件人
-        message.setFrom(new InternetAddress(SendMyEmail.myEmailAccount, "PH", "UTF-8"));
+        message.setFrom(new InternetAddress(SendMyEmail.myEmailAccount, "FRESH Magasin", "UTF-8"));
 
         // 3. To: 收件人（可以增加多个收件人、抄送、密送）
-        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "MZ", "UTF-8"));
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, nomU, "UTF-8"));
 
         // 4. Subject: 邮件主题
-        message.setSubject("test", "UTF-8");
-
+        message.setSubject("Votre commande No." + idC + " est Prête à retirer dans votre magasin !", "UTF-8");
+        
         // 5. Content: 邮件正文（可以使用html标签）
-        message.setContent("这是一个测试邮件", "text/html;charset=UTF-8");
-            // 6. 设置发件时间
+        MimeMultipart multipart = new MimeMultipart();
+
+        // 正文部分
+        MimeBodyPart textPart = new MimeBodyPart();
+        textPart.setContent("Chère client(e), <br><br>Ne oubliez pas à retirer votre commande ! <br><br>Bonne journée,<br>Team FRESH", "text/html;charset=UTF-8");
+        multipart.addBodyPart(textPart);
+
+        // 附件部分
+        MimeBodyPart pdfPart = new MimeBodyPart();
+        DataSource source = new FileDataSource(pdfPath); // 替换为实际的PDF文件路径
+        pdfPart.setDataHandler(new DataHandler(source));
+        
+        String fileName = pdfPath.substring(4, pdfPath.length());
+        pdfPart.setFileName(fileName); // 设置附件文件名
+        multipart.addBodyPart(pdfPart);
+
+        // 设置邮件内容
+        message.setContent(multipart);
+
+        // 6. 设置发件时间
         message.setSentDate(new Date());
 
         // 7. 保存设置
@@ -156,8 +179,7 @@ public class SendMyEmail {
     
 
     public static void main(String[] args) throws Exception {
-        // 创建一封邮件
-        createMimeMessage(receiveMailAccount);
+    
 
         
     }

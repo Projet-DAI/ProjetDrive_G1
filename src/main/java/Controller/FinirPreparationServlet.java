@@ -23,6 +23,7 @@ import Model.metier.Commande;
 import Model.metier.LigneCommande;
 import Model.metier.StatutCommande;
 import Model.metier.Stock;
+import emailGenerator.SendMyEmail;
 import pdfGenerator.GiveMEPDF;
 import pdfGenerator.Product;
 
@@ -115,6 +116,19 @@ public class FinirPreparationServlet extends HttpServlet {
         // String pickupTime, List<Product> productList, String filePath
 		GiveMEPDF.generatePDF(idC, dateCString, nomU, nomM, adresseM, tempsR, listeProduct, filePath);
 		
+		
+		// 5. Envoyer un email a client
+		// String receiveMail, String pdfPath, String nomU, String idC
+		String emailCli = listeLigneCom.get(0).getCommande().getClient().getEmailClient();
+		String idCommande = String.valueOf(idC);
+		try {
+			SendMyEmail.createMimeMessage(emailCli, filePath, nomU, idCommande);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		// 6. redirect
 		tr.commit();
 		session.close();
 		response.sendRedirect("preparationPreloadServlet");

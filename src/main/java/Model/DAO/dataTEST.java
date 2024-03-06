@@ -254,27 +254,47 @@ public class dataTEST {
 	        Transaction transaction = session.beginTransaction();
 	        
 	        // Lecture du fichier CSV TempsRetrait et insertion des données dans la base de données
-	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("C:\\Users\\Imane\\Downloads\\TempsRetrairsRetrait.csv", session);
+
+	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("X:\\Telechargement\\TempsRetrairsRetrait.csv", session);
+
+	        //List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("C:\\Users\\Imane\\Downloads\\TempsRetrairsRetrait.csv", session);
+
 	        for (TempsRetait tempsRetrait : tempsRetraitList) {
 	            session.save(tempsRetrait);
 	        }
 	        
 	        // Lecture du fichier CSV Magasin et insertion des données dans la base de données
-	        List<Magasin> magasinList = readCsvFileMagasin("C:\\Users\\Imane\\Downloads\\Magasin.csv", session);
+
+	        List<Magasin> magasinList = readCsvFileMagasin("X:\\Telechargement\\Magasin.csv", session);
+
+	        //List<Magasin> magasinList = readCsvFileMagasin("C:\\Users\\Imane\\Downloads\\Magasin.csv", session);
+
 	        for (Magasin magasin : magasinList) {
 	            session.save(magasin);
 	        }
 	        
+
+	        List<Rayon> rayonList = readCsvFileRayon("X:\\Telechargement\\rayon.csv", session);
+	        for (Rayon rayon : rayonList) {
+	            session.save(rayon);
+	        }
+	        List<Categories> cateList = readCsvFileCate("X:\\Telechargement\\categorie.csv", session);
+
 	        List<Rayon> rayonList = readCsvFileRayon("C:\\Users\\Imane\\Downloads\\rayon.csv", session);
 	        for (Rayon rayon : rayonList) {
 	            session.save(rayon);
 	        }
 	        List<Categories> cateList = readCsvFileCate("C:\\Users\\Imane\\Downloads\\categorie.csv", session);
+
 	        for (Categories cate : cateList) {
 	            session.save(cate);
 	        }
 	        
+
+	        List<Produit> produitList = readCsvFileProduit("X:\\Telechargement\\gestion_produit.csv", session);
+
 	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\Imane\\Downloads\\gestion_produit.csv", session);
+
 	        for (Produit produit : produitList) {
 	            session.save(produit);
 	        }
@@ -460,7 +480,11 @@ public class dataTEST {
 		            transaction = session.beginTransaction();
 
 		            // 读取CSV文件
+
+		            try (BufferedReader reader = new BufferedReader(new FileReader("X:\\Telechargement\\magasin_tempsretait.csv"))) {
+
 		            try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Imane\\Downloads\\magasin_tempsretait.csv"))) {
+
 		                String line;
 		                boolean isFirstLine = true; // 标记是否是第一行
 		                while ((line = reader.readLine()) != null) {
@@ -469,7 +493,7 @@ public class dataTEST {
 		                        continue;
 		                    }
 		                    // 解析CSV行数据
-		                    String[] fields = line.split(","); // 假设CSV文件中使用逗号作为分隔符
+		                    String[] fields = line.split(";"); // 假设CSV文件中使用逗号作为分隔符
 
 		                    // 将字符串转换为整数
 		                    int idMagasin = Integer.parseInt(fields[0]);
@@ -506,12 +530,12 @@ public class dataTEST {
 	
 	
 	public static void main(String[] args) {
-		//dataTEST.insertDataClient();
-		//dataTEST.insertDataStatutCommande();
-		//dataTEST.insertDataCommande();
-		//dataTEST.insertLigneCommande();
-		dataTEST.insertCSV();
-		insertMagasinTempRetrait();
+//		dataTEST.insertDataClient();
+//		dataTEST.insertDataStatutCommande();
+//		dataTEST.insertDataCommande();
+//		dataTEST.insertLigneCommande();
+//		dataTEST.insertCSV();
+		//insertMagasinTempRetrait();
 		
 		
 		

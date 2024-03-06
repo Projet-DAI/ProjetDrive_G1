@@ -40,6 +40,7 @@
 <title>Mon Panier</title>
 <head>
     <title>Freshcery | Groceries Organic Store</title>
+ 	    <jsp:include flush="true" page="head.jsp"></jsp:include>
     
 
 </head>
@@ -59,7 +60,6 @@
             </div>
         </div>
 
-	    <jsp:include flush="true" page="head.jsp"></jsp:include>
 	
         <section id="cart">
             <div class="container">

@@ -230,7 +230,6 @@
             </div>
         </div>
         </section>
-    </div>
     
     <section id="categories" class="pb-0 gray-bg">
     	<h1 class="title">Categories</h1>    

@@ -28,6 +28,7 @@ import Model.metier.Magasin;
 import Model.metier.Produit;
 import Model.metier.Rayon;
 import Model.metier.StatutCommande;
+import Model.metier.Stock;
 import Model.metier.TempsRetait;
 
 public class dataTEST {
@@ -255,50 +256,51 @@ public class dataTEST {
 	        
 	        // Lecture du fichier CSV TempsRetrait et insertion des données dans la base de données
 
-	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("X:\\Telechargement\\TempsRetrairsRetrait.csv", session);
+//	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("X:\\Telechargement\\TempsRetrairsRetrait.csv", session);
 
 	        //List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("C:\\Users\\Imane\\Downloads\\TempsRetrairsRetrait.csv", session);
-
-	        for (TempsRetait tempsRetrait : tempsRetraitList) {
-	            session.save(tempsRetrait);
-	        }
+//
+//	        for (TempsRetait tempsRetrait : tempsRetraitList) {
+//	            session.save(tempsRetrait);
+//	        }
+//	        
+//	        // Lecture du fichier CSV Magasin et insertion des données dans la base de données
+//
+////	        List<Magasin> magasinList = readCsvFileMagasin("X:\\Telechargement\\Magasin.csv", session);
+//
+//	        //List<Magasin> magasinList = readCsvFileMagasin("C:\\Users\\Imane\\Downloads\\Magasin.csv", session);
+//
+//	        for (Magasin magasin : magasinList) {
+//	            session.save(magasin);
+//	        }
+//	        
+//
+//	    
+//	       
+//
+//	        List<Rayon> rayonList = readCsvFileRayon("C:\\Users\\LUO\\Downloads\\rayon.csv", session);
+//	        for (Rayon rayon : rayonList) {
+//	            session.save(rayon);
+//	        }
+//	        List<Categories> cateList = readCsvFileCate("C:\\Users\\LUO\\Downloads\\categorie.csv", session);
+//
+//	        for (Categories cate : cateList) {
+//	            session.save(cate);
+//	        }
+//	        
+//
+//	       
+//
+//	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\LUO\\Downloads\\gestion_produit.csv", session);
+//
+//	        for (Produit produit : produitList) {
+//	            session.save(produit);
+//	        }
 	        
-	        // Lecture du fichier CSV Magasin et insertion des données dans la base de données
-
-	        List<Magasin> magasinList = readCsvFileMagasin("X:\\Telechargement\\Magasin.csv", session);
-
-	        //List<Magasin> magasinList = readCsvFileMagasin("C:\\Users\\Imane\\Downloads\\Magasin.csv", session);
-
-	        for (Magasin magasin : magasinList) {
-	            session.save(magasin);
+	        List<Stock> stockList = readCsvFilestock("C:\\Users\\LUO\\Downloads\\stock.csv", session);
+	        for (Stock stock : stockList) {
+	            session.save(stock);
 	        }
-	        
-
-	        List<Rayon> rayonList = readCsvFileRayon("X:\\Telechargement\\rayon.csv", session);
-	        for (Rayon rayon : rayonList) {
-	            session.save(rayon);
-	        }
-	        List<Categories> cateList = readCsvFileCate("X:\\Telechargement\\categorie.csv", session);
-
-	        List<Rayon> rayonList = readCsvFileRayon("C:\\Users\\Imane\\Downloads\\rayon.csv", session);
-	        for (Rayon rayon : rayonList) {
-	            session.save(rayon);
-	        }
-	        List<Categories> cateList = readCsvFileCate("C:\\Users\\Imane\\Downloads\\categorie.csv", session);
-
-	        for (Categories cate : cateList) {
-	            session.save(cate);
-	        }
-	        
-
-	        List<Produit> produitList = readCsvFileProduit("X:\\Telechargement\\gestion_produit.csv", session);
-
-	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\Imane\\Downloads\\gestion_produit.csv", session);
-
-	        for (Produit produit : produitList) {
-	            session.save(produit);
-	        }
-	        
 	       
 	        
 	       
@@ -310,6 +312,40 @@ public class dataTEST {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	 private static List<Stock> readCsvFilestock(String csvFilePath, Session session)  {
+		 List<Stock> stockList = new ArrayList<>();
+		 try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+	            // Skip the header line of the CSV file
+	            reader.readLine();
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] fields = line.split(",");
+
+	                Stock stock = new Stock();
+	                stock.setQuantiteEnStock(Integer.parseInt(fields[2]));
+	                
+	                int IdMagasin = Integer.parseInt(fields[3]); 
+	                Magasin magasin = session.get(Magasin.class, IdMagasin);
+	                stock.setMagasin(magasin);
+	                
+	                int IdProduit = Integer.parseInt(fields[4]); 
+	                Produit produit = session.get(Produit.class, IdProduit);
+	                stock.setProduit(produit);
+
+
+	                stockList.add(stock);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return stockList;
+		 
+		 
+		 
+		
 	}
 
 
@@ -481,8 +517,8 @@ public class dataTEST {
 
 		            // 读取CSV文件
 
-		            try (BufferedReader reader = new BufferedReader(new FileReader("X:\\Telechargement\\magasin_tempsretait.csv"))) {
-
+//		            try (BufferedReader reader = new BufferedReader(new FileReader("X:\\Telechargement\\magasin_tempsretait.csv"))) {
+//
 		            try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Imane\\Downloads\\magasin_tempsretait.csv"))) {
 
 		                String line;
@@ -534,7 +570,7 @@ public class dataTEST {
 //		dataTEST.insertDataStatutCommande();
 //		dataTEST.insertDataCommande();
 //		dataTEST.insertLigneCommande();
-//		dataTEST.insertCSV();
+		dataTEST.insertCSV();
 		//insertMagasinTempRetrait();
 		
 		

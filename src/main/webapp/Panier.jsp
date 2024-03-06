@@ -45,7 +45,14 @@
 
 </head>
 <body>
-    
+    <div class="page-header">
+        <!--=============== Navbar ===============-->
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
+            <div class="container">
+                <!-- Navbar Brand -->
+                <a href="index.html" class="navbar-brand">
+                    <img src="" alt="">
+                </a>
 
     <div id="page-content" class="page-content">
         <div class="banner">

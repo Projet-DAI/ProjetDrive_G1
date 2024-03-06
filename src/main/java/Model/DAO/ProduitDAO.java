@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.HibernateException;
 
@@ -57,6 +58,24 @@ public class ProduitDAO{
         }
 
         return productsProm;
+	}
+
+	public static List<Produit> getProduitsByRayon(int rayonId) {
+	    List<Produit> produits = null;
+
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        String hql = "FROM Produit P WHERE P.categorie.rayon.idRayon = :rayonId";
+	        Query<Produit> query = session.createQuery(hql);
+	        query.setParameter("rayonId", rayonId);
+	        produits = query.list();
+
+	        // Ajoutez des messages de débogage ici
+	        System.out.println("Produits récupérés pour le rayon " + rayonId + ": " + produits);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return produits;
 	}
 	
 	//Afficher produits promotion Par IdMagasin

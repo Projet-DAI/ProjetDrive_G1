@@ -61,7 +61,7 @@
 						        String msg = (String)request.getAttribute("msgE");
 
 						        if (msg != null) {
-									// Affichez un message d'erreur en cas d'�chec de connexion
+									// Affichez un message d'erreur en cas d'echec de connexion
 									out.println("<p style='color:red;'>Identifiant ou mot de passe incorrect</p>");
 						        }
 						    %>

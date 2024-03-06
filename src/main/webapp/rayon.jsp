@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,18 +14,18 @@
 			<div class="col-md-12">
 				<div class="shop-categories owl-carousel mt-5">
 					<div class="item">
-						<a href="shop.jsp">
+						<a href="rayon_products.jsp?rayonId=2">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-carrot"></i></span>
 								<div class="media-body">
-									<h5>Fruits et Légumes</h5>
+									<h5>Boucherie</h5>
 								</div>
 							</div>
 						</a>
 					</div>
 					<div class="item">
-						<a href="shop.jsp">
+						<a href="rayon_products.jsp?rayonId=3">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-apple"></i></span>

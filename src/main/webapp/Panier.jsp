@@ -45,28 +45,7 @@
 
 </head>
 <body>
-    <div class="page-header">
-        <!--=============== Navbar ===============-->
-        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
-            <div class="container">
-                <!-- Navbar Brand -->
-                <a href="index.html" class="navbar-brand">
-                    <img src="" alt="">
-                </a>
-
-    <div id="page-content" class="page-content">
-        <div class="banner">
-            <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
-                <div class="container">
-                    <h1 class="pt-5">
-                        Mon panier
-                    </h1>
-                    <p class="lead">
-                        Économisez du temps et confiez-nous vos courses
-                    </p>
-                </div>
-            </div>
-        </div>
+    
 
         <section id="cart">
             <div class="container">

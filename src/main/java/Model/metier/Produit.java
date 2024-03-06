@@ -50,16 +50,7 @@ public class Produit {
     @Column(name = "kiloProduit")
     private String kiloProduit;
 
-    public String getKiloProduit() {
-		return kiloProduit;
-	}
-
-
-	public void setKiloProduit(String kiloProduit) {
-		this.kiloProduit = kiloProduit;
-	}
-
-
+    
 	@ManyToOne
     @JoinColumn(name = "IdCategorie")
     private Categories categorie;
@@ -85,7 +76,7 @@ public class Produit {
 	public Produit(int idProduit, int ean, String nomProduit, double prixProduit, String marqueProduit,
 			boolean promotion, double pourcentagePromotion, String adresseImageProduit, String nutriscore,
 			String description, String label, int vente, Categories categorie,
-			List<Approvisionnement> approvisionnements, Set<Fournisseur> fournisseurs) {
+			List<Approvisionnement> approvisionnements, Set<Fournisseur> fournisseurs,String kiloProduit) {
 		super();
 		this.idProduit = idProduit;
 		this.ean = ean;
@@ -102,6 +93,7 @@ public class Produit {
 		this.categorie = categorie;
 		this.approvisionnements = approvisionnements;
 		this.fournisseurs = fournisseurs;
+		this.kiloProduit = kiloProduit;
 	}
 
 
@@ -261,6 +253,17 @@ public class Produit {
 		this.vente = vente;
 	}
     
+	
+	public String getKiloProduit() {
+		return kiloProduit;
+	}
+
+
+	public void setKiloProduit(String kiloProduit) {
+		this.kiloProduit = kiloProduit;
+	}
+
+
     
 
 }

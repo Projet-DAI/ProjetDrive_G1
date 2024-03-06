@@ -39,6 +39,7 @@
 	</div>
 		<% 
 		 String listeCourseName = request.getParameter("listeCourseName");
+
 		 HttpSession s = request.getSession();
 		 List<ListeCourse> list = (List<ListeCourse>)s.getAttribute("listCourse");
 		 for (ListeCourse l : list){
@@ -61,7 +62,9 @@
 		
 		
 	</div>
+
 	<%}%>
+	</div>
 		
 	<!--modal -->
 	<div id="myModal" class="modal">

@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@page import="java.util.List"%>
-<%@page import="Model.metier.Commande"%>
-<%@page import="java.util.Date"%>
+    pageEncoding="UTF-8"%>
+<%@ page import="Model.metier.LigneCommande" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Freshcery | Groceries Organic Store</title>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
 	rel="stylesheet" type="text/css">
@@ -37,72 +36,71 @@
 </head>
 <body>
 
-	<jsp:include flush="true" page="head.jsp"></jsp:include>
+	<jsp:include flush="true" page="headEmployee.jsp"></jsp:include>
 
 	<div id="page-content" class="page-content">
 		<div class="banner">
 			<div class="jumbotron jumbotron-bg text-center rounded-0"
 				style="background-image: url('assets/img/bg-header.jpg');">
 				<div class="container">
-					<h1 class="pt-5">Votre Commandes</h1>
-					<p class="lead">Gagnez du temps et confiez-nous vos courses !</p>
+					<h1 class="pt-5">Détails de la commande</h1>
+					<p class="lead">N'oubliez pas de vérifier deux fois !</p>
 				</div>
 			</div>
 		</div>
 
 		<section id="cart">
+			<form action="FinirPreparationServlet" method="get">
 			<div class="container">
-				<div class="row">
+				<div class="row" >
 					<div class="col-md-12">
 						<div class="table-responsive">
 							<table class="table">
 								<thead>
 									<tr>
 										<th width="5%"></th>
-										<th>Invoice</th>
-										<th>Date</th>
-										<th>Total</th>
-										<th>Status</th>
+										<th>Nom de Produit</th>
+										<th>Quantité</th>
+										<th>Stockage</th>
+										<th>Etat</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
 
-								<%  List<Commande> listeCommandes = (List<Commande>)request.getAttribute("listeCommandes");
+								<%  HttpSession s = request.getSession();
+									List<LigneCommande> listeLigneCom = (List<LigneCommande>)s.getAttribute("listeLigneCom");
+									List<Integer> listeStock = (List<Integer>)s.getAttribute("listeStock"); 
 									int count = 0;
-									for (Commande c : listeCommandes) {
+									for (LigneCommande lc : listeLigneCom) {
 										count += 1;
 										%>
 									<tr>
 										<td><%=count %></td>
-										<td><%=c.getIdCommande() %></td>
-										<td><%=c.getDateCommande() %></td>
-										<td><%=c.getMontantTotal() %> €</td>
-										<td><%=c.getStatutCommande().getLibelleStatut() %></td>
+										<td><%=lc.getProduit().getNomProduit() %></td>
+										<td><%=lc.getQuantite() %></td>
+										<td><%=listeStock.get(count - 1) %></td>
+										<td>
+											<input type="checkbox" id="Checkbox" name="myCheckbox" value="checkBoxValue" required="required">				
+											
+										</td>
 										<td>
 											<button type="button" class="btn btn-default btn-sm"
-												data-toggle="modal" data-target="#detailModal" onclick="openDetailModal('<%=c.getIdCommande() %>')">
-												Detail</button>
+												data-toggle="modal" data-target="#detailModal" onclick="openDetailModal('')">
+												Remplacer</button>
 										</td>
 									</tr>
 									
 								<% } %>
+									<tr>
 								</tbody>
 							</table>
 						</div>
-
-						<nav aria-label="Page navigation">
-							<ul class="pagination justify-content-center">
-								<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</ul>
-						</nav>
-					</div>
+					</div>	
+					<div id="finirPre" class="col-md-12 d-flex justify-content-end"><button type="submit" class="btn btn-default btn-lg text-white" style="background-color: #0075FF;">Finir la préparation</button></div>
 				</div>
 			</div>
+			</form>
 		</section>
 
 		<!-- Modal -->
@@ -195,5 +193,23 @@
 	<jsp:include flush="true" page="footer.jsp"></jsp:include>
 	
 
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/bootstrap/libraries/popper.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/o2system-ui/o2system-ui.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/owl-carousel/owl-carousel.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/cloudzoom/cloudzoom.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/thumbelina/thumbelina.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
+	<script type="text/javascript" src="assets/js/theme.js"></script>
+	<script type="text/JavaScript" src="assets/js/preparationComJSP.js"></script>
 </body>
 </html>

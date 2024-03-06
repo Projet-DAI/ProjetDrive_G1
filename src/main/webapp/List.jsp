@@ -39,28 +39,31 @@
 	</div>
 		<% 
 		 String listeCourseName = request.getParameter("listeCourseName");
-		HttpSession s = request.getSession();
-		List<ListeCourse> list = (List<ListeCourse>)s.getAttribute("listCourse");
-		for (ListeCourse l : list){
-	%>
+		 HttpSession s = request.getSession();
+		 List<ListeCourse> list = (List<ListeCourse>)s.getAttribute("listCourse");
+		 for (ListeCourse l : list){
+		%>
 	<div class="shopping-list-summary-page__item" id="existing-list-item">
 		<div style="display: flex; align-items: center;">
-			<!-- 使用flex布局使图标和文本水平排列 -->
+			<!-- Alignement horizontal des icônes et du texte à l'aide de la mise en page flexible -->
 			<p id="existing-list-name" class="bold-item"
 				style="margin-bottom: 0;"><%=l.getNomListeCourse() %></p>
-			<!-- 调整清单名称的样式，去除底部间距 -->
+			<!-- Ajuster le style des noms de liste pour supprimer l'espacement inférieur -->
 			<span id="existing-delete-icon"
 				style="display: none; margin-left: 10px;"><i
 				class="bi bi-trash" onclick="showDeleteModal()"></i></span>
-			<!-- 调整垃圾桶图标左侧间距 -->
+			<!-- Ajuster l'espacement sur le côté gauche de l'icône de la corbeille -->
 		</div>
 		<div style="float: right;"><%=l.getDateCreation() %></div>
-		<!-- 设置链接到您想要的目标页面 -->
-		<a href="postit.jsp?listeCourseName=<%= l.getNomListeCourse() %>"><p>Voir la liste</p></a>
+		<%-- <a href="PostitServlet?action=afficher&listeCourseName=<%= l.getNomListeCourse() %>"><p>Voir la liste</p></a> --%>
+		<%-- <a href="PostitServlet?action=afficher&listeCourseId=<%= l.getIdListeCourse() %>"><p>Voir la liste</p></a> --%>
+		<a href="afficherPostitServlet?listeCourseId=<%= l.getIdListeCourse() %>&listeCourseName=<%= l.getNomListeCourse() %>"><p>Voir la liste</p></a>
+		
+		
 	</div>
 	<%}%>
 		
-	<!-- 模态窗 - modal -->
+	<!--modal -->
 	<div id="myModal" class="modal">
     	<div class="modal-content" style="background-color: #fff;
           									margin: 15% auto;

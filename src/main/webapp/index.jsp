@@ -32,11 +32,11 @@
 	href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
 <link rel="stylesheet" type="text/css" media="all"
 	href="assets/css/theme.css">
-
-
-
 </head>
 <body>
+
+	<jsp:include flush="true" page="head.jsp"></jsp:include>
+	
 	<%
 	HttpSession s = request.getSession();
 	String mode = "Produit";

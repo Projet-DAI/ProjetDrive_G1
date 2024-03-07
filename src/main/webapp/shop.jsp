@@ -76,13 +76,13 @@
                     </svg>
                 </a>
                 <h4 class="card-title">
-                    <a href="detail?productId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
+                    <a href="detail?produitId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
                 </h4>
                 <div class="card-price">
                     <span class="discount"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) %></span>
                 
                <h4 class="card-title" style="font-size: 11px;height:40px">
-    <a href="detail?produitId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
+    			<a href="detail?produitId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
 </h4>
 
                 <div class="card-price">

@@ -24,9 +24,9 @@
         <div class="product-detail">
             <div class="container">
              <p><a href="shop"><strong><i class="bi bi-arrow-left"></i> Retour</strong></a></p>
-             <a href="">
+          <!--    <a href="">
                     <i class="bi bi-heart" style="color: #FF2D2D;"></i>
-					</a>
+					</a> -->
                 <div class="row">
                     <div class="col-sm-6">
                     

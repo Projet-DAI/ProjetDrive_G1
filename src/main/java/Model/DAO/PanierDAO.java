@@ -326,7 +326,40 @@ public class PanierDAO {
 
 
 	    public static void main(String[] args) {
-	    	 PanierDAO panierDAO = new PanierDAO();
+	    	
+    	  Session session = HibernateUtil.getSessionFactory().openSession();
+          session.beginTransaction();
+          
+          try {
+		      int clientId = 1;
+		
+		      // 创建查询，获取关联到给定 clientId 的 Panier 对象
+		      Query<Panier> query2 = session.createQuery("FROM Panier p WHERE p.client.idClient = :clientId", Panier.class);
+		      query2.setParameter("clientId", clientId);
+		
+		      // 获取单一结果，如果没有结果会抛出 NoResultException，如果有多个结果会抛出 NonUniqueResultException
+		      List<Panier> p = query2.list();
+		
+		      // 在这里使用获取到的 Panier 对象
+		      if (p.size() == 0) {
+		          System.out.println("No Panier found: " + p);
+		      } else {
+		          System.out.println(p.get(0).getIdPanier());
+		      }
+
+	      } catch (Exception e) {
+	          e.printStackTrace();
+	      } 
+	    }
+}
+          
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+        	 /*PanierDAO panierDAO = new PanierDAO();
 	         
 	         // Récupération d'un panier avec ses lignes de panier depuis la base de données (vous devez ajuster cela en fonction de votre DAO)
 	         int panierId = 1; // ID du panier à récupérer depuis la base de données
@@ -342,19 +375,7 @@ public class PanierDAO {
 	         } else {
 	             System.out.println("Le panier avec l'ID " + panierId + " n'existe pas dans la base de données.");
 	         }
-	     }
-
-	    
-	 
-	    	
-	    	
-	    	
-	    	
-	    	
-	    	
-	    	
-	    	
-	    	
+	     }*/
 	    	
 	    	
 	    	
@@ -421,7 +442,7 @@ public class PanierDAO {
 	        panierDAO.supprimerLignePanier(panierId, produitId);
 	        System.out.println("La ligne de panier a été supprimée avec succès.");
 */
-	    }
+	 
 
 
 	   /* public static void main(String[] args) {

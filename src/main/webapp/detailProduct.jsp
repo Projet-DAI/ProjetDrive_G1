@@ -30,6 +30,26 @@
       <meta charset="UTF-8">
     <title>Détails du produit</title>
 		<jsp:include flush="true" page="head.jsp"></jsp:include>
+        <script>
+        function verifierQuantite() {
+            // Récupérer la quantité demandée
+            var quantiteDemandee = parseInt(document.getElementById("quantiteInput").value);
+
+            // Faire une requête Ajax pour récupérer la quantité en stock
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "GetQuantiteEnStock?idProduit=<%= product.getIdProduit() %>", false);
+            xhr.send();
+
+            // Vérifier si la quantité demandée est inférieure à la quantité en stock
+            if (quantiteDemandee > parseInt(xhr.responseText)) {
+                alert("La quantité demandée est supérieure à la quantité en stock. Veuillez ajuster la quantité.");
+                return false; // Annuler l'envoi du formulaire
+            }
+
+            return true; // Envoyer le formulaire
+        }
+         </script>
+
 </head>
 <body>
 	
@@ -60,7 +80,7 @@
                         <p><strong>Nutriscore:</strong> <%= product.getNutriscore() %></p>
                         <p><strong>Category ID:</strong> <%= product.getCategorie().getIdCategorie() %></p>
                           <!-- Formulaire pour ajouter au panier -->
-                        <form action="AjouterPanierServlet" method="post">
+                        <form action="AjouterPanierServlet" method="post" onsubmit="return verifierQuantite()">
 						    <input type="hidden" name="productId" value="<%= product.getIdProduit() %>"> 
 						    <p class="mb-1"><strong>Quantité</strong></p>
 						    <div class="row mb-3">

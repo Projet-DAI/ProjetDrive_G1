@@ -14,16 +14,18 @@
 			<div class="col-md-12">
 				<div class="shop-categories owl-carousel mt-5">
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=1">
-							<div
-								class="media d-flex align-items-center justify-content-center">
+						<a href="Rayon_PRO.jsp?rayonId=1">
+								<div class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-carrot"></i></span>
 								<div class="media-body">
 									<h5>Boucherie</h5>
 								</div>
 							</div>
 						</a>
-						<a href="rayon_products.jsp?rayonId=2">
+						
+					</div>
+					<div class="item">
+					<a href="Rayon_PRO.jsp?rayonId=2">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-carrot"></i></span>
@@ -32,9 +34,9 @@
 								</div>
 							</div>
 						</a>
-					</div>
+						</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=3">
+						<a href="Rayon_PRO.jsp?rayonId=3">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-apple"></i></span>
@@ -45,7 +47,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=4">
+						<a href="Rayon_PRO.jsp?rayonId=4">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-roast-leg"></i></span>
@@ -56,7 +58,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=5">
+						<a href="Rayon_PRO.jsp?rayonId=5">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-fish-1"></i></span>
@@ -67,7 +69,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=6">
+						<a href="Rayon_PRO.jsp?rayonId=6">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i
@@ -79,7 +81,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=7">
+						<a href="Rayon_PRO.jsp?rayonId=7">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
@@ -90,7 +92,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=8">
+						<a href="Rayon_PRO.jsp?rayonId=8">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
@@ -101,7 +103,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=9">
+						<a href="Rayon_PRO.jsp?rayonId=9">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
@@ -112,7 +114,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=10">
+						<a href="Rayon_PRO.jsp?rayonId=10">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
@@ -123,7 +125,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=11">
+						<a href="Rayon_PRO.jsp?rayonId=11">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
@@ -134,7 +136,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=12">
+						<a href="Rayon_PRO.jsp?rayonId=12">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
@@ -145,7 +147,7 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="rayon_products.jsp?rayonId=13">
+						<a href="Rayon_PRO.jsp?rayonId=13">
 							<div
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
@@ -155,12 +157,7 @@
 							</div>
 						</a>
 					</div>
-					<div class="item">
-						<a href="shop.jsp">
-							<div
-								class="media d-flex align-items-center justify-content-center">
-							</div>
-					</div>
+					
 					</a>
 				</div>
 

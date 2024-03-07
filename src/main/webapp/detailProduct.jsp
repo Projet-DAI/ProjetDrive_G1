@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="Model.metier.Produit" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,8 @@
    
 </head>
 <body>
+	<% Produit p = (Produit)request.getAttribute("produit"); %>
+	
     <jsp:include flush="true" page="head.jsp"></jsp:include>
     
     <div id="page-content" class="page-content">
@@ -35,7 +38,7 @@
                     <div class="col-sm-6">
                         <h3>${produit.nomProduit} (${produit.marqueProduit})</h3>
                         <p><strong></strong> ${produit.kiloProduit}</p>
-                        <p><strong>Prix:</strong> ${produit.prixProduit} €</p>
+                        <p><strong>Prix:</strong> <% if (p.isPromotion()){%><%=new java.text.DecimalFormat("#,###.00").format(p.getPrixProduit() * p.getPourcentagePromotion()) %> <% } else { %> <%=p.getPrixProduit()%> <% } %> €</p>
                         <p><strong>Nutriscore:</strong> ${produit.nutriscore}</p>
                         <p id="descriptionText">
                             <strong>Description:</strong> 

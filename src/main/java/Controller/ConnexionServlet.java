@@ -42,7 +42,15 @@ public class ConnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String email = request.getParameter("email");
+	    doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String email = request.getParameter("email");
 	    String motDePasse = request.getParameter("password");
 
 	    SessionFactory factory = HibernateUtil.getSessionFactory();
@@ -54,9 +62,9 @@ public class ConnexionServlet extends HttpServlet {
 	        query.setParameter("motDePasse", motDePasse);
 
 	        List<Client> clients = query.list();
-	        RequestDispatcher rd;
 
 	        if (!clients.isEmpty()) {// Utilisateur connecté avec succès
+	        	
 	        	String username = clients.get(0).getNomUtilisateurClient();
 	        	
 	            int clientId = clients.get(0).getIdClient();
@@ -65,60 +73,49 @@ public class ConnexionServlet extends HttpServlet {
 	            
 	            s.setAttribute("emailCli", email);
 	            s.setAttribute("username", username);
-	            //System.out.println(s.getAttribute("emailCli"));
-	            //request.getRequestDispatcher("ShopServlet").forward(request, response);
-	            //response.sendRedirect("servletCentral?method=shop");
 	            
 	            if (email.equals("marc@stuff.com") || email.equals("adam@stuff.com")) {
 	            	
-	            	response.sendRedirect("employee.jsp");
+	            	//response.sendRedirect("employee.jsp");
 	            	
 	            } else {
 	            	
-	            	request.getRequestDispatcher("index.jsp").forward(request, response);
-	            }
-	           
-	            s.setAttribute("clientId", clientId);
-	            
-	            System.out.println("clientId: " + clientId);
-	         
-	            // Vérifier si le client a déjà un panier
-	            PanierDAO panierDAO = new PanierDAO();
-	            Panier panier = panierDAO.getPanierByClientId(clientId);
-	            
-	            if (panier != null) {
-	                int panierId = panier.getIdPanier();
-	                System.out.println("panierId: " + panierId);
-	                s.setAttribute("panierId", panierId);
-
-	            }
-	            
-	            if (panier == null) {
+	            	s.setAttribute("clientId", clientId);        
 	            	
-	                // Si le client n'a pas de panier, en créer un nouveau
-	                panier = new Panier();
-	                
-	                ClientDAO clientDAO = new ClientDAO();
-	                Client client = clientDAO.getClientById(clientId); 
-	                
-	                panier.setClient(client);
-	                panier.setDateCreation(new Date());
-	                panierDAO.createPanier(panier);
-	                System.out.println("Le nouveau panier est panierId: " + panier.getIdPanier());
-
-	            }
-	            
-		         // Rediriger vers la page du panier
-		            response.sendRedirect("Panier");
-		            System.out.println("Redirection vers Panier.jsp effectuée avec succès.");
-
-	            
-	            //request.getRequestDispatcher("ShopServlet").forward(request, response);
-	            //response.sendRedirect("servletCentral?method=shop");
-	            //request.getRequestDispatcher("shop").forward(request, response);
-
-
-	        	//request.("servletCentral?method=shop").forward(request, response);
+		            // Vérifier si le client a déjà un panier
+	            	Query<Panier> query2 = session.createQuery("From Panier p where p.client.idClient=:clientId", Panier.class);
+	            	query2.setParameter("clientId", clientId);
+	            	
+	            	List<Panier> p = query2.list();
+	            	
+	            	if (p.size() < 1) {
+	            		
+	            		Panier panierNew = new Panier();
+	            		
+	            		Client c = session.get(Client.class, clientId);
+	            		
+	            		panierNew.setClient(c);
+	            		panierNew.setDateCreation(new Date());
+	            		
+	            		session.save(panierNew);
+	            		
+	            		Query<Panier> query3 = session.createQuery("From Panier p where p.client.idClient=:clientId", Panier.class);
+		            	query3.setParameter("clientId", clientId);
+		            	
+		            	Panier panierCherche = query3.getSingleResult();
+		            	
+		            	s.setAttribute("panierId", panierCherche.getIdPanier());
+		                
+			            s.setAttribute("panier", panierCherche);
+	            	
+	            	} else {	
+	            		s.setAttribute("panierId", p.get(0).getIdPanier());
+	                    
+			            s.setAttribute("panier", p.get(0));
+	            	}
+	            	
+	            	request.getRequestDispatcher("index.jsp").forward(request, response);
+	            }        
 	        } else {
 	            // Échec de la connexion
 	            System.out.println("Connexion échouée");
@@ -134,13 +131,6 @@ public class ConnexionServlet extends HttpServlet {
 	        session.close();
 	    }
 
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 
 	}
 }

@@ -1,3 +1,5 @@
+<%@page import="java.io.Console"%>
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="Model.metier.Panier"%>
@@ -10,16 +12,12 @@
 <%@ page import="java.text.DecimalFormat"%>
 <%@ page import="java.text.NumberFormat"%>
 <%@page import="Model.DAO.PanierDAO"%>
-<% Panier panier = (Panier) session.getAttribute("panier"); %>
-
-<%-- Récupération du total du panier depuis la requête --%>
-<% Double totalPanier = (Double) session.getAttribute("totalPanier"); %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Freshcery | Groceries Organic Store</title>
+<title> Freshcery | Groceries Organic Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
 	rel="stylesheet" type="text/css">
@@ -101,70 +99,45 @@
 
 						<!-- ajouter Drive pour choisir magasin-->
 						<li class="nav-item" id="drive">
-							<a href="#" class="nav-link drive-link" data-toggle="modal"
-								data-target="#locationModal">Drive</a></li>
+							<a href="#" class="nav-link drive-link" data-toggle="modal" data-target="#locationModal">Drive</a>
+						</li>
 
 
 
-						<li class="nav-item"><a href="#" id="faireCoursesBtn"
-							class="nav-link">Faire ses courses</a></li>
+						<li class="nav-item">
+							<a href="#" id="faireCoursesBtn" class="nav-link">Faire ses courses</a>
+						</li>
+						
 						<%
-						String nomU = (String) session.getAttribute("username");
-						if (nomU != null) {
-						%>
-
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="javascript:void(0)"
-							id="navbarDropdown" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
-								<div class="avatar-header">
-									<img src="assets/img/logo/avatar.jpg">
-								</div> <%=nomU%>
-						</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="TransactionPreloadServlet">Mon
-									historique de commandes</a> <a class="dropdown-item"
-									href="ListCoursePreloadServlet">Liste de courses</a> <a
-									class="dropdown-item" href="TableauDeBordPreloadServlet">Tableau
-									de bord</a> <a class="dropdown-item" href="setting.html">Paramètres</a>
-								<a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
-
-							</div></li>
-
-						<%
-						} else {
-						%>
-						<li class="nav-item"><a href="login.jsp" class="nav-link">Se
-								connecter</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="javascript:void(0)"
-							id="navbarDropdown" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
-								<div class="avatar-header">
-									<img src="assets/img/logo/avatar.jpg">
-								</div> Mon Profil
-						</a>
-
-							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="login.jsp">Mon historique de
-									commandes</a> <a class="dropdown-item" href="login.jsp">Liste
-									de courses</a> <a class="dropdown-item" href="login.jsp">Tableau
-									de bord</a> <a class="dropdown-item" href="login.jsp">Paramètres</a>
-								<a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
-
-							</div></li>
-						<%
-						}
+							HttpSession session1 = request.getSession();
+							String nomU = (String)session1.getAttribute("username");
+							if (nomU != null) {
 						%>
 
 						<li class="nav-item dropdown">
-							<%
-							if (panier != null && !panier.getLignesPanier().isEmpty()) {
-							%> <a href="javascript:void(0)" class="nav-link dropdown-toggle"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-shopping-basket"></i> <span
-								class="badge badge-primary"><%=panier.getLignesPanier().size()%></span>
+						<a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<div class="avatar-header">
+								<img src="assets/img/logo/avatar.jpg">
+							</div> <%=nomU%>
 						</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="TransactionPreloadServlet">Mon historique de commandes</a> 
+								<a class="dropdown-item" href="ListCoursePreloadServlet">Liste de courses</a> 
+								<a class="dropdown-item" href="TableauDeBordPreloadServlet">Tableaude bord</a> 
+								<a class="dropdown-item" href="setting.html">Paramètres</a>
+								<a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
+							</div>
+						</li>
+						
+						<li class="nav-item dropdown">
+						
+							<% 	Panier panier = (Panier)session1.getAttribute("panier");%>
+							
+							<% if (panier != null && !panier.getLignesPanier().isEmpty()) { %> 
+							<a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%=panier.getLignesPanier().size()%></span>
+							</a>
+							
 							<div class="dropdown-menu shopping-cart">
 								<ul>
 									<li>
@@ -200,55 +173,118 @@
 											</div>
 										</div>
 									</li>
-									<%
-									}
-									%>
+									<% }%>
 
 									<li>
-
 										<div class="drop-title d-flex justify-content-between">
 
 
 
 											<h6 class="mt-3">
-												Total: <span id="nouveauTotalPanier"><%=String.format    ("%.2f",totalPanier)%>&#8364</span>
+												Total: <span id="nouveauTotalPanier">&#8364</span>
 											</h6>
 
 											<%-- <span>Total:</span>
 									            <span class="text-primary"><strong><%=total %> €</strong></span>
 									           --%>
-
 										</div>
 									</li>
 
-
 									<li class="d-flex justify-content-between pl-3 pr-3 pt-3">
-										<a href="Panier.jsp" class="btn btn-default">Voir mon
-											panier</a>
+										<a href="Panier" class="btn btn-default">Voir mon panier</a>
 									</li>
 
 									<%-- Fin contenu du panier --%>
 								</ul>
-							</div> <%
- }
- %>
+							</div> 
+							<% } else { %>
+								<a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"></span>
+							</a>
+							
+							<div class="dropdown-menu shopping-cart">
+								<ul>
+									<li>
+										<div class="drop-title">
+											<a href="Panier" class="nav-link">Mon Panier</a>
+										</div>
+									</li>
 
+									<%-- Contenu du panier --%>
+									<li>
+										<div class="shopping-cart-list">
+
+											<div class="media">
+												<div class="media-body">
+													<h5>
+														<a href="javascript:void(0)"></a>
+													</h5>
+													<p class="price">
+														<span class="discount text-muted"></span>
+														<%-- <span><%= lignePanier.getProduit().getPrixProduit() %></span>--%>
+													</p>
+													<p class="text-muted">
+														</p>
+												</div>
+											</div>
+										</div>
+									</li>
+									<% }%>
+
+									<li>
+										<div class="drop-title d-flex justify-content-between">
+											<h6 class="mt-3">
+												Total: <span id="nouveauTotalPanier">0&#8364</span>
+											</h6>
+										</div>
+									</li>
+
+									<li class="d-flex justify-content-between pl-3 pr-3 pt-3">
+										<a href="Panier" class="btn btn-default">Voir mon panier</a>
+									</li>
+
+									<%-- Fin contenu du panier --%>
+								</ul>
+							</div> 
 						</li>
+
+				
+						<% } else {%>
+							
+						<li class="nav-item"><a href="login.jsp" class="nav-link">
+							Se connecter</a>
+						</li>
+						
+						<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							<div class="avatar-header">
+								<img src="assets/img/logo/avatar.jpg">
+							</div> Mon Profil
+						</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="login.jsp">Mon historique de commandes</a> 
+								<a class="dropdown-item" href="login.jsp">Liste de courses</a> 
+								<a class="dropdown-item" href="login.jsp">Tableau de bord</a> 
+								<a class="dropdown-item" href="login.jsp">Paramètres</a>
+								<a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
+							</div>
+						</li>
+						<% } %>		
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</div>
+	
 	<!-- Drive Page -->
 	<div class="modal fade" id="locationModal" tabindex="-1" role="dialog"
 		aria-labelledby="locationModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="locationModalLabel">Choisissez
-						votre magasin</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<h5 class="modal-title" id="locationModalLabel">Choisissez votre magasin</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -263,43 +299,13 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Fermer</button>
-					<button type="button" class="btn btn-primary"
-						onclick="submitLocation()">Valider</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-primary" onclick="submitLocation()">Valider</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-
-	<script type="text/javascript" src="assets/js/jquery.js"></script>
-	<script>
-		function submitLocation() {
-			var userLocation = document.getElementById('userLocation').value;
-
-			// 使用jQuery发送AJAX请求
-			$.ajax({
-				url : 'MagasinServlet', // Servlet的URL
-				type : 'POST',
-				data : {
-					userLocation : userLocation
-				}, // 发送到Servlet的数据
-				success : function(response) {
-					// 处理成功的响应
-					console.log(response);
-					// 可以根据需要更新页面内容
-				},
-				error : function(xhr, status, error) {
-					// 处理错误
-					console.error("AJAX请求失败: " + status + ", 错误: " + error);
-				}
-			});
-
-			// 关闭模态框
-			$('#locationModal').modal('hide');
-		}
-	</script>
 
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/jquery-migrate.js"></script>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ page import="Model.DAO.ClientDAO" %>
-<%@ page import="Model.metier.Client" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="Model.DAO.ClientDAO"%>
+<%@ page import="Model.metier.Client"%>
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +23,7 @@
 
 					<div class="card card-login mb-5">
 						<div class="card-body">
-							<form class="form-horizontal" action="/ProjetDrive_G1/Connexion"
-								method="post">
+							<form class="form-horizontal" action="/ProjetDrive_G1/Connexion" method="POST">
 								<div class="form-group row mt-3">
 									<div class="col-md-12">
 										<input class="form-control" type="email" required=""
@@ -38,9 +37,12 @@
 									</div>
 								</div>
 								<div class="form-group row">
-									<div class="col-md-12 d-flex justify-content-between align-items-center">
-										<a href="register.jsp" class="text-light" style="margin-left:5px;margin-top: 7px;">
-										<i class="fa fa-bell"></i> Vous n'avez pas encore de compte ?</a>
+									<div
+										class="col-md-12 d-flex justify-content-between align-items-center">
+										<a href="register.jsp" class="text-light"
+											style="margin-left: 5px; margin-top: 7px;"> 
+											<i class="fa fa-bell"></i> Vous n'avez pas encore de compte ?
+										</a>
 									</div>
 								</div>
 								<div class="form-group row text-center mt-4">
@@ -52,13 +54,13 @@
 								</div>
 							</form>
 							<%
-						        String msg = (String)request.getAttribute("msgE");
+							String msg = (String) request.getAttribute("msgE");
 
-						        if (msg != null) {
-									// Affichez un message d'erreur en cas d'�chec de connexion
-									out.println("<p style='color:red;'>Identifiant ou mot de passe incorrect</p>");
-						        }
-						    %>
+							if (msg != null) {
+								// Affichez un message d'erreur en cas d'�chec de connexion
+								out.println("<p style='color:red;'>Identifiant ou mot de passe incorrect</p>");
+							}
+							%>
 						</div>
 					</div>
 				</div>

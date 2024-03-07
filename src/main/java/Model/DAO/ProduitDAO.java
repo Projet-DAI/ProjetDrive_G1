@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 import org.hibernate.HibernateException;
 
 import Model.metier.Produit;
+import Model.metier.Categories;
 
 public class ProduitDAO {
 
@@ -168,6 +169,53 @@ public class ProduitDAO {
                 return "Rayon inconnu";
         }
     }
+    
+    public static int getQuantiteEnStock(int productId) {
+        int quantiteEnStock = 0;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            String hql = "SELECT s.quantiteEnStock FROM Stock s WHERE s.produit.idProduit = :productId";
+            Query<Integer> query = session.createQuery(hql, Integer.class);
+            query.setParameter("productId", productId);
+
+            List<Integer> results = query.getResultList();
+            if (!results.isEmpty()) {
+                quantiteEnStock = results.get(0);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return quantiteEnStock;
+    }
+    
+    public static List<Produit> getProduitsDeRemplacement(Categories categorie, int productId) {
+        List<Produit> produitsDeRemplacement = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            // Utilisez une requête HQL pour récupérer les produits de remplacement
+            String hql = "FROM Produit p WHERE p.categorie = :categorie AND p.idProduit != :productId";
+            Query<Produit> query = session.createQuery(hql, Produit.class);
+            query.setParameter("categorie", categorie);
+            query.setParameter("productId", productId);
+
+            // Exécutez la requête et récupérez les produits de remplacement
+            produitsDeRemplacement = query.list();
+
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return produitsDeRemplacement;
+    }
+
 
     public static List<Produit> getProduitsPromParIdMagasin(int magasinId) {
         Session session = null;

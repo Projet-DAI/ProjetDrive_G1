@@ -1,4 +1,4 @@
-<!-- Supprimez le script JavaScript existant pour l'événement 'voirPointsFidelitebtn' -->
+<%-- <!-- Supprimez le script JavaScript existant pour l'événement 'voirPointsFidelitebtn' -->
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <%@ page import="Model.metier.Panier" %>
@@ -7,7 +7,7 @@
 <%@ page import="Model.DAO.ClientDAO" %>
 <%@ page import="Model.DAO.PanierDAO" %>
 
-<%-- Récupération du panier depuis la session --%>
+Récupération du panier depuis la session
 
 <% Panier panier = (Panier) session.getAttribute("panier"); %>
 
@@ -76,7 +76,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-								    <%-- Boucle pour afficher chaque produit dans le panier --%>
+								    Boucle pour afficher chaque produit dans le panier
 									<% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
              	                        <tbody>
 					                  	
@@ -334,3 +334,4 @@
 
 </body>
 </html>
+ --%>

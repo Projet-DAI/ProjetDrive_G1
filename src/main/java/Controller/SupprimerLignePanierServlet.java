@@ -45,8 +45,8 @@ public class SupprimerLignePanierServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("Panier", panier);
         
-        // Rediriger vers la page Panier.jsp
-        response.sendRedirect("Panier.jsp");
+        response.getWriter().write("Item removed successfully");
+
     }
 
 

@@ -263,8 +263,7 @@ Double totalPanier = (Double) request.getAttribute("totalPanier");
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="locationModalLabel">Choisissez
-						votre magasin</h5>
+					<h5 class="modal-title" id="locationModalLabel">Choisissez votre magasin</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -289,7 +288,6 @@ Double totalPanier = (Double) request.getAttribute("totalPanier");
 			</div>
 		</div>
 	</div>
-<div class="col-md-12" style="padding-top: 90px;">
 
     <div id="page-content" class="page-content">
         <div class="banner">
@@ -375,6 +373,7 @@ Double totalPanier = (Double) request.getAttribute("totalPanier");
             </div>
         </div>
     </div>
+        </div>
 </section>
 
 	

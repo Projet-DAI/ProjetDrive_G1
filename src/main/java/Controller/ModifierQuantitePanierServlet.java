@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
 import Model.DAO.PanierDAO;
 import Model.DAO.ProduitDAO;
 import Model.metier.Panier;
@@ -47,9 +49,15 @@ public class ModifierQuantitePanierServlet extends HttpServlet {
         // Mettre à jour le panier dans la session
         HttpSession session = request.getSession();
         session.setAttribute("Panier", panier);
+        // Construire une réponse JSON avec les nouvelles données du panier
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("total", panierDAO.calculerTotalPanier(panier));
+        // Ajoutez d'autres données si nécessaire
 
-        // Rediriger l'utilisateur vers la page du panier
-        response.sendRedirect("Panier.jsp");
+        // Envoyer la réponse JSON
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonResponse.toString());
     }
 
     }

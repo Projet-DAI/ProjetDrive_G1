@@ -146,13 +146,6 @@
 						</a>
 					</div>
 					
-					<div class="item">
-						<a href="shop.jsp">
-							<div class="media d-flex align-items-center justify-content-center">
-							</div>
-						</a>
-					</div>
-					
 				</div>
 
 			</div>

@@ -61,9 +61,7 @@ public class ImporterProduitDAO {
                 transaction.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
-        }
+        } 
     }
 	
 	private Produit findAndCreateProduit(int ean, CSVRecord record, Session session) {

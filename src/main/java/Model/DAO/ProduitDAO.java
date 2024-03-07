@@ -260,54 +260,7 @@ public class ProduitDAO {
  		
  		Produit p = getProductById(1);
  		System.out.println("Produit：" + p);
- 		
-		/*
-		 * List<Produit> produits = getProduitsPromParIdMagasin(1); // Assuming
-		 * magasinId = 1 for testing for (Produit produit : produits) {
-		 * System.out.println("Produit ID: " + produit.getIdProduit() + ", Nom: " +
-		 * produit.getNomProduit() + ", Promotion: " + produit.isPromotion()); // If you
-		 * wish to display stock, ensure you fetch it accordingly }
-		 */
-		/*
-		 * String s = "kdk"; String[] ls = s.split(" ");
-		 * 
-		 * for (String m : ls) { System.out.println(ls.length); System.out.println(m); }
-		 */
- 		
- 		/*
- 		 * List<Produit> res = getProduitsProm();
- 		 * 
- 		 * for (Produit product : res) { System.out.println("Product ID: " +
- 		 * product.getIdProduit()); System.out.println("Product Name: " +
- 		 * product.getNomProduit()); System.out.println("Product Price: " +
- 		 * product.getPrixProduit()); System.out.println("Product Brand: " +
- 		 * product.getMarqueProduit()); System.out.println("Product Promotion: " +
- 		 * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
- 		 * product.getPourcentagePromotion());System.out.println("Product description: "
- 		 * + product.getDescription()); System.out.println("Product Image Address: " +
- 		 * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
- 		 * + product.getNutriscore()); System.out.println("Product Category ID: " +
- 		 * product.getCategorie().getIdCategorie());
- 		 * System.out.println("------------------------------"); }
- 		 */
- 		
- 		/*
- 		 * int testProductId = 1; Produit product = getProductById(testProductId);
- 		 * 
- 		 * if (product != null) { System.out.println("Product ID: " +
- 		 * product.getIdProduit()); System.out.println("Product Name: " +
- 		 * product.getNomProduit()); System.out.println("Product Price: " +
- 		 * product.getPrixProduit()); System.out.println("Product Brand: " +
- 		 * product.getMarqueProduit()); System.out.println("Product Promotion: " +
- 		 * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
- 		 * product.getPourcentagePromotion());
- 		 * System.out.println("Product Image Address: " +
- 		 * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
- 		 * + product.getNutriscore()); System.out.println("Product Category ID: " +
- 		 * (product.getCategorie() != null ? product.getCategorie().getIdCategorie() :
- 		 * "N/A")); } else { System.out.println("No product found with ID: " +
- 		 * testProductId); }
- 		 */
+ 	
  	}
  	
  	/* Fin de la test */ 

@@ -72,19 +72,20 @@ public class ProduitDAO{
                     "WHERE s.magasin.idMagasin = :magasinId " +
                     "AND s.produit.promotion = true " +
                     "AND s.quantiteEnStock > 0";
-	        Query<Produit> query = session.createQuery(hql, Produit.class);
-	        query.setParameter("magasinId", magasinId);
-	        produits = query.getResultList();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        if (session != null) {
-	            session.close();
-	        }
-	    }
-	    return produits;
-	}
-
+            Query<Produit> query = session.createQuery(hql, Produit.class);
+            query.setParameter("magasinId", magasinId);
+            produits = query.getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return produits;
+    }
+    
 	// Afficher un produit
 	public static Produit getProductById(int productId) {
 	    Produit product = null;
@@ -95,92 +96,63 @@ public class ProduitDAO{
 	    }
 	    return product;
 	}
-	
-	// test
-	public static void main(String[] args) {
-		
-//		List<Produit> produits = getProduitsPromParIdMagasin(1); // Assuming magasinId = 1 for testing
-//	    for (Produit produit : produits) {
-//	        System.out.println("Produit ID: " + produit.getIdProduit() + ", Nom: " + produit.getNomProduit() + ", Promotion: " + produit.isPromotion());
-//	        // If you wish to display stock, ensure you fetch it accordingly
-//	    }
-		
-		String s = "kdk";
-    	String[] ls = s.split(" ");
-    	
-    	for (String m : ls) {
-    		System.out.println(ls.length);
-    		System.out.println(m);
-    	}
-    	
-		
+    
+    // Test
+ 	public static void main(String[] args) {
+ 		
+ 		Produit p = getProductById(1);
+ 		System.out.println("Produit：" + p);
+ 		
 		/*
-		 * List<Produit> res = getProduitsProm();
-		 * 
-		 * for (Produit product : res) { System.out.println("Product ID: " +
-		 * product.getIdProduit()); System.out.println("Product Name: " +
-		 * product.getNomProduit()); System.out.println("Product Price: " +
-		 * product.getPrixProduit()); System.out.println("Product Brand: " +
-		 * product.getMarqueProduit()); System.out.println("Product Promotion: " +
-		 * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
-		 * product.getPourcentagePromotion());System.out.println("Product description: "
-		 * + product.getDescription()); System.out.println("Product Image Address: " +
-		 * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
-		 * + product.getNutriscore()); System.out.println("Product Category ID: " +
-		 * product.getCategorie().getIdCategorie());
-		 * System.out.println("------------------------------"); }
+		 * List<Produit> produits = getProduitsPromParIdMagasin(1); // Assuming
+		 * magasinId = 1 for testing for (Produit produit : produits) {
+		 * System.out.println("Produit ID: " + produit.getIdProduit() + ", Nom: " +
+		 * produit.getNomProduit() + ", Promotion: " + produit.isPromotion()); // If you
+		 * wish to display stock, ensure you fetch it accordingly }
 		 */
-		
 		/*
-		 * int testProductId = 1; Produit product = getProductById(testProductId);
+		 * String s = "kdk"; String[] ls = s.split(" ");
 		 * 
-		 * if (product != null) { System.out.println("Product ID: " +
-		 * product.getIdProduit()); System.out.println("Product Name: " +
-		 * product.getNomProduit()); System.out.println("Product Price: " +
-		 * product.getPrixProduit()); System.out.println("Product Brand: " +
-		 * product.getMarqueProduit()); System.out.println("Product Promotion: " +
-		 * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
-		 * product.getPourcentagePromotion());
-		 * System.out.println("Product Image Address: " +
-		 * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
-		 * + product.getNutriscore()); System.out.println("Product Category ID: " +
-		 * (product.getCategorie() != null ? product.getCategorie().getIdCategorie() :
-		 * "N/A")); } else { System.out.println("No product found with ID: " +
-		 * testProductId); }
+		 * for (String m : ls) { System.out.println(ls.length); System.out.println(m); }
 		 */
-	}
-	
-	/* Fin de la test */ 
-	
-	
-	public class Main {
-	    public void main(String[] args) {
-//	        // Spécifiez l'ID du produit que vous souhaitez récupérer
-//	        int productId = 1; // Remplacez 1 par l'ID du produit que vous souhaitez récupérer
-//
-//	        // Appelez la méthode getProductById pour récupérer le produit
-//	        Produit product = ProduitDAO.getProductById(productId);
-//
-//	        // Vérifiez si le produit a été trouvé
-//	        if (product != null) {
-//	            // Affichez les détails du produit
-//	            System.out.println("Product ID: " + product.getIdProduit());
-//	            System.out.println("Product Name: " + product.getNomProduit());
-//	            System.out.println("Product Price: " + product.getPrixProduit());
-//	            System.out.println("Product Brand: " + product.getMarqueProduit());
-//	            System.out.println("Product Promotion: " + product.isPromotion());
-//	            System.out.println("Product Promotion Percentage: " + product.getPourcentagePromotion());
-//	            System.out.println("Product Image Address: " + product.getAdresseImageProduit());
-//	            System.out.println("Product Nutriscore: " + product.getNutriscore());
-//	            System.out.println("Product Category ID: " + (product.getCategorie() != null ? product.getCategorie().getIdCategorie() : "N/A"));
-//	        } else {
-//	            // Si le produit n'est pas trouvé, affichez un message
-//	            System.out.println("No product found with ID: " + productId);
-//	        }
-	    	
-	    	
-	    }
-	}
-
+ 		
+ 		/*
+ 		 * List<Produit> res = getProduitsProm();
+ 		 * 
+ 		 * for (Produit product : res) { System.out.println("Product ID: " +
+ 		 * product.getIdProduit()); System.out.println("Product Name: " +
+ 		 * product.getNomProduit()); System.out.println("Product Price: " +
+ 		 * product.getPrixProduit()); System.out.println("Product Brand: " +
+ 		 * product.getMarqueProduit()); System.out.println("Product Promotion: " +
+ 		 * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
+ 		 * product.getPourcentagePromotion());System.out.println("Product description: "
+ 		 * + product.getDescription()); System.out.println("Product Image Address: " +
+ 		 * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
+ 		 * + product.getNutriscore()); System.out.println("Product Category ID: " +
+ 		 * product.getCategorie().getIdCategorie());
+ 		 * System.out.println("------------------------------"); }
+ 		 */
+ 		
+ 		/*
+ 		 * int testProductId = 1; Produit product = getProductById(testProductId);
+ 		 * 
+ 		 * if (product != null) { System.out.println("Product ID: " +
+ 		 * product.getIdProduit()); System.out.println("Product Name: " +
+ 		 * product.getNomProduit()); System.out.println("Product Price: " +
+ 		 * product.getPrixProduit()); System.out.println("Product Brand: " +
+ 		 * product.getMarqueProduit()); System.out.println("Product Promotion: " +
+ 		 * product.isPromotion()); System.out.println("Product Promotion Percentage: " +
+ 		 * product.getPourcentagePromotion());
+ 		 * System.out.println("Product Image Address: " +
+ 		 * product.getAdresseImageProduit()); System.out.println("Product Nutriscore: "
+ 		 * + product.getNutriscore()); System.out.println("Product Category ID: " +
+ 		 * (product.getCategorie() != null ? product.getCategorie().getIdCategorie() :
+ 		 * "N/A")); } else { System.out.println("No product found with ID: " +
+ 		 * testProductId); }
+ 		 */
+ 	}
+ 	
+ 	/* Fin de la test */ 
+    
+    
 }
-

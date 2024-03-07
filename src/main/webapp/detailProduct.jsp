@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Détails du produit</title>
-    <jsp:include flush="true" page="head.jsp"></jsp:include>
+   
 </head>
 <body>
     <jsp:include flush="true" page="head.jsp"></jsp:include>
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-
+&nbsp;
     <jsp:include flush="true" page="footer.jsp"></jsp:include>
   
     <script>

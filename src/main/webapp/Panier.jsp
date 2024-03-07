@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="Model.metier.Panier"%>
-<%@ page import="Model.metier.LignePanier"%>
-<%@ page import="java.util.List"%>
-<%@ page import="Model.DAO.ClientDAO"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="UTF-8"%>
+<%@ page import="Model.metier.Panier" %>
+<%@ page import="Model.metier.LignePanier" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Model.DAO.ClientDAO" %>
 
 <% Panier panier = (Panier) session.getAttribute("panier"); %>
 
@@ -12,31 +12,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css">
-<link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet"
-	type="text/css">
-<link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet"
-	type="text/css">
-
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/bootstrap/bootstrap.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/o2system-ui/o2system-ui.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/owl-carousel/owl-carousel.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/cloudzoom/cloudzoom.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/thumbelina/thumbelina.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/css/theme.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet" type="text/css">
+    <link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap/bootstrap.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/o2system-ui/o2system-ui.css">
@@ -49,7 +30,7 @@
 	
 <title>Mon Panier</title>
 <head>
-<title>Freshcery | Groceries Organic Store</title>
+    <title>Freshcery | Groceries Organic Store</title>
 
 </head>
 <body>
@@ -212,33 +193,33 @@
         document.getElementById("nouveauTotal").value = nouveauTotalPanier;
     }
 
-	// Fonction pour effectuer le calcul du nouveau total
-	function calculerNouveauTotal(pointsFidelite) {
-		// Convertir la valeur du total en nombre
-		var totalPanier = parseFloat(totalPanierString.replace(",", "."));
+    // Fonction pour effectuer le calcul du nouveau total
+    function calculerNouveauTotal(pointsFidelite) {
+        // Convertir la valeur du total en nombre
+        var totalPanier = parseFloat(totalPanierString.replace(",", "."));
 
-		// Vérifier si la conversion est un nombre valide
-		if (!isNaN(totalPanier)) {
-			var reductionEnEuros = pointsFidelite / 10.0;
-			nouveauTotalPanier = totalPanier - reductionEnEuros;
+        // Vérifier si la conversion est un nombre valide
+        if (!isNaN(totalPanier)) {
+            var reductionEnEuros = pointsFidelite / 10.0;
+            nouveauTotalPanier = totalPanier - reductionEnEuros;
 
-			// Mettre à jour le nouveau total dans l'interface utilisateur
-			updateNouveauTotalPanier();
+            // Mettre à jour le nouveau total dans l'interface utilisateur
+            updateNouveauTotalPanier();
 
-			// Afficher une alerte pour déboguer
-			//alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
-		} else {
-			// Gérer l'erreur si la conversion n'est pas un nombre valide
-			console.error("Erreur de conversion du total en nombre.");
-		}
-	}
+            // Afficher une alerte pour déboguer
+            //alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+        } else {
+            // Gérer l'erreur si la conversion n'est pas un nombre valide
+            console.error("Erreur de conversion du total en nombre.");
+        }
+    }
 
-	// Code existant pour l'événement 'voirPointsFidelitebtn'
-	document.getElementById('voirPointsFidelitebtn').addEventListener('click',function() {
-		var pointsFidelite = <%=new ClientDAO().getPointsFideliteById(1)%>;
-	
-		// Appeler la fonction pour calculer et mettre à jour le nouveau total
-		calculerNouveauTotal(pointsFidelite);
+    // Code existant pour l'événement 'voirPointsFidelitebtn'
+    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+
+        // Appeler la fonction pour calculer et mettre à jour le nouveau total
+        calculerNouveauTotal(pointsFidelite);
         
     });
 
@@ -299,25 +280,43 @@
                          </li>
                      </ul>
 
+                     <h5>Suivez-nous</h5>
+                     <ul class="social">
+                         <li>
+                            <a href="javascript:void(0)" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                         </li>
+                         <li>
+                            <a href="javascript:void(0)" target="_blank"><i class="fab fa-instagram"></i></a>
+                         </li>
+                         <li>
+                            <a href="javascript:void(0)" target="_blank"><i class="fab fa-youtube"></i></a>
+                         </li>
+                     </ul>
+                </div>
+                <div class="col-md-3">
+                     <h5>Obtenez notre application dès maintenant</h5>
+                     <ul class="mb-0">
+                         <li class="download-app">
+                             <a href="#"><img src="assets/img/playstore.png"></a>
+                         </li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+	
 	<script type="text/javascript" src="assets/js/totalPanier.js"></script>
-	<script type="text/javascript" src="assets/js/jquery.js"></script>
-	<script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
-	<script type="text/javascript"
-		src="assets/packages/bootstrap/libraries/popper.js"></script>
-	<script type="text/javascript"
-		src="assets/packages/bootstrap/bootstrap.js"></script>
-	<script type="text/javascript"
-		src="assets/packages/o2system-ui/o2system-ui.js"></script>
-	<script type="text/javascript"
-		src="assets/packages/owl-carousel/owl-carousel.js"></script>
-	<script type="text/javascript"
-		src="assets/packages/cloudzoom/cloudzoom.js"></script>
-	<script type="text/javascript"
-		src="assets/packages/thumbelina/thumbelina.js"></script>
-	<script type="text/javascript"
-		src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
-	<script type="text/javascript" src="assets/js/theme.js"></script>
-
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
+    <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>
+    <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/packages/o2system-ui/o2system-ui.js"></script>
+    <script type="text/javascript" src="assets/packages/owl-carousel/owl-carousel.js"></script>
+    <script type="text/javascript" src="assets/packages/cloudzoom/cloudzoom.js"></script>
+    <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
+    <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
+    <script type="text/javascript" src="assets/js/theme.js"></script>
+    
 
 
 

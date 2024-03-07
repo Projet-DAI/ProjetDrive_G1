@@ -45,11 +45,13 @@
 		<!-- Afficher Mes list -->
 		<div class="container">
             <div class="listCourse">
-                <a href="ListCoursePreloadServlet" class="bi bi-arrow-left">&nbsp; Mes listes</a>
+                <!-- <a href="ListCoursePreloadServlet" class="bi bi-arrow-left">&nbsp; Mes listes</a> -->
+                 <p></p>
                 <% 
                     String listeCourseName = (String) request.getAttribute("listeCourseName");
                     Integer listeCourseId = (Integer) request.getAttribute("listeCourseId"); 
                 %>
+              
                 <p>Liste Course Name : <%= listeCourseName %></p>
                 <p>Liste Course Id :<%= listeCourseId %></p>
                 

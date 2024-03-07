@@ -10,10 +10,10 @@
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@page import="Model.DAO.PanierDAO"%>
-<% Panier panier = (Panier) session.getAttribute("Panier"); %>
+<% Panier panier = (Panier) session.getAttribute("panier"); %>
 
 <%-- Récupération du total du panier depuis la requête --%>
-<% Double totalPanier = (Double) request.getAttribute("totalPanier"); %>
+<% Double totalPanier = (Double) session.getAttribute("totalPanier"); %>
 
 <!DOCTYPE html>
 <html>
@@ -25,27 +25,23 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet" type="text/css">
     <link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet" type="text/css">
-
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/bootstrap/bootstrap.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/o2system-ui/o2system-ui.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/owl-carousel/owl-carousel.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/cloudzoom/cloudzoom.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/thumbelina/thumbelina.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="assets/css/theme.css">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="all"
+		href="assets/packages/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" media="all"
+		href="assets/packages/o2system-ui/o2system-ui.css">
+	<link rel="stylesheet" type="text/css" media="all"
+		href="assets/packages/owl-carousel/owl-carousel.css">
+	<link rel="stylesheet" type="text/css" media="all"
+		href="assets/packages/cloudzoom/cloudzoom.css">
+	<link rel="stylesheet" type="text/css" media="all"
+		href="assets/packages/thumbelina/thumbelina.css">
+	<link rel="stylesheet" type="text/css" media="all"
+		href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
+	<link rel="stylesheet" type="text/css" media="all"
+		href="assets/css/theme.css">
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
 </head>
 <body>
@@ -171,10 +167,13 @@
                                     	<li>
                                     							
 									        <div class="drop-title d-flex justify-content-between">
-									       
+									         <%
+												    PanierDAO panierDAO = new PanierDAO();
+												    double total = panierDAO.calculerTotalPanier(panier);
+												%>
 											
 											
-												<h6 class="mt-3">Total: <span id="nouveauTotalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
+												<h6 class="mt-3">Total: <span id="totalPanier"> <strong><%= total %>  &#8364</strong></span></h6>
 												
 									            <%-- <span>Total:</span>
 									            <span class="text-primary"><strong><%=total %> €</strong></span>
@@ -253,8 +252,12 @@
     }
     
 </script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
- <script type="text/javascript" src="assets/js/jquery.js"></script>
+ 	<script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/js/drive.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>

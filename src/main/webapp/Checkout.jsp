@@ -8,6 +8,8 @@
 <%@ page import="Model.DAO.CommandeDAO" %>
 <%@ page import="Model.DAO.MagasinDao" %>
 <%@ page import="java.util.List" %>
+<%@ page import="Model.DAO.PanierDAO" %>
+
 
 
 
@@ -152,7 +154,7 @@
 	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
 											    <tr>
 											        <td><%= lignePanier.getProduit().getNomProduit() %> x<%= lignePanier.getQuantite() %></td>
-											        <td class="text-right">Rp <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+											        <td class="text-right"> <%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %>&#8364</td>
 											    </tr>
 											<% } %>
 			                                <% } %>
@@ -160,17 +162,16 @@
 												</tbody>
 												<tfooter>
 												
-											 <%
-											    double total = 0.0;
-											    if (request.getAttribute("panier") != null) {
-											        for (LignePanier lignePanier : panier.getLignesPanier()) {
-											        	total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
-											        }
-											    }
-											%>
+											 
+						                    <%
+						    PanierDAO panierDAO = new PanierDAO();
+						    double total = panierDAO.calculerTotalPanier(panier);
+						%>
+                    
+						
 										<tr>
 											<td><strong>TOTAL DE LA COMMANDE</strong></td>
-											<td class="text-right"><strong><%= total %></strong></td>
+											<td class="text-right"><span id="totalPanier"> <strong><%= total %>  &#8364</strong></span></td>
 										</tr>
 										</tfooter>
 									</table>

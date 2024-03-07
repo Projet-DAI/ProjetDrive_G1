@@ -313,16 +313,16 @@ public class PanierDAO {
 	    
 	    }
 	    
-	    public static double calculerTotalPanier(Panier panier) {
-	        List<LignePanier> lignesPanier = panier.getLignesPanier();
-	        double total = 0.0;
-	        
-	        for (LignePanier lignePanier : lignesPanier) {
-	        	total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+	 
+	        public static double calculerTotalPanier(Panier panier) {
+	            double total = 0.0;
+	            List<LignePanier> lignesPanier = panier.getLignesPanier();
+	            for (LignePanier lignePanier : lignesPanier) {
+	                total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+	            }
+	            return total;
 	        }
-	        
-	        return total;
-	    }
+	    
 
 
 	    public static void main(String[] args) {

@@ -1,15 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="UTF-8"%>
+<!-- Supprimez le script JavaScript existant pour l'événement 'voirPointsFidelitebtn' -->
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <%@ page import="Model.metier.Panier" %>
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.DAO.ClientDAO" %>
+<%@ page import="Model.DAO.PanierDAO" %>
+
 <%-- Récupération du panier depuis la session --%>
 
 <% Panier panier = (Panier) session.getAttribute("panier"); %>
 
-<%-- Récupération du total du panier depuis la requête --%>
-<% Double totalPanier = (Double) session.getAttribute("totalPanier"); %>
 
 
 <!DOCTYPE html>
@@ -30,13 +31,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
-	 <script type="text/javascript">
-        function modifierQuantiteProduit(idProduit) {
-            var nouvelleQuantite = document.getElementById('quantite_' + idProduit).value;
-            // Appeler la servlet pour modifier la quantité du produit dans le panier
-            window.location.href = 'ModifierQuantitePanierServlet?idProduit=' + idProduit + '&nouvelleQuantite=' + nouvelleQuantite;
-        }
-    </script>
+	
 <title>Mon Panier</title>
 <head>
     <title>Freshcery | Groceries Organic Store</title>
@@ -65,7 +60,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                      <button id="voirPointsFidelitebtn" class="btn btn-primary">Débloquer mes points de fidélité</button>
+                      <button id="voirPointsFidelitebtn" class="btn btn-primary" onclick="calculerNouveauTotal(<%= new ClientDAO().getPointsFideliteById(1) %>);">Débloquer mes points de fidélité</button>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -119,68 +114,21 @@
                         </div>
                     </div>
                     <div class="col">
-                        <a href="shop.jsp" class="btn btn-default">Continuer mes achats</a>
+                        <a href="index.jsp" class="btn btn-default">Continuer mes achats</a>
                     </div>
                     
-                        <%
-						    double total = 0.0;
-						    if (request.getAttribute("panier") != null) {
-						        for (LignePanier lignePanier : panier.getLignesPanier()) {
-						        	total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
-						        }
-						    }
+						                    <%
+						    PanierDAO panierDAO = new PanierDAO();
+						    double total = panierDAO.calculerTotalPanier(panier);
 						%>
+								<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %>  &#8364</span></h6>
+                    
 						
-						<h6 class="mt-3">Total: <span id="totalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
-						
-						
-<script type="text/javascript">
-// Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
-var totalPanierString = '<%= String.valueOf(totalPanier) %>';
-// Initialiser le total mis à jour à zéro
-var nouveauTotalPanier = 0;
-
-// Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
-function updateNouveauTotalPanier() {
-    // Mettre à jour l'élément HTML avec le nouveau total
-    document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
-}
-
-// Fonction pour effectuer le calcul du nouveau total
-function calculerNouveauTotal(pointsFidelite) {
-    // Convertir la valeur du total en nombre
-    var totalPanier = parseFloat(totalPanierString.replace(",", "."));
-
-    // Vérifier si la conversion est un nombre valide
-    if (!isNaN(totalPanier)) {
-        var reductionEnEuros = pointsFidelite / 10.0;
-        nouveauTotalPanier = totalPanier - reductionEnEuros;
-
-        // Mettre à jour le nouveau total dans l'interface utilisateur
-        updateNouveauTotalPanier();
-     // Afficher une alerte pour déboguer
-        alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
-    } else {
-        // Gérer l'erreur si la conversion n'est pas un nombre valide
-        console.error("Erreur de conversion du total en nombre.");
-    }
-}
-
-// Code existant pour l'événement 'voirPointsFidelitebtn'
-document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
-    var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
-
-    // Appeler la fonction pour calculer et mettre à jour le nouveau total
-    calculerNouveauTotal(pointsFidelite);
-});
-
-</script>
-
-                  
-		<h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
+                
+		<h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1)%></h6>               
 		<br>
 		
-		<h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
+		<h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span>&#8364</h6>
 		<br>
                         
 
@@ -259,6 +207,7 @@ document.getElementById('voirPointsFidelitebtn').addEventListener('click', funct
             </div>
         </div>
     </footer>
+    
 	
     <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/totalPanier.js"></script>
@@ -271,8 +220,16 @@ document.getElementById('voirPointsFidelitebtn').addEventListener('click', funct
     <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
     <script type="text/javascript" src="assets/js/theme.js"></script>
-    
-
+      <script type="text/javascript">
+        function calculerNouveauTotal(pointsFidelite) {
+            var totalPanier = parseFloat(<%= total %>);
+            var reduction = pointsFidelite / 10; // Supposons que chaque point de fidélité équivaut à 0.10 euro de réduction
+            var nouveauTotal = totalPanier - reduction;
+            document.getElementById("nouveauTotalPanier").textContent = nouveauTotal.toFixed(2);
+        }
+    </script>
+							
+	
 
 
 </body>

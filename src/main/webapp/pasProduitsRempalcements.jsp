@@ -9,7 +9,7 @@
 </head>
 <body>
 	<jsp:include flush="true" page="head.jsp"></jsp:include>
-	
+	 <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');"></div>
 
 	<div class="col-md-12" style="padding-top: 150px;">
 		<h2 class="title">

@@ -27,9 +27,14 @@
 
         <div class="product-detail">
             <div class="container">
+             <p><a href="shop"><strong><i class="bi bi-arrow-left"></i> Retour</strong></a></p>
+             <a href="">
+                    <i class="bi bi-heart" style="color: #FF2D2D;"></i>
+					</a>
                 <div class="row">
                     <div class="col-sm-6">
-                        <img src="${produit.adresseImageProduit}" alt="Image du produit" style="width: 100%;">
+                    
+                        <img src="${produit.adresseImageProduit}" alt="Image du produit" style="width: 60%;text-align: right;">
                     </div>
                     <div class="col-sm-6">
                         <h3>${produit.nomProduit} (${produit.marqueProduit})</h3>
@@ -39,8 +44,10 @@
                         <p id="descriptionText">
                         	<strong>Description:</strong> 
                         	${not empty produit.description ? produit.description.substring(0, produit.description.length() > 100 ? 100 : produit.description.length()) : ''}
+                        	
                        	</p>
-                        <p id="showMoreButton" onclick="showMore()" style="color: blue; font-weight: bold; cursor: pointer;">Voir plus</p>
+                  
+    <p id="showMoreButton" onclick="showMore()" style="color: blue; font-weight: bold; cursor: pointer;">Voir plus</p>
                         <p id="showLessButton" onclick="showLess()" style="color: blue; font-weight: bold; cursor: pointer; display: none;">Réduire</p>
 
                         <!-- Formulaire pour ajouter au panier -->

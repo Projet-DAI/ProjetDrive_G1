@@ -229,7 +229,7 @@
 											</div>
 										</div>
 									</li>
-									<% }%>
+									
 
 									<li>
 										<div class="drop-title d-flex justify-content-between">
@@ -247,7 +247,7 @@
 								</ul>
 							</div> 
 						</li>
-
+						<% }%>
 				
 						<% } else {%>
 							

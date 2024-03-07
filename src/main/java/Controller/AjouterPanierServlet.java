@@ -19,32 +19,24 @@ import Model.metier.Produit;
 
 @WebServlet("/AjouterPanierServlet")
 public class AjouterPanierServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private PanierDAO panierDAO;
+	private PanierDAO panierDAO;
 
-    public void init() throws ServletException {
-        panierDAO = new PanierDAO();
-    }
+	public void init() throws ServletException {
+		panierDAO = new PanierDAO();
+	}
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String productIdString = request.getParameter("produitId");
         String quantiteString = request.getParameter("quantite");
-        
-        System.out.println("Product ID: " + productIdString); // Ajout d'un message de débogage
-        System.out.println("Quantité: " + quantiteString); // Ajout d'un message de débogage
 
         if (productIdString != null && quantiteString != null) {
             int productId = Integer.parseInt(productIdString);
-            int quantite = Integer.parseInt(quantiteString);
+            int quantiteDemandee = Integer.parseInt(quantiteString);
 
-            System.out.println("Product ID: " + productId);
-            System.out.println("Quantité: " + quantite);
-
-            // Récupérer le panier du client depuis la session
-            HttpSession session = request.getSession(false);
-            System.out.println("Session récupérée: " + session);
+            Produit produit = ProduitDAO.getProductById(productId);
 
             if (produit != null) {
                 int quantiteEnStock = ProduitDAO.getQuantiteEnStock(productId);
@@ -82,16 +74,12 @@ public class AjouterPanierServlet extends HttpServlet {
                         panierDAO.createPanier(panier);
 
                         response.sendRedirect(request.getHeader("referer"));
-                    } else {
-                        // Si le produit n'est pas trouvé, gérer l'erreur
-                        System.out.println("Produit non trouvé pour l'ID: " + productId);
-                        response.sendRedirect("shop.jsp");
                     }
-                }
             } else {
                 System.out.println("Produit non trouvé pour l'ID: " + productId);
                 response.sendRedirect("shop.jsp");
             }
-        }
-    }
+    }  
+        }      
+}
 }

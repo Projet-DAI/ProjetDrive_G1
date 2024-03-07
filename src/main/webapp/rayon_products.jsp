@@ -137,6 +137,6 @@
 
 <style>
     .card-badge {
-        height: 250px; 
-    }
+        height: 250px; 
+    }
 </style>

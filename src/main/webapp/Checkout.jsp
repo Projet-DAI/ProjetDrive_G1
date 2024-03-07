@@ -107,7 +107,7 @@
 
  							  <input type="submit" value="Choisir">							    
 							</form>
-								<p id="creneauChoisiText" class="mt-3">Le créneau choisi est : </p>
+								<p id="creneauChoisiText" class="mt-3">Le créneau choisi est :  <%= session.getAttribute("creneauChoisi") %> </p>
 								
 								<script>
 								    document.addEventListener("DOMContentLoaded", function() {
@@ -132,10 +132,9 @@
 			
 		
 					</div>
-                     <%
+                     <%                        Panier panierClient = clientConnecte.getPanier();%>
+
                         
-                        Panier panierClient = clientConnecte.getPanier();
-                     %>
 					<div class="col-xs-12 col-sm-5">
 						<div class="holder">
 							<h5 class="mb-3">VOTRE COMMANDE</h5>

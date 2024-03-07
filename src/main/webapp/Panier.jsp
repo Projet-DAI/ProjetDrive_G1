@@ -60,7 +60,47 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                      <button id="voirPointsFidelitebtn" class="btn btn-primary" onclick="calculerNouveauTotal(<%= new ClientDAO().getPointsFideliteById(1) %>);">Débloquer mes points de fidélité</button>
+                      <%
+						    PanierDAO panierDAO = new PanierDAO();
+						    double total = panierDAO.calculerTotalPanier(panier);
+						%>
+                      <button id="voirPointsFidelitebtn" class="btn btn-primary" >Débloquer mes points de fidélité</button>
+                      <script type="text/javascript">
+                      /* function calculerNouveauTotal(pointsFidelite, totalPanier) {
+                          var nouveauTotal = totalPanier - pointsFidelite; // Exemple simple : soustraire les points de fidélité du total
+                          return nouveauTotal;
+                      
+                      } */
+
+					    document.getElementById("voirPointsFidelitebtn").addEventListener('click', function() {
+					        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+					        var totalPanier = <%= total %>;
+					       // var nouveauTotal = calculerNouveauTotal(pointsFidelite, totalPanier);
+
+					
+					        // Envoyer une requête AJAX au Servlet pour calculer le montant après réduction
+					        $.ajax({
+					            type: "POST",
+					            url: "CalculMontantServlet",
+					            data: {
+					                pointsFidelite: pointsFidelite,
+					                totalPanier: totalPanier
+					            },
+					            success: function(response) {
+                                    console.log(typeof response); // Afficher le type de données retourné par le serveur dans la console du navigateur
+                                    if (!isNaN(response)) {
+                                        var nouveauTotal = parseFloat(response);
+                                        document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
+                                    } else {
+                                        console.error("Le serveur n'a pas renvoyé un nombre valide pour le nouveau total.");
+                                    }
+                                },
+                               
+                            });
+                        });
+
+					</script>
+                      
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -86,20 +126,74 @@
 									                    <form action="ModifierQuantitePanierServlet" method="post">
 									                        <input type="hidden" name="panierId" value="<%= panier.getIdPanier() %>">
 									                        <input type="hidden" name="produitId" value="<%= lignePanier.getProduit().getIdProduit() %>">
-									                        <input class="vertical-spin form-control input-number" type="text" name="nouvelleQuantite" value="<%= lignePanier.getQuantite() %>" min="1">
-									                        <button type="submit" class="btn btn-primary">Modifier</button>
+									                        <input type="number" class="vertical-spin form-control input-number quantity-input"  value="<%= lignePanier.getQuantite() %>" min="1">
+									                        <button type="button" class="btn btn-primary modify-quantity">Modifier</button>
 									                    </form>
 									                </td>
+									                <script>
+													    $(document).ready(function() {
+													        $(".modify-quantity").on("click", function() {
+													            var parentRow = $(this).closest("tr");
+													            var panierId = <%= panier.getIdPanier() %>;
+													            var produitId = parentRow.find("[name='produitId']").val();
+													            var nouvelleQuantite = parentRow.find(".quantity-input").val();
+													
+													            $.ajax({
+													                type: "POST",
+													                url: "ModifierQuantitePanierServlet",
+													                data: {
+													                    panierId: panierId,
+													                    produitId: produitId,
+													                    nouvelleQuantite: nouvelleQuantite
+													                },
+													                success: function(response) {
+													                    // Update the quantity and total price on the page based on the server's response
+													                    // For example, you can update the quantity and total elements here
+													                },
+													                error: function(xhr, status, error) {
+													                    console.error(error); // Log any errors to the console
+													                }
+													            });
+													        });
+													    });
+													</script>
 						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
-													<td><a href="#" class="text-danger" onclick="supprimerLignePanier('<%= lignePanier.getProduit().getIdProduit() %>')"><i class="fa fa-times"></i></a></td>
+													<td><a href="#" class="text-danger delete-item" data-id="<%= lignePanier.getProduit().getIdProduit() %>"><i class="fa fa-times"></i></a></td>
 						                        	<script>
-														function supprimerLignePanier(idProduit) {
-														    var idPanier = <%= panier.getIdPanier() %>;
-														    if (confirm("Voulez-vous vraiment supprimer cet article du panier?")) {
-														        window.location.href = 'SupprimerLignePanierServlet?idPanier=' + idPanier + '&idProduit=' + idProduit;
-														    }
-														}
-														</script>
+						                        	$(document).ready(function() {
+						                        	    // Attachement de l'événement de suppression uniquement une fois
+						                        	    $(".delete-item").off("click").on("click", function(e) {
+						                        	        e.preventDefault();
+						                        	        var deleteButton = $(this); // Garder une référence au bouton supprimer
+						                        	        var productId = deleteButton.data("id");
+						                        	        var panierId = <%= panier.getIdPanier() %>;
+
+						                        	        // Afficher directement la fenêtre contextuelle de confirmation sans le if(confirm(...))
+						                        	        var confirmation = confirm("Voulez-vous vraiment supprimer cet article du panier?");
+
+						                        	        // Si l'utilisateur confirme la suppression
+						                        	        if (confirmation) {
+						                        	            $.ajax({
+						                        	                type: "GET",
+						                        	                url: "SupprimerLignePanierServlet",
+						                        	                data: {
+						                        	                    idPanier: panierId,
+						                        	                    idProduit: productId
+						                        	                },
+						                        	                success: function(response) {
+						                        	                    // Mettre à jour le contenu du panier ou tout autre élément d'interface utilisateur pertinent
+						                        	                    deleteButton.closest('tr').remove(); // Supprimer la ligne de tableau correspondante
+						                        	                    alert("Article supprimé avec succès"); // Afficher un message de confirmation
+						                        	                },
+						                        	                error: function(xhr, status, error) {
+						                        	                    console.error(error); // Journaliser les erreurs éventuelles dans la console
+						                        	                }
+						                        	            });
+						                        	        }
+						                        	    });
+						                        	});
+
+													</script>
 						                        </tr>
 						                    <% } %>
 					                    </tbody>
@@ -117,13 +211,10 @@
                         <a href="index.jsp" class="btn btn-default">Continuer mes achats</a>
                     </div>
                     
-						                    <%
-						    PanierDAO panierDAO = new PanierDAO();
-						    double total = panierDAO.calculerTotalPanier(panier);
-						%>
+						                  
 								<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %>  &#8364</span></h6>
                     
-						
+                    
                 
 		<h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1)%></h6>               
 		<br>
@@ -213,7 +304,6 @@
     
 	
     <script type="text/javascript" src="assets/js/jquery.js"></script>
-    <script type="text/javascript" src="assets/js/totalPanier.js"></script>
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>
@@ -223,21 +313,7 @@
     <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
     <script type="text/javascript" src="assets/js/theme.js"></script>
-      <script type="text/javascript">
-    function calculerNouveauTotal(pointsFidelite, totalPanier) {
-        var totalPanier = parseFloat(totalPanier);
-        var reduction = pointsFidelite / 10; // Supposons que chaque point de fidélité équivaut à 0.10 euro de réduction
-        var nouveauTotal = totalPanier - reduction;
-        document.getElementById("nouveauTotalPanier").textContent = nouveauTotal.toFixed(2);
-    }
-</script>
-
-document.getElementById("voirPointsFidelitebtn").addEventListener("click", function() {
-    var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
-    var totalPanier = <%= total %>; // Assurez-vous que la variable 'total' est correctement définie dans votre script JSP
-    calculerNouveauTotal(pointsFidelite, totalPanier); // Passez le montant total du panier en paramètre
-});
-
+  
 
 							
 	

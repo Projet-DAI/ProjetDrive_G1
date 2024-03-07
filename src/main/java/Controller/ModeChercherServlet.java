@@ -28,6 +28,8 @@ public class ModeChercherServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+
 		//System.out.println("ModeChercherServlet");
 		
 		String mode = request.getParameter("modeChoisi");
@@ -38,7 +40,7 @@ public class ModeChercherServlet extends HttpServlet {
 		
 		s.setAttribute("ModeCherche", mode);
 		
-		//System.out.println(s.getAttribute("ModeCherche"));
+		//System.out.println("改变后的mode" + s.getAttribute("ModeCherche"));
 		
 	}
 

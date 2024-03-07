@@ -7,8 +7,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    
     <title>Détails du produit</title>
-   
+
 </head>
 <body>
 	<% Produit p = (Produit)request.getAttribute("produit"); %>
@@ -22,14 +23,15 @@
                     <h1 class="pt-5">Détails du produit</h1>
                 </div>
             </div>
-        </div>
+                        </div>
+            
 
         <div class="product-detail">
             <div class="container">
              <p><a href="shop"><strong><i class="bi bi-arrow-left"></i> Retour</strong></a></p>
-             <a href="">
+          <!--    <a href="">
                     <i class="bi bi-heart" style="color: #FF2D2D;"></i>
-					</a>
+					</a> -->
                 <div class="row">
                     <div class="col-sm-6">
                     

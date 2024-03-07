@@ -54,7 +54,7 @@ public class ShopServlet extends HttpServlet {
         }catch(Exception ex){
             // chainage vers "index.jsp"
             request.setAttribute("msg_erreur", ex.getMessage());
-            response.sendRedirect("index.jsp");
+            //response.sendRedirect("index.jsp");
         }
 	}
 

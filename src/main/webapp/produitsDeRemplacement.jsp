@@ -100,7 +100,7 @@
 <%
                 } else {
                     // La liste de produits de remplacement est vide
-                    out.println("Aucun produit de remplacement disponible.");
+                	response.sendRedirect("pasProduitsRempalcements.jsp");
                 }
             } else {
                 // Le produit n'existe pas

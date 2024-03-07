@@ -60,46 +60,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                      <%
-						    PanierDAO panierDAO = new PanierDAO();
-						    double total = panierDAO.calculerTotalPanier(panier);
-						%>
+                     
                       <button id="voirPointsFidelitebtn" class="btn btn-primary" >Débloquer mes points de fidélité</button>
-                      <script type="text/javascript">
-                      /* function calculerNouveauTotal(pointsFidelite, totalPanier) {
-                          var nouveauTotal = totalPanier - pointsFidelite; // Exemple simple : soustraire les points de fidélité du total
-                          return nouveauTotal;
-                      
-                      } */
-
-					    document.getElementById("voirPointsFidelitebtn").addEventListener('click', function() {
-					        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
-					        var totalPanier = <%= total %>;
-					       // var nouveauTotal = calculerNouveauTotal(pointsFidelite, totalPanier);
-
-					
-					        // Envoyer une requête AJAX au Servlet pour calculer le montant après réduction
-					        $.ajax({
-					            type: "POST",
-					            url: "CalculMontantServlet",
-					            data: {
-					                pointsFidelite: pointsFidelite,
-					                totalPanier: totalPanier
-					            },
-					            success: function(response) {
-                                    console.log(typeof response); // Afficher le type de données retourné par le serveur dans la console du navigateur
-                                    if (!isNaN(response)) {
-                                        var nouveauTotal = parseFloat(response);
-                                        document.getElementById('nouveauTotalPanier').innerText = nouveauTotal.toFixed(2) + ' €';
-                                    } else {
-                                        console.error("Le serveur n'a pas renvoyé un nombre valide pour le nouveau total.");
-                                    }
-                                },
-                               
-                            });
-                        });
-
-					</script>
+                     
                       
                         <div class="table-responsive">
                             <table class="table">
@@ -210,11 +173,61 @@
                     <div class="col">
                         <a href="index.jsp" class="btn btn-default">Continuer mes achats</a>
                     </div>
+                    <div class="clearfix"></div>
+                        <%
+						    double total = 0.0;
+						    if (request.getAttribute("panier") != null) {
+						        for (LignePanier lignePanier : panier.getLignesPanier()) {
+						            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+						        }
+						    }
+						%>
+						
                     
 						                  
 								<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %>  &#8364</span></h6>
                     
-                    
+                    <script type="text/javascript">
+    // Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
+    var totalPanierString = '<%= String.valueOf(total) %>';
+    // Initialiser le total mis à jour à zéro
+    var nouveauTotalPanier = 0;
+
+    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
+    function updateNouveauTotalPanier() {
+        // Mettre à jour l'élément HTML avec le nouveau total
+        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
+    }
+
+    // Fonction pour effectuer le calcul du nouveau total
+    function calculerNouveauTotal(pointsFidelite) {
+        // Convertir la valeur du total en nombre
+        var totalPanier = parseFloat(totalPanierString.replace(",", "."));
+
+        // Vérifier si la conversion est un nombre valide
+        if (!isNaN(totalPanier)) {
+            var reductionEnEuros = pointsFidelite / 10.0;
+            nouveauTotalPanier = totalPanier - reductionEnEuros;
+
+            // Mettre à jour le nouveau total dans l'interface utilisateur
+            updateNouveauTotalPanier();
+
+            // Afficher une alerte pour déboguer
+            //alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+        } else {
+            // Gérer l'erreur si la conversion n'est pas un nombre valide
+            console.error("Erreur de conversion du total en nombre.");
+        }
+    }
+
+    // Code existant pour l'événement 'voirPointsFidelitebtn'
+    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+
+        // Appeler la fonction pour calculer et mettre à jour le nouveau total
+        calculerNouveauTotal(pointsFidelite);
+    });
+</script>
                 
 		<h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1)%></h6>               
 		<br>

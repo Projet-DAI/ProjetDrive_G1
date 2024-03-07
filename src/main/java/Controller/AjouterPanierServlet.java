@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -141,7 +142,7 @@ public class AjouterPanierServlet extends HttpServlet {
                         // Rediriger vers une page appropriée
                         response.sendRedirect(request.getHeader("referer"));
                     } else {
-                        List<Produit> produitsDeRemplacement = ProduitDAO.getProduitsDeRemplacement(product.getCategorie());
+                    	List<Produit> produitsDeRemplacement = ProduitDAO.getProduitsDeRemplacement(product.getCategorie(), productId);
 
                         request.setAttribute("produitsDeRemplacement", produitsDeRemplacement);
 

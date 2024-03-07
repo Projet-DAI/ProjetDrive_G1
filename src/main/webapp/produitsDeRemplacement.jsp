@@ -1,41 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1"%>
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Model.DAO.ProduitDAO" %>
-<%@page import="java.util.List"%>
-<%@page import="Model.metier.Produit"%>
+<%@ page import="java.util.List" %>
+<%@ page import="Model.metier.Produit" %>
 
 <%
+    // Récupérer l'ID du produit à partir de l'URL
     String productId = request.getParameter("productId");
 
     if(productId != null && !productId.isEmpty()) {
-        int idProduit = Integer.parseInt(productId);
-
-        Produit product = null;
         try {
-            product = ProduitDAO.getProductById(idProduit);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            // Convertir l'ID du produit en entier
+            int idProduit = Integer.parseInt(productId);
 
-        if(product != null) {
-            List<Produit> produitsDeRemplacement = ProduitDAO.getProduitsDeRemplacement(product.getCategorie(), idProduit);
+            // Récupérer les détails du produit en fonction de son ID
+            Produit product = ProduitDAO.getProductById(idProduit);
+
+            if(product != null) {
+                // Récupérer la liste des produits de remplacement
+                List<Produit> produitsDeRemplacement = ProduitDAO.getProduitsDeRemplacement(product.getCategorie(), idProduit);
+
+                if (!produitsDeRemplacement.isEmpty()) {
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-
-<title>Produits de Remplacement</title>
-
+    <meta charset="UTF-8">
+    <title>Produits de Remplacement</title>
+    <jsp:include flush="true" page="head.jsp"></jsp:include>
 </head>
 <body>
-    <jsp:include flush="true" page="head.jsp"></jsp:include>
-	
     <div id="page-content" class="page-content">
-    	<div class="banner">
+        <div class="banner">
             <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
                 <div class="container">
                     <h1 class="pt-5">Page d'achat</h1>
@@ -44,18 +41,16 @@
         </div>
 
         <jsp:include flush="true" page="rayon.jsp"></jsp:include>
-
     </div>
- <section id="most-wanted">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="title">Produits de Remplacement</h2>
-                <div class="product-carousel owl-carousel">
-                    <%
-                      for (Produit remplacement : produitsDeRemplacement) { 
-                    %>
-    <div class="item">
+
+    <section id="most-wanted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="title">Produits de Remplacement</h2>
+                    <div class="product-carousel owl-carousel">
+                        <% for (Produit remplacement : produitsDeRemplacement) { %>
+                            <div class="item">
         <div class="card card-product">
             <div class="card-ribbon">
                 <div class="card-ribbon-container right">
@@ -81,35 +76,53 @@
                     <a href="detail?productId=<%= remplacement.getIdProduit() %>"><%= remplacement.getNomProduit() %></a>
                 </h4>
                 <div class="card-price">
-                    <span class="discount"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) %></span>
+                    <span class="discount"></span>
                 
-                    <span class="reguler"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit()) %></span>
+                    <span class="reguler"><%= new java.text.DecimalFormat("#,###.00").format(remplacement.getPrixProduit()) %></span>
                 </div>
                 <a href="ServletPanier?method=ajouterPanier&productId=<%= remplacement.getIdProduit() %>" class="btn btn-block btn-primary">
                     Ajouter au panier
                 </a>
             </div>
         </div>
-    </div>
-<%
-    }
-%>
-
+                            </div>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-
+    </section>
 
     <jsp:include flush="true" page="footer.jsp"></jsp:include>
 </body>
 </html>
 
+<%
+                } else {
+                    // La liste de produits de remplacement est vide
+                    out.println("Aucun produit de remplacement disponible.");
+                }
+            } else {
+                // Le produit n'existe pas
+                out.println("Le produit demandé n'existe pas.");
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            // Gérer l'exception si la conversion de l'ID du produit en entier échoue
+            out.println("L'ID du produit n'est pas un nombre valide.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Gérer d'autres exceptions possibles
+            out.println("Une erreur s'est produite lors de la récupération des détails du produit.");
+        }
+    } else {
+        // L'ID du produit n'est pas présent dans l'URL
+        out.println("L'ID du produit n'a pas été spécifié dans l'URL.");
+    }
+%>
 
 <style>
-        .card-badge {
-            height: 250px; /* è®¾ç½®ä¸ºæ‰€éœ€çš„é«˜åº¦ */
-        }
-    </style>
+    .card-badge {
+        height: 250px; /* Réglez comme nécessaire pour la hauteur requise */
+    }
+</style>

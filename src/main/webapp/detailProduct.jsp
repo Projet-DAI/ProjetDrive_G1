@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,7 @@
 
             // Faire une requête Ajax pour récupérer la quantité en stock
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "GetQuantiteEnStock?idProduit=<%= product.getIdProduit() %>", false);
+            xhr.open("GET", "GetQuantiteEnStock?idProduit=${produit.idProduit} ", false);
             xhr.send();
 
             // Vérifier si la quantité demandée est inférieure à la quantité en stock

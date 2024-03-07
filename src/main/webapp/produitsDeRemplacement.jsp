@@ -67,7 +67,7 @@
                 </a>
             </div>
             <div class="card-body">
-                <a href="servletCentral?method=ajouterList&productId=<%= remplacement.getIdProduit() %>">
+                <a href="AjouterPanierServlet?produitId=<%= remplacement.getIdProduit() %>">
                     <svg class="bi bi-archive-fill text-danger" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
                     </svg>
@@ -80,7 +80,7 @@
                 
                     <span class="reguler"><%= new java.text.DecimalFormat("#,###.00").format(remplacement.getPrixProduit()) %></span>
                 </div>
-                <a href="ServletPanier?method=ajouterPanier&productId=<%= remplacement.getIdProduit() %>" class="btn btn-block btn-primary">
+                <a href="AjouterPanierServlet?produitId=<%= remplacement.getIdProduit() %>" class="btn btn-block btn-primary">
                     Ajouter au panier
                 </a>
             </div>
@@ -100,7 +100,7 @@
 <%
                 } else {
                     // La liste de produits de remplacement est vide
-                    out.println("Aucun produit de remplacement disponible.");
+                	response.sendRedirect("pasProduitsRempalcements.jsp");
                 }
             } else {
                 // Le produit n'existe pas
@@ -117,7 +117,7 @@
         }
     } else {
         // L'ID du produit n'est pas présent dans l'URL
-        out.println("L'ID du produit n'a pas été spécifié dans l'URL.");
+        out.println("L'ID du produit n'a pas été spécifié dans l'URL.mmm");
     }
 %>
 

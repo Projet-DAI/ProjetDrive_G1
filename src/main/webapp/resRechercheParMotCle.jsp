@@ -67,10 +67,10 @@
                                         <img src=<%=adresseImg %> alt="Card image 2" class="card-img-top">
                                     </div>
                                     <div class="card-body">
-                                        <h4 class="card-title">
+                                        <h4 class="card-title" style="font-size: 12px;height:60px">
 											<a href="detail?produitId=<%= p.getIdProduit() %>"><%= nomP %></a>
                                         </h4>
-                                        <div class="card-price">
+                                        <div class="card-price"style="height:30px">
                                         	<% if (promotion == true){ %>
                                             	<span class="discount"><%=prixOriginal %>€</span>
                                             	<span class="reguler"><%=prixPromoFinal %>€</span>

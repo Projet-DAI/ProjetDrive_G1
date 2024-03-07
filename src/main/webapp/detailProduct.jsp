@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page isELIgnored="false" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -8,25 +10,7 @@
     <meta charset="UTF-8">
     <title>Détails du produit</title>
 		<jsp:include flush="true" page="head.jsp"></jsp:include>
-        <script>
-        function verifierQuantite() {
-            // Récupérer la quantité demandée
-            var quantiteDemandee = parseInt(document.getElementById("quantiteInput").value);
-
-            // Faire une requête Ajax pour récupérer la quantité en stock
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "GetQuantiteEnStock?idProduit=${produit.idProduit} ", false);
-            xhr.send();
-
-            // Vérifier si la quantité demandée est inférieure à la quantité en stock
-            if (quantiteDemandee > parseInt(xhr.responseText)) {
-                alert("La quantité demandée est supérieure à la quantité en stock. Veuillez ajuster la quantité.");
-                return false; // Annuler l'envoi du formulaire
-            }
-
-            return true; // Envoyer le formulaire
-        }
-         </script>
+        
 
 </head>
 <body>
@@ -54,7 +38,7 @@
                         <p><strong>Nutriscore:</strong> ${produit.nutriscore}</p>
                         <p id="descriptionText">
                         	<strong>Description:</strong> 
-                        	${not empty produit.description ? produit.description.substring(0, min(100, produit.description.length())) : ''}
+                        	${not empty produit.description ? produit.description.substring(0, produit.description.length() > 100 ? 100 : produit.description.length()) : ''}
                        	</p>
                         <p id="showMoreButton" onclick="showMore()" style="color: blue; font-weight: bold; cursor: pointer;">Voir plus</p>
                         <p id="showLessButton" onclick="showLess()" style="color: blue; font-weight: bold; cursor: pointer; display: none;">Réduire</p>
@@ -88,10 +72,29 @@
         }
 
         function showLess() {
-            document.getElementById("descriptionText").innerHTML = "<strong>Description:</strong> ${not empty produit.description ? produit.description.substring(0, min(100, produit.description.length())) : ''}";
+            document.getElementById("descriptionText").innerHTML = "<strong>Description:</strong> ${not empty produit.description ? produit.description.substring(0, produit.description.length() > 100 ? 100 : produit.description.length()) : ''}";
             document.getElementById("showMoreButton").style.display = "inline";
             document.getElementById("showLessButton").style.display = "none";
         }
+        
+        function verifierQuantite() {
+            // Récupérer la quantité demandée
+            var quantiteDemandee = parseInt(document.getElementById("quantiteInput").value);
+
+            // Faire une requête Ajax pour récupérer la quantité en stock
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "GetQuantiteEnStock?idProduit=${produit.idProduit} ", false);
+            xhr.send();
+
+            // Vérifier si la quantité demandée est inférieure à la quantité en stock
+            if (quantiteDemandee > parseInt(xhr.responseText)) {
+                alert("La quantité demandée est supérieure à la quantité en stock. Veuillez ajuster la quantité.");
+                return false; // Annuler l'envoi du formulaire
+            }
+
+            return true; // Envoyer le formulaire
+        }
     </script>
+
 </body>
 </html>

@@ -24,6 +24,10 @@
 	
 </head>
 <body>
+	<% HttpSession s = request.getSession();
+		String mode = "Produit";
+		s.setAttribute("ModeCherche", mode);
+	%>
     <div id="page-content" class="page-content">
         <div class="banner">
             <div class="jumbotron jumbotron-video text-center bg-dark mb-0 rounded-0">

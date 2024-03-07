@@ -10,10 +10,14 @@
 <%@ page import="java.text.DecimalFormat"%>
 <%@ page import="java.text.NumberFormat"%>
 <%@page import="Model.DAO.PanierDAO"%>
-<% Panier panier = (Panier) session.getAttribute("Panier"); %>
+<%
+Panier panier = (Panier) session.getAttribute("Panier");
+%>
 
 <%-- Récupération du total du panier depuis la requête --%>
-<% Double totalPanier = (Double) request.getAttribute("totalPanier"); %>
+<%
+Double totalPanier = (Double) request.getAttribute("totalPanier");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -75,53 +79,43 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-                <div class="collapse navbar-collapse" id="navbarcollapse">
-                    <!-- Navbar Menu -->
-                    <ul class="navbar-nav ml-auto">
-               
-                    	
-                    	<form action="RechercheParMotCle" method="get">
-                    	
-                    	<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-      <div role="separator" class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
-    </div>
-  </div>
-  <input type="text" name="motcle" class="form-control" aria-label="Text input with dropdown button">
-</div>
-                    	
-                    	
-                    	</form>
-                    	
-                    	
-                    	
-                    	<!-- ajouter Drive pour choisir magasin-->
-                    	<li class="nav-item" id="drive">
-						    <a href="#" class="nav-link drive-link" data-toggle="modal" data-target="#locationModal">Drive</a>
-						</li>
-						<style>
-    .drive-link {
-        color: white;
-    }
+				<div class="collapse navbar-collapse" id="navbarcollapse">
+					<!-- Navbar Menu -->
+					<ul class="navbar-nav ml-auto">
 
-    .drive-link:hover {
-        color: pink;
-    }
-</style>
+
+						<form action="RechercheParMotCle" method="get" style="margin-top: 4px;">
+
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<button id="btnMode" name="mode" class="btn btn-outline-secondary dropdown-toggle"
+										type="button" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">Produit</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" value="Rayon" onclick="selectOption('Rayon')">Rayon</a> 
+										<a class="dropdown-item" value="Catégorie" onclick="selectOption('Catégorie')">Catégorie</a> 
+										<a class="dropdown-item" value="Produit" onclick="selectOption('Produit')">Produit</a>							
+									</div>
+								</div>
+								<input type="text" id="motcle" name="motcle" class="form-control" aria-label="Text input with dropdown button">
+							</div>
+						</form>
+
+					
+
+						<!-- ajouter Drive pour choisir magasin-->
+						<li class="nav-item" id="drive">
+							<a href="#" class="nav-link drive-link" data-toggle="modal"
+								data-target="#locationModal">Drive</a></li>
+
 
 
 						<li class="nav-item"><a href="#" id="faireCoursesBtn"
 							class="nav-link">Faire ses courses</a></li>
 						<%
-                        	String nomU = (String)session.getAttribute("username");
-                        	if (nomU != null){
-                        %>
+						String nomU = (String) session.getAttribute("username");
+						if (nomU != null) {
+						%>
 
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="javascript:void(0)"
@@ -129,7 +123,7 @@
 							aria-haspopup="true" aria-expanded="false">
 								<div class="avatar-header">
 									<img src="assets/img/logo/avatar.jpg">
-								</div> <%= nomU %>
+								</div> <%=nomU%>
 						</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="TransactionPreloadServlet">Mon
@@ -141,7 +135,9 @@
 
 							</div></li>
 
-						<% } else { %>
+						<%
+						} else {
+						%>
 						<li class="nav-item"><a href="login.jsp" class="nav-link">Se
 								connecter</a></li>
 						<li class="nav-item dropdown"><a
@@ -161,15 +157,17 @@
 								<a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
 
 							</div></li>
-						<% } %>
+						<%
+						}
+						%>
 
 						<li class="nav-item dropdown">
-							<% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
-
-							<a href="javascript:void(0)" class="nav-link dropdown-toggle"
+							<%
+							if (panier != null && !panier.getLignesPanier().isEmpty()) {
+							%> <a href="javascript:void(0)" class="nav-link dropdown-toggle"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-shopping-basket"></i> <span
-								class="badge badge-primary"><%= panier.getLignesPanier().size() %></span>
+								class="badge badge-primary"><%=panier.getLignesPanier().size()%></span>
 						</a>
 							<div class="dropdown-menu shopping-cart">
 								<ul>
@@ -179,7 +177,9 @@
 										</div>
 									</li>
 
-									<% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
+									<%
+									for (LignePanier lignePanier : panier.getLignesPanier()) {
+									%>
 
 									<%-- Contenu du panier --%>
 									<li>
@@ -187,24 +187,26 @@
 
 											<div class="media">
 												<img class="d-flex mr-3"
-													src="<%= lignePanier.getProduit().getAdresseImageProduit() %>"
+													src="<%=lignePanier.getProduit().getAdresseImageProduit()%>"
 													width="60">
 												<div class="media-body">
 													<h5>
-														<a href="javascript:void(0)"><%= lignePanier.getProduit().getNomProduit() %></a>
+														<a href="javascript:void(0)"><%=lignePanier.getProduit().getNomProduit()%></a>
 													</h5>
 													<p class="price">
-														<span class="discount text-muted"><%= lignePanier.getProduit().getPrixProduit() %></span>
+														<span class="discount text-muted"><%=lignePanier.getProduit().getPrixProduit()%></span>
 														<%-- <span><%= lignePanier.getProduit().getPrixProduit() %></span>--%>
 													</p>
 													<p class="text-muted">
 														Quantité:
-														<%= lignePanier.getQuantite() %></p>
+														<%=lignePanier.getQuantite()%></p>
 												</div>
 											</div>
 										</div>
 									</li>
-									<% } %>
+									<%
+									}
+									%>
 
 									<li>
 
@@ -213,7 +215,7 @@
 
 
 											<h6 class="mt-3">
-												Total: <span id="nouveauTotalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span>
+												Total: <span id="nouveauTotalPanier"><%=String.format    ("%.2f",totalPanier)%>&#8364</span>
 											</h6>
 
 											<%-- <span>Total:</span>
@@ -231,7 +233,9 @@
 
 									<%-- Fin contenu du panier --%>
 								</ul>
-							</div> <% } %>
+							</div> <%
+ }
+ %>
 
 						</li>
 					</ul>
@@ -275,30 +279,31 @@
 
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script>
-    function submitLocation() {
-        var userLocation = document.getElementById('userLocation').value;
+		function submitLocation() {
+			var userLocation = document.getElementById('userLocation').value;
 
-        // 使用jQuery发送AJAX请求
-        $.ajax({
-            url: 'MagasinServlet', // Servlet的URL
-            type: 'POST',
-            data: {userLocation: userLocation}, // 发送到Servlet的数据
-            success: function(response) {
-                // 处理成功的响应
-                console.log(response);
-                // 可以根据需要更新页面内容
-            },
-            error: function(xhr, status, error) {
-                // 处理错误
-                console.error("AJAX请求失败: " + status + ", 错误: " + error);
-            }
-        });
+			// 使用jQuery发送AJAX请求
+			$.ajax({
+				url : 'MagasinServlet', // Servlet的URL
+				type : 'POST',
+				data : {
+					userLocation : userLocation
+				}, // 发送到Servlet的数据
+				success : function(response) {
+					// 处理成功的响应
+					console.log(response);
+					// 可以根据需要更新页面内容
+				},
+				error : function(xhr, status, error) {
+					// 处理错误
+					console.error("AJAX请求失败: " + status + ", 错误: " + error);
+				}
+			});
 
-        // 关闭模态框
-        $('#locationModal').modal('hide');
-    }
-    
-</script>
+			// 关闭模态框
+			$('#locationModal').modal('hide');
+		}
+	</script>
 
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
@@ -318,5 +323,6 @@
 	<script type="text/javascript"
 		src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
 	<script type="text/javascript" src="assets/js/theme.js"></script>
+	<script type="text/javascript" src="assets/js/headJSP.js"></script>
 </body>
 </html>

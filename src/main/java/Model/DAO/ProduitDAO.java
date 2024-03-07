@@ -31,13 +31,6 @@ public class ProduitDAO{
 	
 	public static List<Produit> rechercheParMotCle(String motcle) {
 		
-		String[] listeMot = motcle.split("");
-		
-		if (listeMot.length > 1) {
-			for (String mot : listeMot) {
-				rechercheParMotCle(mot);
-			}
-		}
 		
         List<Produit> listP = new ArrayList<>();
 
@@ -45,7 +38,7 @@ public class ProduitDAO{
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
             // Use HQL (Hibernate Query Language) to retrieve products
-            Query<Produit> query = session.createQuery("FROM Produit	 where NomProduit like '%" + motcle + "%'", Produit.class);
+            Query<Produit> query = session.createQuery("FROM Produit where NomProduit like '%" + motcle + "%'", Produit.class);
             listP = query.list();
             
         } catch (Exception e) {

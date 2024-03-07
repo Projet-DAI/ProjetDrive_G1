@@ -76,7 +76,7 @@ public class ConnexionServlet extends HttpServlet {
 	            
 	            if (email.equals("marc@stuff.com") || email.equals("adam@stuff.com")) {
 	            	
-	            	//response.sendRedirect("employee.jsp");
+	            	response.sendRedirect("employee.jsp");
 	            	
 	            } else {
 	            	
@@ -114,7 +114,7 @@ public class ConnexionServlet extends HttpServlet {
 			            s.setAttribute("panier", p.get(0));
 	            	}
 	            	
-	            	request.getRequestDispatcher("index.jsp").forward(request, response);
+	            	response.sendRedirect("index.jsp");
 	            }        
 	        } else {
 	            // Échec de la connexion

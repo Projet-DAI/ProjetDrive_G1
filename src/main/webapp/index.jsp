@@ -102,8 +102,7 @@
 			</div>
 		</div>
 		<div class="col-md-12 mt-5 text-center">
-			<a id="commencerCoursesBtn" href="#" class="btn btn-primary btn-lg">Commencer
-				ses courses</a>
+			<a id="commencerCoursesBtn" href="#" class="btn btn-primary btn-lg">Commencer ses courses</a>
 		</div>
 	</div>
 	</div>

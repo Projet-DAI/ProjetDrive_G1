@@ -75,7 +75,6 @@ public class ProduitDAO{
             Query<Produit> query = session.createQuery(hql, Produit.class);
             query.setParameter("magasinId", magasinId);
             produits = query.getResultList();
-            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

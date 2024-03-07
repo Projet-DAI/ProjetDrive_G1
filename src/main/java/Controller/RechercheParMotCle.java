@@ -62,7 +62,9 @@ public class RechercheParMotCle extends HttpServlet {
 
 	        request.getRequestDispatcher("/detailProduct.jsp").forward(request, response);
 	    } else {
-		request.getRequestDispatcher("/resRechercheParMotCle.jsp").forward(request, response);
+	    	//	request.getRequestDispatcher("/resRechercheParMotCle.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("/Rerecherc.jsp").forward(request, response);
 	    }
 	}
 

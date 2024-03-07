@@ -50,9 +50,9 @@ public class ShopServlet extends HttpServlet {
             // chainage vers la vue "Afficher.jsp" avec la liste 
             request.setAttribute("liste", promotedProducts);
             // Page d'affichage des informations
-            request.getRequestDispatcher("/shop.jsp").forward(request, response);
+            request.getRequestDispatcher("/shop1.jsp").forward(request, response);
         }catch(Exception ex){
-            // chainage vers "index.jsp"
+            // chainage vers "index.j-sp"
             request.setAttribute("msg_erreur", ex.getMessage());
             response.sendRedirect("index.jsp");
         }

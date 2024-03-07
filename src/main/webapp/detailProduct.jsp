@@ -29,10 +29,10 @@
 <head>
       <meta charset="UTF-8">
     <title>Détails du produit</title>
+   
 		
 </head>
 <body>
-
 
 	<jsp:include flush="true" page="head.jsp"></jsp:include>
 
@@ -45,14 +45,36 @@
                 </div>
             </div>
         </div>
+        
+        
 
         <div class="product-detail">
+        
             <div class="container">
+           <p><a href="shop"><strong><i class="bi bi-arrow-left"></i> Retour</strong></a></p>
+
+
+
                 <div class="row">
+                
                     <div class="col-sm-6">
-                        <img src="<%= product.getAdresseImageProduit() %>" alt="Image du produit" style="width: 100%;">
-                    </div>
-                    <div class="col-sm-6">
+                    <a href="">
+                    <i class="bi bi-heart" style="color: #FF2D2D;"></i>
+					</a>
+
+                    <div class="slider-zoom">
+                 
+    <div style="text-align: center;">
+    <img src="<%= product.getAdresseImageProduit() %>" alt="Image du produit" style="width: 60%;" id="productImage" rel="transparentImage: 'data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==', useWrapper: false, showTitle: false, zoomWidth:'500', zoomHeight:'500', adjustY:0, adjustX:10" id="cloudZoom" class="cloud-zoom-gallery">
+</div>
+
+</div>
+                    
+</div>
+
+
+
+<div class="col-sm-6">
                         <h3><%= product.getNomProduit() %> (<%= product.getMarqueProduit() %>)</h3>
                         <p><strong></strong> <%= product.getKiloProduit() %></p>
                         <p><strong>Prix:</strong> <%= product.getPrixProduit() %> €</p>
@@ -124,6 +146,17 @@
 &nbsp;
 <jsp:include flush="true" page="footer.jsp"></jsp:include>
     
-  
+  <a href="#" class="scroll-top" style="background-color: #E91E63;">
+    <i class="bi bi-arrow-up-short" style="background-color: #E91E63;"></i>
+</a>
+ 
 </body>
 </html>
+
+
+
+
+
+
+
+

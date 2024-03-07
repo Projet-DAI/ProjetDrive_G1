@@ -60,21 +60,17 @@ public class AjouterPanierServlet extends HttpServlet {
         // Récupérer les données du formulaire
         String productIdString = request.getParameter("productId");
         String quantiteString = request.getParameter("quantite");
-        int quantiteDemandee = Integer.parseInt(request.getParameter("quantite"));
-        int productIdDemandee = Integer.parseInt(request.getParameter("productId"));
-
-        Produit product = ProduitDAO.getProductById(productIdDemandee);
+        
         System.out.println("Product ID: " + productIdString); // Ajout d'un message de débogage
         System.out.println("Quantité: " + quantiteString); // Ajout d'un message de débogage
 
         if (productIdString != null && quantiteString != null) {
             int productId = Integer.parseInt(productIdString);
             int quantite = Integer.parseInt(quantiteString);
-            int quantiteEnStock = ProduitDAO.getQuantiteEnStock(productId);
 
             System.out.println("Product ID: " + productId);
             System.out.println("Quantité: " + quantite);
-            if (quantiteDemandee <= quantiteEnStock) {
+
             // Récupérer le panier du client depuis la session
             HttpSession session = request.getSession(false);
             System.out.println("Session récupérée: " + session);
@@ -141,13 +137,6 @@ public class AjouterPanierServlet extends HttpServlet {
                         // Rediriger vers une page appropriée
                         response.sendRedirect(request.getHeader("referer"));
                     } else {
-                        List<Produit> produitsDeRemplacement = ProduitDAO.getProduitsDeRemplacement(product.getCategorie());
-
-                        request.setAttribute("produitsDeRemplacement", produitsDeRemplacement);
-
-                        response.sendRedirect("produitsDeRemplacement.jsp");
-                    }                    
-                    } else {
                         // Si le produit n'est pas trouvé, gérer l'erreur
                         System.out.println("Produit non trouvé pour l'ID: " + productId);
                         response.sendRedirect("shop.jsp");
@@ -155,7 +144,6 @@ public class AjouterPanierServlet extends HttpServlet {
                 }
             }
         }
-        
     }
 }
                

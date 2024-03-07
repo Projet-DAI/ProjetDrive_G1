@@ -325,7 +325,7 @@ public class dataTEST {
 	        // Validation des transactions et confirmation de l'ajout des données
 	        transaction.commit();
 	        System.out.println("Données ajoutées avec succès à la base de données!");
-	    } catch (Exception e) {
+	    } }catch (Exception e) {
 	        e.printStackTrace();
 	    }
 	}

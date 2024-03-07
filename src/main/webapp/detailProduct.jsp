@@ -16,7 +16,8 @@
                     <h1 class="pt-5">Détails du produit</h1>
                 </div>
             </div>
-        </div>
+                        </div>
+            
 
         <div class="product-detail">
             <div class="container">

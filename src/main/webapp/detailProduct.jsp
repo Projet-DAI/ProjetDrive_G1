@@ -4,6 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    
     <title>Détails du produit</title>
 </head>
 <body>

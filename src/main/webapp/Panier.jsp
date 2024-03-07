@@ -131,8 +131,11 @@
 		<h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span>&#8364</h6>
 		<br>
                         
-
-                        <a href="Checkout.jsp" class="btn btn-lg btn-primary">Checkout 
+				<form id="checkoutForm" action="ChoixCreneauServlet" method="POST">
+				
+    						<button type="submit" class="btn btn-lg btn-primary">Checkout</button>
+                        </form>
+                         
                         <i class="fa fa-long-arrow-right"></i>
                        </a>
                     </div>
@@ -221,13 +224,21 @@
     <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
     <script type="text/javascript" src="assets/js/theme.js"></script>
       <script type="text/javascript">
-        function calculerNouveauTotal(pointsFidelite) {
-            var totalPanier = parseFloat(<%= total %>);
-            var reduction = pointsFidelite / 10; // Supposons que chaque point de fidélité équivaut à 0.10 euro de réduction
-            var nouveauTotal = totalPanier - reduction;
-            document.getElementById("nouveauTotalPanier").textContent = nouveauTotal.toFixed(2);
-        }
-    </script>
+    function calculerNouveauTotal(pointsFidelite, totalPanier) {
+        var totalPanier = parseFloat(totalPanier);
+        var reduction = pointsFidelite / 10; // Supposons que chaque point de fidélité équivaut à 0.10 euro de réduction
+        var nouveauTotal = totalPanier - reduction;
+        document.getElementById("nouveauTotalPanier").textContent = nouveauTotal.toFixed(2);
+    }
+</script>
+
+document.getElementById("voirPointsFidelitebtn").addEventListener("click", function() {
+    var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+    var totalPanier = <%= total %>; // Assurez-vous que la variable 'total' est correctement définie dans votre script JSP
+    calculerNouveauTotal(pointsFidelite, totalPanier); // Passez le montant total du panier en paramètre
+});
+
+
 							
 	
 

@@ -4,12 +4,7 @@
 <%@ page import="Model.metier.LignePanier" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.DAO.ClientDAO" %>
-<%-- Récupération du panier depuis la session --%>
 
-<% Panier panier = (Panier) session.getAttribute("Panier"); %>
-
-<%-- Récupération du total du panier depuis la requête --%>
-<% Double totalPanier = (Double) request.getAttribute("totalPanier"); %>
 
 
 <!DOCTYPE html>
@@ -30,22 +25,137 @@
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
-	 <script type="text/javascript">
-        function modifierQuantiteProduit(idProduit) {
-            var nouvelleQuantite = document.getElementById('quantite_' + idProduit).value;
-            // Appeler la servlet pour modifier la quantité du produit dans le panier
-            window.location.href = 'ModifierQuantitePanierServlet?idProduit=' + idProduit + '&nouvelleQuantite=' + nouvelleQuantite;
-        }
-    </script>
+
 <title>Mon Panier</title>
 <head>
     <title>Freshcery | Groceries Organic Store</title>
-    <jsp:include flush="true" page="head.jsp"></jsp:include>
-    
 
 </head>
 <body>
-    
+    <div class="page-header">
+        <!--=============== Navbar ===============-->
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
+            <div class="container">
+                <!-- Navbar Brand -->
+                <a href="index.html" class="navbar-brand">
+                    <img src="" alt="">
+                </a>
+
+                <!-- Toggle Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarcollapse">
+                    <!-- Navbar Menu -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="shop.html" class="nav-link">Faire ses courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="register.html" class="nav-link">S'inscrire</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="login.html" class="nav-link">Se connecter</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div> Mon profil
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="transaction.html">Mon historique de commandes</a>
+                                <a class="dropdown-item" href="setting.html">Paramètres</a>
+                            </div>
+                          </li>
+                        <li class="nav-item dropdown">
+                            <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary">5</span>
+                            </a>
+                            <div class="dropdown-menu shopping-cart">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">Mon panier</div>
+                                    </li>
+                                    <li>
+                                        <div class="shopping-cart-list">
+                                            <div class="media">
+                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
+                                                <div class="media-body">
+                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
+                                                    <p class="price">
+                                                        <span class="discount text-muted">Rp. 700.000</span>
+                                                        <span>Rp. 100.000</span>
+                                                    </p>
+                                                    <p class="text-muted">Qty: 1</p>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
+                                                <div class="media-body">
+                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
+                                                    <p class="price">
+                                                        <span class="discount text-muted">Rp. 700.000</span>
+                                                        <span>Rp. 100.000</span>
+                                                    </p>
+                                                    <p class="text-muted">Qty: 1</p>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
+                                                <div class="media-body">
+                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
+                                                    <p class="price">
+                                                        <span class="discount text-muted">Rp. 700.000</span>
+                                                        <span>Rp. 100.000</span>
+                                                    </p>
+                                                    <p class="text-muted">Qty: 1</p>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <img class="d-flex mr-3" src="assets/img/logo/avatar.jpg" width="60">
+                                                <div class="media-body">
+                                                    <h5><a href="javascript:void(0)">Carrot</a></h5>
+                                                    <p class="price">
+                                                        <span class="discount text-muted">Rp. 700.000</span>
+                                                        <span>Rp. 100.000</span>
+                                                    </p>
+                                                    <p class="text-muted">Qty: 1</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="drop-title d-flex justify-content-between">
+                                            <span>Total:</span>
+                                            <span class="text-primary"><strong>Rp. 2000.000</strong></span>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex justify-content-between pl-3 pr-3 pt-3">
+                                        <a href="cart.html" class="btn btn-default">View Cart</a>
+                                        <a href="checkout.html" class="btn btn-primary">Checkout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+    <div id="page-content" class="page-content">
+        <div class="banner">
+            <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
+                <div class="container">
+                    <h1 class="pt-5">
+                        Mon panier
+                    </h1>
+                    <p class="lead">
+                        Économisez du temps et confiez-nous vos courses
+                    </p>
+                </div>
+            </div>
+        </div>
 
         <section id="cart">
             <div class="container">
@@ -65,7 +175,8 @@
                                     </tr>
                                 </thead>
 								    <%-- Boucle pour afficher chaque produit dans le panier --%>
-									<% if (panier != null && !panier.getLignesPanier().isEmpty()) { %>
+					                <% if (request.getAttribute("panier") != null ){ %>
+					                  	<% Panier panier = (Panier) request.getAttribute("panier"); %>
              	                        <tbody>
 					                  	
 	       									 <% for (LignePanier lignePanier : panier.getLignesPanier()) { %>
@@ -73,24 +184,9 @@
 						                        	<td>    </td>
 						                            <td><%= lignePanier.getProduit().getNomProduit() %></td>
 						                            <td><%= lignePanier.getProduit().getPrixProduit() %></td>
-						                            <td>
-									                    <form action="ModifierQuantitePanierServlet" method="post">
-									                        <input type="hidden" name="panierId" value="<%= panier.getIdPanier() %>">
-									                        <input type="hidden" name="produitId" value="<%= lignePanier.getProduit().getIdProduit() %>">
-									                        <input class="vertical-spin form-control input-number" type="text" name="nouvelleQuantite" value="<%= lignePanier.getQuantite() %>" min="1">
-									                        <button type="submit" class="btn btn-primary">Modifier</button>
-									                    </form>
-									                </td>
-						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
-													<td><a href="#" class="text-danger" onclick="supprimerLignePanier('<%= lignePanier.getProduit().getIdProduit() %>')"><i class="fa fa-times"></i></a></td>
-						                        	<script>
-														function supprimerLignePanier(idProduit) {
-														    var idPanier = <%= panier.getIdPanier() %>;
-														    if (confirm("Voulez-vous vraiment supprimer cet article du panier?")) {
-														        window.location.href = 'SupprimerLignePanierServlet?idPanier=' + idPanier + '&idProduit=' + idProduit;
-														    }
-														}
-														</script>
+						                            <td><%= lignePanier.getQuantite() %></td>
+						       	                    <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+						                            
 						                        </tr>
 						                    <% } %>
 					                    </tbody>
@@ -105,83 +201,77 @@
                         </div>
                     </div>
                     <div class="col">
-                        <a href="shop.jsp" class="btn btn-default">Continuer mes achats</a>
+                        <a href="shop.html" class="btn btn-default">Continue Shopping</a>
                     </div>
-                    
+                    <div class="col text-right">
+                        <div class="input-group w-50 float-right">
+                            <input class="form-control" placeholder="Coupon Code" type="text">
+                            <div class="input-group-append">
+                                <button class="btn btn-default" type="button">Apply</button>
+                            </div>
+                        </div>
                         <div class="clearfix"></div>
                         <%
 						    double total = 0.0;
 						    if (request.getAttribute("panier") != null) {
+						        Panier panier = (Panier) request.getAttribute("panier");
 						        for (LignePanier lignePanier : panier.getLignesPanier()) {
-						        	total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+						            total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
 						        }
 						    }
 						%>
 						
+						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> € </span> </h6>
+						    
 <script type="text/javascript">
-// Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
-var totalPanierString = '<%= String.valueOf(total) %>';
-// Initialiser le total mis à jour à zéro
-var nouveauTotalPanier = 0;
+    // Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
+    var totalPanierString = '<%= String.valueOf(total) %>';
+    // Initialiser le total mis à jour à zéro
+    var nouveauTotalPanier = 0;
 
-// Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
-function updateNouveauTotalPanier() {
-    // Mettre à jour l'élément HTML avec le nouveau total
-    document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
-}
-
-// Fonction pour effectuer le calcul du nouveau total
-function calculerNouveauTotal(pointsFidelite) {
-    // Convertir la valeur du total en nombre
-    var totalPanier = parseFloat(totalPanierString.replace(",", "."));
-
-    // Vérifier si la conversion est un nombre valide
-    if (!isNaN(totalPanier)) {
-        var reductionEnEuros = pointsFidelite / 10.0;
-        nouveauTotalPanier = totalPanier - reductionEnEuros;
-
-        // Mettre à jour le nouveau total dans l'interface utilisateur
-        updateNouveauTotalPanier();
-
-        // Afficher une alerte pour déboguer
-        //alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
-    } else {
-        // Gérer l'erreur si la conversion n'est pas un nombre valide
-        console.error("Erreur de conversion du total en nombre.");
+    // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
+    function updateNouveauTotalPanier() {
+        // Mettre à jour l'élément HTML avec le nouveau total
+        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
     }
-}
 
-// Code existant pour l'événement 'voirPointsFidelitebtn'
-document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
-    var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
+    // Fonction pour effectuer le calcul du nouveau total
+    function calculerNouveauTotal(pointsFidelite) {
+        // Convertir la valeur du total en nombre
+        var totalPanier = parseFloat(totalPanierString.replace(",", "."));
 
-    // Appeler la fonction pour calculer et mettre à jour le nouveau total
-    calculerNouveauTotal(pointsFidelite);
-});
+        // Vérifier si la conversion est un nombre valide
+        if (!isNaN(totalPanier)) {
+            var reductionEnEuros = pointsFidelite / 10.0;
+            nouveauTotalPanier = totalPanier - reductionEnEuros;
 
-</script>
+            // Mettre à jour le nouveau total dans l'interface utilisateur
+            updateNouveauTotalPanier();
 
+            // Afficher une alerte pour déboguer
+            //alert("Nouveau total calculé : " + nouveauTotalPanier.toFixed(2) + ' €' + '\nPoints de fidélité : ' + pointsFidelite);
+        } else {
+            // Gérer l'erreur si la conversion n'est pas un nombre valide
+            console.error("Erreur de conversion du total en nombre.");
+        }
+    }
 
-		<h6 class="mt-3">Total: <span id="totalPanier"><%= String.format("%.2f", totalPanier) %>&#8364</span></h6>
-		<br>
-		                  
-		<h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
-		<br>
-		
-		<h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
-		<br>
-                        
+    // Code existant pour l'événement 'voirPointsFidelitebtn'
+    document.getElementById('voirPointsFidelitebtn').addEventListener('click', function() {
+        var pointsFidelite = <%= new ClientDAO().getPointsFideliteById(1) %>;
 
-                        <a href="Checkout.jsp" class="btn btn-lg btn-primary">Checkout 
-                        <i class="fa fa-long-arrow-right"></i>
-                       </a>
+        // Appeler la fonction pour calculer et mettre à jour le nouveau total
+        calculerNouveauTotal(pointsFidelite);
+    });
+</script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
+                        <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span></h6>
+
+                        <a href="checkout.html" class="btn btn-lg btn-primary">Valider Mom Panier <i class="fa fa-long-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
         </section>
-            </div>
-        
-            
+    </div>
     <footer>
         <div class="container">
             <div class="row">
@@ -248,8 +338,8 @@ document.getElementById('voirPointsFidelitebtn').addEventListener('click', funct
         </div>
     </footer>
 	
+	<script type="text/javascript" src="assets/js/totalPanier.js"></script>
     <script type="text/javascript" src="assets/js/jquery.js"></script>
-    <script type="text/javascript" src="assets/js/totalPanier.js"></script>
     <script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/libraries/popper.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>

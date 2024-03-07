@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import Model.DAO.ProduitDAO;
+import Model.DAO.HibernateUtil;
 import Model.DAO.PanierDAO;
 import Model.metier.Client;
 import Model.metier.LignePanier;
@@ -56,6 +60,16 @@ public class AjouterPanierServlet extends HttpServlet {
                             lignePanier.setProduit(produit);
 
                             panierDAO.addToCart(panier.getIdPanier(), productId, quantiteDemandee);
+                            
+                            // Update panier chaque fois dans la session pour head.jsp peut afficher le panier
+                            Session sessionHib = HibernateUtil.getSessionFactory().getCurrentSession();
+                            Transaction tr = sessionHib.beginTransaction();
+                            Panier panierUpdate = (Panier)sessionHib.get(Panier.class, panier.getIdPanier());
+                            
+                            session.setAttribute("panier", panierUpdate);
+                            
+                            tr.commit();
+                            sessionHib.close();
 
                             response.sendRedirect(request.getHeader("referer"));
                         } else {

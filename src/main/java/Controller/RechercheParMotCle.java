@@ -40,7 +40,7 @@ public class RechercheParMotCle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		request.setCharacterEncoding("UTF-8");
 		String mot = request.getParameter("motcle");
 		
 		HttpSession s = request.getSession();

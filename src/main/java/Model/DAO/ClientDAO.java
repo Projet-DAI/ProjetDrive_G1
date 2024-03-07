@@ -34,10 +34,7 @@ public class ClientDAO {
 	                 tx.rollback();
 	             }
 	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
-
+	        } 
 	        return isValidUser;
 	    }
 
@@ -104,8 +101,6 @@ public class ClientDAO {
 	                transaction.rollback();
 	            }
 	            e.printStackTrace();
-	        } finally {
-	            session.close();
 	        }
 
 	        return clientId;
@@ -122,8 +117,6 @@ public class ClientDAO {
 	            client = (Client) query.uniqueResult();
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	        } finally {
-	            session.close();
 	        }
 	        return client;
 	    }

@@ -29,13 +29,14 @@ public class DetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hahahahaahhaah");
-		String productIdStr = request.getParameter("productId");
+		String productIdStr = request.getParameter("produitId");
+		System.out.println("productIdStr:"+ productIdStr);
     	if(productIdStr != null && !productIdStr.isEmpty()) {
     		try {
-    			int productId = Integer.parseInt(productIdStr);
-    			Produit product = ProduitDAO.getProductById(productId);
-    			request.setAttribute("product", product);
+    			int produitId = Integer.parseInt(productIdStr);
+    			Produit produit = ProduitDAO.getProductById(produitId);
+    			System.out.println("produit:"+ produit);
+    			request.setAttribute("produit", produit);
                 request.getRequestDispatcher("detailProduct.jsp").forward(request, response);
         	}catch(Exception ex){
                 // chainage vers "index.jsp"

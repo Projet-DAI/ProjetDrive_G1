@@ -5,9 +5,10 @@ import java.util.List;
 
 
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import Model.metier.LignePanier;
 import Model.metier.Panier;
 import Model.metier.Produit;
@@ -111,7 +112,7 @@ public class PanierDAO {
 	        	Panier panier = null;
 	            Transaction transaction = null;
 
-	    	 	try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	    	 	try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
 	    	 		transaction = session.beginTransaction();
 		            // Créez la requête HQL pour récupérer le panier par l'ID du client
 		            String hql = "SELECT p \r\n"
@@ -313,16 +314,16 @@ public class PanierDAO {
 	    
 	    }
 	    
-	    public static double calculerTotalPanier(Panier panier) {
-	        List<LignePanier> lignesPanier = panier.getLignesPanier();
-	        double total = 0.0;
-	        
-	        for (LignePanier lignePanier : lignesPanier) {
-	        	total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+	 
+	        public static double calculerTotalPanier(Panier panier) {
+	            double total = 0.0;
+	            List<LignePanier> lignesPanier = panier.getLignesPanier();
+	            for (LignePanier lignePanier : lignesPanier) {
+	                total += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+	            }
+	            return total;
 	        }
-	        
-	        return total;
-	    }
+	    
 
 
 	    public static void main(String[] args) {

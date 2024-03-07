@@ -25,7 +25,7 @@ public class Panier {
     @Column(name = "DateCreation")
     private Date dateCreation;
     
-    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<LignePanier> lignesPanier;
 
 

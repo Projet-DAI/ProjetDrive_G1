@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +48,7 @@
 								class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-roast-leg"></i></span>
 								<div class="media-body">
-									<h5>Crémerie</h5>
+									<h5>Crï¿½merie</h5>
 								</div>
 							</div>
 						</a>
@@ -59,7 +58,7 @@
 							<div class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-fish-1"></i></span>
 								<div class="media-body">
-									<h5>Épicerie Salée</h5>
+									<h5>ï¿½picerie Salï¿½e</h5>
 								</div>
 							</div>
 						</a>
@@ -70,7 +69,7 @@
 								<span class="d-flex mr-2"><i
 									class="sb-bistro-french-fries"></i></span>
 								<div class="media-body">
-									<h5>Épicerie Sucrée</h5>
+									<h5>ï¿½picerie Sucrï¿½e</h5>
 								</div>
 							</div>
 						</a>
@@ -80,7 +79,7 @@
 							<div class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
 								<div class="media-body">
-									<h5>Fruits et Légumes</h5>
+									<h5>Fruits et Lï¿½gumes</h5>
 								</div>
 							</div>
 						</a>
@@ -90,7 +89,7 @@
 							<div class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
 								<div class="media-body">
-									<h5>Marée</h5>
+									<h5>Produits laitiers</h5>
 								</div>
 							</div>
 						</a>
@@ -100,7 +99,7 @@
 							<div class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
 								<div class="media-body">
-									<h5>Spiritueux</h5>
+									<h5>Viandes et Poissons</h5>
 								</div>
 							</div>
 						</a>
@@ -110,7 +109,7 @@
 							<div class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
 								<div class="media-body">
-									<h5>Surgelé</h5>
+									<h5>Boulangerie et Pï¿½tisserie</h5>
 								</div>
 							</div>
 						</a>
@@ -120,7 +119,7 @@
 							<div class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
 								<div class="media-body">
-									<h5>Traiteur</h5>
+									<h5>Produits surgelï¿½s</h5>
 								</div>
 							</div>
 						</a>
@@ -130,7 +129,7 @@
 							<div class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
 								<div class="media-body">
-									<h5>Vin et Champagne</h5>
+									<h5>ï¿½picerie</h5>
 								</div>
 							</div>
 						</a>
@@ -140,7 +139,40 @@
 							<div class="media d-flex align-items-center justify-content-center">
 								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
 								<div class="media-body">
-									<h5>Entretien et Nettoyage</h5>
+									<h5>Hygiï¿½ne et Beautï¿½</h5>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="item">
+						<a href="shop.jsp">
+							<div
+								class="media d-flex align-items-center justify-content-center">
+								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
+								<div class="media-body">
+									<h5>Entretien mï¿½nager</h5>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="item">
+						<a href="shop.jsp">
+							<div
+								class="media d-flex align-items-center justify-content-center">
+								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
+								<div class="media-body">
+									<h5>Boissons</h5>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="item">
+						<a href="shop.jsp">
+							<div
+								class="media d-flex align-items-center justify-content-center">
+								<span class="d-flex mr-2"><i class="sb-bistro-appetizer"></i></span>
+								<div class="media-body">
+									<h5>Articles pour bï¿½bï¿½s</h5>
 								</div>
 							</div>
 						</a>

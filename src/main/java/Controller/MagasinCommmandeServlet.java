@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -36,16 +37,20 @@ public class MagasinCommmandeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
+
 		String idm = (String) request.getParameter("idm");
+		session.setAttribute("idMagasin", idm); 
+		response.sendRedirect("ChoixCreneauServlet");
+
 		
-		//System.out.println(idm);
+		System.out.println("leidm est :"+idm);
 		
-		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+		try (Session session1 = HibernateUtil.getSessionFactory().getCurrentSession()){
 			
-			Transaction tr = session.beginTransaction();
+			Transaction tr = session1.beginTransaction();
 			
-			Query<Commande> query = session.createQuery("From Commande c where c.magasin.idMagasin = :idm AND c.statutCommande.idStatutCommande between 1 and 3 Order By c.dateCommande DESC", Commande.class);
+			Query<Commande> query = session1.createQuery("From Commande c where c.magasin.idMagasin = :idm AND c.statutCommande.idStatutCommande between 1 and 3 Order By c.dateCommande DESC", Commande.class);
 			query.setParameter("idm", idm);
 			
 			List<Commande> listC = query.list();

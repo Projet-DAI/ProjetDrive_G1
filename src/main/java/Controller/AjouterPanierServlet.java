@@ -31,12 +31,20 @@ public class AjouterPanierServlet extends HttpServlet {
             throws ServletException, IOException {
         String productIdString = request.getParameter("produitId");
         String quantiteString = request.getParameter("quantite");
+        
+        System.out.println("Product ID: " + productIdString); // Ajout d'un message de débogage
+        System.out.println("Quantité: " + quantiteString); // Ajout d'un message de débogage
 
         if (productIdString != null && quantiteString != null) {
             int productId = Integer.parseInt(productIdString);
-            int quantiteDemandee = Integer.parseInt(quantiteString);
+            int quantite = Integer.parseInt(quantiteString);
 
-            Produit produit = ProduitDAO.getProductById(productId);
+            System.out.println("Product ID: " + productId);
+            System.out.println("Quantité: " + quantite);
+
+            // Récupérer le panier du client depuis la session
+            HttpSession session = request.getSession(false);
+            System.out.println("Session récupérée: " + session);
 
             if (produit != null) {
                 int quantiteEnStock = ProduitDAO.getQuantiteEnStock(productId);
@@ -74,6 +82,10 @@ public class AjouterPanierServlet extends HttpServlet {
                         panierDAO.createPanier(panier);
 
                         response.sendRedirect(request.getHeader("referer"));
+                    } else {
+                        // Si le produit n'est pas trouvé, gérer l'erreur
+                        System.out.println("Produit non trouvé pour l'ID: " + productId);
+                        response.sendRedirect("shop.jsp");
                     }
                 }
             } else {

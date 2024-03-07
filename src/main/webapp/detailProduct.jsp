@@ -6,8 +6,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Détails du produit</title>
     
+    <title>Détails du produit</title>
 </head>
 <body>
     <jsp:include flush="true" page="head.jsp"></jsp:include>
@@ -19,7 +19,8 @@
                     <h1 class="pt-5">Détails du produit</h1>
                 </div>
             </div>
-        </div>
+                        </div>
+            
 
         <div class="product-detail">
             <div class="container">

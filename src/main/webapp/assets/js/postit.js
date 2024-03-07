@@ -24,19 +24,9 @@ function ajouterPostit() {
 				//console.log("AJAX request successful."); 
                 //console.log(response); 
                 if (response.status === "success") {
-                    var creationDate = response.creationDate.split('.')[0]; 
-					console.log("get creationDate"); 
-                    var newRow = "<tr>" +
-                                 "<td>" + response.content + "</td>" +
-                                 "<td>" + creationDate + "</td>" +
-                                 "<td><button class='btn btn-danger delete-postit' data-id='" + response.id + "' onclick='deletePostit(this)'>supprimer</button></td>" + 
-                                 "</tr>";
-
-					$(".table > tbody").append(newRow);
-                    $("#postit-input").val(""); 
-
                     $messageContainer.text('PostIt ajouté avec succès.').removeClass('alert-danger').addClass('alert-success').show();
 					$('#myModal').modal('hide');
+					location.reload();
                 } else if (response.status === "error") {
                     $messageContainer.text(response.message).removeClass('alert-success').addClass('alert-danger').show();
                 }

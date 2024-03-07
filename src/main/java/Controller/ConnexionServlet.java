@@ -75,7 +75,7 @@ public class ConnexionServlet extends HttpServlet {
 	            	
 	            } else {
 	            	
-	            	request.getRequestDispatcher("shop").forward(request, response);
+	            	request.getRequestDispatcher("index.jsp").forward(request, response);
 	            }
 	           
 	            s.setAttribute("clientId", clientId);

@@ -11,7 +11,10 @@
 	
 </head>
 <body>
-
+	<% HttpSession s = request.getSession();
+		String mode = "Produit";
+		s.setAttribute("ModeCherche", mode);
+	%>
     <div id="page-content" class="page-content">
         <div class="banner">
             <div class="jumbotron jumbotron-video text-center bg-dark mb-0 rounded-0">
@@ -218,7 +221,6 @@
             </div>
         </div>
         </section>
-    </div>
     
     <section id="categories" class="pb-0 gray-bg">
     	<h1 class="title">Categories</h1>    

@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="utf-8">
-<title>Freshcery | Groceries Organic Store</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
 	rel="stylesheet" type="text/css">
@@ -32,63 +32,80 @@
 <link rel="stylesheet" type="text/css" media="all"
 	href="assets/css/theme.css">
 
-
-
 </head>
 <body>
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3">
-					<h5>Freshcery</h5>
-					<p>Sur notre site Web, vous pouvez trouver une variété de produits alimentaires et d'articles de vie de haute qualité pour répondre à vos besoins quotidiens. Que vous cuisiniez à la maison, appréciez la gastronomie ou ayez besoin d'articles de tous les jours, nous avons ce qu'il vous faut.</p>
-				</div>
-				<div class="col-md-3">
-					<h5>Links</h5>
-					<ul>
-						<li><a href="about.jsp">About</a></li>
-						<li><a href="contact.jsp">Contact Us</a></li>
-						<li><a href="faq.jsp">FAQ</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3">
-					<h5>Contact</h5>
-					<ul>
-						<li><a href="tel:+620892738334"><i class="fa fa-phone"></i>
-								08272367238</a></li>
-						<li><a href="mailto:hello@domain.com"><i
-								class="fa fa-envelope"></i> hello@domain.com</a></li>
-					</ul>
+<jsp:include flush="true" page="head.jsp"></jsp:include>
 
-					<h5>Follow Us</h5>
-					<ul class="social">
-						<li><a href="javascript:void(0)" target="_blank"><i
-								class="fab fa-facebook-f"></i></a></li>
-						<li><a href="javascript:void(0)" target="_blank"><i
-								class="fab fa-instagram"></i></a></li>
-						<li><a href="javascript:void(0)" target="_blank"><i
-								class="fab fa-youtube"></i></a></li>
-					</ul>
+<div id="page-content" class="page-content">
+		<div class="banner">
+			<div class="jumbotron jumbotron-bg text-center rounded-0"
+				style="background-image: url('assets/img/bg-header.jpg');">
+				<div class="container">
+					<h1 class="pt-5">Contactez-nous</h1>
+					<p class="lead">N'hésitez pas à nous contacter.</p>
 				</div>
-				<div class="col-md-3">
-				<h5>Moyens de paiement</h5>
-				<img width="48" height="48" src="https://img.icons8.com/color/48/mastercard.png" alt="mastercard"/>
-				<img width="48" height="48" src="https://img.icons8.com/color/48/visa.png" alt="visa"/>
-				<img width="48" height="48" src="https://img.icons8.com/color/48/paypal.png" alt="paypal"/>
-				<img width="48" height="48" src="https://img.icons8.com/external-those-icons-fill-those-icons/48/external-American-Express-payment-methods-those-icons-fill-those-icons.png" alt="external-American-Express-payment-methods-those-icons-fill-those-icons"/>
-				
-				
-				
-				
-				
-				</div>
-				
-				
 			</div>
 		</div>
-		<p class="copyright">&copy; 2024 | Groceries Organic Store</p>
-	</footer>
 
+		<section class="pb-0">
+			<div class="contact1 mb-5">
+				<div class="container">
+					<div class="row mt-3">
+						<div class="col-lg-7">
+							<div class="contact-wrapper">
+								<h3 class="title font-weight-normal mt-0 text-left">Parlez-nous en ligne</h3>
+								<form data-aos="fade-left" data-aos-duration="1200">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input class="form-control" type="text"
+													placeholder="Prénom">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input class="form-control" type="email" placeholder="Email">
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<div class="form-group">
+												<textarea class="form-control" rows="3"
+													placeholder="Message"></textarea>
+											</div>
+										</div>
+										<div class="col-lg-12 text-right">
+											<button type="submit" class="btn btn-lg btn-primary mb-5">Envoyer</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div class="detail-wrapper p-5 bg-primary">
+								<h3 class="font-weight-normal mb-3 text-light">Fresh</h3>
+
+								<p class="text-light">
+									Jl. Petani No. 159, Cibabat<br> Cimahi Utara<br> Kota
+									Cimahi<br> Jawa Barat 40513
+								</p>
+
+								<p class="text-light">
+									<i class="fas fa-phone"></i> 0898986362<br> <i
+										class="fas fa-envelope"></i> hello@freshcery.com
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	
+		</section>
+	</div>
+	
+	
+	<jsp:include flush="true" page="footer.jsp"></jsp:include>
+	
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
 	<script type="text/javascript"

@@ -38,15 +38,9 @@
 									</div>
 								</div>
 								<div class="form-group row">
-									<div
-										class="col-md-12 d-flex justify-content-between align-items-center">
-										<div class="checkbox">
-											<input id="checkbox0" type="checkbox" name="remember">
-											<label for="checkbox0" class="mb-0"> Se souvenir de
-												moi ?</label>
-										</div>
-										<a href="login.jsp" class="text-light"><i
-											class="fa fa-bell"></i> Mot de passe oublié?</a>
+									<div class="col-md-12 d-flex justify-content-between align-items-center">
+										<a href="register.jsp" class="text-light" style="margin-left:5px;margin-top: 7px;">
+										<i class="fa fa-bell"></i> Vous n'avez pas encore de compte ?</a>
 									</div>
 								</div>
 								<div class="form-group row text-center mt-4">
@@ -61,7 +55,7 @@
 						        String msg = (String)request.getAttribute("msgE");
 
 						        if (msg != null) {
-									// Affichez un message d'erreur en cas d'ï¿½chec de connexion
+									// Affichez un message d'erreur en cas d'echec de connexion
 									out.println("<p style='color:red;'>Identifiant ou mot de passe incorrect</p>");
 						        }
 						    %>
@@ -72,52 +66,9 @@
 		</div>
 	</div>
 </body>
-<footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-				<h5>ï¿½ propos</h5>
-				<p></p>
-			</div>
-			<div class="col-md-3">
-				<h5>Liens Utiles</h5>
-				<ul>
-					<li><a href="about.html">ï¿½ propos</a></li>
-					<li><a href="contact.html">Contactez-nous</a></li>
-					<li><a href="faq.html">FAQ</a></li>
-					<li><a href="javascript:void(0)">Comment ï¿½a fonctionne</a></li>
-					<li><a href="terms.html">Termes et Conditions de Retrait</a></li>
-					<li><a href="privacy.html">Politique de confidentialitï¿½</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3">
-				<h5>Contact</h5>
-				<ul>
-					<li><a href="tel:+620892738334"><i class="fa fa-phone"></i>
-							00337236723</a></li>
-					<li><a href="mailto:hello@domain.com"><i
-							class="fa fa-envelope"></i> Drive@G1.com</a></li>
-				</ul>
 
-				<h5>Suivez-nous</h5>
-				<ul class="social">
-					<li><a href="javascript:void(0)" target="_blank"><i
-							class="fab fa-facebook-f"></i></a></li>
-					<li><a href="javascript:void(0)" target="_blank"><i
-							class="fab fa-instagram"></i></a></li>
-					<li><a href="javascript:void(0)" target="_blank"><i
-							class="fab fa-youtube"></i></a></li>
-				</ul>
-			</div>
-			<div class="col-md-3">
-				<h5>Obtenez notre application dï¿½s maintenant</h5>
-				<ul class="mb-0">
-					<li class="download-app"><a href="#"><img
-							src="assets/img/playstore.png"></a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</footer>
+
+<jsp:include flush="true" page="footer.jsp"></jsp:include>
+
 
 </html>

@@ -17,6 +17,10 @@
 		</h2>
 	</div>
 	
+	<div class="col-md-12 mt-3">
+    	<p>Nous vous attendons pour le retrait de votre commande entre : <%= session.getAttribute("creneauChoisi") %></p>
+	</div>
+	
 	<div class="col-md-12 mt-5 text-center" style="padding-bottom: 200px;">
 			<a href="shop" class="btn btn-primary btn-lg">Poursuivre mes courses</a>
 	</div>

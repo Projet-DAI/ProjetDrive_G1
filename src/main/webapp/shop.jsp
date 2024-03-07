@@ -9,12 +9,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet" type="text/css">
+    <link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap/bootstrap.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/o2system-ui/o2system-ui.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/owl-carousel/owl-carousel.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/cloudzoom/cloudzoom.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
+	
 
 <title>Page d'achat</title>
 
 </head>
 <body>
-    <jsp:include flush="true" page="head.jsp"></jsp:include>
 
     <% List<Produit> liste = (List<Produit>)request.getAttribute("liste");%>
 	
@@ -27,9 +40,10 @@
             </div>
         </div>
 
-        <jsp:include flush="true" page="rayon.jsp"></jsp:include>
 
     </div>
+        <jsp:include flush="true" page="head.jsp"></jsp:include>
+    
  <section id="most-wanted">
     <div class="container">
         <div class="row">
@@ -51,14 +65,24 @@
                     <span class="badge badge-default">Promo</span>
                     <span class="badge badge-primary"><%= produit.getPourcentagePromotion()*100 %>% OFF</span>
                 </div>
-                <a href="detail?produitId=<%= produit.getIdProduit() %>">
+                <a href="detail?productId=<%= produit.getIdProduit() %>">
                     <img src="<%= produit.getAdresseImageProduit() %>" alt="Product image" class="card-img-top">
                 </a>
             </div>
             <div class="card-body">
+                <a href="servletCentral?method=ajouterList&productId=<%= produit.getIdProduit() %>">
+                    <svg class="bi bi-archive-fill text-danger" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
+                    </svg>
+                </a>
+                <h4 class="card-title">
+                    <a href="detail?produitId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
+                </h4>
+                <div class="card-price">
+                    <span class="discount"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() / (1 - produit.getPourcentagePromotion())) %></span>
                 
                <h4 class="card-title" style="font-size: 11px;height:40px">
-    <a href="detail?produitId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
+    			<a href="detail?produitId=<%= produit.getIdProduit() %>"><%= produit.getNomProduit() %></a>
 </h4>
 
                 <div class="card-price">

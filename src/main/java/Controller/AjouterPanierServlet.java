@@ -10,24 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-
 import Model.DAO.ProduitDAO;
+import Model.DAO.PanierDAO;
 import Model.metier.Client;
 import Model.metier.LignePanier;
 import Model.metier.Panier;
-import Model.DAO.HibernateUtil;
-import Model.DAO.PanierDAO;
-
 import Model.metier.Produit;
 
-
-
-/**
- * Servlet implementation class AjouterPanierServlet
- */
 @WebServlet("/AjouterPanierServlet")
 public class AjouterPanierServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -38,8 +27,9 @@ public class AjouterPanierServlet extends HttpServlet {
         panierDAO = new PanierDAO();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String productIdString = request.getParameter("productId");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String productIdString = request.getParameter("produitId");
         String quantiteString = request.getParameter("quantite");
 
         if (productIdString != null && quantiteString != null) {
@@ -69,7 +59,8 @@ public class AjouterPanierServlet extends HttpServlet {
 
                             response.sendRedirect(request.getHeader("referer"));
                         } else {
-                            List<Produit> produitsDeRemplacement = ProduitDAO.getProduitsDeRemplacement(produit.getCategorie(), productId);
+                            List<Produit> produitsDeRemplacement = ProduitDAO.getProduitsDeRemplacement(
+                                    produit.getCategorie(), productId);
                             request.setAttribute("produitsDeRemplacement", produitsDeRemplacement);
 
                             request.getRequestDispatcher("produitsDeRemplacement.jsp").forward(request, response);

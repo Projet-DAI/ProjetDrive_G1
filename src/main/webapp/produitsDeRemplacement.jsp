@@ -3,7 +3,7 @@
 <%@ page import="Model.DAO.ProduitDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.metier.Produit" %>
-produitId
+
 <%
     // Récupérer l'ID du produit à partir de l'URL
     String productId = request.getParameter("produitId");
@@ -117,7 +117,7 @@ produitId
         }
     } else {
         // L'ID du produit n'est pas présent dans l'URL
-        out.println("L'ID du produit n'a pas été spécifié dans l'URL.");
+        out.println("L'ID du produit n'a pas été spécifié dans l'URL.mmm");
     }
 %>
 

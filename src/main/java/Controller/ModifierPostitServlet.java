@@ -87,6 +87,7 @@ public class ModifierPostitServlet extends HttpServlet {
                 json.put("content", postit.getContenu());
                 json.put("id", postit.getIdPostIt());
                 json.put("creationDate", postit.getDateCreation().toString());
+                json.put("status", "success");
             } else {
                 json.put("message", "Ce PostIt existe déjà.");
                 json.put("status", "error");

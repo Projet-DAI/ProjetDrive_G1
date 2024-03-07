@@ -51,6 +51,7 @@ Double totalPanier = (Double) request.getAttribute("totalPanier");
 	href="assets/css/theme.css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -59,6 +60,7 @@ Double totalPanier = (Double) request.getAttribute("totalPanier");
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
+
 <body>
 	<div class="page-header">
 		<!--=============== Navbar ===============-->
@@ -236,13 +238,13 @@ Double totalPanier = (Double) request.getAttribute("totalPanier");
 							</div> <%
  }
  %>
-
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</div>
+	
 	<!-- Drive Page -->
 	<div class="modal fade" id="locationModal" tabindex="-1" role="dialog"
 		aria-labelledby="locationModalLabel" aria-hidden="true">
@@ -278,33 +280,6 @@ Double totalPanier = (Double) request.getAttribute("totalPanier");
 
 
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
-	<script>
-		function submitLocation() {
-			var userLocation = document.getElementById('userLocation').value;
-
-			// 使用jQuery发送AJAX请求
-			$.ajax({
-				url : 'MagasinServlet', // Servlet的URL
-				type : 'POST',
-				data : {
-					userLocation : userLocation
-				}, // 发送到Servlet的数据
-				success : function(response) {
-					// 处理成功的响应
-					console.log(response);
-					// 可以根据需要更新页面内容
-				},
-				error : function(xhr, status, error) {
-					// 处理错误
-					console.error("AJAX请求失败: " + status + ", 错误: " + error);
-				}
-			});
-
-			// 关闭模态框
-			$('#locationModal').modal('hide');
-		}
-	</script>
-
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
 	<script type="text/javascript" src="assets/js/drive.js"></script>

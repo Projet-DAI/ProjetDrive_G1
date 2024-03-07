@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h4 class="card-title">
-											<a href="detail?productId=<%= p.getIdProduit() %>"><%= nomP %></a>
+											<a href="detail?produitId=<%= p.getIdProduit() %>"><%= nomP %></a>
                                         </h4>
                                         <div class="card-price">
                                         	<% if (promotion == true){ %>

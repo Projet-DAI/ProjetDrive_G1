@@ -29,7 +29,10 @@
                         <p><strong></strong> ${produit.kiloProduit}</p>
                         <p><strong>Prix:</strong> ${produit.prixProduit} €</p>
                         <p><strong>Nutriscore:</strong> ${produit.nutriscore}</p>
-                        <p id="descriptionText"><strong>Description:</strong> ${produit.description.substring(0, 100)}</p>
+                        <p id="descriptionText">
+                        	<strong>Description:</strong> 
+                        	${not empty produit.description ? produit.description.substring(0, min(100, produit.description.length())) : ''}
+                       	</p>
                         <p id="showMoreButton" onclick="showMore()" style="color: blue; font-weight: bold; cursor: pointer;">Voir plus</p>
                         <p id="showLessButton" onclick="showLess()" style="color: blue; font-weight: bold; cursor: pointer; display: none;">Réduire</p>
 
@@ -62,7 +65,7 @@
         }
 
         function showLess() {
-            document.getElementById("descriptionText").innerHTML = "<strong>Description:</strong> ${produit.description.substring(0, 100)}";
+            document.getElementById("descriptionText").innerHTML = "<strong>Description:</strong> ${not empty produit.description ? produit.description.substring(0, min(100, produit.description.length())) : ''}";
             document.getElementById("showMoreButton").style.display = "inline";
             document.getElementById("showLessButton").style.display = "none";
         }

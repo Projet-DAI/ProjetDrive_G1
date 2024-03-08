@@ -51,6 +51,7 @@ public class MagasinCommmandeServlet extends HttpServlet {
 			
 			Transaction tr = session1.beginTransaction();
 			
+			//Query<Commande> query = session1.createQuery("From Commande c where c.magasin.idMagasin = :idm AND c.statutCommande.idStatutCommande between 1 and 3 Order By c.dateCommande DESC", Commande.class);
 			Query<Commande> query = session1.createQuery("From Commande c where c.magasin.idMagasin = :idm AND c.statutCommande.idStatutCommande between 1 and 3 Order By c.dateCommande DESC", Commande.class);
 			query.setParameter("idm", idm);
 			

@@ -11,7 +11,7 @@
 	<%  HttpSession s = request.getSession();
 		String username = (String)s.getAttribute("username");	
 	%>
-	<jsp:include flush="true" page="head.jsp"></jsp:include>
+	<jsp:include flush="true" page="headEmployee.jsp"></jsp:include> 
 	
 	 <div id="page-content" class="page-content">
         <div class="banner">
@@ -25,7 +25,7 @@
                        Bienvenue sur la page du personnel
                     </h1>
                     
-                    <h2><%=username %></h2>
+                    <h2 style="color: pink;"><%=username %></h2>
                     
                     <h2 style="color:red">Il reste <p id=countdown style="margin-bottom:0px;color:red;">123</p> de rentrer chez vous!</h2>
 
@@ -85,21 +85,21 @@
             </div>
         </div>  
             
-		<h1 class="title">Choisissez votre travail</h1>
+		<h1 class="title" style="margin-top:48px;">Choisissez votre travail</h1>
 		
 	    <!-- Gestion des produits -->
 	    <div class="col-md-12 mt-5 text-center">
-	    	<a href="gestionStocks.jsp" class="btn btn-primary btn-lg" id="gestionStockBtn">Gestion des stocks</a>
+	    	<a href="gestionStocks.jsp" class="btn btn-primary btn-lg" id="gestionStockBtn" style="width:270px;">Gestion des stocks</a>
 	    </div>
 	    
 	    <!-- US5.1 Consulter un panier pour preparer un retait -->
 	    <div class="col-md-12 mt-5 text-center">
-	    	<a href="preparationPreloadServlet" class="btn btn-primary btn-lg" id="gestionBtn">préparer pour un retrait</a>
+	    	<a href="preparationPreloadServlet" class="btn btn-primary btn-lg" id="gestionBtn" style="width:270px;">préparer pour un retrait</a>
 	    </div>
 	    
 	    <!--Gestion des stocks -->
-	    <div class="col-md-12 mt-5 text-center">
-			<a href="gestionstocks.jsp" class="btn btn-primary btn-lg" id="gestionstockBtn">Gestion des stocks</a>           
+	    <div class="col-md-12 mt-5 text-center" style="margin-bottom:48px;">
+			<a href="gestionstocks.jsp" class="btn btn-primary btn-lg" id="gestionstockBtn" style="width:270px;">Gestion des stocks</a>           
     	</div>
     
 	

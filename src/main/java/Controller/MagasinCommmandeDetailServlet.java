@@ -42,6 +42,9 @@ public class MagasinCommmandeDetailServlet extends HttpServlet {
 		
 		String idc = (String)request.getParameter("idc");
 		
+		HttpSession s = request.getSession();
+		int idm = Integer.parseInt((String) s.getAttribute("idMagasin"));
+		
 		System.out.println(idc);
 		
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
@@ -69,12 +72,16 @@ public class MagasinCommmandeDetailServlet extends HttpServlet {
 			
 			List<LigneCommande> listeLigneCom = query.list();
 			
+			
+			
 			ArrayList<Integer> listeStock = new ArrayList<Integer>();
 			
 			for (LigneCommande lc : listeLigneCom) {
 				int idP = lc.getProduit().getIdProduit();
-				Query<Integer> query2 = session.createQuery("Select s.quantiteEnStock From Stock s where s.produit.idProduit = :idP",Integer.class);
+				Query<Integer> query2 = session.createQuery("Select s.quantiteEnStock From Stock s where s.produit.idProduit = :idP AND s.magasin.idMagasin = :idm" ,Integer.class);
 				query2.setParameter("idP", idP);
+				query2.setParameter("idm", idm);
+				
 				int stockP = query2.getSingleResult();
 				
 				//System.out.println(stockP);
@@ -84,7 +91,6 @@ public class MagasinCommmandeDetailServlet extends HttpServlet {
 			
 			session.close();
 			
-			HttpSession s = request.getSession();
 			s.setAttribute("listeStock", listeStock);
 			s.setAttribute("listeLigneCom", listeLigneCom);
 			

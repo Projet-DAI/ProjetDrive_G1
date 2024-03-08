@@ -42,15 +42,16 @@ public class MagasinCommmandeServlet extends HttpServlet {
 
 		String idm = (String) request.getParameter("idm");
 		session.setAttribute("idMagasin", idm); 
-		response.sendRedirect("ChoixCreneauServlet");
+		//response.sendRedirect("ChoixCreneauServlet");
 
 		
-		System.out.println("leidm est :"+idm);
+		//System.out.println("leidm est :"+idm);
 		
 		try (Session session1 = HibernateUtil.getSessionFactory().getCurrentSession()){
 			
 			Transaction tr = session1.beginTransaction();
 			
+			//Query<Commande> query = session1.createQuery("From Commande c where c.magasin.idMagasin = :idm AND c.statutCommande.idStatutCommande between 1 and 3 Order By c.dateCommande DESC", Commande.class);
 			Query<Commande> query = session1.createQuery("From Commande c where c.magasin.idMagasin = :idm AND c.statutCommande.idStatutCommande between 1 and 3 Order By c.dateCommande DESC", Commande.class);
 			query.setParameter("idm", idm);
 			

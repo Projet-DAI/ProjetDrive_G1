@@ -40,18 +40,17 @@
 	    <div id="commandeListe">
 		    <div class="shopping-list-summary-page__item" id="existing-list-item">
 					<div style="display: flex; align-items: center;">
-						<!-- 使用flex布局使图标和文本水平排列 -->
+						
 						<p id="existing-list-name" class="bold-item"
-							style="margin-bottom: 0;">123</p>
-						<!-- 调整清单名称的样式，去除底部间距 -->	
+							style="margin-bottom: 0;"></p>
+						
 						<span id="existing-delete-icon"
 							style="display: none; margin-left: 10px;"><i
 							class="bi bi-trash" onclick="showDeleteModal()"></i></span>
-						<!-- 调整垃圾桶图标左侧间距 -->
+	
 					</div>
-					<div style="float: right;">189</div>
-					<!-- 设置链接到您想要的目标页面 -->
-					<a href=""><p>Voir la liste</p></a>
+					<div style="float: right;"></div>
+					<a href=""><p></p></a>
 			</div>
 		</div>
 		

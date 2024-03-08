@@ -49,11 +49,14 @@
 			</div>
 		</div>
 
-		<section id="cart">
+		<section id="cart" style="padding-top:20px;">
 			<form action="FinirPreparationServlet" method="get">
 			<div class="container">
 				<div class="row" >
 					<div class="col-md-12">
+						<div style="padding-top:20px;padding-bottom:20px;">
+							<a href="preparationPreloadServlet" class="btn btn-secondary">&larr; Retour</a>
+						</div>
 						<div class="table-responsive">
 							<table class="table">
 								<thead>

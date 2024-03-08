@@ -42,15 +42,15 @@
 					<div style="display: flex; align-items: center;">
 						
 						<p id="existing-list-name" class="bold-item"
-							style="margin-bottom: 0;">123</p>
+							style="margin-bottom: 0;"></p>
 						
 						<span id="existing-delete-icon"
 							style="display: none; margin-left: 10px;"><i
 							class="bi bi-trash" onclick="showDeleteModal()"></i></span>
 	
 					</div>
-					<div style="float: right;">189</div>
-					<a href=""><p>Voir la liste</p></a>
+					<div style="float: right;"></div>
+					<a href=""><p></p></a>
 			</div>
 		</div>
 		

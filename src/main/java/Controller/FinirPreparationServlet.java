@@ -110,8 +110,8 @@ public class FinirPreparationServlet extends HttpServlet {
 		String nomM = listeLigneCom.get(0).getCommande().getMagasin().getNomMagasin();
 		String tempsR = listeLigneCom.get(0).getCommande().getTempsRetaitCom();
 		String adresseM = listeLigneCom.get(0).getCommande().getMagasin().getAdresseMagasin();
-		String filePath = "X:\\commande-No" + idC + ".pdf";
-		
+		String filePath = "C:\\Users\\mazhu\\Downloads\\commande-No" + idC + ".pdf";
+
 		//String orderNumber, String orderDate, String userName, String storeName, String storeAdress,
         // String pickupTime, List<Product> productList, String filePath
 		GiveMEPDF.generatePDF(idC, dateCString, nomU, nomM, adresseM, tempsR, listeProduct, filePath);

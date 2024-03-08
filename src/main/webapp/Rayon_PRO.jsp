@@ -19,9 +19,6 @@
     }
     List<Produit> listeProduits = produitDAO.getProduitsByRayonAndCategory(rayonId, selectedCategory);
 %>
-<%
-Panier panier = (Panier) session.getAttribute("Panier");
-%>
 
 <%-- Récupération du total du panier depuis la requête --%>
 <%
@@ -128,11 +125,13 @@ Double totalPanier = (Double) request.getAttribute("totalPanier");
 							<a href="#" id="faireCoursesBtn" class="nav-link">Faire ses courses</a>
 						</li>
 						
+						
 						<%
-							HttpSession session1 = request.getSession();
-							String nomU = (String)session1.getAttribute("username");
-							if (nomU != null) {
-						%>
+                            HttpSession session1 = request.getSession();
+                            String nomU = (String)session1.getAttribute("username");
+                            if (nomU != null) {
+                        %>
+                        <%     Panier panier = (Panier)session1.getAttribute("panier");%>
 
 						<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

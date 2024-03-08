@@ -61,15 +61,15 @@ public class dataTEST {
 //	        session.save(c2);
 //	        
 //	        // client 3 data
-//	        Client c3 = new Client();
-//	        c3.setEmailClient("adam@stuff.com");
-//	        c3.setNomCompletClient("Adam Adam");
-//	        c3.setNomUtilisateurClient("Adam");
-//	        c3.setPointFideliteClient(0);
-//	        c3.setPwdClient("adam");
-//	        c3.setTelephoneClient("12345678");
-//	        
-//	        session.save(c3);
+	        Client c3 = new Client();
+	        c3.setEmailClient("adam@stuff.com");
+	        c3.setNomCompletClient("Adam Adam");
+	        c3.setNomUtilisateurClient("Adam");
+	        c3.setPointFideliteClient(0);
+	        c3.setPwdClient("adam");
+	        c3.setTelephoneClient("12345678");
+	        
+	        session.save(c3);
 
 	        transaction.commit();
 	        session.close();
@@ -242,7 +242,7 @@ public class dataTEST {
 			session.save(l4);
 			session.save(l5);
 			session.save(l6);
-			
+						
 			transaction.commit();
 		    session.close();
 		} catch (Exception e) {
@@ -544,11 +544,11 @@ public class dataTEST {
 	
 	
 	public static void main(String[] args) {
-//		dataTEST.insertDataClient();
-//		dataTEST.insertDataStatutCommande();
-//		dataTEST.insertDataCommande();
-//		dataTEST.insertLigneCommande();
-		dataTEST.insertCSV();
+		dataTEST.insertDataClient();
+		dataTEST.insertDataStatutCommande();
+		dataTEST.insertDataCommande();
+		dataTEST.insertLigneCommande();
+//		dataTEST.insertCSV();
 		//insertMagasinTempRetrait();
 		
 		

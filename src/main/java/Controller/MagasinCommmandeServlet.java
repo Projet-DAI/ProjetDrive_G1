@@ -42,10 +42,10 @@ public class MagasinCommmandeServlet extends HttpServlet {
 
 		String idm = (String) request.getParameter("idm");
 		session.setAttribute("idMagasin", idm); 
-		response.sendRedirect("ChoixCreneauServlet");
+		//response.sendRedirect("ChoixCreneauServlet");
 
 		
-		System.out.println("leidm est :"+idm);
+		//System.out.println("leidm est :"+idm);
 		
 		try (Session session1 = HibernateUtil.getSessionFactory().getCurrentSession()){
 			

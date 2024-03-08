@@ -174,7 +174,7 @@
                         <div class="clearfix"></div>
                         
 						
-						<h6 class="mt-3">Total: <span id="totalPanier"> <%= total %> </span> &#8364</h6>
+						<h6 class="mt-3">Total: <span id="totalPanier"> <%= String.format("%.2f", total) %> </span> &#8364</h6>
 						    
 <script type="text/javascript">
 

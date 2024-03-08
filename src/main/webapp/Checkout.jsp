@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ page import="Model.metier.Client" %>
 <%@ page import="Model.DAO.ClientDAO" %>
 <%@ page import="Model.metier.Panier" %>
@@ -65,7 +65,7 @@
 							<fieldset>
 								<div class="form-group row">
 									<div class="col">
-										<input class="form-control" placeholder="Nom Prénom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
+										<input class="form-control" placeholder="Nom Prï¿½nom" type="text" value="<%= clientConnecte.getNomCompletClient() %>">
 									</div>
 									<div class="col">
 										<input class="form-control" placeholder="Nom utilisateur" type="text" value="<%= clientConnecte.getNomUtilisateurClient() %>">
@@ -76,7 +76,7 @@
 										type="text" value="<%= clientConnecte.getEmailClient() %>">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Téléphone"
+									<input class="form-control" placeholder="Tï¿½lï¿½phone"
 										type="text" value="<%= clientConnecte.getTelephoneClient() %>">
 								</div>
 								<div class="form-group">
@@ -91,39 +91,39 @@
 							</fieldset>
 						</form>
 						
-							<h5 class="mb-3">Choix du créneau de retrait</h5>
+							<h5 class="mb-3">Choix du crÃ©neau de retrait</h5>
 							<form action="ChoixCreneauServlet" method="post">
 							    <select name="creneau">
-								    <!-- Utilisez une boucle pour afficher chaque créneau disponible -->
+								    <!-- Utilisez une boucle pour afficher chaque crï¿½neau disponible -->
 								    <% if (request.getAttribute("creneauxDisponibles") != null && !((List<String>)request.getAttribute("creneauxDisponibles")).isEmpty()) { %>
 								        <% for (String creneau : (List<String>)request.getAttribute("creneauxDisponibles")) { %>
 								            <option value="<%= creneau %>"><%= creneau %></option>
 								        <% } %>
 								    <% } else { %>
-								        <option value="">Aucun créneau disponible</option>
+								        <option value="">Aucun crÃ©neau disponible</option>
 								    <% } %>
 								</select>
 								
 
  							  <input type="submit" value="Choisir">							    
 							</form>
-								<p id="creneauChoisiText" class="mt-3">Le créneau choisi est : </p>
+								<p id="creneauChoisiText" class="mt-3">Le crÃ©neau choisi est : <%= session.getAttribute("creneauChoisi") %></p>
 								
 								<script>
 								    document.addEventListener("DOMContentLoaded", function() {
-								        // Sélectionnez l'élément HTML où afficher le créneau choisi
+								        // Sï¿½lectionnez l'ï¿½lï¿½ment HTML oï¿½ afficher le crï¿½neau choisi
 								        var creneauChoisiText = document.getElementById("creneauChoisiText");
 								        
-								        // Sélectionnez le menu déroulant
+								        // Sï¿½lectionnez le menu dï¿½roulant
 								        var selectCreneau = document.querySelector("selectCreneau");
 								        
-								        // Écoutez les changements de sélection dans le menu déroulant
+								        // ï¿½coutez les changements de sï¿½lection dans le menu dï¿½roulant
 								        selectCreneau.addEventListener("change", function() {
-								            // Récupérez la valeur sélectionnée dans le menu déroulant
+								            // Rï¿½cupï¿½rez la valeur sï¿½lectionnï¿½e dans le menu dï¿½roulant
 								            var selectedCreneau = this.value;
 								            
-								            // Mettez à jour le texte avec le créneau choisi
-								            creneauChoisiText.textContent = "Le créneau choisi est : " + selectedCreneau;
+								            // Mettez ï¿½ jour le texte avec le crï¿½neau choisi
+								            creneauChoisiText.textContent = "Le crï¿½neau choisi est : " + selectedCreneau;
 								        });
 								    });
 								</script>
@@ -171,15 +171,13 @@
 						
 										<tr>
 											<td><strong>TOTAL DE LA COMMANDE</strong></td>
-											<td class="text-right"><span id="totalPanier"> <strong><%= total %>  &#8364</strong></span></td>
+											<td class="text-right"><span id="totalPanier"> <strong><%= String.format("%.2f", total) %>  &#8364</strong></span></td>
 										</tr>
 										</tfooter>
 									</table>
 								</div>
 		
-							<p class="text-right mt-3">
-								<input checked="" type="checkbox"> J'ai lu et j'accepte les <a href='#'>conditions générales</a>
-							</p>
+							
 						    <a href="#" class="btn btn-primary float-right">Annuler <i class="fa fa-check"></i>
 														
 							<a href="ConfirmCommand.jsp" class="btn btn-primary float-right" onclick="confirmerCommande"> Confirmer <i class="fa fa-check"></i></a>
@@ -205,14 +203,14 @@
 	        <div class="container">
 	            <div class="row">
 	                <div class="col-md-3">
-	                    <h5>À propos</h5>
+	                    <h5>ï¿½ propos</h5>
 	                    <p></p>
 	                </div>
 	                <div class="col-md-3">
 	                    <h5>Liens Utiles</h5>
 	                    <ul>
 	                        <li>
-	                            <a href="about.html">À propos</a>
+	                            <a href="about.html">ï¿½ propos</a>
 	                        </li>
 	                        <li>
 	                            <a href="contact.html">Contactez-nous</a>
@@ -221,13 +219,13 @@
 	                            <a href="faq.html">FAQ</a>
 	                        </li>
 	                        <li>
-	                            <a href="javascript:void(0)">Comment ça fonctionne</a>
+	                            <a href="javascript:void(0)">Comment ï¿½a fonctionne</a>
 	                        </li>
 	                        <li>
 	                            <a href="terms.html">Termes et Conditions de Retrait</a>
 	                        </li>
 	                        <li>
-	                            <a href="privacy.html">Politique de confidentialité</a>
+	                            <a href="privacy.html">Politique de confidentialitï¿½</a>
 	                        </li>
 	                    </ul>
 	                </div>
@@ -256,7 +254,7 @@
                      </ul>
                 </div>
                 <div class="col-md-3">
-                     <h5>Obtenez notre application dès maintenant</h5>
+                     <h5>Obtenez notre application dï¿½s maintenant</h5>
                      <ul class="mb-0">
                          <li class="download-app">
                              <a href="#"><img src="assets/img/playstore.png"></a>

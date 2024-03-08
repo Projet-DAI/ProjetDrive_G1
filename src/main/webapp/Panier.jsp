@@ -5,6 +5,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Model.DAO.ClientDAO" %>
 
+<% Panier panier = (Panier) session.getAttribute("panier"); %>
 
 <% Panier panier = (Panier) session.getAttribute("panier"); %>
 
@@ -140,7 +141,6 @@
 						                        	                    idProduit: productId
 						                        	                },
 						                        	                success: function(response) {
-						                        	                    updateTotalPrice(response.newTotal);
 
 						                        	                    // Mettre à jour le contenu du panier ou tout autre élément d'interface utilisateur pertinent
 						                        	                    deleteButton.closest('tr').remove(); // Supprimer la ligne de tableau correspondante

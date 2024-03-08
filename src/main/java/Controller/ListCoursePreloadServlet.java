@@ -1,21 +1,26 @@
 package Controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transaction;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.json.simple.JSONObject;
 
 import Model.DAO.HibernateUtil;
 import Model.metier.ListeCourse;
+import Model.metier.PostIt;
 
 /**
  * Servlet implementation class ListCoursePreloadServlet
@@ -39,6 +44,8 @@ public class ListCoursePreloadServlet extends HttpServlet {
 		
 		// 1. get info client from session
 		HttpSession s = request.getSession();
+		
+		
 		String username = (String) s.getAttribute("username");
 		String emailCli = (String) s.getAttribute("emailCli");
 		

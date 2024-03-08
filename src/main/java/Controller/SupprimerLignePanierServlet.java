@@ -46,7 +46,12 @@ public class SupprimerLignePanierServlet extends HttpServlet {
         // Appeler la méthode pour supprimer la ligne de panier
         panierDAO.supprimerLignePanier(idPanier, idProduit);
         
-        // Il faut retrouver le panier update et le mettre a session
+        
+        // Mettre à jour le panier dans la session
+        HttpSession session = request.getSession();
+        session.setAttribute("Panier", panier);
+        
+      /*  // Il faut retrouver le panier update et le mettre a session
         Session sessionHib = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = sessionHib.beginTransaction();
         Panier panierUpdt = sessionHib.get(Panier.class, idPanier);
@@ -55,10 +60,9 @@ public class SupprimerLignePanierServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("panier", panierUpdt);
         double newTotal = panierDAO.calculerTotalPanier(panier);
+*/
+        response.getWriter().write("Item removed successfully");
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"success\": true}");
 
 
     }

@@ -1,11 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="Model.DAO.ProduitDAO" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.metier.Produit" %>
+<%@ page import="Model.metier.LignePanier" %>
+<%@ page import="Model.metier.Panier" %>
+<%@ page import="Model.DAO.ProduitDAO" %>
+<%
+    Panier panier = (Panier) session.getAttribute("Panier");
+%>
+
+<%-- R√©cup√©ration du total du panier depuis la requ√™te --%>
+<%
+    Double totalPanier = (Double) request.getAttribute("totalPanier");
+%>
 
 <%
-    // RÈcupÈrer l'ID du produit ‡ partir de l'URL
+    // R√©cup√©rer l'ID du produit √† partir de l'URL
     String productId = request.getParameter("produitId");
 
     if(productId != null && !productId.isEmpty()) {
@@ -13,90 +22,264 @@
             // Convertir l'ID du produit en entier
             int idProduit = Integer.parseInt(productId);
 
-            // RÈcupÈrer les dÈtails du produit en fonction de son ID
+            // R√©cup√©rer les d√©tails du produit en fonction de son ID
             Produit product = ProduitDAO.getProductById(idProduit);
 
             if(product != null) {
-                // RÈcupÈrer la liste des produits de remplacement
+                // R√©cup√©rer la liste des produits de remplacement
                 List<Produit> produitsDeRemplacement = ProduitDAO.getProduitsDeRemplacement(product.getCategorie(), idProduit);
 
                 if (!produitsDeRemplacement.isEmpty()) {
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Produits de Remplacement</title>
-    <jsp:include flush="true" page="head.jsp"></jsp:include>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href="assets/fonts/sb-bistro/sb-bistro.css" rel="stylesheet" type="text/css">
+    <link href="assets/fonts/font-awesome/font-awesome.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="assets/css/main1.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap/bootstrap.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/o2system-ui/o2system-ui.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/owl-carousel/owl-carousel.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/cloudzoom/cloudzoom.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/thumbelina/thumbelina.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/packages/bootstrap-touchspin/bootstrap-touchspin.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/css/theme.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
+    <div class="page-header">
+        <!--=============== Navbar ===============-->
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
+
+            <div class="container">
+                <!-- Navbar Brand -->
+                <a href="index.jsp" class="navbar-brand"> <img src="assets/img/logo/fresh_4x-removebg-preview.png" alt="">
+                </a>
+
+                <!-- Toggle Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarcollapse">
+                    <!-- Navbar Menu -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <form action="RechercheParMotCle" method="get" style="margin-top: 4px;">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button id="btnMode" name="mode" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produit</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" value="Rayon" onclick="selectOption('Rayon')">Rayon</a>
+                                        <a class="dropdown-item" value="Cat√©gorie" onclick="selectOption('Cat√©gorie')">Cat√©gorie</a>
+                                        <a class="dropdown-item" value="Produit" onclick="selectOption('Produit')">Produit</a>                            
+                                    </div>
+                                </div>
+                                <input type="text" id="motcle" name="motcle" class="form-control" aria-label="Text input with dropdown button">
+                            </div>
+                        </form>
+
+                        <li class="nav-item" id="drive">
+                            <a href="#" class="nav-link drive-link" data-toggle="modal" data-target="#locationModal">Drive</a></li>
+
+                        <li class="nav-item"><a href="#" id="faireCoursesBtn" class="nav-link">Faire ses courses</a></li>
+
+                        <%
+                        String nomU = (String) session.getAttribute("username");
+                        if (nomU != null) {
+                        %>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="avatar-header">
+                                    <img src="assets/img/logo/avatar.jpg">
+                                </div> <%=nomU%>
+                        </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="TransactionPreloadServlet">Mon historique de commandes</a>
+                                <a class="dropdown-item" href="ListCoursePreloadServlet">Liste de courses</a>
+                                <a class="dropdown-item" href="TableauDeBordPreloadServlet">Tableau de bord</a>
+                                <a class="dropdown-item" href="setting.html">Param√®tres</a>
+                                <a class="dropdown-item" href="DeconnexionServlet">D√©connexion</a>
+                            </div>
+                        </li>
+                        <%
+                        } else {
+                        %>
+                        <li class="nav-item"><a href="login.jsp" class="nav-link">Se connecter</a></li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="avatar-header">
+                                    <img src="assets/img/logo/avatar.jpg">
+                                </div> Mon Profil
+                        </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="login.jsp">Mon historique de commandes</a>
+                                <a class="dropdown-item" href="login.jsp">Liste de courses</a>
+                                <a class="dropdown-item" href="login.jsp">Tableau de bord</a>
+                                <a class="dropdown-item" href="login.jsp">Param√®tres</a>
+                                <a class="dropdown-item" href="DeconnexionServlet">D√©connexion</a>
+                            </div>
+                        </li>
+                        <%
+                        }
+                        %>
+
+                        <li class="nav-item dropdown">
+                            <%
+                            if (panier != null && !panier.getLignesPanier().isEmpty()) {
+                            %> <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"><%=panier.getLignesPanier().size()%></span>
+                        </a>
+                            <div class="dropdown-menu shopping-cart">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">
+                                            <a href="Panier" class="nav-link">Mon Panier</a>
+                                        </div>
+                                    </li>
+
+                                    <%
+                                    for (LignePanier lignePanier : panier.getLignesPanier()) {
+                                    %>
+
+                                    <li>
+                                        <div class="shopping-cart-list">
+                                            <div class="media">
+                                                <img class="d-flex mr-3" src="<%=lignePanier.getProduit().getAdresseImageProduit()%>" width="60">
+                                                <div class="media-body">
+                                                    <h5>
+                                                        <a href="javascript:void(0)"><%=lignePanier.getProduit().getNomProduit()%></a>
+                                                    </h5>
+                                                    <p class="price">
+                                                        <span class="discount text-muted"><%=lignePanier.getProduit().getPrixProduit()%></span>
+                                                    </p>
+                                                    <p class="text-muted">
+                                                        Quantit√©:
+                                                        <%=lignePanier.getQuantite()%></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <%
+                                    }
+                                    %>
+
+                                    <li>
+                                        <div class="drop-title d-flex justify-content-between">
+                                            <h6 class="mt-3">
+                                                Total: <span id="nouveauTotalPanier"><%=String.format("%.2f",totalPanier)%>&#8364;</span>
+                                            </h6>
+                                        </div>
+                                    </li>
+
+                                    <li class="d-flex justify-content-between pl-3 pr-3 pt-3">
+                                        <a href="Panier.jsp" class="btn btn-default">Voir mon panier</a>
+                                    </li>
+                                    <%-- Fin contenu du panier --%>
+                                </ul>
+                            </div>
+                            <%
+                            }
+                            %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Drive Page -->
+    <div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="locationModalLabel">Choisissez votre magasin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="locationForm">
+                        <div class="form-group">
+                            <label for="userLocation" class="col-form-label">Location:</label>
+                            <input type="text" class="form-control" id="userLocation">
+                        </div>
+                        <div id="magasinsList"></div>
+                        <!-- Conteneur de la liste d'achats -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" onclick="submitLocation()">Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <div id="page-content" class="page-content">
         <div class="banner">
             <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
                 <div class="container">
-                    <h1 class="pt-5">Page d'achat</h1>
+                    <h1 class="pt-5">Produits de Remplacement</h1>
                 </div>
             </div>
         </div>
-
-        <jsp:include flush="true" page="rayon.jsp"></jsp:include>
-    </div>
-
-    <section id="most-wanted">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="title">Produits de Remplacement</h2>
-                    <div class="product-carousel owl-carousel">
-                        <% for (Produit remplacement : produitsDeRemplacement) { %>
-                            <div class="item">
-        <div class="card card-product">
-            <div class="card-ribbon">
-                <div class="card-ribbon-container right">
-                    <span class="ribbon ribbon-primary">SPECIAL</span>
-                </div>
-            </div>
-            <div class="card-badge">
-                <div class="card-badge-container left">
-                    <span class="badge badge-default">Promo</span>
-                    <span class="badge badge-primary"><%= remplacement.getPourcentagePromotion()*100 %>% OFF</span>
-                </div>
-                <a href="detail?produitId=<%= remplacement.getIdProduit() %>">
-                    <img src="<%= remplacement.getAdresseImageProduit() %>" alt="Product image" class="card-img-top">
-                </a>
-            </div>
-            <div class="card-body">
-                <a href="AjouterPanierServlet?produitId=<%= remplacement.getIdProduit() %>">
-                    <svg class="bi bi-archive-fill text-danger" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
-                    </svg>
-                </a>
-                <h4 class="card-title">
-                    <a href="detail?produitId=<%= remplacement.getIdProduit() %>"><%= remplacement.getNomProduit() %></a>
-                </h4>
-                <div class="card-price">
-                    <span class="discount"></span>
-                
-                    <span class="reguler"><%= new java.text.DecimalFormat("#,###.00").format(remplacement.getPrixProduit()) %></span>
-                </div>
-                <a href="AjouterPanierServlet?produitId=<%= remplacement.getIdProduit() %>" class="btn btn-block btn-primary">
-                    Ajouter au panier
-                </a>
-            </div>
-        </div>
+        <h2 class="title"></h2>
+        <section class="product-grids section" id="most-wanted">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-12" style="max-width: 30000px; margin: 0 auto;">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-grid" role="tabpanel" aria-labelledby="nav-grid-tab">
+                                <div class="row" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 1px;">
+                                    <% for (Produit remplacement : produitsDeRemplacement) { %>
+                                    <div class="col-lg-4 col-md-6 col-12" style="height: 70%; width:100%;">
+                                        <div class="single-product" style="height: 50%; width: 400%;padding: 0px;">
+                                            <div class="product-image" style="text-align: center">
+                                                <img src="<%= remplacement.getAdresseImageProduit() %>" alt="Product Image" style="text-align: center; width: 100%;">
+                                                <div class="button" style="background-color: #FF2D2D;">
+                                                    <a href="detail?produitId=<%= remplacement.getIdProduit() %>" class="btn" style="font-size: 10px; background-color: #E91E63; color: white;">D√©tail</a>
+                                                </div>
+                                            </div>
+                                            <div class="product-info" style="text-align: center;">
+                                                <h4 style="height: 65px; overflow: hidden;">
+                                                    <a href="detailProduct.jsp?productId=<%= remplacement.getIdProduit() %>" style="font-size: 8px; color: black;height: 130px;"><%= remplacement.getNomProduit() %></a>
+                                                </h4>
+                                                <div style="height: 50px; display: flex; flex-direction: column; justify-content: center;">
+                                                    <span class="discount" style="margin-bottom: 5px;"><del><%= new java.text.DecimalFormat("#,###.00").format(remplacement.getPrixProduit()) %>&euro;</del></span>
+                                                    <span style="font-weight: bold; color: blue;"><%= new java.text.DecimalFormat("#,###.00").format(remplacement.getPrixProduit() * remplacement.getPourcentagePromotion()) %>&euro;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                             <% } %>
+                                </div>
                             </div>
-                        <% } %>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <jsp:include flush="true" page="footer.jsp"></jsp:include>
+    <script type="text/javascript" src="assets/js/drive.js"></script>
+    <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/packages/owl-carousel/owl-carousel.js"></script>
+    <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
+    <script type="text/javascript" src="assets/js/theme.js"></script>
+    <script type="text/javascript" src="assets/js/headJSP.js"></script>
 </body>
 </html>
-
 <%
                 } else {
                     // La liste de produits de remplacement est vide
@@ -104,25 +287,19 @@
                 }
             } else {
                 // Le produit n'existe pas
-                out.println("Le produit demandÈ n'existe pas.");
+                out.println("Le produit demand√© n'existe pas.");
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            // GÈrer l'exception si la conversion de l'ID du produit en entier Èchoue
+            // G√©rer l'exception si la conversion de l'ID du produit en entier √©choue
             out.println("L'ID du produit n'est pas un nombre valide.");
         } catch (Exception e) {
             e.printStackTrace();
-            // GÈrer d'autres exceptions possibles
-            out.println("Une erreur s'est produite lors de la rÈcupÈration des dÈtails du produit.");
+            // G√©rer d'autres exceptions possibles
+            out.println("Une erreur s'est produite lors de la r√©cup√©ration des d√©tails du produit.");
         }
     } else {
-        // L'ID du produit n'est pas prÈsent dans l'URL
-        out.println("L'ID du produit n'a pas ÈtÈ spÈcifiÈ dans l'URL.mmm");
+        // L'ID du produit n'est pas pr√©sent dans l'URL
+        out.println("L'ID du produit n'a pas √©t√© sp√©cifi√© dans l'URL.mmm");
     }
 %>
-
-<style>
-    .card-badge {
-        height: 250px; /* RÈglez comme nÈcessaire pour la hauteur requise */
-††††}
-</style>

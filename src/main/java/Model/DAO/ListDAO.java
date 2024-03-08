@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 import Model.metier.LigneListeCourse;
 import Model.metier.ListeCourse;
 import Model.metier.Panier;
+import Model.metier.PostIt;
 
 public class ListDAO {
 	
@@ -60,10 +61,35 @@ public class ListDAO {
         }
         return listeCourse;
     }
+	
+	
+	public static boolean supprimerListe(int listeId) {
+	    Transaction transaction = null;
+	    boolean supprimeStstu = false;
+	    
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) { 
+	        transaction = session.beginTransaction(); 
+	        ListeCourse listeCourse = session.get(ListeCourse.class, listeId);
+
+	        if (listeCourse != null) {
+	            session.delete(listeCourse);
+	            transaction.commit();
+	            supprimeStstu = true;
+	        }
+	    } catch (Exception e) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        e.printStackTrace();
+	    }
+	    return supprimeStstu;
+	}
+	
 
 		public static void main(String[] args) {
 			 
-			 System.out.println("getListeCourseById: " + getListeCourseById(1)); 
+			 System.out.println("supprimerListe: " + supprimerListe(1)); 
+			 
 		    // Création de l'instance de PanierDAO
 			/*
 			 * PanierDAO panierDAO = new PanierDAO();

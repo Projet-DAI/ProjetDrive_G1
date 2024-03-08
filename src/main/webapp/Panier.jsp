@@ -114,7 +114,7 @@
 													        });
 													    });
 													</script>
-						                            <td id="PrixTotal"><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+						                            <td ><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
 													<td><a href="#" class="text-danger delete-item" data-id="<%= lignePanier.getProduit().getIdProduit() %>"><i class="fa fa-times"></i></a></td>
 						                        	<script>
 						                        	$(document).ready(function() {

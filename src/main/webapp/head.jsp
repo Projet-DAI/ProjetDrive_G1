@@ -311,11 +311,14 @@
 						</div>
 						<div id="magasinsList"></div>
 						<!-- Conteneur de la liste d'achats -->
+						  <!-- Ajout du champ d'entrée caché pour l'ID du magasin choisi -->
+                    	<input type="hidden" id="magasinId" name="magasinId" value="">
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 					<button type="button" class="btn btn-primary" onclick="submitLocation()">Valider</button>
+					
 				</div>
 			</div>
 		</div>

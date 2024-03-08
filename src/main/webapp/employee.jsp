@@ -85,7 +85,7 @@
             </div>
         </div>  
             
-		<h1 class="title">Choisissez votre travail</h1>
+		<h1 class="title" style="margin-top:48px;">Choisissez votre travail</h1>
 		
 	    <!-- Gestion des produits -->
 	    <div class="col-md-12 mt-5 text-center">

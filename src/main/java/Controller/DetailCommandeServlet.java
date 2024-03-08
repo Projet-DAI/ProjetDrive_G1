@@ -74,6 +74,11 @@ public class DetailCommandeServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		Double prixProduits = 0.0;
 		
+		// adresse magasin split 
+		String adresseM = ligneCommandes.get(0).getCommande().getMagasin().getAdresseMagasin();
+		String[] adMEtCodeP = adresseM.split(",");
+		
+		
 		String txtHTML =  
 			    "<div class=\"modal-header\">" +
 			        "<h5 class=\"modal-title\" id=\"exampleModalLabel\">Commande NO." + idCommande + " : </h5>" +
@@ -83,31 +88,30 @@ public class DetailCommandeServlet extends HttpServlet {
 			        "<div class=\"row\">" +
 			            "<div class=\"col-md-6\">" +
 			                "<p>" +
-			                    "<strong>Billing Detail:</strong><br> Teguh Rianto<br>" +
-			                    "Jl. Petani No. 159, Cibabat<br> Cimahi Utara<br> Kota Cimahi<br> Jawa Barat 40513" +
+			                    "<strong>Magasin Detail:</strong><br>"+ ligneCommandes.get(0).getCommande().getMagasin().getNomMagasin() +"<br>" +
+			                    adMEtCodeP[0] +"<br>" + adMEtCodeP[1] + "<br>" +
 			                "</p>" +
 			            "</div>" +
 			            "<div class=\"col-md-6\">" +
 			                "<p>" +
-			                    "<strong>Payment Method:</strong><br> Direct Transfer to<br>" +
-			                    "Bank: BCA<br> No Rek.: 72133236179" +
+			                    "<strong>Date de Création</strong><br>" + ligneCommandes.get(0).getCommande().getDateCommande() + "<br>" + 
 			                "</p>" +
 			                "<p>" +
-			                    "<strong>Batas Pembayaran</strong><br> 14-12-2017 17:55 GMT+7" +
+			                    "<strong>Temps de Retait</strong><br> " + ligneCommandes.get(0).getCommande().getTempsRetaitCom() +
 			                "</p>" +
 			            "</div>" +
 			        "</div>" +
 			        "<div class=\"row\">" +
 			            "<div class=\"col-md-12\">" +
 			                "<p>" +
-			                    "<strong>Your Order:</strong>" +
+			                    "<strong>Votre Commande :</strong>" +
 			                "</p>" +
 			                "<div class=\"table-responsive\">" +
 			                    "<table class=\"table\">" +
 			                        "<thead>" +
 			                            "<tr>" +
-			                                "<th>Products</th>" +
-			                                "<th class=\"text-right\">Subtotal</th>" +
+			                                "<th>Produits</th>" +
+			                                "<th class=\"text-right\">Sous-total</th>" +
 			                            "</tr>" +
 			                        "</thead>" +
 			                        "<tbody>";
@@ -129,7 +133,7 @@ public class DetailCommandeServlet extends HttpServlet {
 			                            "</tr>" +
 			                            "<tr>" +
 			                                "<td><strong>Shipping</strong></td>" +
-			                                "<td class=\"text-right\">10.0€</td>" +
+			                                "<td class=\"text-right\">0€</td>" +
 			                            "</tr>" +
 			                            "<tr>" +
 			                                "<td><strong>ORDER TOTAL</strong></td>" +

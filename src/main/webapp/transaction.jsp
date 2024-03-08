@@ -59,7 +59,7 @@
 								<thead>
 									<tr>
 										<th width="5%"></th>
-										<th>Invoice</th>
+										<th>CommandeID</th>
 										<th>Date</th>
 										<th>Total</th>
 										<th>Status</th>
@@ -193,7 +193,7 @@
 	</div>
 	
 	<jsp:include flush="true" page="footer.jsp"></jsp:include>
-	
+	<script type="text/javascript" src="assets/js/transactionJSP.js"></script>
 
 </body>
 </html>

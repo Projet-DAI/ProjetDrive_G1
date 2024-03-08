@@ -11,6 +11,16 @@ import Model.metier.LignePanier;
 import Model.metier.Panier;
 import Model.metier.Produit;
 import Model.metier.Rayon;
+
+
+import Model.metier.Commande;
+import Model.metier.LigneCommande;
+import Model.metier.Magasin;
+
+
+import Model.metier.StatutCommande;
+import Model.metier.Stock;
+import Model.metier.TempsRetait;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.LocalDate;
@@ -26,11 +36,55 @@ public class HibernateMain {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
 
-            // Client
-            Client client = new Client("Dupont", "Chloe", "chloe.dupont@hotmail.com", "123", "chloe", 10, null);
-            session.save(client);
-            Client client1 = new Client("BELBEKRI", "Widad", "widad.belbekri@gmail.com", "345677893", "widad", 15, null);
+         // Client 1
+            Client client1 = new Client();
+            client1.setNomCompletClient("Dupont Chloe");
+            client1.setEmailClient("chloe.dupont@hotmail.com");
+            client1.setPwdClient("123");
+            client1.setNomUtilisateurClient("chloe");
+            client1.setPointFideliteClient(10);
+            client1.setTelephoneClient("12345678");
             session.save(client1);
+
+            // Client 2
+            Client client2 = new Client();
+            client2.setNomCompletClient("BELBEKRI Widad");
+            client2.setEmailClient("widad.belbekri@gmail.com");
+            client2.setPwdClient("345677893");
+            client2.setNomUtilisateurClient("widad");
+            client2.setPointFideliteClient(15);
+            client2.setTelephoneClient("12345678");
+            session.save(client2);
+
+            // Client 3
+            Client client3 = new Client();
+            client3.setNomCompletClient("Han Pang");
+            client3.setEmailClient("ph@gmail.com");
+            client3.setPwdClient("123");
+            client3.setNomUtilisateurClient("PH");
+            client3.setPointFideliteClient(0);
+            client3.setTelephoneClient("12345678");
+            session.save(client3);
+
+            // Client 4
+            Client client4 = new Client();
+            client4.setNomCompletClient("Marc Marc");
+            client4.setEmailClient("marc@stuff.com");
+            client4.setPwdClient("marc");
+            client4.setNomUtilisateurClient("Marc");
+            client4.setPointFideliteClient(0);
+            client4.setTelephoneClient("12345678");
+            session.save(client4);
+
+            // Client 5
+            Client client5 = new Client();
+            client5.setNomCompletClient("Adam Adam");
+            client5.setEmailClient("adam@stuff.com");
+            client5.setPwdClient("adam");
+            client5.setNomUtilisateurClient("Adam");
+            client5.setPointFideliteClient(0);
+            client5.setTelephoneClient("12345678");
+            session.save(client5);
 
 //            // Rayon
 //            Rayon rayon = new Rayon("Épicerie Sucrée");
@@ -69,7 +123,28 @@ public class HibernateMain {
 //            addLignePanier(panier, produit, 5, session);
 //            addLignePanier(panier, produit2, 3, session);
 //            addLignePanier(panier, produit3, 2, session);
-//
+            
+//            StatutCommande sc1 = new StatutCommande();
+//			sc1.setLibelleStatut("Payé");
+//			
+//			StatutCommande sc2 = new StatutCommande();
+//			sc2.setLibelleStatut("En cours de préparation");
+//			
+//			StatutCommande sc3 = new StatutCommande();
+//			sc3.setLibelleStatut("Préparé");
+//			
+//			StatutCommande sc4 = new StatutCommande();
+//			sc4.setLibelleStatut("Livrée");
+//			
+//			StatutCommande sc5 = new StatutCommande();
+//			sc5.setLibelleStatut("Rufusée");
+//			
+//			session.save(sc1);
+//			session.save(sc2);
+//			session.save(sc3);
+//			session.save(sc4);
+//			session.save(sc5);
+
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,7 +7,7 @@
 
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Locale"%>
-
+<%@ page import="java.util.Comparator" %>
 <%@ page import="Model.metier.LignePanier"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.text.DecimalFormat"%>
@@ -316,6 +316,8 @@
         </div>
 
     <% List<Produit> liste = (List<Produit>)request.getAttribute("liste");%>
+    
+    
 	
         <jsp:include flush="true" page="rayon.jsp"></jsp:include>
 
@@ -336,7 +338,7 @@
                         <div class="col-lg-7 col-md-8 col-12">
                             <div class="product-sorting">
                                 <label for="sorting">TRIER</label>
-                                <select class="form-control" id="sorting" style="font-size:11px">
+                                <select class="form-control" id="sorting" style="font-size:11px" onchange="sortProducts()">
                                     <option>Pertinence</option>
                                     <option>Prix (croissant)</option>
                                     <option>Prix (décroissant)</option>
@@ -383,15 +385,124 @@
 
 </section>
 
-<jsp:include flush="true" page="footer.jsp"></jsp:include>
 
-  <script type="text/javascript" src="assets/js/drive.js"></script>
-    <script type="text/javascript" src="assets/packages/bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="assets/packages/owl-carousel/owl-carousel.js"></script>
-    <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
-    <script type="text/javascript" src="assets/js/theme.js"></script>
-    <script type="text/javascript" src="assets/js/headJSP.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/jquery-migrate.js"></script>
+	<script type="text/javascript" src="assets/js/drive.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/bootstrap/libraries/popper.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/o2system-ui/o2system-ui.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/owl-carousel/owl-carousel.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/cloudzoom/cloudzoom.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/thumbelina/thumbelina.js"></script>
+	<script type="text/javascript"
+		src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
+	<script type="text/javascript" src="assets/js/theme.js"></script>
+	<script type="text/javascript" src="assets/js/headJSP.js"></script>
+	
+	
+<script>
+document.getElementById('sorting').addEventListener('change', function() {
+    var selectedValue = this.value;
 
+    var originalProductsContainer = document.getElementById('nav-grid');
+
+    var newProductsContainer = document.createElement('div');
+    newProductsContainer.classList.add('row', 'new-products-container');
+
+    var products = originalProductsContainer.getElementsByClassName('single-product');
+    var productsArray = Array.prototype.slice.call(products);
+
+    if (selectedValue === "Prix (croissant)") {
+        productsArray.sort(function(a, b) {
+            var priceA = parseFloat(a.querySelector('.discount del').textContent.replace(/[^0-9.-]+/g,""));
+            var priceB = parseFloat(b.querySelector('.discount del').textContent.replace(/[^0-9.-]+/g,""));
+            return priceA - priceB;
+        });
+    } else if (selectedValue === "Prix (décroissant)") {
+        productsArray.sort(function(a, b) {
+            var priceA = parseFloat(a.querySelector('.discount del').textContent.replace(/[^0-9.-]+/g,""));
+            var priceB = parseFloat(b.querySelector('.discount del').textContent.replace(/[^0-9.-]+/g,""));
+            return priceB - priceA;
+        });
+    } else if (selectedValue === "Prix au Kg/l (croissant)") {
+        productsArray.sort(function(a, b) {
+            var pricePerKgA = parseFloat(a.querySelector('.product-info div:nth-child(2)').textContent.replace(/[^0-9.-]+/g,""));
+            var pricePerKgB = parseFloat(b.querySelector('.product-info div:nth-child(2)').textContent.replace(/[^0-9.-]+/g,""));
+            return pricePerKgA - pricePerKgB;
+        });
+    } else if (selectedValue === "Prix au Kg/l (décroissant)") {
+        productsArray.sort(function(a, b) {
+            var pricePerKgA = parseFloat(a.querySelector('.product-info div:nth-child(2)').textContent.replace(/[^0-9.-]+/g,""));
+            var pricePerKgB = parseFloat(b.querySelector('.product-info div:nth-child(2)').textContent.replace(/[^0-9.-]+/g,""));
+            return pricePerKgB - pricePerKgA;
+        });
+    }
+
+    var productWidth = 'calc(100% / 3 - 10px)';
+
+    var colClass = 'new-col';
+
+    productsArray.forEach(function(product, index) {
+        var newCol = document.createElement('div');
+        newCol.classList.add(colClass);
+        newCol.style.width = '200px'; // 设置 .single-product 元素的宽度
+        newCol.innerHTML = product.outerHTML;
+        newProductsContainer.appendChild(newCol);
+        colClass = 'new-col-' + (index + 1);
+    });
+
+
+    originalProductsContainer.innerHTML = '';
+    originalProductsContainer.appendChild(newProductsContainer);
+
+    var tabContent = document.getElementById('nav-tabContent');
+    tabContent.style.width = '250px';
+    tabContent.style.height = '150px';
+});
+</script>
+
+<style>
+.new-product {
+    width: calc(100% / 3 - 20px);
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.new-products-container .new-product {
+    width: 750px;
+    height: 392px;
+    display: inline-block;
+    margin-bottom: 10px;
+    vertical-align: top;
+}
+
+.new-product .single-product {
+    width: 250px;
+    height: 392px;
+    float: left;
+    margin: 5px;
+}
+
+.new-product .product-image {
+    width: 70%;
+    text-align: center;
+}
+
+.new-product .product-image img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+</style>
 </body>
-
 </html>

@@ -109,7 +109,7 @@
 
 
                                         </h4>
-                                       <div style="height: 10px; display: flex; flex-direction: column; justify-content: center;">
+                                       <div style="height: 40px; display: flex; flex-direction: column; justify-content: center;">
     <span class="discount" style="margin-bottom: 5px;"><del><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit()) %>&euro;</del></span>
     <span style="font-weight: bold; color: blue;"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() * produit.getPourcentagePromotion()) %>&euro;</span>
 </div>

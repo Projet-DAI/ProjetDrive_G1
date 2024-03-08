@@ -58,9 +58,7 @@
 								class="fa fa-envelope"></i> drive@td1.com</a></li>
 					</ul>
 
-				</div>
-				
-				
+				</div>		
 			</div>
 		</div>
 	</footer>

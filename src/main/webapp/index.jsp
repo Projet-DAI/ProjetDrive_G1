@@ -50,53 +50,6 @@
 					<h1 class="pt-5">
 						Économisez du temps et confiez-nous<br> vos courses
 					</h1>
-
-					<div class="row">
-						<div class="col-md-4">
-							<div class="card border-0 text-center">
-								<div class="card-icon">
-									<div class="card-icon-i">
-										<i class="fa fa-shopping-basket"></i>
-									</div>
-								</div>
-								<div class="card-body">
-									<h4 class="card-title">Acheter</h4>
-									<p class="card-text"></p>
-
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card border-0 text-center">
-								<div class="card-icon">
-									<div class="card-icon-i">
-										<i class="fas fa-leaf"></i>
-									</div>
-								</div>
-								<div class="card-body">
-									<h4 class="card-title">Récupérer</h4>
-									<p class="card-text"></p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card border-0 text-center">
-                                <div class="card-icon">
-                                    <div class="card-icon-i">
-                                        <i class="fa fa-clock"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        Suivi
-                                    </h4>
-                                    <p class="card-text">
-                                    	</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

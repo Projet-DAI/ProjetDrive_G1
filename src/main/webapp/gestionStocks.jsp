@@ -29,10 +29,8 @@
 	             <!-- Les options seront ajoutées ici par JavaScript -->
 	         </select>
 	         
-	         <!-- 使用 Bootstrap 样式表格 -->
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
-                    <!-- 表头 -->
                   <!--   <thead>
                         <tr>
                             <th>Nom du produit</th>
@@ -42,7 +40,6 @@
                             <th>Action</th>
                         </tr>
                     </thead> -->
-                    <!-- 表体内容将在 JavaScript 中填充 -->
                     <tbody id="stockTableBody"></tbody>
                 </table>
             </div>

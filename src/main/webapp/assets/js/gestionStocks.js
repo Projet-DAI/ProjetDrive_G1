@@ -2,7 +2,6 @@
  * fonction du gestion des stocks
  */
 
-// 确保文档加载完毕后调用
 document.addEventListener('DOMContentLoaded', function() {
     loadMagasins();
 });
@@ -13,7 +12,6 @@ function loadMagasins() {
     .then(data => {
         const select = document.getElementById('magasinSelect');
 		
-        // 添加防御性代码，确保data是数组且不为空
         if (Array.isArray(data) && data.length > 0) {
             data.forEach(magasin => {
                 let option = document.createElement('option');
@@ -26,7 +24,7 @@ function loadMagasins() {
         }
     })
 	.catch(error => {
-        console.error('Error fetching data:', error);  // 添加这行
+        console.error('Error fetching data:', error); 
     });
 }
 
@@ -42,9 +40,8 @@ function showStocks(magasinId) {
     .then(data => {
     console.log('Data:', data);
     const tableDiv = document.getElementById('stockTableBody');
-    tableDiv.innerHTML = ''; // Clear previous table
+    tableDiv.innerHTML = ''; 
     
-    // 添加防御性代码，确保 data 是一个数组且不为空
     if (Array.isArray(data) && data.length > 0) {
         //let table = `<h3>État des stocks pour ${data[0][1]}</h3>`;
 		let table = '<table border="1">';

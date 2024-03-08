@@ -11,6 +11,7 @@ import Model.DAO.StockDAO;
 import Model.metier.Magasin;
 import Model.metier.Stock;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Servlet implementation class GestionServlet
@@ -33,24 +34,42 @@ public class GestionStockServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-	        String action = request.getParameter("action");
+	        
+			String action = request.getParameter("action");
+	        System.out.print("action: " + action);
+	        
 	        if ("loadMagasins".equals(action)) {
 	            List<Magasin> magasins = StockDAO.loadMagasins();
-	            String json = new Gson().toJson(magasins);
-	            response.setContentType("application/json");
-	            response.setCharacterEncoding("UTF-8");
-	            response.getWriter().write(json);
+	            System.out.print("loadMagasins: " + magasins);
+	            request.setAttribute("magasins", magasins);
+	            request.getRequestDispatcher("gestionStocks.jsp").forward(request, response);
+	            
 	        } else if ("showStocks".equals(action)) {
-	            int magasinId = Integer.parseInt(request.getParameter("magasinId"));
+	            
+	        	int magasinId = Integer.parseInt(request.getParameter("magasinId"));
+	            System.out.print("magasinId: " + magasinId);
+	            //List<Map<String, Object>> productsAndStocks = StockDAO.getProductsAndStocksForMagasin(magasinId);
 	            List<Object[]> productsAndStocks = StockDAO.getProductsAndStocksForMagasin(magasinId);
+	            System.out.print("productsAndStocks: " + productsAndStocks);
+	            for (Object[] stock : productsAndStocks) {
+	                StringBuilder stockDetails = new StringBuilder("Stock Details: ");
+	                for (Object property : stock) {
+	                    stockDetails.append(property).append(", ");
+	                }
+	                System.out.println(stockDetails.toString());
+	            }
+	            
 	            String json = new Gson().toJson(productsAndStocks);
 	            response.setContentType("application/json");
 	            response.setCharacterEncoding("UTF-8");
 	            response.getWriter().write(json);
 	        }
 	    } catch (Exception e) {
-	        e.printStackTrace(); // 记录日志
-	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Server error processing request");
+	        e.printStackTrace(); 
+	        //response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Server error processing request");
+	        System.err.println("Exception message: " + e.getMessage());
+	        System.err.println("Exception cause: " + e);
+	        e.printStackTrace();
 	    }
 		
 	}

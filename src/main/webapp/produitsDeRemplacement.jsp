@@ -281,14 +281,25 @@
 </body>
 </html>
 <%
+                } else {
+                    // La liste de produits de remplacement est vide
+                	response.sendRedirect("pasProduitsRempalcements.jsp");
                 }
             } else {
-                // Si le produit n'existe pas
-                out.println("Produit non trouvé");
+                // Le produit n'existe pas
+                out.println("Le produit demandé n'existe pas.");
             }
         } catch (NumberFormatException e) {
-            // Si l'ID du produit n'est pas un entier valide
-            out.println("ID de produit invalide");
+            e.printStackTrace();
+            // Gérer l'exception si la conversion de l'ID du produit en entier échoue
+            out.println("L'ID du produit n'est pas un nombre valide.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Gérer d'autres exceptions possibles
+            out.println("Une erreur s'est produite lors de la récupération des détails du produit.");
         }
+    } else {
+        // L'ID du produit n'est pas présent dans l'URL
+        out.println("L'ID du produit n'a pas été spécifié dans l'URL.mmm");
     }
 %>

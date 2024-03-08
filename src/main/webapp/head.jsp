@@ -277,7 +277,6 @@
 								<a class="dropdown-item" href="login.jsp">Mon historique de commandes</a> 
 								<a class="dropdown-item" href="login.jsp">Liste de courses</a> 
 								<a class="dropdown-item" href="login.jsp">Tableau de bord</a> 
-								<a class="dropdown-item" href="login.jsp">Paramètres</a>
 								<a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
 							</div>
 						</li>

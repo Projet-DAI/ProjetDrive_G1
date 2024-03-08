@@ -7,17 +7,12 @@
 
 <% Panier panier = (Panier) session.getAttribute("panier"); %>
 
-<% Panier panier = (Panier) session.getAttribute("panier"); %>
-
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="Panier.jsp">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
@@ -141,7 +136,6 @@
 						                        	                    idProduit: productId
 						                        	                },
 						                        	                success: function(response) {
-
 						                        	                    // Mettre à jour le contenu du panier ou tout autre élément d'interface utilisateur pertinent
 						                        	                    deleteButton.closest('tr').remove(); // Supprimer la ligne de tableau correspondante
 						                        	                    alert("Article supprimé avec succès"); // Afficher un message de confirmation
@@ -192,7 +186,7 @@
     // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
     function updateNouveauTotalPanier() {
         // Mettre à jour l'élément HTML avec le nouveau total
-        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
+        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) ;
      // Mise à jour du champ caché dans le formulaire de panier avec le nouveau total du panier
         document.getElementById("nouveauTotal").value = nouveauTotalPanier;
     }
@@ -227,8 +221,11 @@
         
     });
 
-</script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
-                        <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier">&#8364</span></h6>
+</script> 
+
+
+                      <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
+                        <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span>&#8364</h6>
 					<form id="checkoutForm" action="ChoixCreneauServlet" method="POST">
 							    <input type="hidden" id="nouveauTotal" name="nouveauTotal" value="">
 								
@@ -319,6 +316,28 @@
     <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
     <script type="text/javascript" src="assets/js/theme.js"></script>
+    <script type="text/javascript">
+	function updateTotalPanier() {
+	    $.ajax({
+	        type: "GET",
+	        url: "RecalculerTotalPanierServlet", // Servlet pour recalculer le total du panier
+	        success: function(nouveauTotal) {
+	            // Mettre à jour l'élément HTML avec le nouveau total
+	            $("#totalPanier").text(nouveauTotal);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error(error); // Journaliser les erreurs éventuelles dans la console
+	        }
+	    });
+	}
+	 // Appeler la fonction pour mettre à jour le montant total au chargement de la page
+    $(document).ready(function() {
+        updateTotalPanier();
+    });
+
+
+</script> 
+
     
 
 

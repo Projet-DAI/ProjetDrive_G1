@@ -143,10 +143,7 @@
 							<div class="dropdown-menu shopping-cart">
 								<ul>
 									<li>
-										<div class="drop-title" style="color:pink;">
-										<!-- <a href="Panier" class="nav-link">Mon Panier</a> -->
-											Mon Panier
-										</div>
+										<div class="drop-title" style="color:pink;">Mon Panier</div>
 									</li>
 
 									<%

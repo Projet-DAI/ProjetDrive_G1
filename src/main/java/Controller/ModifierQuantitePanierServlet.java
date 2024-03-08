@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.json.simple.JSONObject;
 
+import Model.DAO.HibernateUtil;
 import Model.DAO.PanierDAO;
 import Model.DAO.ProduitDAO;
 import Model.metier.Panier;
@@ -44,11 +47,15 @@ public class ModifierQuantitePanierServlet extends HttpServlet {
         Panier panier = panierDAO.getPanierById(panierId);
         panierDAO.modifierQuantiteProduit(panier, produitId, nouvelleQuantite);
 
+        // Récupérer le panier update
+        Session sessionHib = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = sessionHib.beginTransaction();
         
+        Panier panierUpdate = sessionHib.get(Panier.class, panierId);
 
         // Mettre à jour le panier dans la session
         HttpSession session = request.getSession();
-        session.setAttribute("Panier", panier);
+        session.setAttribute("panier", panierUpdate);
         // Construire une réponse JSON avec les nouvelles données du panier
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("total", panierDAO.calculerTotalPanier(panier));

@@ -49,11 +49,13 @@
             </div>
         </div>
 
-        <section id="cart">
+        <section id="cart" style="padding-top:15px;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                      <button id="voirPointsFidelitebtn" class="btn btn-primary">Débloquer mes points de fidélité</button>
+                    	<div style="padding:20px 0px 20px 0px;">
+                    		<button id="voirPointsFidelitebtn" class="btn btn-primary">Débloquer mes points de fidélité</button>
+                    	</div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -102,8 +104,8 @@
 													                    nouvelleQuantite: nouvelleQuantite
 													                },
 													                success: function(response) {
-													                    // Update the quantity and total price on the page based on the server's response
-													                    // For example, you can update the quantity and total elements here
+													                    //var nouveauTotal = response.total;
+													                    //$("#PrixTotal").text(nouveauTotal);
 													                },
 													                error: function(xhr, status, error) {
 													                    console.error(error); // Log any errors to the console
@@ -112,7 +114,7 @@
 													        });
 													    });
 													</script>
-						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+						                            <td id="PrixTotal"><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
 													<td><a href="#" class="text-danger delete-item" data-id="<%= lignePanier.getProduit().getIdProduit() %>"><i class="fa fa-times"></i></a></td>
 						                        	<script>
 						                        	$(document).ready(function() {
@@ -179,9 +181,9 @@
 <script type="text/javascript">
 
     // Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
-    var totalPanierString = '<%= String.valueOf(total) %>';
-    // Initialiser le total mis à jour à zéro
-    var nouveauTotalPanier = 0;
+    var totalPanierString = '<%=String.valueOf(total)%>';
+	// Initialiser le total mis à jour à zéro
+	var nouveauTotalPanier = 0;
 
     // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
     function updateNouveauTotalPanier() {
@@ -221,7 +223,8 @@
         
     });
 
-</script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
+</script>                       
+						 <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier">&#8364</span></h6>
 					<form id="checkoutForm" action="ChoixCreneauServlet" method="POST">
 							    <input type="hidden" id="nouveauTotal" name="nouveauTotal" value="">

@@ -279,7 +279,7 @@ public class dataTEST {
 	        for (Produit produit : produitList) {
 	            session.save(produit);
 	            
-            List<Stock> stockList=readCsvFilestock("C:\\Users\\widad\\Downloads\\stock.csv", session);
+            List<Stock> stockList=readCsvFilestock("C:\\Users\\mazhu\\Downloads\\stock.csv", session);
         	for (Stock stock : stockList) {
         		session.save(stock);
         	}

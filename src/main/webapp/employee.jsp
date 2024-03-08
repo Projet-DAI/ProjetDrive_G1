@@ -94,7 +94,7 @@
 	    
 	    <!--Gestion des stocks -->
 	    <div class="col-md-12 mt-5 text-center">
-			<a href="gestionStocks.jsp" class="btn btn-primary btn-lg" id="gestionstockBtn">Gestion des stocks</a>           
+			<a href="gestionStockServlet?action=loadMagasins" class="btn btn-primary btn-lg" id="gestionstockBtn">Gestion des stocks</a>           
     	</div>
 	    
 	    <!-- US5.1 Consulter un panier pour preparer un retait -->

@@ -14,17 +14,17 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class SendMyEmail {
-	// Boîte aux lettres et mot de passe de l'expéditeur (à remplacer par votre propre boîte aux lettres et votre propre mot de passe)
-	// PS : Certains serveurs de boîtes aux lettres définissent un mot de passe distinct pour les clients SMTP afin d'accroître la sécurité du mot de passe de la boîte aux lettres (certaines boîtes aux lettres sont appelées "code d'autorisation"), // pour les boîtes aux lettres avec mot de passe distinct, le mot de passe de la boîte aux lettres ici doit utiliser ce mot de passe distinct (code d'autorisation).
-	// Pour les boîtes aux lettres avec mot de passe indépendant, le mot de passe de la boîte aux lettres doit utiliser ce mot de passe indépendant (code d'autorisation).
+	  // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
+    // PS: 某些邮箱服务器为了增加邮箱本身密码的安全性，给 SMTP 客户端设置了独立密码（有的邮箱称为“授权码”）,
+    //     对于开启了独立密码的邮箱, 这里的邮箱密码必需使用这个独立密码（授权码）。
     public static String myEmailAccount = "panghanfr@gmail.com";
     public static String myEmailPassword = "nhjc uwtj hwqq zcin";
 
-	 // L'adresse du serveur SMTP de la boîte aux lettres de l'expéditeur doit être exacte, une adresse de serveur de messagerie différente est différente, format général (juste général, jamais absolu) : smtp.xxx.com
-	 // L'adresse du serveur SMTP de la boîte aux lettres gmail est : smtp.gmail.com.
+    // 发件人邮箱的 SMTP 服务器地址, 必须准确, 不同邮件服务器地址不同, 一般(只是一般, 绝非绝对)格式为: smtp.xxx.com
+    // 网易126邮箱的 SMTP 服务器地址为: smtp.126.com
     public static String myEmailSMTPHost = "smtp.gmail.com";
 
-    // Courriel du destinataire (remplacer par un courriel valide que vous connaissez)
+    // 收件人邮箱（替换为自己知道的有效邮箱）
     public static String receiveMailAccount = "mazhuo0825@gmail.com";
     
     
@@ -78,27 +78,27 @@ public class SendMyEmail {
 
 
 	/**
-     * Créer un simple courriel
+     * 创建一封只包含文本的简单邮件
      *
-     * @param receiveMail
+     * @param receiveMail 收件人邮箱
      * @return
      * @throws Exception
      */
     public static void createMimeMessage(String receiveMail, String pdfPath, String nomU, String idC) throws Exception {
-    	// Initialisation
-    	// Créer une configuration de paramètres pour la connexion au serveur de messagerie.
-        Properties props = new Properties();                    // Configuration des paramètres
-        props.setProperty("mail.transport.protocol", "smtp");   // Protocole utilisé (requis par la spécification JavaMail)
+        // 初始化
+    	 // 1. 创建参数配置, 用于连接邮件服务器的参数配置
+        Properties props = new Properties();                    // 参数配置
+        props.setProperty("mail.transport.protocol", "smtp");   // 使用的协议（JavaMail规范要求）
         props.setProperty("mail.smtp.host", SendMyEmail.myEmailSMTPHost);   // 发件人的邮箱的 SMTP 服务器地址
-        props.setProperty("mail.smtp.auth", "true");            // Nécessité de demander une authentification
+        props.setProperty("mail.smtp.auth", "true");            // 需要请求认证
 
-        // PS : Certains serveurs de messagerie exigent la sécurité SSL pour les connexions SMTP (pour plus de sécurité, les boîtes aux lettres prennent en charge les connexions SSL, ou vous pouvez l'activer vous-même), // Si vous ne pouvez pas vous connecter au serveur de messagerie, regardez le journal imprimé sur la console, s'il y a des erreurs comme "connexion échouée, connexion sécurisée SSL requise", etc.
-        // Si vous ne pouvez pas vous connecter au serveur de messagerie, vérifiez le journal imprimé sur la console, s'il y a une erreur comme "Connection failed, SSL secure connection required", // alors vous pouvez l'utiliser pour vous connecter au serveur de messagerie.
-        // Décommentez ce qui suit /* ... */ ci-dessous, et activez la connexion sécurisée SSL.
+        // PS: 某些邮箱服务器要求 SMTP 连接需要使用 SSL 安全认证 (为了提高安全性, 邮箱支持SSL连接, 也可以自己开启),
+        //     如果无法连接邮件服务器, 仔细查看控制台打印的 log, 如果有有类似 “连接失败, 要求 SSL 安全连接” 等错误,
+        //     取消下面 /* ... */ 之间的注释代码, 开启 SSL 安全连接。
         
-        // Le port du serveur SMTP (les ports non-SSL sont généralement 25 par défaut et peuvent être laissés de côté, mais si SSL est activé, // vous devez le remplacer par le port SMTP de la boîte aux lettres correspondante.
-        // Le port du serveur SMTP de la boîte aux lettres QQ est 25 par défaut, vous ne pouvez pas l'ajouter, si vous ouvrez une connexion SSL.
-        // Le port SMTP (SLL) de la boîte aux lettres QQ est 465 ou 587, les autres boîtes aux lettres peuvent le vérifier elles-mêmes).
+        // SMTP 服务器的端口 (非 SSL 连接的端口一般默认为 25, 可以不添加, 如果开启了 SSL 连接,
+        //                  需要改为对应邮箱的 SMTP 服务器的端口, 具体可查看对应邮箱服务的帮助,
+        //                  QQ邮箱的SMTP(SLL)端口为465或587, 其他邮箱自行去查看)
         final String smtpPort = "465";
         props.setProperty("mail.smtp.port", smtpPort);
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
@@ -106,72 +106,72 @@ public class SendMyEmail {
         props.setProperty("mail.smtp.socketFactory.fallback", "false");
         props.setProperty("mail.smtp.socketFactory.port", smtpPort);
 
-        // Créer un objet session basé sur la configuration, qui est utilisé pour interagir avec le serveur de messagerie.
+        // 2. 根据配置创建会话对象, 用于和邮件服务器交互
         Session session = Session.getInstance(props);
-        // debug true
+        // 设置为debug模式, 可以查看详细的发送 log
         session.setDebug(true);
 
     	
-    	// creer un email
+    	// 1. 创建一封邮件
         MimeMessage message = new MimeMessage(session);
 
-        // 2.De : (email header)
+        // 2. From: 发件人
         message.setFrom(new InternetAddress(SendMyEmail.myEmailAccount, "FRESH Magasin", "UTF-8"));
 
-        // 3. To : Destinataire (plusieurs destinataires, cc, bcc peuvent être ajoutés)
+        // 3. To: 收件人（可以增加多个收件人、抄送、密送）
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, nomU, "UTF-8"));
 
-        // 4 Objet : Objet du message
+        // 4. Subject: 邮件主题
         message.setSubject("Votre commande No." + idC + " est Prête à retirer dans votre magasin !", "UTF-8");
         
-        // 5. contenu : le corps du message (des balises html peuvent être utilisées)
+        // 5. Content: 邮件正文（可以使用html标签）
         MimeMultipart multipart = new MimeMultipart();
 
-        // texte
+        // 正文部分
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent("Chère client(e), <br><br>Ne oubliez pas à retirer votre commande ! <br><br>Bonne journée,<br>Team FRESH", "text/html;charset=UTF-8");
         multipart.addBodyPart(textPart);
 
-        // Annexes
+        // 附件部分
         MimeBodyPart pdfPart = new MimeBodyPart();
-        DataSource source = new FileDataSource(pdfPath); // Remplacer par le chemin d'accès au fichier PDF
+        DataSource source = new FileDataSource(pdfPath); // 替换为实际的PDF文件路径
         pdfPart.setDataHandler(new DataHandler(source));
         
         String fileName = pdfPath.substring(4, pdfPath.length());
-        pdfPart.setFileName(fileName); // Définition du nom du fichier de la pièce jointe
+        pdfPart.setFileName(fileName); // 设置附件文件名
         multipart.addBodyPart(pdfPart);
 
-     	// Définition du contenu du message
+        // 设置邮件内容
         message.setContent(multipart);
 
-        // 6. réglage de l'heure d'envoi
+        // 6. 设置发件时间
         message.setSentDate(new Date());
 
-        // Sauvegarder les paramètres
+        // 7. 保存设置
         message.saveChanges();
         
-        // Obtenir l'objet de transport du courrier en fonction de la session
+        // 4. 根据 Session 获取邮件传输对象
         Transport transport = session.getTransport();
 
-        // Le courriel d'authentification doit être le même que le courriel de l'expéditeur dans le message, sinon une erreur sera signalée.
+        // 5. 使用 邮箱账号 和 密码 连接邮件服务器, 这里认证的邮箱必须与 message 中的发件人邮箱一致, 否则报错
         //
-        // PS_01 : Si la connexion au serveur échoue, un log de la raison de l'échec sera affiché sur la console.
-        // Certains serveurs de messagerie renvoient un code d'erreur ou un lien permettant d'afficher le type d'erreur.
-        // Selon le type d'erreur indiqué, consultez le site d'aide du serveur de messagerie correspondant pour connaître la raison exacte de l'échec.
-        // Le type d'erreur sera indiqué sur le site d'aide du serveur de messagerie correspondant.
-        // PS_02 : Les connexions échouent généralement pour les raisons suivantes, vérifiez attentivement le code.
-        // (1) Le service SMTP n'est pas activé dans la boîte aux lettres ; // (2) Le mot de passe de la boîte aux lettres est incorrect.
-        // (2) Le mot de passe de la boîte aux lettres est erroné, par exemple certaines boîtes aux lettres ont des mots de passe individuels activés.
-        // (3) Le serveur de la boîte aux lettres nécessite une connexion SSL sécurisée ; // (4) La demande est trop fréquente ; // (5) Le serveur de la boîte aux lettres nécessite une connexion SSL sécurisée ; // (6) Le serveur de la boîte aux lettres nécessite une connexion SSL sécurisée ; // (7) Le serveur de la boîte aux lettres nécessite une connexion SSL sécurisée.
-        // (4) Les demandes sont trop fréquentes ou pour d'autres raisons, le serveur de messagerie refuse le service ; // (5) Si l'une des conditions ci-dessus s'applique, le serveur de messagerie n'acceptera pas la demande.
-        // (5) Si vous êtes sûr que tous les points ci-dessus sont corrects, consultez le site web du serveur de messagerie pour obtenir de l'aide.
+        //    PS_01: 如果连接服务器失败, 都会在控制台输出相应失败原因的log。
+        //    仔细查看失败原因, 有些邮箱服务器会返回错误码或查看错误类型的链接,
+        //    根据给出的错误类型到对应邮件服务器的帮助网站上查看具体失败原因。
+        //
+        //    PS_02: 连接失败的原因通常为以下几点, 仔细检查代码:
+        //           (1) 邮箱没有开启 SMTP 服务;
+        //           (2) 邮箱密码错误, 例如某些邮箱开启了独立密码;
+        //           (3) 邮箱服务器要求必须要使用 SSL 安全连接;
+        //           (4) 请求过于频繁或其他原因, 被邮件服务器拒绝服务;
+        //           (5) 如果以上几点都确定无误, 到邮件服务器网站查找帮助。
         //
         transport.connect(myEmailAccount, SendMyEmail.myEmailPassword);
 
-        // 6. Envoyer email
+        // 6. 发送邮件, 发到所有的收件地址, message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人
         transport.sendMessage(message, message.getAllRecipients());
 
-        // 7. close
+        // 7. 关闭连接
         transport.close();
 
     }

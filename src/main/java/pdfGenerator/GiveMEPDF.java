@@ -3,6 +3,7 @@ package pdfGenerator;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -14,27 +15,27 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 public class GiveMEPDF {
 
 	    public static void main(String[] args) {
-//	        int orderNumber = 12345;
-//	        String orderDate = "2024-02-28 10:30:00";
-//	        String userName = "John Doe";
-//	        String storeName = "My Store";
-//	        String pickupTime = "2024-03-01 12:00:00";
-//	        String storeAdress = "zzzzzzzzzzzzzzzz";
-//	        
-//	        Product p = new Product("niurou",12,"aaa");
-//	        Product p2 = new Product("jirou",22,"111");
-//	        
-//	        // Sample product list
-//	        List<Product> productList = new ArrayList<Product>();
-//	        productList.add(p);
-//	        productList.add(p2);
-//	        
-//	        try {
-//	            generatePDF(orderNumber, orderDate, userName, storeName, storeAdress, pickupTime, productList, "X:\\output.pdf");
-//	            System.out.println("finish");
-//	        } catch (IOException e) {
-//	            e.printStackTrace();
-//	        }
+	        int orderNumber = 12345;
+	        String orderDate = "2024-02-28 10:30:00";
+	        String userName = "John Doe";
+	        String storeName = "My Store";
+	        String pickupTime = "2024-03-01 12:00:00";
+	        String storeAdress = "zzzzzzzzzzzzzzzz";
+	        
+	        Product p = new Product("niurou",12,"aaa");
+	        Product p2 = new Product("jirou",22,"111");
+	        
+	        // Sample product list
+	        List<Product> productList = new ArrayList<Product>();
+	        productList.add(p);
+	        productList.add(p2);
+	        
+	        try {
+	            generatePDF(orderNumber, orderDate, userName, storeName, storeAdress, pickupTime, productList, "X:\\output.pdf");
+	            System.out.println("finish");
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 	    }
 
 	    public static void generatePDF(int orderNumber, String orderDate, String userName, String storeName, String storeAdress,
@@ -71,10 +72,11 @@ public class GiveMEPDF {
 	                int cols = 3;
 	                //float colWidth = tableWidth / (float) cols;
 	                float cellMargin = 5f;
-	                 
-	                float colWidth1 = 0.7f * tableWidth;  // La largeur de la première colonne est égale à la moitié de la largeur du tableau.
-	                float colWidth2 = 0.15f * tableWidth; // La largeur de la deuxième colonne est égale à un quart de la largeur du tableau.
-	                float colWidth3 = 0.15f * tableWidth; // La largeur de la troisième colonne est égale à un quart de la largeur du tableau.
+	                
+	                // 手动指定每一列的宽度
+	                float colWidth1 = 0.7f * tableWidth;  // 第一列宽度为表格宽度的一半
+	                float colWidth2 = 0.15f * tableWidth; // 第二列宽度为表格宽度的四分之一
+	                float colWidth3 = 0.15f * tableWidth; // 第三列宽度为表格宽度的四分之一
 
 	                // Draw table headers
 	                float tableTopY = yPosition;
@@ -138,9 +140,9 @@ public class GiveMEPDF {
 	                    contentStream.newLineAtOffset(textx, texty);
 	                    contentStream.setFont(PDType1Font.HELVETICA_BOLD, 9);
 	                    contentStream.showText(product.getProductName());
-	                    contentStream.newLineAtOffset(colWidth1, 0); // Utilisation des nouvelles largeurs de colonnes
+	                    contentStream.newLineAtOffset(colWidth1, 0); // 使用新的列宽
 	                    contentStream.showText(String.valueOf(product.getQuantity()));
-	                    contentStream.newLineAtOffset(colWidth2, 0); // Utilisation des nouvelles largeurs de colonnes
+	                    contentStream.newLineAtOffset(colWidth2, 0); // 使用新的列宽
 	                    contentStream.showText(product.getStatus());
 	                    contentStream.endText();
 
@@ -162,10 +164,13 @@ public class GiveMEPDF {
 	    }
 
 	    public static String getCurrentDateTime() {
+	    	// 获取当前日期和时间
 	        LocalDateTime currentDateTime = LocalDateTime.now();
 
+	        // 定义日期时间格式
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+	        // 将日期时间转换为字符串
 	        String formattedDateTime = currentDateTime.format(formatter);
 	        return formattedDateTime;
 	    }

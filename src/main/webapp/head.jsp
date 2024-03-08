@@ -318,7 +318,22 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 					<button type="button" class="btn btn-primary" onclick="submitLocation()">Valider</button>
+					<script type="text/javascript">
+					    function submitLocation() {
+					        // Récupérer la valeur saisie dans le champ userLocation
+					        var userLocation = document.getElementById("userLocation").value;
 					
+					        // Utiliser userLocation pour déterminer l'ID du magasin correspondant
+					        var magasinId = determineMagasinId(userLocation); // Vous devez implémenter cette fonction
+					
+					        // Mettre à jour la valeur de l'élément input caché avec l'ID du magasin choisi
+					        document.getElementById("magasinId").value = magasinId;
+					
+					        // Soumettre le formulaire
+					        document.getElementById("locationForm").submit();
+					    }
+					    
+					    
 				</div>
 			</div>
 		</div>

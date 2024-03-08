@@ -54,8 +54,12 @@ public class SupprimerLignePanierServlet extends HttpServlet {
         // Mettre à jour le panier dans la session
         HttpSession session = request.getSession();
         session.setAttribute("panier", panierUpdt);
-        
-        response.getWriter().write("Item removed successfully");
+        double newTotal = panierDAO.calculerTotalPanier(panier);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("{\"success\": true}");
+
 
     }
 

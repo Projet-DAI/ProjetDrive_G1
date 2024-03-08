@@ -58,7 +58,7 @@ public class MagasinServlet extends HttpServlet {
 	        session.setAttribute("idMagasin", idMagasin);
 	        List<Magasin> mags = MagasinDao.choisirMagasins(userLocation);
 			System.out.println("le magasin choisi est "+ idMagasin);
-
+			
 	        List<Map<String, Object>> magasinsData = new ArrayList<>();
 	        for (Magasin magasin : mags) {
 	            Map<String, Object> magasinData = new HashMap<>();

@@ -5,6 +5,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Model.DAO.ClientDAO" %>
 
+
 <% Panier panier = (Panier) session.getAttribute("panier"); %>
 
 
@@ -12,7 +13,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="Panier.jsp">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
@@ -49,13 +53,11 @@
             </div>
         </div>
 
-        <section id="cart" style="padding-top:15px;">
+        <section id="cart">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                    	<div style="padding:20px 0px 20px 0px;">
-                    		<button id="voirPointsFidelitebtn" class="btn btn-primary">Débloquer mes points de fidélité</button>
-                    	</div>
+                      <button id="voirPointsFidelitebtn" class="btn btn-primary">Débloquer mes points de fidélité</button>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -104,8 +106,8 @@
 													                    nouvelleQuantite: nouvelleQuantite
 													                },
 													                success: function(response) {
-													                    //var nouveauTotal = response.total;
-													                    //$("#PrixTotal").text(nouveauTotal);
+													                    // Update the quantity and total price on the page based on the server's response
+													                    // For example, you can update the quantity and total elements here
 													                },
 													                error: function(xhr, status, error) {
 													                    console.error(error); // Log any errors to the console
@@ -114,7 +116,7 @@
 													        });
 													    });
 													</script>
-						                            <td ><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
+						                            <td><%= lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite() %></td>
 													<td><a href="#" class="text-danger delete-item" data-id="<%= lignePanier.getProduit().getIdProduit() %>"><i class="fa fa-times"></i></a></td>
 						                        	<script>
 						                        	$(document).ready(function() {
@@ -138,6 +140,8 @@
 						                        	                    idProduit: productId
 						                        	                },
 						                        	                success: function(response) {
+						                        	                    updateTotalPrice(response.newTotal);
+
 						                        	                    // Mettre à jour le contenu du panier ou tout autre élément d'interface utilisateur pertinent
 						                        	                    deleteButton.closest('tr').remove(); // Supprimer la ligne de tableau correspondante
 						                        	                    alert("Article supprimé avec succès"); // Afficher un message de confirmation
@@ -181,9 +185,9 @@
 <script type="text/javascript">
 
     // Initialiser le total à partir de la valeur côté serveur (en tant que chaîne de caractères)
-    var totalPanierString = '<%=String.valueOf(total)%>';
-	// Initialiser le total mis à jour à zéro
-	var nouveauTotalPanier = 0;
+    var totalPanierString = '<%= String.valueOf(total) %>';
+    // Initialiser le total mis à jour à zéro
+    var nouveauTotalPanier = 0;
 
     // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
     function updateNouveauTotalPanier() {
@@ -223,8 +227,7 @@
         
     });
 
-</script>                       
-						 <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
+</script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier">&#8364</span></h6>
 					<form id="checkoutForm" action="ChoixCreneauServlet" method="POST">
 							    <input type="hidden" id="nouveauTotal" name="nouveauTotal" value="">

@@ -223,11 +223,13 @@
 
 </script> 
 
+					<form id="checkoutForm" action="ChoixCreneauServlet" method="POST">
+
+
 
                       <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
                         <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span>&#8364</h6>
-					<form id="checkoutForm" action="ChoixCreneauServlet" method="POST">
-							    <input type="hidden" id="nouveauTotal" name="nouveauTotal" value="">
+							    <input type="hidden" id="nouveauTotalPanier" name="nouveauTotalPanier" value="<%= total %>">
 								
 	    						<button type="submit" class="btn btn-lg btn-primary">Checkout</button>
 	                        </form>
@@ -317,26 +319,13 @@
     <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
     <script type="text/javascript" src="assets/js/theme.js"></script>
     <script type="text/javascript">
-	function updateTotalPanier() {
-	    $.ajax({
-	        type: "GET",
-	        url: "RecalculerTotalPanierServlet", // Servlet pour recalculer le total du panier
-	        success: function(nouveauTotal) {
-	            // Mettre à jour l'élément HTML avec le nouveau total
-	            $("#totalPanier").text(nouveauTotal);
-	        },
-	        error: function(xhr, status, error) {
-	            console.error(error); // Journaliser les erreurs éventuelles dans la console
-	        }
-	    });
-	}
-	 // Appeler la fonction pour mettre à jour le montant total au chargement de la page
-    $(document).ready(function() {
-        updateTotalPanier();
-    });
+	
 
 
-</script> 
+
+</body>
+</html>
+
 
     
 

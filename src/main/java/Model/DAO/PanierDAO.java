@@ -340,6 +340,18 @@ public class PanierDAO {
 	                session.close();
 	            }
 	        }
+	        
+	        private double calculateNewTotal(Panier panier) {
+	            double nouveauTotal = 0.0;
+	            if (panier != null) {
+	                List<LignePanier> lignesPanier = panier.getLignesPanier();
+	                for (LignePanier ligne : lignesPanier) {
+	                    double sousTotal = ligne.getProduit().getPrixProduit() * ligne.getQuantite();
+	                    nouveauTotal += sousTotal;
+	                }
+	            }
+	            return nouveauTotal;
+	        }
 
 	    
 	        

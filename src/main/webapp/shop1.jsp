@@ -79,14 +79,13 @@
                     <div class="product-grid-topbar">
                         <div class="col-lg-7 col-md-8 col-12">
                             <div class="product-sorting">
-                                <label for="sorting">Sort by:</label>
-                                <select class="form-control" id="sorting">
-                                    <option>Popularity</option>
-                                    <option>Low - High Price</option>
-                                    <option>High - Low Price</option>
-                                    <option>Average Rating</option>
-                                    <option>A - Z Order</option>
-                                    <option>Z - A Order</option>
+                                <label for="sorting">TRIER</label>
+                                <select class="form-control" id="sorting" style="font-size:11px">
+                                    <option>Pertinence</option>
+                                    <option>Prix (croissant)</option>
+                                    <option>Prix (décroissant)</option>
+                                    <option>Prix au Kg/l (croissant)</option>
+                                    <option>Prix au Kg/l (décroissant)</option>
                                 </select>
                             </div>
                         </div>

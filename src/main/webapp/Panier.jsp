@@ -5,6 +5,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Model.DAO.ClientDAO" %>
 
+<% Panier panier = (Panier) session.getAttribute("panier"); %>
 
 <% Panier panier = (Panier) session.getAttribute("panier"); %>
 

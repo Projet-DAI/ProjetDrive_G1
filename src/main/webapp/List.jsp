@@ -11,6 +11,8 @@
 <title>Mes listes des courses</title>
 <link rel="stylesheet" type="text/css" media="all"
 	href="assets/css/ListCSS.css">	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script type="text/JavaScript" src="assets/js/listJSP.js"></script>
 </head>
 
@@ -38,33 +40,29 @@
 			<button onclick="openModal()" class="buttonCreer">Créer une nouvelle liste</button>
 	</div>
 		<% 
-		 String listeCourseName = request.getParameter("listeCourseName");
+    String listeCourseName = request.getParameter("listeCourseName");
+    HttpSession s = request.getSession();
+    List<ListeCourse> list = (List<ListeCourse>) s.getAttribute("listCourse");
+    for (ListeCourse l : list) {
+%>
+<div class="shopping-list-summary-page__item">
+    <div style="display: flex; align-items: center;">
+        <!-- Alignement horizontal des icônes et du texte à l'aide de la mise en page flexible -->
+        <p class="bold-item" style="margin-bottom: 0;">
+            <%= l.getNomListeCourse() %>
+            &nbsp;
+           <button class="btn btn-danger delete-liste" style="background-color: pink;" data-id="<%= l.getIdListeCourse() %>">supprimer</button> 
+        	
+        </p>
+    </div>
+    <div style="float: right;"><%= l.getDateCreation() %></div>
+    
+    <a href="afficherPostitServlet?listeCourseId=<%= l.getIdListeCourse() %>&listeCourseName=<%= l.getNomListeCourse() %>">
+        <p>Voir la liste</p>
+    </a>
+</div>
+<% } %>
 
-		 HttpSession s = request.getSession();
-		 List<ListeCourse> list = (List<ListeCourse>)s.getAttribute("listCourse");
-		 for (ListeCourse l : list){
-		%>
-	<div class="shopping-list-summary-page__item" id="existing-list-item">
-		<div style="display: flex; align-items: center;">
-			<!-- Alignement horizontal des icônes et du texte à l'aide de la mise en page flexible -->
-			<p id="existing-list-name" class="bold-item"
-				style="margin-bottom: 0;"><%=l.getNomListeCourse() %></p>
-			<!-- Ajuster le style des noms de liste pour supprimer l'espacement inférieur -->
-			<span id="existing-delete-icon"
-				style="display: none; margin-left: 10px;"><i
-				class="bi bi-trash" onclick="showDeleteModal()"></i></span>
-			<!-- Ajuster l'espacement sur le côté gauche de l'icône de la corbeille -->
-		</div>
-		<div style="float: right;"><%=l.getDateCreation() %></div>
-		<%-- <a href="PostitServlet?action=afficher&listeCourseName=<%= l.getNomListeCourse() %>"><p>Voir la liste</p></a> --%>
-		<%-- <a href="PostitServlet?action=afficher&listeCourseId=<%= l.getIdListeCourse() %>"><p>Voir la liste</p></a> --%>
-		<a href="afficherPostitServlet?listeCourseId=<%= l.getIdListeCourse() %>&listeCourseName=<%= l.getNomListeCourse() %>"><p>Voir la liste</p></a>
-		
-		
-	</div>
-
-	<%}%>
-	</div>
 		
 	<!--modal -->
 	<div id="myModal" class="modal">
@@ -88,5 +86,34 @@
 		
 	<jsp:include flush="true" page="footer.jsp"></jsp:include>
 	
+	<script>
+		$(document).ready(function() {
+		    $(document).on('click', '.delete-liste', function() {
+		        var listeId = $(this).data('id');
+		        var listItem = $(this).closest('.shopping-list-summary-page__item');
+	
+		        $.ajax({
+		            type: "POST",
+		            url: "SupprimerListCourseServlet",
+		            data: {
+		                listeId: listeId
+		            },
+		            success: function(response) {
+		                if (response.success) {
+		                    console.log("Suppression réussie: " + response.message);
+		                    listItem.remove();
+		                } else {
+		                    console.error("Échec de la suppression: " + response.message);
+		                    alert(response.message);
+		                }
+		            },
+		            error: function(xhr, status, error) {
+		                console.error("Échec de la suppression: " + error);
+		                alert("L'opération de suppression a échoué");
+		            }
+		        });
+		    });
+		});
+	</script>
 </body>
 </html>

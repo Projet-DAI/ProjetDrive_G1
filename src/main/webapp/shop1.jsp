@@ -79,14 +79,13 @@
                     <div class="product-grid-topbar">
                         <div class="col-lg-7 col-md-8 col-12">
                             <div class="product-sorting">
-                                <label for="sorting">Sort by:</label>
-                                <select class="form-control" id="sorting">
-                                    <option>Popularity</option>
-                                    <option>Low - High Price</option>
-                                    <option>High - Low Price</option>
-                                    <option>Average Rating</option>
-                                    <option>A - Z Order</option>
-                                    <option>Z - A Order</option>
+                                <label for="sorting">TRIER</label>
+                                <select class="form-control" id="sorting" style="font-size:11px">
+                                    <option>Pertinence</option>
+                                    <option>Prix (croissant)</option>
+                                    <option>Prix (décroissant)</option>
+                                    <option>Prix au Kg/l (croissant)</option>
+                                    <option>Prix au Kg/l (décroissant)</option>
                                 </select>
                             </div>
                         </div>
@@ -110,7 +109,7 @@
 
 
                                         </h4>
-                                       <div style="height: 10px; display: flex; flex-direction: column; justify-content: center;">
+                                       <div style="height: 40px; display: flex; flex-direction: column; justify-content: center;">
     <span class="discount" style="margin-bottom: 5px;"><del><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit()) %>&euro;</del></span>
     <span style="font-weight: bold; color: blue;"><%= new java.text.DecimalFormat("#,###.00").format(produit.getPrixProduit() * produit.getPourcentagePromotion()) %>&euro;</span>
 </div>
@@ -127,6 +126,8 @@
     </div>
 
 </section>
+
+<jsp:include flush="true" page="footer.jsp"></jsp:include>
 
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.js"></script>

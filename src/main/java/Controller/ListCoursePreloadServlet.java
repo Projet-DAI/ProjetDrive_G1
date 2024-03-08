@@ -43,110 +43,39 @@ public class ListCoursePreloadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 1. get info client from session
-//		HttpSession s = request.getSession();
-//		
-//		
-//		String username = (String) s.getAttribute("username");
-//		String emailCli = (String) s.getAttribute("emailCli");
-//		
-//		System.out.println(emailCli);
-//		
-//		// 2. search all listecourse with emailCli
-//		SessionFactory factory = HibernateUtil.getSessionFactory();
-//		Session session = factory.openSession();
-//		
-//		
-//		Query<ListeCourse> query = session.createQuery("SELECT lc FROM ListeCourse lc WHERE lc.client.emailClient = :email ORDER BY lc.dateCreation DESC", ListeCourse.class);
-//		query.setParameter("email", emailCli);
-//
-//		// 3. getResult
-//		List<ListeCourse> listeCourse = query.list();
-//		
-//		System.out.println("fini hiber");
-//
-//        
-//        // verification de donnees
-//        for (ListeCourse l : listeCourse) {
-//        	System.out.println("------");
-//        	System.out.println(l.getNomListeCourse());
-//        }
-//        
-//        
-//        s.setAttribute("listCourse", listeCourse);
-//		
-//		response.sendRedirect("List.jsp");
-		
-		String action = request.getParameter("action");
 		HttpSession s = request.getSession();
+		
+		
+		String username = (String) s.getAttribute("username");
+		String emailCli = (String) s.getAttribute("emailCli");
+		
+		System.out.println(emailCli);
+		
+		// 2. search all listecourse with emailCli
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
+		
+		
+		Query<ListeCourse> query = session.createQuery("SELECT lc FROM ListeCourse lc WHERE lc.client.emailClient = :email ORDER BY lc.dateCreation DESC", ListeCourse.class);
+		query.setParameter("email", emailCli);
 
-		try {
-		    switch (action) {
-		        case "ajouter":
-		            String username = (String) s.getAttribute("username");
-		            String emailCli = (String) s.getAttribute("emailCli");
-		            System.out.println(emailCli);
-		            
-		            Query<ListeCourse> query = session.createQuery("SELECT lc FROM ListeCourse lc WHERE lc.client.emailClient = :email ORDER BY lc.dateCreation DESC", ListeCourse.class);
-		            query.setParameter("email", emailCli);
-		            List<ListeCourse> listeCourse = query.list();
-		            System.out.println("fini hiber");
+		// 3. getResult
+		List<ListeCourse> listeCourse = query.list();
+		
+		System.out.println("fini hiber");
 
-		            for (ListeCourse l : listeCourse) {
-		                System.out.println("------");
-		                System.out.println(l.getNomListeCourse());
-		            }
-		            
-		            s.setAttribute("listCourse", listeCourse);
-		            
-		            // 关闭Session，然后执行重定向
-		            session.close();
-		            response.sendRedirect("List.jsp");
-		            break;
-		            
-		        case "supprimerById":
-		            int listeId = Integer.parseInt(request.getParameter("listeId"));
-		            Transaction transaction = null;
-		            boolean supprimeStstu = false;
-		            
-		            try {
-		                transaction = (Transaction) session.beginTransaction();
-		                ListeCourse lc = session.get(ListeCourse.class, listeId);
-		                
-		                if (lc != null) {
-		                    session.delete(lc);
-		                    transaction.commit();
-		                    System.out.println("Liste supprimée avec succès." + listeId);
-		                    response.getWriter().write("Success");
-		                } else {
-		                    System.out.println("Liste introuvable.");
-		                    response.getWriter().write("Liste introuvable");
-		                }
-		            } catch (Exception e) {
-		                if (transaction != null) {
-		                    transaction.rollback();
-		                }
-		                e.printStackTrace();
-		                System.out.println("Échec de la suppression de la liste.");
-		                response.getWriter().write("Échec de la suppression de la liste");
-		            } finally {
-		                session.close();
-		            }
-		            break;
-		    }
-		} catch (Exception ex) {
-		    ex.printStackTrace();
-		    // 在可能的错误发生时，添加日志记录器记录错误信息
-		    
-		    response.getWriter().write("An error occurred while processing the request");
-		} finally {
-		    // 在最终结束时，确保关闭Session
-		    if (session != null && session.isOpen()) {
-		        session.close();
-		    
-		}
-		}
+        
+        // verification de donnees
+        for (ListeCourse l : listeCourse) {
+        	System.out.println("------");
+        	System.out.println(l.getNomListeCourse());
+        }
+        
+        
+        s.setAttribute("listCourse", listeCourse);
+		
+		response.sendRedirect("List.jsp");
+		
 	}
 
 	/**

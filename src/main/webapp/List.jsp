@@ -11,6 +11,8 @@
 <title>Mes listes des courses</title>
 <link rel="stylesheet" type="text/css" media="all"
 	href="assets/css/ListCSS.css">	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script type="text/JavaScript" src="assets/js/listJSP.js"></script>
 </head>
 
@@ -49,7 +51,8 @@
         <p class="bold-item" style="margin-bottom: 0;">
             <%= l.getNomListeCourse() %>
             &nbsp;
-            <button class="btn btn-danger delete-liste" style="background-color: pink;" data-id="<%= l.getIdListeCourse() %>">supprimer</button>
+           <button class="btn btn-danger delete-liste" style="background-color: pink;" data-id="<%= l.getIdListeCourse() %>">supprimer</button> 
+        	
         </p>
     </div>
     <div style="float: right;"><%= l.getDateCreation() %></div>
@@ -83,5 +86,34 @@
 		
 	<jsp:include flush="true" page="footer.jsp"></jsp:include>
 	
+	<script>
+		$(document).ready(function() {
+		    $(document).on('click', '.delete-liste', function() {
+		        var listeId = $(this).data('id');
+		        var listItem = $(this).closest('.shopping-list-summary-page__item');
+	
+		        $.ajax({
+		            type: "POST",
+		            url: "SupprimerListCourseServlet",
+		            data: {
+		                listeId: listeId
+		            },
+		            success: function(response) {
+		                if (response.success) {
+		                    console.log("Suppression réussie: " + response.message);
+		                    listItem.remove();
+		                } else {
+		                    console.error("Échec de la suppression: " + response.message);
+		                    alert(response.message);
+		                }
+		            },
+		            error: function(xhr, status, error) {
+		                console.error("Échec de la suppression: " + error);
+		                alert("L'opération de suppression a échoué");
+		            }
+		        });
+		    });
+		});
+	</script>
 </body>
 </html>

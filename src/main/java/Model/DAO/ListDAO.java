@@ -63,16 +63,15 @@ public class ListDAO {
     }
 	
 	
-	public static boolean supprimerListe(String listeId) {
+	public static boolean supprimerListe(int listeId) {
 	    Transaction transaction = null;
 	    boolean supprimeStstu = false;
 	    
 	    try (Session session = HibernateUtil.getSessionFactory().openSession()) { 
 	        transaction = session.beginTransaction(); 
-	        ListeCourse listeCourse = session.get(ListeCourse.class, Integer.parseInt(listeId));
+	        ListeCourse listeCourse = session.get(ListeCourse.class, listeId);
 
 	        if (listeCourse != null) {
-	            // 删除列表
 	            session.delete(listeCourse);
 	            transaction.commit();
 	            supprimeStstu = true;
@@ -89,7 +88,8 @@ public class ListDAO {
 
 		public static void main(String[] args) {
 			 
-			 System.out.println("getListeCourseById: " + getListeCourseById(1)); 
+			 System.out.println("supprimerListe: " + supprimerListe(1)); 
+			 
 		    // Création de l'instance de PanierDAO
 			/*
 			 * PanierDAO panierDAO = new PanierDAO();

@@ -48,8 +48,9 @@
 
 			<div class="container">
 				<!-- Navbar Brand -->
+		
 				<a href="employee.jsp" class="navbar-brand"> <img
-					src="assets/img/logo/logo.png" alt="">
+					src="assets/img/logo/fresh_4x-removebg-preview.png" alt="">
 				</a>
 
 				<!-- Toggle Button -->

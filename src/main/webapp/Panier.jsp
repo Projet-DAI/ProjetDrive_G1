@@ -7,7 +7,6 @@
 
 <% Panier panier = (Panier) session.getAttribute("panier"); %>
 
-<% Panier panier = (Panier) session.getAttribute("panier"); %>
 
 
 <!DOCTYPE html>
@@ -242,6 +241,8 @@
 	            </div>
 	        </section>
 	            </div>
+	
+	            
     <footer>
         <div class="container">
             <div class="row">
@@ -307,6 +308,7 @@
             </div>
         </div>
     </footer>
+    
 	
 	<script type="text/javascript" src="assets/js/totalPanier.js"></script>
     <script type="text/javascript" src="assets/js/jquery.js"></script>

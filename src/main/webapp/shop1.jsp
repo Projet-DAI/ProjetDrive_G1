@@ -127,6 +127,8 @@
 
 </section>
 
+<jsp:include flush="true" page="footer.jsp"></jsp:include>
+
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/jquery-migrate.js"></script>

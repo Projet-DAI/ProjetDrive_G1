@@ -39,37 +39,37 @@ public class dataTEST {
 	        Transaction transaction = session.beginTransaction();
 	      // ---------Client-------------  
 	        // Client 1 data
-	        Client c1 = new Client();
-	        c1.setEmailClient("ph@gmail.com");
-	        c1.setNomCompletClient("Han Pang");
-	        c1.setNomUtilisateurClient("PH");
-	        c1.setPointFideliteClient(0);
-	        c1.setPwdClient("123");
-	        c1.setTelephoneClient("12345678");
-	        
-	        session.save(c1);
-	        
-	        // Client 2 data
-	        Client c2 = new Client();
-	        c2.setEmailClient("marc@stuff.com");
-	        c2.setNomCompletClient("Marc Marc");
-	        c2.setNomUtilisateurClient("Marc");
-	        c2.setPointFideliteClient(0);
-	        c2.setPwdClient("marc");
-	        c2.setTelephoneClient("12345678");
-	        
-	        session.save(c2);
-	        
-	        // client 3 data
-	        Client c3 = new Client();
-	        c3.setEmailClient("adam@stuff.com");
-	        c3.setNomCompletClient("Adam Adam");
-	        c3.setNomUtilisateurClient("Adam");
-	        c3.setPointFideliteClient(0);
-	        c3.setPwdClient("adam");
-	        c3.setTelephoneClient("12345678");
-	        
-	        session.save(c3);
+//	        Client c1 = new Client();
+//	        c1.setEmailClient("ph@gmail.com");
+//	        c1.setNomCompletClient("Han Pang");
+//	        c1.setNomUtilisateurClient("PH");
+//	        c1.setPointFideliteClient(0);
+//	        c1.setPwdClient("123");
+//	        c1.setTelephoneClient("12345678");
+//	        
+//	        session.save(c1);
+//	        
+//	        // Client 2 data
+//	        Client c2 = new Client();
+//	        c2.setEmailClient("marc@stuff.com");
+//	        c2.setNomCompletClient("Marc Marc");
+//	        c2.setNomUtilisateurClient("Marc");
+//	        c2.setPointFideliteClient(0);
+//	        c2.setPwdClient("marc");
+//	        c2.setTelephoneClient("12345678");
+//	        
+//	        session.save(c2);
+//	        
+//	        // client 3 data
+//	        Client c3 = new Client();
+//	        c3.setEmailClient("adam@stuff.com");
+//	        c3.setNomCompletClient("Adam Adam");
+//	        c3.setNomUtilisateurClient("Adam");
+//	        c3.setPointFideliteClient(0);
+//	        c3.setPwdClient("adam");
+//	        c3.setTelephoneClient("12345678");
+//	        
+//	        session.save(c3);
 
 	        transaction.commit();
 	        session.close();
@@ -255,77 +255,39 @@ public class dataTEST {
 	        Transaction transaction = session.beginTransaction();
 	        
 	        // Lecture du fichier CSV TempsRetrait et insertion des données dans la base de données
-	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("C:\\Users\\widad\\Downloads\\TempsRetrairsRetrait.csv", session);
+	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("C:\\Users\\LUO\\Downloads\\TempsRetrairsRetrait.csv", session);
 	        for (TempsRetait tempsRetrait : tempsRetraitList) {
 	            session.save(tempsRetrait);
 	        }
 	        
 	        // Lecture du fichier CSV Magasin et insertion des données dans la base de données
-	        List<Magasin> magasinList = readCsvFileMagasin("C:\\Users\\widad\\Downloads\\Magasin.csv", session);
+	        List<Magasin> magasinList = readCsvFileMagasin("C:\\Users\\LUO\\Downloads\\Magasin.csv", session);
 	        for (Magasin magasin : magasinList) {
 	            session.save(magasin);
 	        }
 	        
-	        List<Rayon> rayonList = readCsvFileRayon("C:\\Users\\widad\\Downloads\\rayon.csv", session);
+	        List<Rayon> rayonList = readCsvFileRayon("C:\\Users\\LUO\\Downloads\\rayon.csv", session);
 	        for (Rayon rayon : rayonList) {
 	            session.save(rayon);
 	        }
-	        List<Categories> cateList = readCsvFileCate("C:\\Users\\widad\\Downloads\\categorie.csv", session);
+	        List<Categories> cateList = readCsvFileCate("C:\\Users\\LUO\\Downloads\\categorie.csv", session);
 	        for (Categories cate : cateList) {
 	            session.save(cate);
 	        }
 	        
-	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\widad\\Downloads\\gestion_produit.csv", session);
+	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\LUO\\Downloads\\gestion_produit.csv", session);
 	        for (Produit produit : produitList) {
 	            session.save(produit);
+	        }
+	            
+	            List<Stock> stockList = readCsvFilestock("C:\\Users\\LUO\\Downloads\\stock.csv", session);
+		        for (Stock stock : stockList) {
+		            session.save(stock);
 
-
-//	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("X:\\Telechargement\\TempsRetrairsRetrait.csv", session);
-
-	        //List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("C:\\Users\\Imane\\Downloads\\TempsRetrairsRetrait.csv", session);
-//
-//	        for (TempsRetait tempsRetrait : tempsRetraitList) {
-//	            session.save(tempsRetrait);
-//	        }
-//	        
-//	        // Lecture du fichier CSV Magasin et insertion des données dans la base de données
-//
-////	        List<Magasin> magasinList = readCsvFileMagasin("X:\\Telechargement\\Magasin.csv", session);
-//
-//	        //List<Magasin> magasinList = readCsvFileMagasin("C:\\Users\\Imane\\Downloads\\Magasin.csv", session);
-//
-//	        for (Magasin magasin : magasinList) {
-//	            session.save(magasin);
-//	        }
-//	        
-//
-//	    
-//	       
-//
-//	        List<Rayon> rayonList = readCsvFileRayon("C:\\Users\\LUO\\Downloads\\rayon.csv", session);
-//	        for (Rayon rayon : rayonList) {
-//	            session.save(rayon);
-//	        }
-//	        List<Categories> cateList = readCsvFileCate("C:\\Users\\LUO\\Downloads\\categorie.csv", session);
-//
-//	        for (Categories cate : cateList) {
-//	            session.save(cate);
-//	        }
-//	        
-//
-//	       
-//
-//	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\LUO\\Downloads\\gestion_produit.csv", session);
-//
-//	        for (Produit produit : produitList) {
-//	            session.save(produit);
-//	        }
-	        
-	        
-	        // Validation des transactions et confirmation de l'ajout des données
+		        }
 	        transaction.commit();
 	        System.out.println("Données ajoutées avec succès à la base de données!");
-	        }} catch (Exception e) {
+	       } catch (Exception e) {
 	        e.printStackTrace();
 	    }
 	}
@@ -532,7 +494,7 @@ public class dataTEST {
 		            transaction = session.beginTransaction();
 
 		            // 读取CSV文件
-		            try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\widad\\Downloads\\magasin_tempsretait.csv"))) {
+		            try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\LUO\\Downloads\\magasin_tempsretait.csv"))) {
 		                String line;
 		                boolean isFirstLine = true; // 标记是否是第一行
 		                while ((line = reader.readLine()) != null) {

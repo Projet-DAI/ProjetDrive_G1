@@ -7,7 +7,7 @@
 
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Locale"%>
-
+<%@ page import="java.util.Comparator" %>
 <%@ page import="Model.metier.LignePanier"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.text.DecimalFormat"%>
@@ -64,6 +64,8 @@
         </div>
 
     <% List<Produit> liste = (List<Produit>)request.getAttribute("liste");%>
+    
+    
 	
         <jsp:include flush="true" page="rayon.jsp"></jsp:include>
 
@@ -80,7 +82,7 @@
                         <div class="col-lg-7 col-md-8 col-12">
                             <div class="product-sorting">
                                 <label for="sorting">TRIER</label>
-                                <select class="form-control" id="sorting" style="font-size:11px">
+                                <select class="form-control" id="sorting" style="font-size:11px" onchange="sortProducts()">
                                     <option>Pertinence</option>
                                     <option>Prix (croissant)</option>
                                     <option>Prix (décroissant)</option>
@@ -149,6 +151,77 @@
 		src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
 	<script type="text/javascript" src="assets/js/theme.js"></script>
 	<script type="text/javascript" src="assets/js/headJSP.js"></script>
+
+<script>
+    // 捕获选择框变化事件
+    document.getElementById('sorting').addEventListener('change', function() {
+        // 获取选择框当前选中的值
+        var selectedValue = this.value;
+
+        // 获取原始产品容器元素
+        var originalProductsContainer = document.getElementById('nav-grid');
+
+        // 创建新的产品容器元素
+        var newProductsContainer = document.createElement('div');
+        newProductsContainer.classList.add('row');
+
+        // 获取产品元素列表
+        var products = originalProductsContainer.getElementsByClassName('single-product');
+
+        // 将产品元素转换为数组以便于排序
+        var productsArray = Array.prototype.slice.call(products);
+
+        // 根据选择的值排序产品列表
+        if (selectedValue === "Prix (croissant)") {
+            productsArray.sort(function(a, b) {
+                var priceA = parseFloat(a.querySelector('.discount del').textContent.replace(/[^0-9.-]+/g,""));
+                var priceB = parseFloat(b.querySelector('.discount del').textContent.replace(/[^0-9.-]+/g,""));
+                return priceA - priceB;
+            });
+        } else if (selectedValue === "Prix (décroissant)") {
+            productsArray.sort(function(a, b) {
+                var priceA = parseFloat(a.querySelector('.discount del').textContent.replace(/[^0-9.-]+/g,""));
+                var priceB = parseFloat(b.querySelector('.discount del').textContent.replace(/[^0-9.-]+/g,""));
+                return priceB - priceA;
+            });
+        } else if (selectedValue === "Prix au Kg/l (croissant)") {
+            productsArray.sort(function(a, b) {
+                var pricePerKgA = parseFloat(a.querySelector('.product-info div:nth-child(2)').textContent.replace(/[^0-9.-]+/g,""));
+                var pricePerKgB = parseFloat(b.querySelector('.product-info div:nth-child(2)').textContent.replace(/[^0-9.-]+/g,""));
+                return pricePerKgA - pricePerKgB;
+            });
+        } else if (selectedValue === "Prix au Kg/l (décroissant)") {
+            productsArray.sort(function(a, b) {
+                var pricePerKgA = parseFloat(a.querySelector('.product-info div:nth-child(2)').textContent.replace(/[^0-9.-]+/g,""));
+                var pricePerKgB = parseFloat(b.querySelector('.product-info div:nth-child(2)').textContent.replace(/[^0-9.-]+/g,""));
+                return pricePerKgB - pricePerKgA;
+            });
+        }
+
+        // 将重新排序后的产品列表添加到新的产品容器中
+        productsArray.forEach(function(product) {
+            var newCol = document.createElement('div');
+            newCol.classList.add('col-lg-4', 'col-md-6', 'col-12');
+            newCol.style.width = '33.33%'; // 设置每列宽度为33.33%
+            newCol.innerHTML = product.outerHTML; // 将产品元素添加到新的列中
+            newProductsContainer.appendChild(newCol);
+        });
+
+        // 清空原始产品容器
+        originalProductsContainer.innerHTML = '';
+
+        // 将新的产品容器添加回原始产品容器中
+        originalProductsContainer.appendChild(newProductsContainer);
+    });
+</script>
+
+
+
+
+
+
+
+
 
 </body>
 

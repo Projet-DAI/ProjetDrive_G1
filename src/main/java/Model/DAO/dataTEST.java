@@ -278,11 +278,13 @@ public class dataTEST {
 	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\LUO\\Downloads\\gestion_produit.csv", session);
 	        for (Produit produit : produitList) {
 	            session.save(produit);
-	        }
+
 	            
-	            List<Stock> stockList = readCsvFilestock("C:\\Users\\LUO\\Downloads\\stock.csv", session);
-		        for (Stock stock : stockList) {
-		            session.save(stock);
+            List<Stock> stockList=readCsvFilestock("C:\\Users\\widad\\Downloads\\stock.csv", session);
+        	for (Stock stock : stockList) {
+        		session.save(stock);
+        	}
+
 
 		        }
 	        transaction.commit();
@@ -291,6 +293,7 @@ public class dataTEST {
 	        e.printStackTrace();
 	    }
 	}
+	
 	
 	 private static List<Stock> readCsvFilestock(String csvFilePath, Session session)  {
 		 List<Stock> stockList = new ArrayList<>();

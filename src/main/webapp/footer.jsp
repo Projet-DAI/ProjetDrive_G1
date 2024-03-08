@@ -58,21 +58,7 @@
 								class="fa fa-envelope"></i> drive@td1.com</a></li>
 					</ul>
 
-				</div>
-				<div class="col-md-3">
-				<h5>Moyens de paiement</h5>
-				<img width="48" height="48" src="https://img.icons8.com/color/48/mastercard.png" alt="mastercard"/>
-				<img width="48" height="48" src="https://img.icons8.com/color/48/visa.png" alt="visa"/>
-				<img width="48" height="48" src="https://img.icons8.com/color/48/paypal.png" alt="paypal"/>
-				<img width="48" height="48" src="https://img.icons8.com/external-those-icons-fill-those-icons/48/external-American-Express-payment-methods-those-icons-fill-those-icons.png" alt="external-American-Express-payment-methods-those-icons-fill-those-icons"/>
-				
-				
-				
-				
-				
-				</div>
-				
-				
+				</div>		
 			</div>
 		</div>
 	</footer>

@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="Model.metier.Produit"%>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>

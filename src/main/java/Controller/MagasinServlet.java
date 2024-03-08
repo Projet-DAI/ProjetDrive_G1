@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,7 +57,8 @@ public class MagasinServlet extends HttpServlet {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("idMagasin", idMagasin);
 	        List<Magasin> mags = MagasinDao.choisirMagasins(userLocation);
-
+			System.out.println("le magasin choisi est "+ idMagasin);
+			
 	        List<Map<String, Object>> magasinsData = new ArrayList<>();
 	        for (Magasin magasin : mags) {
 	            Map<String, Object> magasinData = new HashMap<>();

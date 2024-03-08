@@ -186,7 +186,7 @@
     // Fonction pour mettre à jour le nouveau total dans l'interface utilisateur
     function updateNouveauTotalPanier() {
         // Mettre à jour l'élément HTML avec le nouveau total
-        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) + ' €';
+        document.getElementById('nouveauTotalPanier').innerText = nouveauTotalPanier.toFixed(2) ;
      // Mise à jour du champ caché dans le formulaire de panier avec le nouveau total du panier
         document.getElementById("nouveauTotal").value = nouveauTotalPanier;
     }
@@ -221,10 +221,15 @@
         
     });
 
-</script>                        <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
-                        <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier">&#8364</span></h6>
+</script> 
+
 					<form id="checkoutForm" action="ChoixCreneauServlet" method="POST">
-							    <input type="hidden" id="nouveauTotal" name="nouveauTotal" value="">
+
+
+
+                      <h6 class="mt-3">Points de fidelite : <%= new ClientDAO().getPointsFideliteById(1) %></h6>                    
+                        <h6 class="mt-3">Total après réduction : <span id="nouveauTotalPanier"></span>&#8364</h6>
+							    <input type="hidden" id="nouveauTotalPanier" name="nouveauTotalPanier" value="<%= total %>">
 								
 	    						<button type="submit" class="btn btn-lg btn-primary">Checkout</button>
 	                        </form>
@@ -313,6 +318,15 @@
     <script type="text/javascript" src="assets/packages/thumbelina/thumbelina.js"></script>
     <script type="text/javascript" src="assets/packages/bootstrap-touchspin/bootstrap-touchspin.js"></script>
     <script type="text/javascript" src="assets/js/theme.js"></script>
+    <script type="text/javascript">
+	
+
+
+
+</body>
+</html>
+
+
     
 
 

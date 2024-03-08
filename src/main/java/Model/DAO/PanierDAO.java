@@ -323,10 +323,56 @@ public class PanierDAO {
 	            }
 	            return total;
 	        }
+	        
+	        public void addLignePanier(LignePanier lignePanier) {
+	            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	            Transaction transaction = null;
+	            try {
+	                transaction = session.beginTransaction();
+	                session.save(lignePanier);
+	                transaction.commit();
+	            } catch (HibernateException e) {
+	                if (transaction != null) {
+	                    transaction.rollback();
+	                }
+	                e.printStackTrace();
+	            } finally {
+	                session.close();
+	            }
+	        }
+	        
+	        private double calculateNewTotal(Panier panier) {
+	            double nouveauTotal = 0.0;
+	            if (panier != null) {
+	                List<LignePanier> lignesPanier = panier.getLignesPanier();
+	                for (LignePanier ligne : lignesPanier) {
+	                    double sousTotal = ligne.getProduit().getPrixProduit() * ligne.getQuantite();
+	                    nouveauTotal += sousTotal;
+	                }
+	            }
+	            return nouveauTotal;
+	        }
+
 	    
+	        
+	        public static void main(String[] args) {
+	            // Créer une instance de la classe contenant la méthode addToCart
+		        PanierDAO panierDAO = new PanierDAO();
+
+	            // Définir les identifiants du panier et du produit ainsi que la quantité à ajouter
+	            int panierId = 1; // Remplacez par l'identifiant du panier souhaité
+	            int produitId = 1; // Remplacez par l'identifiant du produit souhaité
+	            int quantite = 1; // Remplacez par la quantité souhaitée à ajouter au panier
+
+	            // Appeler la méthode addToCart
+	            panierDAO.addToCart(panierId, produitId, quantite);
+	        }
+
+	        
+	        
 
 
-	    public static void main(String[] args) {
+	  /*  public static void main(String[] args) {
 	    	
     	  Session session = HibernateUtil.getSessionFactory().openSession();
           session.beginTransaction();
@@ -351,7 +397,7 @@ public class PanierDAO {
 	      } catch (Exception e) {
 	          e.printStackTrace();
 	      } 
-	    }
+	    }*/
 }
           
 	    	

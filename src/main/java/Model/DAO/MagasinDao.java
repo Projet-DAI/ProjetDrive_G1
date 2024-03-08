@@ -115,23 +115,23 @@ public class MagasinDao {
 	
 	// test
 		    
-		    public static void main(String[] args) {
-		        // Définir la localisation à utiliser pour la recherche du magasin
-		        String userLocation = "compans"; // Remplacez par une localisation réelle
+//		    public static void main(String[] args) {
+//		        // Définir la localisation à utiliser pour la recherche du magasin
+//		        String userLocation = "compans"; // Remplacez par une localisation réelle
+//
+//		        // Appeler la méthode pour récupérer l'ID du magasin en fonction de la localisation
+//		        int magasinId = getIdMagasinByLocation(userLocation);
+//
+//		        // Afficher le résultat
+//		        if (magasinId != -1) {
+//		            System.out.println("L'ID du magasin pour la localisation '" + userLocation + "' est : " + magasinId);
+//		        } else {
+//		            System.out.println("Aucun magasin trouvé pour la localisation '" + userLocation + "'");
+//		        }
+//		    }
 
-		        // Appeler la méthode pour récupérer l'ID du magasin en fonction de la localisation
-		        int magasinId = getIdMagasinByLocation(userLocation);
 
-		        // Afficher le résultat
-		        if (magasinId != -1) {
-		            System.out.println("L'ID du magasin pour la localisation '" + userLocation + "' est : " + magasinId);
-		        } else {
-		            System.out.println("Aucun magasin trouvé pour la localisation '" + userLocation + "'");
-		        }
-		    }
-}
-
-	 /*public static void main(String[] args) {
+	 public static void main(String[] args) {
 	        MagasinDao magasinDao = new MagasinDao();
 	        int magasinId = 3; // ID du magasin pour lequel vous souhaitez récupérer les créneaux de retrait
 	        
@@ -148,4 +148,4 @@ public class MagasinDao {
 	            System.out.println("Aucun créneau de retrait disponible pour ce magasin.");
 	        }
 	    }
-	}*/
+	}

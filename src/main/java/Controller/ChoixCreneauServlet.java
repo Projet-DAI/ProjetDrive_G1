@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+
 import java.util.*;
 
 import javax.servlet.ServletException;
@@ -33,8 +34,8 @@ public class ChoixCreneauServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 // Récupérer l'ID du magasin à partir de la session
 		HttpSession session = request.getSession();
-		Integer magasinId = (Integer) session.getAttribute("idMagasin");
-
+		 Integer magasinId = 3; // ID du magasin pour lequel vous souhaitez récupérer les créneaux de retrait
+	        System.out.println("le magasin choisi est "+ magasinId);
 		// Vérifiez si l'ID du magasin est null ou non
 		if (magasinId != null) {
 		    // Convertissez Integer en int
@@ -79,43 +80,49 @@ public class ChoixCreneauServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Récupérer l'ID du magasin à partir de la session
-				HttpSession session = request.getSession();
-				Integer magasinId = (Integer) session.getAttribute("idMagasin");
+		 // Récupérer l'ID du magasin à partir de la session
+		HttpSession session = request.getSession();
+		 Integer magasinId = 3; // ID du magasin pour lequel vous souhaitez récupérer les créneaux de retrait
+	        System.out.println("le magasin choisi est "+ magasinId);		System.out.println("le magasin choisi est "+ magasinId);
+		// Vérifiez si l'ID du magasin est null ou non
+		if (magasinId != null) {
+		    // Convertissez Integer en int
+	       
+		    
+		    // Utilisez l'ID du magasin pour récupérer les créneaux disponibles, afficher et rediriger
+		    MagasinDao magasinDao = new MagasinDao();
+		    List<String> creneauxDisponibles = magasinDao.getTempsRetraitForMagasin(magasinId);
+		    
+		    // Afficher les créneaux récupérés
+		    System.out.println("Créneaux disponibles :");
+		    for (String creneau : creneauxDisponibles) {
+		        System.out.println("- " + creneau);
+		    }
+		 
+		    
+		    request.setAttribute("creneauxDisponibles", creneauxDisponibles);
+		} else {
+		    // Gérer le cas où l'attribut "idMagasin" n'est pas défini dans la session
+		    System.out.println("L'attribut 'idMagasin' n'est pas défini dans la session.");
+		    // Vous pouvez rediriger vers une page d'erreur ou effectuer d'autres actions appropriées ici
+		}
+		// Récupérer le créneau choisi depuis la requête
+	    String creneauChoisi = request.getParameter("creneau");
+	    
+	 // Afficher le créneau choisi dans la console pour vérification
+	    System.out.println("Créneau choisi : " + creneauChoisi);
 
-				// Vérifiez si l'ID du magasin est null ou non
-				if (magasinId != null) {
-				    // Convertissez Integer en int
-			       
-				    
-				    // Utilisez l'ID du magasin pour récupérer les créneaux disponibles, afficher et rediriger
-				    MagasinDao magasinDao = new MagasinDao();
-				    List<String> creneauxDisponibles = magasinDao.getTempsRetraitForMagasin(magasinId);
-				    
-				    // Afficher les créneaux récupérés
-				    System.out.println("Créneaux disponibles :");
-				    for (String creneau : creneauxDisponibles) {
-				        System.out.println("- " + creneau);
-				    }
-				 	    
-				    request.setAttribute("creneauxDisponibles", creneauxDisponibles);
-				} else {
-				    // Gérer le cas où l'attribut "idMagasin" n'est pas défini dans la session
-				    System.out.println("L'attribut 'idMagasin' n'est pas défini dans la session.");
-				    // Vous pouvez rediriger vers une page d'erreur ou effectuer d'autres actions appropriées ici
-				}
-				// Récupérer le créneau choisi depuis la requête
-			    String creneauChoisi = request.getParameter("creneau");
+	
 
-			    // Enregistrer le créneau choisi dans la session
-			    session.setAttribute("creneauChoisi", creneauChoisi);
-		
-			 // Afficher le créneau choisi dans la console pour vérification
-			    System.out.println("Créneau choisi : " + creneauChoisi);
+	    // Enregistrer le créneau choisi dans la session
+	    session.setAttribute("creneauChoisi", creneauChoisi);
+	    
+		 
 
-				// Rediriger vers la page Checkout.jsp
-				request.getRequestDispatcher("Checkout.jsp").forward(request, response);
-			}
+		// Rediriger vers la page Checkout.jsp
+		request.getRequestDispatcher("Checkout.jsp").forward(request, response);
+	}
 }
+
 
 

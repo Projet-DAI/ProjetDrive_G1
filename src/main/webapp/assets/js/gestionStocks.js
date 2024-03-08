@@ -25,6 +25,7 @@ function loadMagasins() {
     })
 	.catch(error => {
         console.error('Error fetching data:', error); 
+		console.log('Response text:', error.responseText); 
     });
 }
 

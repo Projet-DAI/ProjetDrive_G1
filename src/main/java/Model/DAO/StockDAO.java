@@ -107,17 +107,17 @@ public class StockDAO {
 	// test
 	public static void main(String[] args) {
 		
-		/*
-		 * List ListMagasin = loadMagasins(); System.out.println("ListMagasin: " +
-		 * ListMagasin);
-		 * 
-		 * int magasinId = 1; List<Object[]> productsAndStocks =
-		 * StockDAO.getProductsAndStocksForMagasin(magasinId); if (productsAndStocks !=
-		 * null && !productsAndStocks.isEmpty()) { for (Object[] row :
-		 * productsAndStocks) { System.out.println(row[0] + "\t" + row[1] + "\t" +
-		 * row[2] + "\t" + row[3] + "\t" + row[4] + "\t" + row[5]); } } else {
-		 * System.out.println("Aucune information"); }
-		 */
+		
+		  List ListMagasin = loadMagasins(); System.out.println("ListMagasin: " +
+		  ListMagasin);
+		  
+		  int magasinId = 1; List<Object[]> productsAndStocks =
+		  StockDAO.getProductsAndStocksForMagasin(magasinId); if (productsAndStocks !=
+		  null && !productsAndStocks.isEmpty()) { for (Object[] row :
+		  productsAndStocks) { System.out.println(row[0] + "\t" + row[1] + "\t" +
+		  row[2] + "\t" + row[3] + "\t" + row[4] + "\t" + row[5]); } } else {
+		  System.out.println("Aucune information"); }
+		 
 		
         
 		/*

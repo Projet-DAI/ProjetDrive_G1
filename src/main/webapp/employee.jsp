@@ -89,18 +89,20 @@
 		
 	    <!-- Gestion des produits -->
 	    <div class="col-md-12 mt-5 text-center">
-	    	<a href="gestionStocks.jsp" class="btn btn-primary btn-lg" id="gestionStockBtn">Gestion des stocks</a>
+	    	<a href="gestionProduit.jsp" class="btn btn-primary btn-lg" id="gestionStockBtn">Gestion des produits</a>
 	    </div>
+	    
+	    <!--Gestion des stocks -->
+	    <div class="col-md-12 mt-5 text-center">
+			<a href="gestionStocks.jsp" class="btn btn-primary btn-lg" id="gestionstockBtn">Gestion des stocks</a>           
+    	</div>
 	    
 	    <!-- US5.1 Consulter un panier pour preparer un retait -->
 	    <div class="col-md-12 mt-5 text-center">
 	    	<a href="preparationPreloadServlet" class="btn btn-primary btn-lg" id="gestionBtn">préparer pour un retrait</a>
 	    </div>
 	    
-	    <!--Gestion des stocks -->
-	    <div class="col-md-12 mt-5 text-center">
-			<a href="gestionstocks.jsp" class="btn btn-primary btn-lg" id="gestionstockBtn">Gestion des stocks</a>           
-    	</div>
+	    
     
 	
 	<jsp:include flush="true" page="footer.jsp"></jsp:include>

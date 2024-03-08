@@ -34,8 +34,10 @@ public class GestionStockServlet extends HttpServlet {
 		
 		try {
 	        String action = request.getParameter("action");
+	        System.out.print("action: " + action);
 	        if ("loadMagasins".equals(action)) {
 	            List<Magasin> magasins = StockDAO.loadMagasins();
+	            System.out.print("loadMagasins: " + magasins);
 	            String json = new Gson().toJson(magasins);
 	            response.setContentType("application/json");
 	            response.setCharacterEncoding("UTF-8");
@@ -49,8 +51,11 @@ public class GestionStockServlet extends HttpServlet {
 	            response.getWriter().write(json);
 	        }
 	    } catch (Exception e) {
-	        e.printStackTrace(); // 记录日志
+	        e.printStackTrace(); 
 	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Server error processing request");
+	        System.err.println("Exception message: " + e.getMessage());
+	        System.err.println("Exception cause: " + e.getCause());
+	        e.printStackTrace();
 	    }
 		
 	}

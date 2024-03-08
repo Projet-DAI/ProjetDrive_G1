@@ -17,7 +17,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title> Freshcery | Groceries Organic Store</title>
+<title> Fresh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
 	rel="stylesheet" type="text/css">
@@ -126,7 +126,6 @@
 								<a class="dropdown-item" href="TransactionPreloadServlet">Mon historique de commandes</a> 
 								<a class="dropdown-item" href="ListCoursePreloadServlet">Liste de courses</a> 
 								<a class="dropdown-item" href="TableauDeBordPreloadServlet">Tableaude bord</a> 
-								<a class="dropdown-item" href="setting.html">Paramètres</a>
 								<a class="dropdown-item" href="DeconnexionServlet">Déconnexion</a>
 							</div>
 						</li>

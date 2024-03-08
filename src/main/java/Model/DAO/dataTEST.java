@@ -278,6 +278,11 @@ public class dataTEST {
 	        List<Produit> produitList = readCsvFileProduit("C:\\Users\\widad\\Downloads\\gestion_produit.csv", session);
 	        for (Produit produit : produitList) {
 	            session.save(produit);
+	            
+            List<Stock> stockList=readCsvFilestock("C:\\Users\\widad\\Downloads\\stock.csv", session);
+        	for (Stock stock : stockList) {
+        		session.save(stock);
+        	}
 
 
 //	        List<TempsRetait> tempsRetraitList = readCsvFileTempRetrait("X:\\Telechargement\\TempsRetrairsRetrait.csv", session);
@@ -329,6 +334,7 @@ public class dataTEST {
 	        e.printStackTrace();
 	    }
 	}
+	
 	
 	 private static List<Stock> readCsvFilestock(String csvFilePath, Session session)  {
 		 List<Stock> stockList = new ArrayList<>();

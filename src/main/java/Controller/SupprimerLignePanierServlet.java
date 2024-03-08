@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import Model.DAO.HibernateUtil;
 import Model.DAO.PanierDAO;
 import Model.metier.Panier;
 
@@ -41,12 +45,26 @@ public class SupprimerLignePanierServlet extends HttpServlet {
 
         // Appeler la méthode pour supprimer la ligne de panier
         panierDAO.supprimerLignePanier(idPanier, idProduit);
+        
+        
         // Mettre à jour le panier dans la session
         HttpSession session = request.getSession();
         session.setAttribute("Panier", panier);
         
-        // Rediriger vers la page Panier.jsp
-        response.sendRedirect("Panier.jsp");
+      /*  // Il faut retrouver le panier update et le mettre a session
+        Session sessionHib = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = sessionHib.beginTransaction();
+        Panier panierUpdt = sessionHib.get(Panier.class, idPanier);
+        tr.commit();
+        // Mettre à jour le panier dans la session
+        HttpSession session = request.getSession();
+        session.setAttribute("panier", panierUpdt);
+        double newTotal = panierDAO.calculerTotalPanier(panier);
+*/
+        response.getWriter().write("Item removed successfully");
+
+
+
     }
 
 

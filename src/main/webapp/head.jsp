@@ -143,13 +143,20 @@
 							<div class="dropdown-menu shopping-cart">
 								<ul>
 									<li>
-										<div class="drop-title">
-											<a href="Panier" class="nav-link">Mon Panier</a>
-										</div>
+										<div class="drop-title" style="color:pink;">Mon Panier</div>
 									</li>
 
 									<%
+										Double prixTotal = 0.0;
 									for (LignePanier lignePanier : panier.getLignesPanier()) {
+										if (lignePanier.getProduit().isPromotion()){
+											prixTotal += lignePanier.getProduit().getPrixProduit() * lignePanier.getProduit().getPourcentagePromotion() * lignePanier.getQuantite();							
+										} else {
+											prixTotal += lignePanier.getProduit().getPrixProduit() * lignePanier.getQuantite();
+										}
+										
+										
+							
 									%>
 
 									<%-- Contenu du panier --%>
@@ -165,8 +172,11 @@
 														<a href="javascript:void(0)"><%=lignePanier.getProduit().getNomProduit()%></a>
 													</h5>
 													<p class="price">
-														<span class="discount text-muted"><%=lignePanier.getProduit().getPrixProduit()%></span>
+														<span class="discount text-muted"><%=lignePanier.getProduit().getPrixProduit()%>&#8364</span>
 														<%-- <span><%= lignePanier.getProduit().getPrixProduit() %></span>--%>
+													</p>
+													<p class="price">
+														<span><%=Math.round((lignePanier.getProduit().getPrixProduit() * lignePanier.getProduit().getPourcentagePromotion()) * 100.0) / 100.0%>&#8364</span>
 													</p>
 													<p class="text-muted">
 														Quantité:
@@ -179,11 +189,11 @@
 
 									<li>
 										<div class="drop-title d-flex justify-content-between">
-
-
+											
+											<% prixTotal = Math.round(prixTotal * 100.0) / 100.0; %>
 
 											<h6 class="mt-3">
-												Total: <span id="nouveauTotalPanier">&#8364</span>
+												Total: <span id="nouveauTotalPanier"><%=prixTotal %>&#8364</span>
 											</h6>
 
 											<%-- <span>Total:</span>
@@ -219,7 +229,7 @@
 											<div class="media">
 												<div class="media-body">
 													<h5>
-														<a href="javascript:void(0)"></a>
+														<a href="javascript:void(0)">Vous n'avez aucun article dans votre panier</a>
 													</h5>
 													<p class="price">
 														<span class="discount text-muted"></span>
@@ -298,11 +308,14 @@
 						</div>
 						<div id="magasinsList"></div>
 						<!-- Conteneur de la liste d'achats -->
+						  <!-- Ajout du champ d'entrée caché pour l'ID du magasin choisi -->
+                    	<input type="hidden" id="magasinId" name="magasinId" value="">
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 					<button type="button" class="btn btn-primary" onclick="submitLocation()">Valider</button>
+					
 				</div>
 			</div>
 		</div>

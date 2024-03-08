@@ -8,11 +8,15 @@
 <% Panier panier = (Panier) session.getAttribute("panier"); %>
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="Panier.jsp">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
@@ -136,6 +140,7 @@
 						                        	                    idProduit: productId
 						                        	                },
 						                        	                success: function(response) {
+
 						                        	                    // Mettre à jour le contenu du panier ou tout autre élément d'interface utilisateur pertinent
 						                        	                    deleteButton.closest('tr').remove(); // Supprimer la ligne de tableau correspondante
 						                        	                    alert("Article supprimé avec succès"); // Afficher un message de confirmation
@@ -236,6 +241,8 @@
 	            </div>
 	        </section>
 	            </div>
+	
+	            
     <footer>
         <div class="container">
             <div class="row">
@@ -301,6 +308,7 @@
             </div>
         </div>
     </footer>
+    
 	
 	<script type="text/javascript" src="assets/js/totalPanier.js"></script>
     <script type="text/javascript" src="assets/js/jquery.js"></script>

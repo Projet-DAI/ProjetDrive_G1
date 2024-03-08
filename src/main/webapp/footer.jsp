@@ -40,35 +40,24 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3">
-					<h5>Freshcery</h5>
+					<h5>Fresh</h5>
 					<p>Sur notre site Web, vous pouvez trouver une variété de produits alimentaires et d'articles de vie de haute qualité pour répondre à vos besoins quotidiens. Que vous cuisiniez à la maison, appréciez la gastronomie ou ayez besoin d'articles de tous les jours, nous avons ce qu'il vous faut.</p>
 				</div>
 				<div class="col-md-3">
 					<h5>Links</h5>
 					<ul>
 						<li><a href="about.jsp">About</a></li>
-						<li><a href="contact.jsp">Contact Us</a></li>
-						<li><a href="faq.jsp">FAQ</a></li>
 					</ul>
 				</div>
 				<div class="col-md-3">
 					<h5>Contact</h5>
 					<ul>
-						<li><a href="tel:+620892738334"><i class="fa fa-phone"></i>
-								08272367238</a></li>
-						<li><a href="mailto:hello@domain.com"><i
-								class="fa fa-envelope"></i> hello@domain.com</a></li>
+						<li><a href="tel:+33767956437"><i class="fa fa-phone"></i>
+								0767956437</a></li>
+						<li><a href="mailto:drive@td1.com"><i
+								class="fa fa-envelope"></i> drive@td1.com</a></li>
 					</ul>
 
-					<h5>Follow Us</h5>
-					<ul class="social">
-						<li><a href="javascript:void(0)" target="_blank"><i
-								class="fab fa-facebook-f"></i></a></li>
-						<li><a href="javascript:void(0)" target="_blank"><i
-								class="fab fa-instagram"></i></a></li>
-						<li><a href="javascript:void(0)" target="_blank"><i
-								class="fab fa-youtube"></i></a></li>
-					</ul>
 				</div>
 				<div class="col-md-3">
 				<h5>Moyens de paiement</h5>
@@ -86,7 +75,6 @@
 				
 			</div>
 		</div>
-		<p class="copyright">&copy; 2024 | Groceries Organic Store</p>
 	</footer>
 
 	<script type="text/javascript" src="assets/js/jquery.js"></script>

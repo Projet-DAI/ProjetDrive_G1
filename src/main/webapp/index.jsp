@@ -44,12 +44,8 @@
 	%>
 	<div id="page-content" class="page-content">
 		<div class="banner">
-			<div
-				class="jumbotron jumbotron-video text-center bg-dark mb-0 rounded-0">
-				<video width="100%" preload="auto" loop autoplay muted>
-					<source src='assets/media/explore.mp4' type='video/mp4' />
-					<source src='assets/media/explore.webm' type='video/webm' />
-				</video>
+            <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
+
 				<div class="container">
 					<h1 class="pt-5">
 						Économisez du temps et confiez-nous<br> vos courses
@@ -113,8 +109,6 @@
     	<h1 class="title">Rayon</h1>    
     	<jsp:include flush="true" page="rayon.jsp"></jsp:include>
     </section>
-    
-    
     <jsp:include flush="true" page="footer.jsp"></jsp:include>
 
 	<script type="text/javascript" src="assets/js/index.js"></script>

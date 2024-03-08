@@ -34,8 +34,8 @@ public class ChoixCreneauServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 // Récupérer l'ID du magasin à partir de la session
 		HttpSession session = request.getSession();
-		Integer magasinId = (Integer) session.getAttribute("idMagasin");
-		System.out.println("le magasin choisi est "+ magasinId);
+		 Integer magasinId = 3; // ID du magasin pour lequel vous souhaitez récupérer les créneaux de retrait
+	        System.out.println("le magasin choisi est "+ magasinId);
 		// Vérifiez si l'ID du magasin est null ou non
 		if (magasinId != null) {
 		    // Convertissez Integer en int
@@ -82,8 +82,8 @@ public class ChoixCreneauServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 // Récupérer l'ID du magasin à partir de la session
 		HttpSession session = request.getSession();
-		Integer magasinId = (Integer) session.getAttribute("idMagasin");
-		System.out.println("le magasin choisi est "+ magasinId);
+		 Integer magasinId = 3; // ID du magasin pour lequel vous souhaitez récupérer les créneaux de retrait
+	        System.out.println("le magasin choisi est "+ magasinId);		System.out.println("le magasin choisi est "+ magasinId);
 		// Vérifiez si l'ID du magasin est null ou non
 		if (magasinId != null) {
 		    // Convertissez Integer en int

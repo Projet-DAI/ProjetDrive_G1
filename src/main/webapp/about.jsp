@@ -52,8 +52,8 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-8 text-center mb-3">
-						<h1 class="title text-uppercase mb-2">Freshcery</h1>
-						<h5>Groceries Organic Store</h5>
+						<h1 class="title text-uppercase mb-2">Fresh</h1>
+						<h5></h5>
 					</div>
 					<div class="col-md-10">
 						<p class="text-justify">Notre gamme de produits est vaste, comprenant des fruits et légumes frais, des viandes et des fruits de mer de qualité, diverses céréales et pâtes, des snacks, des boissons, des articles ménagers et bien plus encore. Nous nous engageons à vous fournir des produits sains, sûrs et de haute qualité pour rendre votre expérience de magasinage plus agréable et pratique.
